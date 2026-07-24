@@ -1,0 +1,1 @@
+export const analyticsEvents=["page_view","hero_cta_click","sticky_cta_click","bonus_cta_click","payment_modal_open","payment_method_selected","bank_details_copied","form_started","payment_proof_uploaded","registration_submitted","registration_success","registration_error","whatsapp_support_click"] as const;

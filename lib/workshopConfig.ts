@@ -1,0 +1,26 @@
+export const workshopConfig = {
+  brandName: "YouTube Empire Builders", presenterName: "Abrar Nadir", timezone: "Asia/Karachi",
+  workshopStartHour: 20, workshopEndHour: 22, registrationCutoffHour: 19,
+  capacity: 100, price: 1999, currency: "PKR", totalValue: 15499,
+  foundingRegistrationLimit: 500, offerVersion: "YEB-v1",
+  whatsappSupportNumber: process.env.NEXT_PUBLIC_WHATSAPP_NUMBER || "",
+  refundPolicy: "Payment verification se pehle cancellation request support par bhejein. Verified workshop seats non-refundable hain.",
+  transferPolicy: "Workshop se pehle support ko contact karke seat next available batch mein transfer ki ja sakti hai.",
+  paymentDetails: {
+    bankName: process.env.NEXT_PUBLIC_BANK_NAME || "Setup required",
+    accountTitle: process.env.NEXT_PUBLIC_ACCOUNT_TITLE || "Setup required",
+    accountNumber: process.env.NEXT_PUBLIC_ACCOUNT_NUMBER || "Setup required",
+    iban: process.env.NEXT_PUBLIC_IBAN || "",
+    easypaisaNumber: process.env.NEXT_PUBLIC_EASYPAISA_NUMBER || "Setup required",
+    jazzcashNumber: process.env.NEXT_PUBLIC_JAZZCASH_NUMBER || "Setup required",
+  },
+  bonuses: [
+    ["AI Prompts Pack","50+ tested prompts","PKR 3,000"],
+    ["Niche Research Template","Proven validation framework","PKR 2,000"],
+    ["90-Day Content Calendar","Pre-planned publishing system","PKR 2,500"],
+    ["Private WhatsApp Group","7-day community access","PKR 5,000"],
+    ["Workshop Recording","24-hour replay access","PKR 2,999"],
+  ],
+  deliverables: ["Faceless channel blueprint","Niche validation framework","Competitor research process","90-day content calendar","AI storytelling workflow","Title & packaging framework","Automation tools stack","30-day action direction"],
+  testimonials: [] as Array<{name:string;quote:string}>,
+};
