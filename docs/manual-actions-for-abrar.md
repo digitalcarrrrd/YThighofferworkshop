@@ -6,6 +6,7 @@ These actions happen outside the code repository. They are not performed by this
 
 - Create or confirm the form and workflow for each real offer.
 - Create custom fields for offer ID, offer type, audience segment, landing page, form ID, and all five UTM values.
+- Map the approved payment-proof URL field after secure screenshot storage is connected.
 - Copy each custom-field key into its matching private Vercel environment variable.
 - Confirm the `yt-workshop` and `payment-pending` automation still handles the existing workshop.
 - Test payment review and WhatsApp confirmation with a test contact.
@@ -22,6 +23,7 @@ These actions happen outside the code repository. They are not performed by this
 
 - Add the variables listed in `.env.local.example` to Preview first.
 - Add each future offer's GHL form ID and public WhatsApp variable.
+- Connect an approved screenshot storage provider and add its private environment variables before production registrations are accepted.
 - Test the draft pull request Preview deployment before approving production.
 - Never copy private GHL, AWS, Cloudinary, or Supabase values into `NEXT_PUBLIC_*` variables.
 
