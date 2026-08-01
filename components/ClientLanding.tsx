@@ -4,6 +4,8 @@ import { useEffect, useMemo, useState } from "react";
 import { useWorkshopSchedule } from "@/hooks/useWorkshopSchedule";
 import { useCountdown } from "@/hooks/useCountdown";
 import { useAnalytics } from "@/hooks/useAnalytics";
+import type { AnalyticsEvent } from "@/lib/analytics";
+import type { OfferConfig } from "@/lib/offers/types";
 import { PurchaseModal } from "./modal/PurchaseModal";
 
 type Lang = "en" | "ur";
@@ -112,10 +114,15 @@ function getInitialLanguage(): Lang {
   return (navigator.languages || [navigator.language]).some(x => /^ur\b/i.test(x)) ? "ur" : "en";
 }
 
-export function ClientLanding() {
+type CtaAnalyticsEvent = Extract<
+  AnalyticsEvent,
+  "hero_cta_click" | "sticky_cta_click" | "bonus_cta_click" | "final_cta_click"
+>;
+
+export function ClientLanding({ offer }: { offer: OfferConfig }) {
   const { schedule } = useWorkshopSchedule();
   const cd = useCountdown(schedule?.registrationCutoff || null);
-  const { track } = useAnalytics();
+  const { track } = useAnalytics(offer);
   const [lang, setLang] = useState<Lang>("en");
   const [ready, setReady] = useState(false);
   const [open, setOpen] = useState(false);
@@ -123,7 +130,13 @@ export function ClientLanding() {
   const [active, setActive] = useState("hero");
   const t = copy[lang];
 
-  useEffect(() => { setLang(getInitialLanguage()); setReady(true); }, []);
+  useEffect(() => {
+    const timer = window.setTimeout(() => {
+      setLang(getInitialLanguage());
+      setReady(true);
+    }, 0);
+    return () => window.clearTimeout(timer);
+  }, []);
   useEffect(() => {
     document.documentElement.dir = lang === "ur" ? "rtl" : "ltr";
     document.documentElement.lang = lang;
@@ -137,7 +150,7 @@ export function ClientLanding() {
     return () => { io.disconnect(); removeEventListener("scroll", onScroll); };
   }, []);
 
-  const launch = (source: string) => { track(source); track("payment_modal_open"); setOpen(true); };
+  const launch = (source: CtaAnalyticsEvent) => { track(source); track("payment_modal_open"); setOpen(true); };
   const batchLabel = schedule?.label === "tomorrow" ? t.tomorrow : t.tonight;
   const sectionNames = useMemo(() => lang === "ur"
     ? {hero:"آفر",problem:"مسئلہ",shift:"تبدیلی",agenda:"نظام",kit:"کِٹ",bonuses:"بونس",fit:"آپ کے لیے؟",faq:"سوالات",final:"سیٹ"}
@@ -229,6 +242,6 @@ export function ClientLanding() {
     </section>
     <footer className="footer-new"><div className="brand"><i>Y</i><span>YouTube Empire Builders</span></div><p>{t.footer}</p><button className="lang-switch" onClick={()=>setLang(lang==="en"?"ur":"en")}>{t.language}</button></footer>
     {progress>9&&!open&&<div className="floating-buy"><span><small>{batchLabel}</small><b>PKR 1,999</b></span><button onClick={()=>launch("sticky_cta_click")}>{t.cta} <i>↗</i></button></div>}
-    {open&&schedule&&<PurchaseModal schedule={schedule} onClose={()=>setOpen(false)} lang={lang}/>}
+    {open&&schedule&&<PurchaseModal offer={offer} schedule={schedule} onClose={()=>setOpen(false)} lang={lang}/>}
   </main>;
 }
