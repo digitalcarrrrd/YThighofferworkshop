@@ -78,7 +78,65 @@ export const youtubeEmpireBuildersOffer = {
   },
 } satisfies OfferConfig;
 
-export const offers: readonly OfferConfig[] = [youtubeEmpireBuildersOffer];
+export const weeklyYoutubeWorkshopOffer = {
+  id: "weekly-youtube-workshop",
+  slug: "weekly-youtube-workshop",
+  type: "workshop",
+  routeFamily: "workshops",
+  status: "disabled",
+  template: "youtube-empire-builders",
+  title: "Weekly YouTube Workshop",
+  subtitle: "Build your YouTube channel with live weekly guidance",
+  description: "A practical weekly workshop with Abrar Nadir.",
+  price: 1999,
+  currency: "PKR",
+  conversionValue: 1999,
+  schedule: {
+    frequency: "weekly",
+    timezone: "Asia/Karachi",
+    capacity: 100,
+  },
+  duration: "2 hours",
+  audienceSegment: "weekly-youtube-workshop",
+  hero: {
+    kicker: "Live weekly implementation workshop",
+    headline: "Build your YouTube channel with a clear execution plan",
+    accent: "clear execution plan",
+    body:
+      "Learn the system, tools and workflow required to launch and grow a faceless YouTube channel.",
+    proof: [
+      "Live weekly session",
+      "Practical implementation",
+      "Templates and workflow",
+    ],
+  },
+  curriculum: [],
+  bonuses: [],
+  faqs: [],
+  ctaText: "Reserve your workshop seat",
+  ghlFormEnvironmentVariable: "GHL_WEEKLY_YOUTUBE_WORKSHOP_FORM_ID",
+  whatsappEnvironmentVariable:
+    "NEXT_PUBLIC_WEEKLY_YOUTUBE_WORKSHOP_WHATSAPP_NUMBER",
+  thankYouRoute: "/thank-you/weekly-youtube-workshop",
+  metaPixelOfferId: "weekly-youtube-workshop-v1",
+  sections: {
+    hero: true,
+    problem: true,
+    agenda: true,
+    bonuses: true,
+    pricing: true,
+    faq: true,
+    finalCta: true,
+    purchaseModal: true,
+    ghlForm: true,
+    whatsappCta: true,
+  },
+} satisfies OfferConfig;
+
+export const offers: readonly OfferConfig[] = [
+  youtubeEmpireBuildersOffer,
+  weeklyYoutubeWorkshopOffer,
+];
 
 export function getOfferById(id: string) {
   return offers.find((offer) => offer.id === id && offer.status === "active");
