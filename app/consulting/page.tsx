@@ -3,9 +3,9 @@
 /* eslint-disable react/no-unescaped-entities */
 "use client";
 import React, { useEffect } from 'react';
-import './consulting/styles.css';
+import './styles.css';
 
-export default function HomePage() {
+export default function ConsultingPage() {
   useEffect(() => {
     // Inject vanilla JS logic
     const executeScript = () => {
