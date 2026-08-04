@@ -1,5 +1,10 @@
 import HomeExperience from "./HomeExperience";
+import "./styles.css";
 
 export default function Home() {
-  return <HomeExperience />;
+  return (
+    <div className="academy-wrapper">
+      <HomeExperience />
+    </div>
+  );
 }

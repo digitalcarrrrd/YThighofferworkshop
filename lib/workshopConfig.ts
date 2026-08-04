@@ -7,12 +7,12 @@ export const workshopConfig = {
   refundPolicy: "Payment verification se pehle cancellation request support par bhejein. Verified workshop seats non-refundable hain.",
   transferPolicy: "Workshop se pehle support ko contact karke seat next available batch mein transfer ki ja sakti hai.",
   paymentDetails: {
-    bankName: process.env.NEXT_PUBLIC_BANK_NAME || "Setup required",
-    accountTitle: process.env.NEXT_PUBLIC_ACCOUNT_TITLE || "Setup required",
-    accountNumber: process.env.NEXT_PUBLIC_ACCOUNT_NUMBER || "Setup required",
-    iban: process.env.NEXT_PUBLIC_IBAN || "",
-    easypaisaNumber: process.env.NEXT_PUBLIC_EASYPAISA_NUMBER || "Setup required",
-    jazzcashNumber: process.env.NEXT_PUBLIC_JAZZCASH_NUMBER || "Setup required",
+    bankName: "Meezan Bank Limited",
+    accountTitle: "Muhammad Abrar",
+    accountNumber: "02370103321036",
+    iban: "PK39MEZN0002370103321036",
+    easypaisaNumber: "03274532186",
+    jazzcashNumber: "03274532186",
   },
   bonuses: [
     ["AI Prompts Pack","50+ tested prompts","PKR 3,000"],

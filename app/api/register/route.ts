@@ -48,7 +48,7 @@ export async function POST(req: NextRequest) {
       fullName.length < 2 ||
       !emailPattern.test(email) ||
       phone.replace(/\D/g, "").length < 10 ||
-      transactionId.length < 4 ||
+      (transactionId.length > 0 && transactionId.length < 4) ||
       !/^\d{4}-\d{2}-\d{2}$/.test(batchDate) ||
       !["Bank Transfer", "Easypaisa", "JazzCash"].includes(paymentMethod) ||
       !(proof instanceof File) ||
