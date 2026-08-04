@@ -15,7 +15,8 @@ export function PurchaseModal({offer,schedule,onClose,lang="en"}:{offer:OfferCon
   const { track } = useAnalytics(offer);
   
   const [submittedData, setSubmittedData] = useState<{fullName: string, transactionId: string} | null>(null);
-  const [copied, setCopied] = useState(false);
+  const [copiedBank, setCopiedBank] = useState(false);
+  const [copiedEasy, setCopiedEasy] = useState(false);
 
   useEffect(() => {
     document.body.style.overflow = "hidden";
@@ -35,22 +36,25 @@ export function PurchaseModal({offer,schedule,onClose,lang="en"}:{offer:OfferCon
       }
     };
     addEventListener("keydown", key);
-    modal.current?.querySelector<HTMLElement>("button")?.focus();
     return () => {
       document.body.style.overflow = "";
       removeEventListener("keydown", key);
     };
   }, [onClose]);
 
+  useEffect(() => {
+    modal.current?.querySelector<HTMLElement>("button")?.focus();
+  }, []);
+
 
 // Wait, the prompt said "Name: Muhammad Abrar Ghauri" for the Easypaisa
 // Let's hardcode it as requested:
-  const paymentTextToCopy = `Bank: Meezan Bank Limited
+  const bankDetails = `Bank: Meezan Bank Limited
 Account Title: Muhammad Abrar
 Account Number: 02370103321036
-IBAN: PK39MEZN0002370103321036
+IBAN: PK39MEZN0002370103321036`;
 
-Easypaisa/JazzCash: 03274532186
+  const easypaisaDetails = `Easypaisa/JazzCash: 03274532186
 Name: Muhammad Abrar Ghauri`;
 
   async function submit(e: React.FormEvent<HTMLFormElement>) {
@@ -101,19 +105,36 @@ Name: Muhammad Abrar Ghauri`;
           <>
             <h3>1. Payment Instructions</h3>
             <div className="details">
-              <p style={{ whiteSpace: "pre-line", marginBottom: "16px", lineHeight: 1.6 }}>{paymentTextToCopy}</p>
-              <button 
-                className="method" 
-                style={{ width: "100%", background: copied ? "#edfff3" : "white", borderColor: copied ? "#24a65a" : "#cbd5e1" }}
-                onClick={() => {
-                  navigator.clipboard.writeText(paymentTextToCopy);
-                  setCopied(true);
-                  track("bank_details_copied");
-                  setTimeout(() => setCopied(false), 2000);
-                }}
-              >
-                {copied ? "✅ Copied!" : "Copy Payment Details"}
-              </button>
+              <div style={{ marginBottom: "24px", paddingBottom: "16px", borderBottom: "1px solid #e2e8f0" }}>
+                <p style={{ whiteSpace: "pre-line", marginBottom: "12px", lineHeight: 1.6 }}>{bankDetails}</p>
+                <button 
+                  className="method" 
+                  style={{ width: "100%", background: copiedBank ? "#edfff3" : "white", borderColor: copiedBank ? "#24a65a" : "#cbd5e1" }}
+                  onClick={() => {
+                    navigator.clipboard.writeText(bankDetails);
+                    setCopiedBank(true);
+                    track("bank_details_copied");
+                    setTimeout(() => setCopiedBank(false), 2000);
+                  }}
+                >
+                  {copiedBank ? "✅ Copied Bank Details!" : "Copy Bank Details"}
+                </button>
+              </div>
+              <div style={{ marginBottom: "16px" }}>
+                <p style={{ whiteSpace: "pre-line", marginBottom: "12px", lineHeight: 1.6 }}>{easypaisaDetails}</p>
+                <button 
+                  className="method" 
+                  style={{ width: "100%", background: copiedEasy ? "#edfff3" : "white", borderColor: copiedEasy ? "#24a65a" : "#cbd5e1" }}
+                  onClick={() => {
+                    navigator.clipboard.writeText(easypaisaDetails);
+                    setCopiedEasy(true);
+                    track("bank_details_copied");
+                    setTimeout(() => setCopiedEasy(false), 2000);
+                  }}
+                >
+                  {copiedEasy ? "✅ Copied Easypaisa/JazzCash!" : "Copy Easypaisa/JazzCash"}
+                </button>
+              </div>
             </div>
             <button className="btn full" onClick={() => { setStep(2); track("form_started"); }}>
               Payment Ho Gayi — Details Submit Karein →
