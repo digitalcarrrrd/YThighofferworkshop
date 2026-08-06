@@ -65,6 +65,9 @@ export async function POST(req: NextRequest) {
     const testMode = process.env.GHL_TEST_MODE === "true";
 
     if (!token || !locationId) {
+      if (process.env.NODE_ENV === "development") {
+        return NextResponse.json({ ok: true, mode: "local-test" });
+      }
       return NextResponse.json(
         { error: "Registration service is not configured. Please contact support." },
         { status: 503 },

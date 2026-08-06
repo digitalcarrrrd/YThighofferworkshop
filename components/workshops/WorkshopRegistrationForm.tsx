@@ -78,8 +78,26 @@ export function WorkshopRegistrationForm({
         throw new Error(data.error || "Submission failed. Please try again.");
       }
 
+      const waText = `Assalamualaikum.
+
+I have submitted my workshop registration.
+
+Name: ${fullName}
+Email: ${email}
+WhatsApp: ${phone}
+Offer: ${offerName}
+Transaction ID: ${transactionId || "Not provided"}
+Status: Payment Pending Verification
+
+Please verify my payment and confirm my seat.`;
+
+      const waUrl = `https://wa.me/923213823702?text=${encodeURIComponent(waText)}`;
+
       setSuccess(true);
       onSuccess?.();
+
+      // Automatically redirect to WhatsApp in the current window to avoid popup blockers
+      window.location.href = waUrl;
     } catch (err) {
       setError(err instanceof Error ? err.message : "An unexpected error occurred. Please try again.");
     } finally {
