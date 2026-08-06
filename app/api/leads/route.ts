@@ -54,18 +54,25 @@ export async function POST(req: Request) {
       }
     }
 
+    // Add requested tag
+    tags.push("lead:lms-1");
+
     // 4. Send to GoHighLevel
     if (ghlClient.isConfigured) {
-      await ghlClient.upsertContact({
+      const contactResult = await ghlClient.upsertContact({
         firstName: normalizedFirstName,
         lastName: normalizedLastName,
         email: normalizedEmail,
         phone: normalizedPhone,
         tags: tags,
-        // We could map UTMs and other fields to customFields if we had the field IDs,
-        // but since we only have the raw UTM data and no specific GHL custom field IDs provided,
-        // we omit them from the payload for now, or you can add them later.
       });
+
+      if (contactResult?.contact?.id) {
+        await ghlClient.createOpportunity({
+          contactId: contactResult.contact.id,
+          name: `${normalizedFirstName} ${normalizedLastName || ""}`.trim(),
+        });
+      }
     } else {
       console.warn("GHL Integration is not configured. Skipping GHL contact creation.");
     }

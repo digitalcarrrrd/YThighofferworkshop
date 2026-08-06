@@ -88,4 +88,8 @@ export type OfferConfig = {
   metaPixelOfferId: string;
   conversionValue: number;
   sections: OfferSectionVisibility;
+  leadTag?: string;
+  paymentPendingTag?: string;
+  pipelineEnvironmentVariable?: PrivateEnvironmentVariableName;
+  stageEnvironmentVariable?: PrivateEnvironmentVariableName;
 };

@@ -1,11 +1,13 @@
 import type { Metadata } from "next";
+import { WorkshopRegistrationForm } from "@/components/workshops/WorkshopRegistrationForm";
+import { yt4Offer } from "@/lib/offers/offers";
 
 export const metadata: Metadata = {
   title: "Abrar Nadir | Workshop Coming Soon",
   robots: { index: false, follow: false },
 };
 
-export default function YtEmpireBuilder2Page() {
+export default function YtEmpireBuilder4Page() {
   return (
     <main
       style={{
@@ -32,19 +34,18 @@ export default function YtEmpireBuilder2Page() {
         </h1>
         
         <p style={{ fontSize: "1.125rem", color: "#a0a0a0", lineHeight: "1.6", marginBottom: "2rem" }}>
-          This workshop page is currently under construction. Please check back later for full details and access.
+          This workshop page is currently under construction.
         </p>
         
-        <p
-          style={{
-            fontSize: "0.875rem",
-            color: "#555",
-            fontFamily: "monospace",
-            marginTop: "1rem"
-          }}
-        >
-          /workshops/ytempirebuilder2
-        </p>
+        <div style={{ background: "#1a1a1a", padding: "2rem", borderRadius: "8px", textAlign: "left" }}>
+          <h2 style={{ fontSize: "1.25rem", marginBottom: "1rem", color: "#fff" }}>Preview Registration</h2>
+          <WorkshopRegistrationForm
+            offerId={yt4Offer.id}
+            offerName={yt4Offer.title}
+            workshopDate="TBD"
+            variant="dark"
+          />
+        </div>
       </div>
     </main>
   );

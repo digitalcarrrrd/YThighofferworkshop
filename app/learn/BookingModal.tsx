@@ -12,10 +12,33 @@ export default function BookingModal({ onClose }: { onClose: () => void }) {
     setTimeout(() => setIsCopied(""), 2000);
   };
 
-  const handleSubmit = (e: React.FormEvent) => {
+  const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
-    // For now we just show success and open whatsapp
-    // GHL integration will be added later
+    const form = e.target as HTMLFormElement;
+    const name = (form.querySelector('input[type="text"]') as HTMLInputElement).value;
+    const phone = (form.querySelector('input[type="tel"]') as HTMLInputElement).value;
+    const email = (form.querySelector('input[type="email"]') as HTMLInputElement).value;
+
+    const [firstName, ...lastNameParts] = name.split(" ");
+    const lastName = lastNameParts.join(" ");
+
+    try {
+      await fetch('/api/leads', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({
+          firstName,
+          lastName,
+          email,
+          phone,
+          landingPage: '/learn'
+        })
+      });
+    } catch (err) {
+      console.error("Failed to submit lead", err);
+    }
+    
+    // Show success and open whatsapp
     window.open("https://wa.me/923213823702?text=Hi, I have completed the payment for YTEMPIRE BUILDERs.", "_blank");
   };
 

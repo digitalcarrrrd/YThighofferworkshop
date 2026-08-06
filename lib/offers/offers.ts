@@ -76,6 +76,10 @@ export const youtubeEmpireBuildersOffer = {
     ghlForm: true,
     whatsappCta: true,
   },
+  leadTag: "lead:workshop-yt1",
+  paymentPendingTag: "payment:pending",
+  pipelineEnvironmentVariable: "GHL_LIVE_WORKSHOP_PIPELINE_ID",
+  stageEnvironmentVariable: "GHL_LIVE_WORKSHOP_PAYMENT_PENDING_STAGE_ID",
 } satisfies OfferConfig;
 
 export const weeklyYoutubeWorkshopOffer = {
@@ -131,11 +135,55 @@ export const weeklyYoutubeWorkshopOffer = {
     ghlForm: true,
     whatsappCta: true,
   },
+  leadTag: "lead:workshop-weekly",
+  paymentPendingTag: "payment:pending",
+  pipelineEnvironmentVariable: "GHL_LIVE_WORKSHOP_PIPELINE_ID",
+  stageEnvironmentVariable: "GHL_LIVE_WORKSHOP_PAYMENT_PENDING_STAGE_ID",
+} satisfies OfferConfig;
+
+export const yt2Offer = {
+  ...youtubeEmpireBuildersOffer,
+  id: "workshop-yt2",
+  slug: "yt2",
+  title: "YouTube Workshop 2",
+  leadTag: "lead:workshop-yt2",
+  status: "disabled",
+} satisfies OfferConfig;
+
+export const yt3Offer = {
+  ...youtubeEmpireBuildersOffer,
+  id: "workshop-yt3",
+  slug: "yt3",
+  title: "YouTube Workshop 3",
+  leadTag: "lead:workshop-yt3",
+  status: "disabled",
+} satisfies OfferConfig;
+
+export const yt4Offer = {
+  ...youtubeEmpireBuildersOffer,
+  id: "workshop-yt4",
+  slug: "yt4",
+  title: "YouTube Workshop 4",
+  leadTag: "lead:workshop-yt4",
+  status: "disabled",
+} satisfies OfferConfig;
+
+export const yt5Offer = {
+  ...youtubeEmpireBuildersOffer,
+  id: "workshop-yt5",
+  slug: "yt5",
+  title: "YouTube Workshop 5",
+  leadTag: "lead:workshop-yt5",
+  status: "disabled",
 } satisfies OfferConfig;
 
 export const offers: readonly OfferConfig[] = [
   youtubeEmpireBuildersOffer,
   weeklyYoutubeWorkshopOffer,
+  yt2Offer,
+  yt3Offer,
+  yt4Offer,
+  yt5Offer,
 ];
 
 export function getOfferById(id: string) {
