@@ -1,4 +1,4 @@
-"use client";
+﻿"use client";
 import { useEffect, useRef, useState } from "react";
 import type { Schedule } from "@/hooks/useWorkshopSchedule";
 import type { OfferConfig } from "@/lib/offers/types";
@@ -8,9 +8,6 @@ export function PurchaseModal({ offer, schedule, onClose, lang = "en" }: { offer
   const ur = lang === "ur";
   const [step, setStep] = useState(1);
   const [method, setMethod] = useState("Bank Transfer");
-  
-  const [fullName, setFullName] = useState("");
-  const [phone, setPhone] = useState("");
   
   const modal = useRef<HTMLDivElement>(null);
   const [copyStatus, setCopyStatus] = useState("");
@@ -58,26 +55,17 @@ export function PurchaseModal({ offer, schedule, onClose, lang = "en" }: { offer
   return (
     <div className="overlay" role="presentation" onMouseDown={e => { if (e.target === e.currentTarget) onClose(); }}>
       <div className="modal" role="dialog" aria-modal="true" aria-labelledby="purchase-title" ref={modal}>
-        <button className="close" aria-label="Close" onClick={onClose}>×</button>
+        <button className="close" aria-label="Close" onClick={onClose}>├ù</button>
         {step < 3 && (
           <>
-            <h2 id="purchase-title">{ur ? "اپنی ورکشاپ سیٹ لاک کریں" : "Lock Your Workshop Seat"}</h2>
-            <p className="muted">{schedule.batchDateDisplay} • 8:00 PM PKT</p>
+            <h2 id="purchase-title">{ur ? "╪º┘╛┘å█î ┘ê╪▒┌⌐╪┤╪º┘╛ ╪│█î┘╣ ┘ä╪º┌⌐ ┌⌐╪▒█î┌║" : "Lock Your Workshop Seat"}</h2>
+            <p className="muted">{schedule.batchDateDisplay} ΓÇó 8:00 PM PKT</p>
             <div className="steps"><span className="on" /><span className={step >= 2 ? "on" : ""} /><span /></div>
           </>
         )}
 
         {step === 1 && (
           <>
-            <div className="field">
-              <label>Full Name</label>
-              <input name="fullName" required minLength={2} autoComplete="name" value={fullName} onChange={e => setFullName(e.target.value)} />
-            </div>
-            <div className="field">
-              <label>WhatsApp Number</label>
-              <input name="phone" required inputMode="tel" placeholder="+92 3XX XXXXXXX" autoComplete="tel" value={phone} onChange={e => setPhone(e.target.value)} />
-            </div>
-            
             <label style={{ display: "block", marginTop: "24px", marginBottom: "8px", fontWeight: 600, fontSize: "14px" }}>Select Payment Method</label>
             <div style={{ display: "flex", gap: "8px", marginBottom: "20px" }}>
                   <button type="button" className="method" style={{ flex: 1, borderColor: method === "Bank Transfer" ? "#0f172a" : "#cbd5e1", background: method === "Bank Transfer" ? "#f8fafc" : "white", padding: "12px", borderRadius: "8px", fontWeight: 600, fontSize: "14px", cursor: "pointer", border: "1px solid" }} onClick={() => setMethod("Bank Transfer")}>
@@ -143,10 +131,9 @@ export function PurchaseModal({ offer, schedule, onClose, lang = "en" }: { offer
             <button 
               type="button" 
               className="btn full" 
-              disabled={!fullName || !phone}
               onClick={() => { setStep(2); }}
             >
-              Payment Ho Gayi — Screenshot Submit Karein →
+              Payment Ho Gayi ΓÇö Screenshot Submit Karein ΓåÆ
             </button>
           </>
         )}
@@ -156,9 +143,7 @@ export function PurchaseModal({ offer, schedule, onClose, lang = "en" }: { offer
             offerId={offer.id}
             offerName={offer.title}
             workshopDate={schedule.batchDateString}
-            paymentMethods={[method]}
-            hideContactFields={true}
-            initialData={{ fullName, phone }}
+            paymentMethods={[method]} // Passes the selected method from step 1
             onSuccess={() => {}}
           />
         )}

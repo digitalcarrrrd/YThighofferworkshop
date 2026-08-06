@@ -13,6 +13,11 @@ export type WorkshopRegistrationFormProps = {
   paymentMethods?: string[];
   successMessage?: string;
   onSuccess?: () => void;
+  hideContactFields?: boolean;
+  initialData?: {
+    fullName?: string;
+    phone?: string;
+  };
 };
 
 export function WorkshopRegistrationForm({
@@ -25,13 +30,15 @@ export function WorkshopRegistrationForm({
   paymentMethods = ["Bank Transfer", "Easypaisa/JazzCash"],
   successMessage = "After payment verification, the workshop link will be sent on WhatsApp.",
   onSuccess,
+  hideContactFields = false,
+  initialData,
 }: WorkshopRegistrationFormProps) {
   const [busy, setBusy] = useState(false);
   const [error, setError] = useState("");
   const [success, setSuccess] = useState(false);
   
-  const [fullName, setFullName] = useState("");
-  const [phone, setPhone] = useState("");
+  const [fullName, setFullName] = useState(initialData?.fullName || "");
+  const [phone, setPhone] = useState(initialData?.phone || "");
   const [email, setEmail] = useState("");
   const [transactionId, setTransactionId] = useState("");
   const [paymentMethod, setPaymentMethod] = useState(paymentMethods[0] || "Bank Transfer");
@@ -142,14 +149,24 @@ Please verify my payment and confirm my seat.`;
 
   return (
     <form onSubmit={submit} className={`${baseClasses} ${variantClasses[variant]} ${className}`}>
-      <div className="field">
-        <label>Full Name</label>
-        <input name="fullName" required minLength={2} autoComplete="name" value={fullName} onChange={e => setFullName(e.target.value)} />
-      </div>
-      <div className="field">
-        <label>WhatsApp Number</label>
-        <input name="phone" required inputMode="tel" placeholder="+92 3XX XXXXXXX" autoComplete="tel" value={phone} onChange={e => setPhone(e.target.value)} />
-      </div>
+      {hideContactFields ? (
+        <>
+          <input type="hidden" name="fullName" value={fullName} />
+          <input type="hidden" name="phone" value={phone} />
+        </>
+      ) : (
+        <>
+          <div className="field">
+            <label>Full Name</label>
+            <input name="fullName" required minLength={2} autoComplete="name" value={fullName} onChange={e => setFullName(e.target.value)} />
+          </div>
+          <div className="field">
+            <label>WhatsApp Number</label>
+            <input name="phone" required inputMode="tel" placeholder="+92 3XX XXXXXXX" autoComplete="tel" value={phone} onChange={e => setPhone(e.target.value)} />
+          </div>
+        </>
+      )}
+      
       <div className="field">
         <label>Email Address</label>
         <input name="email" type="email" required autoComplete="email" value={email} onChange={e => setEmail(e.target.value)} />
