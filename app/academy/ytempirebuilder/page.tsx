@@ -2,11 +2,10 @@
 
 import React, { useState, useEffect } from 'react';
 import LmsModal from './LmsModal';
-import { PlayCircle, CheckCircle, ShieldCheck, CreditCard, Lock } from 'lucide-react';
+import { PlayCircle, CheckCircle, ShieldCheck, CreditCard, Lock, XCircle, Users, Zap, Trophy, Handshake } from 'lucide-react';
 
 export default function LmsPage() {
   const [isModalOpen, setIsModalOpen] = useState(false);
-  const [activeReveals, setActiveReveals] = useState<number[]>([]);
   
   // Modules Data
   const modules = [
@@ -29,18 +28,27 @@ export default function LmsPage() {
     { name: "Ziya Hasnai", date: "16 November", text: "Truly one of the best minds in prompting I've come across. I've worked with several people in Pakistan who claim to be YouTube gurus, but he is the only one who genuinely taught me something valuable. I'm inspired by his work and definitely see long-term collaboration ahead." },
     { name: "Usman Elahi Malik", date: "11 August", text: "Alhumdulilah Abrar Nadir Bhai sy session liya hai Kafi new cheezein discover ki hein Jo loug Youtube Automation ko ly kr serious hein woh aik dafa Zaroor Session lein" },
     { name: "Razi Haider Khan", date: "4 August", text: "Finally had a one to one session with Abrar Nadir didnt know i was missing out too much important things for the automation. I am really happy that i made this decision not to soon but still not too late, the way you explained eqxh and everything while being this polite no one can tell you these things too easily like you explained." },
-    { name: "Mubashira S", date: "4 August", text: "I've watched so many videos on YouTube, but I still haven't found anyone who teaches the way Sir Abrar does 🤯. There's something different about him, the way he breaks things down, the way he explains concepts so clearly that you can actually apply them 🔍✨" }
+    { name: "Mubashira S", date: "4 August", text: "I've watched so many videos on YouTube, but I still haven't found anyone who teaches the way Sir Abrar does 🤯. There's something different about him, the way he breaks things down, the way he explains concepts so clearly that you can actually apply them 🔍✨\n\nSince I started following him, I've genuinely felt a shift, not just in knowledge, but in direction. I've learned more practical, real strategies from him than I ever got from anywhere else." },
+    { name: "Danish Shafi", date: "3 August", text: "Great experience to interact with such an intelligent and humble young man." },
+    { name: "Junaid Ahmed Gondal", date: "3 August", text: "A pure gem in the field who provide and consume its maximum daily energy for providing a quality content for community." },
+    { name: "Wajiha Naeem", date: "2 August", text: "The only person out there who not only guides you but motivates you.. gives you a road map and genuinely wants all of us to succeed!!! He is not here to sell big courses! He gives you the confidence and knowledge like nobody else! 💯💯💯 recommended! Follow him do as he says and we all be printing 🤑🤑" },
+    { name: "Shahzaib Khan", date: "3 August", text: "One of the best Teacher I have found for YouTube Automation truly appreciate your work sir! 🫡❤️" },
+    { name: "Mustafa Khan", date: "3 August", text: "This is my honest review. I've only watched two sessions of Abrar Sir so far, but I was genuinely surprised. What he teaches is something you won't find even in most paid courses. He's funny too 😂" }
   ];
 
   const faqs = [
     { q: "1. How do I access the course?", a: "Immediately after payment, you will receive an email with your login details for our Learning Management System (LMS). You can log in from your mobile or laptop and start watching immediately." },
     { q: "2. What will happen if I will not succeed?", a: "Success is the default here. Our students inside LMS already generated more then $50k+ collectively. If you rareley fail to succeed, we will give you custom help and guidance or we will give you other benefits without any cost." },
     { q: "3. Why this Course/LMS is different?", a: "It's different because it's attached with Sir Abrar's Vision to train 1.6 million people. You are not just learning from recorded videos but within systems and communities that force you to take action from day 1." },
-    { q: "4. Will you guys teach on Long Form Content/Shorts?", a: "We train you to be a King of AI Content Creation. You will learn to produce any type of content using AI—scripts, research, editing, and growth. That's how you master the WHOLE YT game." }
+    { q: "4. Will you guys teach on Long Form Content/Shorts?", a: "We train you to be a King of AI Content Creation. You will learn to produce any type of content using AI—scripts, research, editing, and growth. That's how you master the WHOLE YT game." },
+    { q: "5. Is this practical lessons or theoretical?", a: "80% practical. It comes with strategies and step-by-step processes so you can just follow and watch everything happen magically." },
+    { q: "6. But our channels don't get views so why join?", a: "Exactly that's what sir abrar especially focus on, getting views is all about target specific audience, understand viral formats, create strategies and scaling at the same time, Sir abrar revealed all views hijack strategies that you never heard before." },
+    { q: "7. Will you provide any course completion certification?", a: "Yes indeed, we provide official certification which unlocks even more future career opportunities for you." }
   ];
 
   // Countdown State
   const [timeLeft, setTimeLeft] = useState({ hours: 11, minutes: 54, seconds: 32 });
+  const [openFaq, setOpenFaq] = useState<number | null>(null);
 
   useEffect(() => {
     const timer = setInterval(() => {
@@ -76,7 +84,7 @@ export default function LmsPage() {
         <div className="max-w-7xl mx-auto px-4 h-20 flex justify-between items-center">
           <div className="flex items-center gap-3">
             <div className="bg-gradient-to-br from-fuchsia-600 to-purple-600 w-10 h-10 rounded-xl flex items-center justify-center text-white font-black shadow-lg shadow-fuchsia-500/30">YT</div>
-            <span className="font-black text-xl tracking-tight text-white uppercase italic">Empire Builder</span>
+            <span className="font-black text-xl tracking-tight text-white uppercase italic hidden sm:inline">Empire Builder</span>
           </div>
           <button onClick={() => setIsModalOpen(true)} className="bg-gradient-to-r from-amber-400 to-amber-500 hover:from-amber-300 hover:to-amber-400 text-indigo-950 font-black py-2.5 px-6 rounded-full transition-all text-sm uppercase shadow-[0_0_20px_rgba(251,191,36,0.4)] transform hover:scale-105">
             Get Access
@@ -137,9 +145,77 @@ export default function LmsPage() {
         </div>
       </section>
 
+      {/* COMPARISON SECTION */}
+      <section className="py-24 bg-indigo-950 border-b border-fuchsia-500/20">
+        <div className="max-w-7xl mx-auto px-4">
+          <h2 className="text-3xl md:text-5xl font-bold text-center mb-16 text-white uppercase tracking-tight">
+            Why The "Old Way" Is Dead <br className="hidden md:block"/><span className="text-slate-400 font-normal text-2xl md:text-3xl">(And Why You Need Automation)</span>
+          </h2>
+          
+          <div className="grid md:grid-cols-2 gap-10">
+            <div className="bg-indigo-900/30 border border-rose-900/50 rounded-3xl p-8 relative opacity-80 hover:opacity-100 transition duration-300 flex flex-col">
+              <div className="absolute top-0 left-0 w-full h-2 bg-rose-600 rounded-t-3xl"></div>
+              <h3 className="text-2xl font-bold mb-6 text-slate-300 flex items-center gap-2"><XCircle className="w-6 h-6 text-rose-500" /> Traditional Youtuber</h3>
+              <ul className="space-y-4 text-slate-400">
+                <li className="flex gap-3"><span className="text-rose-500 font-bold text-xl">✖</span> Buying $2,000+ Camera Gear</li>
+                <li className="flex gap-3"><span className="text-rose-500 font-bold text-xl">✖</span> Nervous & Awkward on Camera</li>
+                <li className="flex gap-3"><span className="text-rose-500 font-bold text-xl">✖</span> 8 Hours of Boring Editing per Video</li>
+                <li className="flex gap-3"><span className="text-rose-500 font-bold text-xl">✖</span> Relying on "Luck" to go viral</li>
+              </ul>
+            </div>
+
+            <div className="bg-indigo-900/60 border-2 border-amber-400/50 rounded-3xl p-8 relative shadow-[0_0_40px_rgba(251,191,36,0.15)] transform md:-translate-y-4 flex flex-col">
+              <div className="absolute top-0 right-0 bg-amber-400 text-indigo-950 font-bold px-4 py-1 rounded-bl-xl text-xs uppercase tracking-wider">Recommended</div>
+              <h3 className="text-2xl font-bold mb-6 text-white flex items-center gap-2"><CheckCircle className="w-6 h-6 text-amber-400" /> Yt Empire Automation</h3>
+              <ul className="space-y-4 text-white font-medium">
+                <li className="flex gap-3 items-center font-bold italic"><span className="text-amber-400 font-bold text-xl">✓</span> Laptop Only (No Expensive Gear)</li>
+                <li className="flex gap-3 items-center font-bold italic"><span className="text-amber-400 font-bold text-xl">✓</span> 100% Anonymous (Privacy Protected)</li>
+                <li className="flex gap-3 items-center font-bold italic"><span className="text-amber-400 font-bold text-xl">✓</span> AI Does The Heavy Lifting (Scripts/Voice)</li>
+                <li className="flex gap-3 items-center font-bold italic"><span className="text-amber-400 font-bold text-xl">✓</span> Predictable Growth System</li>
+              </ul>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      {/* COMMUNITY BENEFITS */}
+      <section className="py-24 bg-indigo-900/30 relative overflow-hidden border-y border-fuchsia-500/20 backdrop-blur-sm">
+        <div className="max-w-6xl mx-auto px-4 relative z-10">
+          <div className="text-center mb-16">
+            <h2 className="text-3xl md:text-5xl font-black text-white mb-6 uppercase tracking-tighter">The Power of the 1000+ Member Community</h2>
+            <p className="text-slate-300 text-lg max-w-3xl mx-auto leading-relaxed">
+              In Pakistan, the digital game is often played alone, and that's why most people stay stuck. 
+              When you join the Empire, you aren't just buying a course—you are gaining a <span className="text-fuchsia-400 font-bold">Brotherhood of Digital Assets</span>.
+            </p>
+          </div>
+          
+          <div className="grid md:grid-cols-2 lg:grid-cols-4 gap-8">
+            <div className="bg-indigo-950/80 p-8 rounded-3xl border border-fuchsia-500/20 hover:border-fuchsia-400/50 transition-all duration-300 h-full flex flex-col items-center text-center shadow-lg">
+              <div className="w-16 h-16 bg-fuchsia-500/20 rounded-full flex items-center justify-center text-fuchsia-400 mb-6"><Zap className="w-8 h-8" /></div>
+              <h3 className="text-xl font-black text-white mb-4 uppercase tracking-tight">Stop Being Stuck</h3>
+              <p className="text-slate-400 text-sm leading-relaxed">Don't spend days Googling technical issues. Ask the group and get an answer from someone who has already solved it in 5 minutes.</p>
+            </div>
+            <div className="bg-indigo-950/80 p-8 rounded-3xl border border-fuchsia-500/20 hover:border-fuchsia-400/50 transition-all duration-300 h-full flex flex-col items-center text-center shadow-lg">
+              <div className="w-16 h-16 bg-fuchsia-500/20 rounded-full flex items-center justify-center text-fuchsia-400 mb-6"><Trophy className="w-8 h-8" /></div>
+              <h3 className="text-xl font-black text-white mb-4 uppercase tracking-tight">Winning Environment</h3>
+              <p className="text-slate-400 text-sm leading-relaxed">When you see others in Pakistan making $1,000+ per month, your 'impossible' goals become your 'next month' targets.</p>
+            </div>
+            <div className="bg-indigo-950/80 p-8 rounded-3xl border border-fuchsia-500/20 hover:border-fuchsia-400/50 transition-all duration-300 h-full flex flex-col items-center text-center shadow-lg">
+              <div className="w-16 h-16 bg-fuchsia-500/20 rounded-full flex items-center justify-center text-fuchsia-400 mb-6"><PlayCircle className="w-8 h-8" /></div>
+              <h3 className="text-xl font-black text-white mb-4 uppercase tracking-tight">Algorithm Alerts</h3>
+              <p className="text-slate-400 text-sm leading-relaxed">YouTube changes daily. Our community shares what's working right now so you never waste time on dead strategies.</p>
+            </div>
+            <div className="bg-indigo-950/80 p-8 rounded-3xl border border-fuchsia-500/20 hover:border-fuchsia-400/50 transition-all duration-300 h-full flex flex-col items-center text-center shadow-lg">
+              <div className="w-16 h-16 bg-fuchsia-500/20 rounded-full flex items-center justify-center text-fuchsia-400 mb-6"><Handshake className="w-8 h-8" /></div>
+              <h3 className="text-xl font-black text-white mb-4 uppercase tracking-tight">Collaborative Scaling</h3>
+              <p className="text-slate-400 text-sm leading-relaxed">Find partners, share high-CPM niches, and swap thumbnail ideas. A 1,000+ head team is stronger than one person.</p>
+            </div>
+          </div>
+        </div>
+      </section>
+
       {/* CURRICULUM */}
       <section className="py-24 bg-indigo-950 relative z-10">
-        <div className="absolute -left-[200px] top-[20%] w-[600px] h-[600px] bg-pink-600/10 blur-[150px] rounded-full -z-10"></div>
         <div className="max-w-7xl mx-auto px-4">
           <div className="text-center mb-20">
             <h2 className="text-4xl md:text-7xl font-black text-white mb-6 tracking-tight italic uppercase drop-shadow-lg">30-Day Path to Empire</h2>
@@ -171,6 +247,53 @@ export default function LmsPage() {
                     <p className="text-[11px] italic leading-relaxed text-slate-400">
                       <span className="font-bold text-fuchsia-400 uppercase tracking-widest mr-1">Result:</span> {m.result}
                     </p>
+                  </div>
+                </div>
+              </div>
+            ))}
+          </div>
+        </div>
+      </section>
+
+      {/* REVIEWS */}
+      <section className="py-24 bg-indigo-900/30 border-y border-fuchsia-500/20 backdrop-blur-sm">
+        <div className="max-w-7xl mx-auto px-4">
+          <div className="text-center mb-16">
+            <h2 className="text-3xl md:text-5xl font-black text-white uppercase tracking-tighter italic">Student Recommendations</h2>
+            <p className="text-slate-400 mt-4">Real results and feedback from our Pakistani Facebook community.</p>
+          </div>
+          <div className="columns-1 md:columns-2 lg:columns-3 gap-6 space-y-6">
+            {reviews.map((r, i) => (
+              <div key={i} className="break-inside-avoid">
+                <div className="bg-white rounded-xl overflow-hidden shadow-lg border border-gray-200 text-gray-900">
+                  <div className="p-4">
+                    <div className="flex justify-between items-start">
+                      <div className="flex gap-3">
+                        <div className="w-10 h-10 rounded-full bg-blue-100 flex items-center justify-center font-bold text-blue-600 overflow-hidden text-lg">
+                          {r.name[0]}
+                        </div>
+                        <div>
+                          <div className="flex flex-wrap items-center gap-1">
+                            <span className="font-bold text-[15px]">{r.name}</span>
+                            <span className="text-gray-500 text-[15px] flex items-center gap-1">
+                              <span className="bg-rose-500 text-white rounded-full p-0.5"><CheckCircle className="w-3 h-3" /></span>
+                              recommends <span className="font-bold">Abrar</span>.
+                            </span>
+                          </div>
+                          <div className="text-[13px] text-gray-500 flex items-center gap-1">
+                            {r.date} • <Users className="w-3 h-3" />
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                    <p className="mt-3 text-[15px] leading-tight text-gray-800 whitespace-pre-line">{r.text}</p>
+                  </div>
+                  <div className="px-4 py-2 border-t border-gray-100 flex justify-between items-center text-gray-500 font-bold text-sm">
+                    <div className="flex gap-4">
+                      <span className="cursor-pointer">Like</span>
+                      <span className="cursor-pointer">Comment</span>
+                    </div>
+                    <span className="cursor-pointer">Share</span>
                   </div>
                 </div>
               </div>
@@ -223,7 +346,7 @@ export default function LmsPage() {
                 ].map((item, i) => (
                   <div key={i} className="flex justify-between items-center text-sm md:text-base border-b border-white/5 pb-3 last:border-0 last:pb-0">
                     <span className="text-slate-200 font-medium flex items-center gap-3"><CheckCircle className="w-4 h-4 text-amber-400" /> {item[0]}</span>
-                    <span className="text-fuchsia-300 font-bold ml-4">{item[1]}</span>
+                    <span className="text-fuchsia-300 font-bold ml-4 text-right">{item[1]}</span>
                   </div>
                 ))}
                 <div className="pt-4 mt-4 border-t border-fuchsia-500/30 flex justify-between items-center font-black">
@@ -259,6 +382,30 @@ export default function LmsPage() {
                 </div>
               </div>
             </div>
+          </div>
+        </div>
+      </section>
+
+      {/* FAQ */}
+      <section className="py-24 bg-indigo-900/30 border-t border-fuchsia-500/20 backdrop-blur-sm">
+        <div className="max-w-3xl mx-auto px-4">
+          <div className="text-center mb-16">
+            <h2 className="text-3xl md:text-5xl font-black text-white">Your Questions Answered</h2>
+          </div>
+          <div className="space-y-4">
+            {faqs.map((f, i) => (
+              <div key={i} className="bg-indigo-950/80 border border-fuchsia-500/20 rounded-2xl overflow-hidden cursor-pointer" onClick={() => setOpenFaq(openFaq === i ? null : i)}>
+                <div className="p-6 md:p-8 flex justify-between items-center font-bold text-white select-none">
+                  <span className="text-sm md:text-lg">{f.q}</span>
+                  <span className={`transition-transform duration-300 text-fuchsia-400 ${openFaq === i ? 'rotate-180' : ''}`}>▼</span>
+                </div>
+                {openFaq === i && (
+                  <div className="px-6 md:px-8 pb-8 text-slate-300 leading-relaxed text-sm md:text-base border-t border-fuchsia-500/20 pt-6">
+                    {f.a}
+                  </div>
+                )}
+              </div>
+            ))}
           </div>
         </div>
       </section>
