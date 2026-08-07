@@ -1,0 +1,169 @@
+{
+  "pipelines": [
+    {
+      "id": "JGRP9Qo7vEt7hb1Ey3YP",
+      "name": "Free Trial",
+      "showInFunnel": true,
+      "showInPieChart": true,
+      "useOpportunityProbability": false,
+      "dateAdded": "2025-11-18T17:38:41.573Z",
+      "dateUpdated": "2025-11-19T06:05:58.917Z",
+      "stages": [
+        {
+          "id": "e95e44ee-17a1-4eff-ad45-2a826e6e0c5f",
+          "name": "New Lead",
+          "showInFunnel": true,
+          "showInPieChart": true,
+          "position": 0,
+          "stageWinProbability": 16.67
+        },
+        {
+          "id": "480ffffd-50f8-4421-a775-c8227f9c8ebc",
+          "name": "Trial Started",
+          "showInFunnel": true,
+          "showInPieChart": true,
+          "position": 1,
+          "stageWinProbability": 33.33
+        },
+        {
+          "id": "8b2514ae-9135-4d1c-b5de-33c4dd2af6c9",
+          "name": "Trial Expiring",
+          "showInFunnel": true,
+          "showInPieChart": true,
+          "position": 2,
+          "stageWinProbability": 50
+        },
+        {
+          "id": "1eb7294a-f1f1-4323-8836-3dfc77679121",
+          "name": "Converted",
+          "showInFunnel": true,
+          "showInPieChart": true,
+          "position": 3,
+          "stageWinProbability": 66.67
+        },
+        {
+          "id": "c5f0a94f-0c78-4b88-b7ce-3770f0d8aa3d",
+          "name": "Trial Ended",
+          "showInFunnel": true,
+          "showInPieChart": true,
+          "position": 4,
+          "stageWinProbability": 83.33
+        }
+      ],
+      "locationId": "6MzIr7iWX12OyaxfufLw"
+    },
+    {
+      "id": "CZYMTQUzq7a6faEIKdtZ",
+      "name": "LMS lunch",
+      "showInFunnel": true,
+      "showInPieChart": true,
+      "useOpportunityProbability": false,
+      "dateAdded": "2025-12-28T16:12:42.069Z",
+      "dateUpdated": "2025-12-28T16:15:40.547Z",
+      "stages": [
+        {
+          "id": "da280d2b-1c00-4141-b4b0-e286d877d80c",
+          "name": "New Lead",
+          "showInFunnel": true,
+          "showInPieChart": true,
+          "position": 0,
+          "stageWinProbability": 20
+        },
+        {
+          "id": "e6ed9068-7d5e-49ff-ba46-5b9072545fd1",
+          "name": "Form Fill",
+          "showInFunnel": true,
+          "showInPieChart": true,
+          "position": 1,
+          "stageWinProbability": 40
+        },
+        {
+          "id": "a0d09d99-ada7-4f1a-9db7-d2a21631749d",
+          "name": "Paymnt sent",
+          "showInFunnel": true,
+          "showInPieChart": true,
+          "position": 2,
+          "stageWinProbability": 60
+        },
+        {
+          "id": "d082ad8f-b5e2-44ce-bebf-305ffeb644fa",
+          "name": "Closed",
+          "showInFunnel": true,
+          "showInPieChart": true,
+          "position": 3,
+          "stageWinProbability": 80
+        }
+      ],
+      "locationId": "6MzIr7iWX12OyaxfufLw"
+    },
+    {
+      "id": "ovEvVaJTioeijjOyBw34",
+      "name": "Yt Workshop",
+      "showInFunnel": true,
+      "showInPieChart": true,
+      "useOpportunityProbability": false,
+      "dateAdded": "2026-08-07T04:37:50.988Z",
+      "dateUpdated": "2026-08-07T04:37:50.988Z",
+      "stages": [
+        {
+          "id": "a0022cca-736b-4b79-a824-0033f83eae02",
+          "name": "New Registration",
+          "showInFunnel": true,
+          "showInPieChart": true,
+          "position": 0,
+          "stageWinProbability": 20,
+          "color": "#64748B"
+        },
+        {
+          "id": "2a8b7f1a-d8ec-4918-a4db-9b9f960f20d2",
+          "name": "Payment Pending",
+          "showInFunnel": true,
+          "showInPieChart": true,
+          "position": 1,
+          "stageWinProbability": 40,
+          "color": "#64748B"
+        },
+        {
+          "id": "0ad7cb14-6f9c-4a9c-ba9a-2b3a015cfeee",
+          "name": "Payment Confirmed",
+          "showInFunnel": true,
+          "showInPieChart": true,
+          "position": 2,
+          "stageWinProbability": 100,
+          "color": "#64748B"
+        },
+        {
+          "id": "06a7faa8-4a2f-4576-a78b-308a38e92d68",
+          "name": "Attended",
+          "showInFunnel": true,
+          "showInPieChart": true,
+          "position": 3,
+          "stageWinProbability": 100,
+          "color": "#64748B"
+        },
+        {
+          "id": "a1f68a2b-e962-4883-8e82-1ca43c3d7fa0",
+          "name": "No Show",
+          "showInFunnel": true,
+          "showInPieChart": true,
+          "position": 4,
+          "stageWinProbability": 0,
+          "color": "#64748B"
+        },
+        {
+          "id": "e3581b94-e154-44d5-a958-432818bead46",
+          "name": "Closed",
+          "showInFunnel": true,
+          "showInPieChart": true,
+          "position": 5,
+          "stageWinProbability": 0,
+          "color": "#64748B"
+        }
+      ],
+      "locationId": "6MzIr7iWX12OyaxfufLw",
+      "colorRenderMode": "dot",
+      "position": "a1sHmfK"
+    }
+  ],
+  "traceId": "8ecc12b9-6c5e-4ae8-8b85-c5080b0b7c53"
+}

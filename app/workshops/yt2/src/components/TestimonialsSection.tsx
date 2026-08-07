@@ -82,7 +82,7 @@ export default function TestimonialsSection() {
           </h2>
           <p className="text-gray-400 max-w-xl mx-auto">
             Ye log bhi tumhari tarah confused the — ab dollar mein kama rahe hain. 
-            "Mera bhai/dost kar raha hai" — ab tum bhi karo.
+            &quot;Mera bhai/dost kar raha hai&quot; — ab tum bhi karo.
           </p>
         </div>
 

@@ -153,6 +153,17 @@ export async function POST(req: NextRequest) {
         source: "Website Registration",
         tags,
         customFields,
+        ...(testMode && {
+          dnd: true,
+          dndSettings: {
+            Call: { status: "active", message: "Test mode" },
+            Email: { status: "active", message: "Test mode" },
+            SMS: { status: "active", message: "Test mode" },
+            WhatsApp: { status: "active", message: "Test mode" },
+            GMB: { status: "active", message: "Test mode" },
+            FB: { status: "active", message: "Test mode" }
+          }
+        }),
       }),
     });
 
