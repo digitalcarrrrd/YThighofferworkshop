@@ -46,26 +46,7 @@ export default function LmsPage() {
     { q: "7. Will you provide any course completion certification?", a: "Yes indeed, we provide official certification which unlocks even more future career opportunities for you." }
   ];
 
-  // Countdown State
-  const [timeLeft, setTimeLeft] = useState({ hours: 11, minutes: 54, seconds: 32 });
   const [openFaq, setOpenFaq] = useState<number | null>(null);
-
-  useEffect(() => {
-    const timer = setInterval(() => {
-      setTimeLeft(prev => {
-        let { hours, minutes, seconds } = prev;
-        if (seconds > 0) seconds--;
-        else {
-          if (minutes > 0) { minutes--; seconds = 59; }
-          else {
-            if (hours > 0) { hours--; minutes = 59; seconds = 59; }
-          }
-        }
-        return { hours, minutes, seconds };
-      });
-    }, 1000);
-    return () => clearInterval(timer);
-  }, []);
 
   return (
     <div className="min-h-screen bg-indigo-950 text-slate-100 font-sans selection:bg-fuchsia-500 selection:text-white">
@@ -319,20 +300,6 @@ export default function LmsPage() {
               <h2 className="text-4xl md:text-6xl font-black text-white mb-2 uppercase tracking-tighter italic drop-shadow-lg">Join The Empire</h2>
               <p className="text-amber-400 text-lg mb-8 uppercase tracking-widest font-bold">Life Time Access</p>
 
-              {/* Countdown */}
-              <div className="flex justify-center gap-3 md:gap-6 my-8">
-                {['hours', 'minutes', 'seconds'].map((unit, i) => {
-                  const val = i === 0 ? timeLeft.hours : i === 1 ? timeLeft.minutes : timeLeft.seconds;
-                  return (
-                    <div key={unit} className="flex flex-col items-center">
-                      <div className="bg-indigo-950/80 border border-fuchsia-500/50 w-20 h-20 md:w-24 md:h-24 rounded-2xl flex items-center justify-center text-3xl md:text-5xl font-black text-white shadow-[0_0_30px_rgba(217,70,239,0.3)]">
-                        {val.toString().padStart(2, '0')}
-                      </div>
-                      <span className="text-[10px] md:text-xs font-bold text-fuchsia-300 mt-3 tracking-[0.2em] uppercase">{unit.substring(0,3)}</span>
-                    </div>
-                  );
-                })}
-              </div>
 
               <div className="text-left space-y-4 mb-12 bg-white/5 p-8 rounded-3xl border border-white/10 shadow-inner">
                 {[
