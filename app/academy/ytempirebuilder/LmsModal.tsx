@@ -148,7 +148,7 @@ export default function LmsModal({ isOpen, onClose }: LmsModalProps) {
             <div className="space-y-4">
               <div className="bg-purple-50 dark:bg-purple-900/20 p-3 rounded-xl border border-purple-100 dark:border-purple-800">
                 <p className="text-xs md:text-sm text-purple-800 dark:text-purple-300 font-medium text-center">
-                  Send <strong className="font-black text-sm md:text-base">20,000 PKR</strong> (or $70 USD) to any account below.
+                  Send <strong className="font-black text-sm md:text-base">30,000 PKR</strong> (or $109 USD) to any account below.
                 </p>
               </div>
 

@@ -289,14 +289,7 @@ export default function LmsPage() {
         <div className="max-w-4xl mx-auto px-4 relative z-10">
           <div className="bg-indigo-900/80 border-2 border-fuchsia-500 rounded-[40px] overflow-hidden shadow-[0_0_80px_rgba(217,70,239,0.2)] backdrop-blur-xl">
             
-            <div className="bg-gradient-to-r from-rose-600 to-pink-600 animate-pulse py-4 text-center shadow-lg">
-              <p className="text-white font-black text-sm md:text-xl uppercase tracking-widest flex items-center justify-center gap-3 drop-shadow-md">
-                <PlayCircle className="w-6 h-6" />
-                New Year Offer !
-              </p>
-            </div>
-
-            <div className="p-8 md:p-16 text-center">
+                        <div className="p-8 md:p-16 text-center">
               <h2 className="text-4xl md:text-6xl font-black text-white mb-2 uppercase tracking-tighter italic drop-shadow-lg">Join The Empire</h2>
               <p className="text-amber-400 text-lg mb-8 uppercase tracking-widest font-bold">Life Time Access</p>
 
@@ -325,8 +318,8 @@ export default function LmsPage() {
               <div className="mb-10">
                 <div className="text-fuchsia-300 text-sm uppercase font-black tracking-widest mb-4">Limited Enrollment Price</div>
                 <div className="flex flex-col items-center">
-                  <div className="text-7xl md:text-9xl font-black text-white leading-none tracking-tighter drop-shadow-2xl">$70<span className="text-2xl md:text-4xl text-slate-400 font-bold ml-2">USD</span></div>
-                  <div className="text-amber-400 font-black text-xl md:text-2xl mt-6 animate-bounce bg-amber-400/10 px-6 py-2 rounded-full border border-amber-400/30">~ 20,000 PKR ONE-TIME</div>
+                  <div className="text-7xl md:text-9xl font-black text-white leading-none tracking-tighter drop-shadow-2xl">$109<span className="text-2xl md:text-4xl text-slate-400 font-bold ml-2">USD</span></div>
+                  <div className="text-amber-400 font-black text-xl md:text-2xl mt-6 animate-bounce bg-amber-400/10 px-6 py-2 rounded-full border border-amber-400/30">~ 30,000 PKR ONE-TIME</div>
                 </div>
               </div>
 
