@@ -16,12 +16,13 @@ export async function POST(req: Request) {
     // Pipeline: "LMS lunch" 
     const pipelineId = process.env.GHL_ACADEMY_PIPELINE_ID || 'CZYMTQUzq7a6faEIKdtZ';
 
-    // Stage IDs from the "LMS lunch" pipeline
+    // Stage IDs
     const stages: Record<string, string> = {
-      'new-lead':       process.env.GHL_ACADEMY_STAGE_NEW_LEAD    || 'da280d2b-1c00-4141-b4b0-e286d877d80c',
-      'form-fill':      process.env.GHL_ACADEMY_STAGE_FORM_FILL   || 'e6ed9068-7d5e-49ff-ba46-5b9072545fd1',
-      'payment-sent':   process.env.GHL_ACADEMY_STAGE_PAYMENT     || 'a0d09d99-ada7-4f1a-9db7-d2a21631749d',
-      'closed':         process.env.GHL_ACADEMY_STAGE_CLOSED      || 'd082ad8f-b5e2-44ce-bebf-305ffeb644fa',
+      // Use GHL_ACADEMY_STAGE_NEW_LEAD if set, otherwise fallback to the generic GHL_ACADEMY_STAGE_ID (Payment Pending) to prevent cross-pipeline errors
+      'new-lead':       process.env.GHL_ACADEMY_STAGE_NEW_LEAD    || process.env.GHL_ACADEMY_STAGE_ID || 'da280d2b-1c00-4141-b4b0-e286d877d80c',
+      'form-fill':      process.env.GHL_ACADEMY_STAGE_FORM_FILL   || process.env.GHL_ACADEMY_STAGE_ID || 'e6ed9068-7d5e-49ff-ba46-5b9072545fd1',
+      'payment-sent':   process.env.GHL_ACADEMY_STAGE_PAYMENT     || process.env.GHL_ACADEMY_STAGE_ID || 'a0d09d99-ada7-4f1a-9db7-d2a21631749d',
+      'closed':         process.env.GHL_ACADEMY_STAGE_CLOSED      || process.env.GHL_ACADEMY_STAGE_ID || 'd082ad8f-b5e2-44ce-bebf-305ffeb644fa',
     };
 
     // Determine which stage to use (default: new-lead)
