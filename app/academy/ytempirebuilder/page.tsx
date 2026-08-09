@@ -67,7 +67,7 @@ export default function LmsPage() {
             <div className="bg-gradient-to-br from-fuchsia-600 to-purple-600 w-10 h-10 rounded-xl flex items-center justify-center text-white font-black shadow-lg shadow-fuchsia-500/30">YT</div>
             <span className="font-black text-xl tracking-tight text-white uppercase italic hidden sm:inline">Empire Builder</span>
           </div>
-          <button onClick={() => setIsModalOpen(true)} className="bg-gradient-to-r from-amber-400 to-amber-500 hover:from-amber-300 hover:to-amber-400 text-indigo-950 font-black py-2.5 px-6 rounded-full transition-all text-sm uppercase shadow-[0_0_20px_rgba(251,191,36,0.4)] transform hover:scale-105">
+          <button onClick={() => document.getElementById('offer')?.scrollIntoView({ behavior: 'smooth' })} className="bg-gradient-to-r from-amber-400 to-amber-500 hover:from-amber-300 hover:to-amber-400 text-indigo-950 font-black py-2.5 px-6 rounded-full transition-all text-sm uppercase shadow-[0_0_20px_rgba(251,191,36,0.4)] transform hover:scale-105">
             Get Access
           </button>
         </div>
@@ -92,7 +92,7 @@ export default function LmsPage() {
             Stop trading time for money. Build a "Digital Real Estate" asset that pays you while you sleep. No filming. No showing your face. Just smart AI systems.
           </p>
           <div className="flex flex-col items-center gap-6">
-            <button onClick={() => setIsModalOpen(true)} className="group relative bg-gradient-to-b from-amber-300 to-amber-500 hover:from-amber-200 hover:to-amber-400 text-indigo-950 text-xl md:text-3xl font-black py-6 px-16 rounded-2xl shadow-[0_15px_40px_rgba(251,191,36,0.3)] transition-all pulse-amber transform hover:-translate-y-1">
+            <button onClick={() => document.getElementById('offer')?.scrollIntoView({ behavior: 'smooth' })} className="group relative bg-gradient-to-b from-amber-300 to-amber-500 hover:from-amber-200 hover:to-amber-400 text-indigo-950 text-xl md:text-3xl font-black py-6 px-16 rounded-2xl shadow-[0_15px_40px_rgba(251,191,36,0.3)] transition-all pulse-amber transform hover:-translate-y-1">
               START MY CHANNEL TODAY
               <div className="absolute inset-0 rounded-2xl border-4 border-white/30 animate-ping pointer-events-none"></div>
             </button>

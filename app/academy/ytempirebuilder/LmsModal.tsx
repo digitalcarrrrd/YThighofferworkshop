@@ -56,7 +56,7 @@ export default function LmsModal({ isOpen, onClose }: LmsModalProps) {
       await fetch('/api/academy-lead', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify(formData),
+        body: JSON.stringify({ ...formData, monetaryValue: 109 }),
       });
       setStep(3); // Go to thank you screen
     } catch (error) {
