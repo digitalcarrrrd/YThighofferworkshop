@@ -31,8 +31,8 @@ export async function POST(req: Request) {
 
     // 2. Create Opportunity in the LMS pipeline
     // Uses environment variables so you can link it to your new "Academy LMS" pipeline
-    const pipelineId = process.env.GHL_ACADEMY_PIPELINE_ID || 'CZYMTQUzq7a6faEIKdtZ';
-    const pipelineStageId = process.env.GHL_ACADEMY_STAGE_ID || 'a0d09d99-ada7-4f1a-9db7-d2a21631749d';
+    const pipelineId = process.env.GHL_ACADEMY_PIPELINE_ID || 'AeBr4Q7skdfh8RyojRY0'; // Academy LMS
+    const pipelineStageId = process.env.GHL_ACADEMY_STAGE_ID || '6f27e437-bd24-4e65-abdc-ce63e5a3e558'; // Payment Pending
 
     const oppResult = await ghlClient.createOpportunity({
       contactId: contactId,
