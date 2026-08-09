@@ -292,6 +292,6 @@ export default function HomeExperience() {
     </footer>
     
     <button className="mobile-cta" onClick={() => setShowBooking(true)}>Enter Academy <Arrow/></button>
-    {showBooking && <BookingModal onClose={() => setShowBooking(false)} />}
+    {showBooking && <BookingModal onClose={() => setShowBooking(false)} selectedPlanId={plan} />}
   </main>
 }

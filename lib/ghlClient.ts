@@ -13,6 +13,7 @@ export interface GhlOpportunityData {
   pipelineId?: string;
   pipelineStageId?: string;
   status?: string;
+  monetaryValue?: number;
 }
 
 export class GhlClient {
@@ -111,7 +112,7 @@ export class GhlClient {
       return null;
     }
 
-    const payload = {
+    const payload: Record<string, unknown> = {
       pipelineId: pipelineId,
       locationId: this.locationId,
       name: data.name,
@@ -119,6 +120,10 @@ export class GhlClient {
       status: data.status || "open",
       contactId: data.contactId,
     };
+
+    if (data.monetaryValue !== undefined) {
+      payload.monetaryValue = data.monetaryValue;
+    }
 
     try {
       const response = await fetch(`${this.baseUrl}/opportunities/`, {
@@ -140,6 +145,36 @@ export class GhlClient {
       return await response.json();
     } catch (error) {
       console.error("GHL Client Error: createOpportunity failed");
+      throw error;
+    }
+  }
+
+  async updateOpportunityStage(opportunityId: string, pipelineStageId: string) {
+    if (!this.isConfigured || !opportunityId) {
+      console.warn("GHL client not configured or missing opportunityId.");
+      return null;
+    }
+
+    try {
+      const response = await fetch(`${this.baseUrl}/opportunities/${opportunityId}`, {
+        method: "PUT",
+        headers: {
+          "Authorization": `Bearer ${this.token}`,
+          "Version": "2021-07-28",
+          "Content-Type": "application/json",
+          "Accept": "application/json"
+        },
+        body: JSON.stringify({ pipelineStageId })
+      });
+
+      if (!response.ok) {
+        console.error(`GHL Opportunity Update Failed: ${response.status} ${response.statusText}`);
+        throw new Error("GHL API request failed");
+      }
+
+      return await response.json();
+    } catch (error) {
+      console.error("GHL Client Error: updateOpportunityStage failed");
       throw error;
     }
   }

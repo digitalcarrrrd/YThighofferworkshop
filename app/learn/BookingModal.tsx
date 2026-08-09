@@ -1,16 +1,34 @@
 "use client";
 import { useState, useRef, useEffect } from "react";
+import { plans, type PlanId } from "./content/site";
 import "./booking-modal.css";
 
 type Step = 1 | 2 | 3;
 
-export default function BookingModal({ onClose }: { onClose: () => void }) {
+interface BookingModalProps {
+  onClose: () => void;
+  selectedPlanId: PlanId;
+}
+
+export default function BookingModal({ onClose, selectedPlanId }: BookingModalProps) {
   const [step, setStep] = useState<Step>(1);
   const [paymentTab, setPaymentTab] = useState<"bank" | "easypaisa" | "crypto">("bank");
   const [isCopied, setIsCopied] = useState("");
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [countdown, setCountdown] = useState(5);
   const [fileName, setFileName] = useState("");
+  const [opportunityId, setOpportunityId] = useState<string | null>(null);
+
+  // Get the selected plan details
+  const selectedPlan = plans.find(p => p.id === selectedPlanId) || plans[1]; // fallback to lifetime
+
+  // Parse numeric value from price string for GHL monetary value
+  const getMonetaryValue = (): number => {
+    if (selectedPlan.id === "monthly") return 3000;
+    if (selectedPlan.id === "lifetime") return 30000;
+    if (selectedPlan.id === "installments") return 33000;
+    return 0;
+  };
 
   // Form data persisted across steps
   const [formData, setFormData] = useState({
@@ -27,14 +45,14 @@ export default function BookingModal({ onClose }: { onClose: () => void }) {
     if (step !== 3) return;
     if (countdown <= 0) {
       const msg = encodeURIComponent(
-        `Assalam o Alaikum! 👋\n\nI just enrolled in YTEMPIRE BUILDERs Academy.\n\n📛 Name: ${formData.name}\n📧 Email: ${formData.email}\n📱 WhatsApp: ${formData.phone}\n💳 Transaction ID: ${formData.transactionId || "Attached screenshot"}\n\nPlease confirm my payment and grant LMS access. JazakAllah! 🙏`
+        `Assalam o Alaikum! 👋\n\nI just enrolled in YTEMPIRE BUILDERs Academy.\n\n📦 Plan: ${selectedPlan.name}\n💰 Amount: ${selectedPlan.price}\n📛 Name: ${formData.name}\n📧 Email: ${formData.email}\n📱 WhatsApp: ${formData.phone}\n💳 Transaction ID: ${formData.transactionId || "Attached screenshot"}\n\nPlease confirm my payment and grant LMS access. JazakAllah! 🙏`
       );
       window.open(`https://wa.me/923213823702?text=${msg}`, "_blank");
       return;
     }
     const timer = setTimeout(() => setCountdown((c) => c - 1), 1000);
     return () => clearTimeout(timer);
-  }, [step, countdown, formData]);
+  }, [step, countdown, formData, selectedPlan]);
 
   const copyToClipboard = (text: string, id: string) => {
     navigator.clipboard.writeText(text);
@@ -42,22 +60,27 @@ export default function BookingModal({ onClose }: { onClose: () => void }) {
     setTimeout(() => setIsCopied(""), 2000);
   };
 
-  // Step 1: Capture lead → create opportunity in GHL "Academy LMS" pipeline
+  // ── Step 1: Capture lead → "New Lead" stage ──
   const handleStep1 = async () => {
     if (!formData.name || !formData.email || !formData.phone) return;
     setIsSubmitting(true);
     try {
-      const [firstName, ...lastParts] = formData.name.split(" ");
-      const lastName = lastParts.join(" ");
-      await fetch("/api/academy-lead", {
+      const res = await fetch("/api/academy-lead", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({
           name: formData.name,
           email: formData.email,
           phone: formData.phone,
+          stage: "new-lead",
+          plan: selectedPlan.id,
+          monetaryValue: getMonetaryValue(),
         }),
       });
+      const data = await res.json();
+      if (data.opportunityId) {
+        setOpportunityId(data.opportunityId);
+      }
     } catch (err) {
       console.error("Lead capture failed", err);
     }
@@ -65,10 +88,9 @@ export default function BookingModal({ onClose }: { onClose: () => void }) {
     setStep(2);
   };
 
-  // Step 2: Move to payment sent
+  // ── Step 2: Move to "Payment Sent" stage ──
   const handleStep2 = async () => {
     setIsSubmitting(true);
-    // Move opportunity stage or just proceed
     try {
       await fetch("/api/academy-lead", {
         method: "POST",
@@ -77,6 +99,10 @@ export default function BookingModal({ onClose }: { onClose: () => void }) {
           name: formData.name,
           email: formData.email,
           phone: formData.phone,
+          stage: "payment-sent",
+          plan: selectedPlan.id,
+          monetaryValue: getMonetaryValue(),
+          opportunityId: opportunityId,
         }),
       });
     } catch (err) {
@@ -115,13 +141,13 @@ export default function BookingModal({ onClose }: { onClose: () => void }) {
         {/* ── STEP 1: Lead Capture ── */}
         {step === 1 && (
           <div className="bm-step bm-fadeIn">
-            <div className="bm-badge">YTEMPIRE BUILDERs</div>
+            <div className="bm-badge">{selectedPlan.name}</div>
             <h2 className="bm-step-title">Start your journey 🚀</h2>
             <p className="bm-step-subtitle">Enter your details to reserve your spot in the academy.</p>
 
             <div className="bm-price-display">
-              <span className="bm-price-amount">Rs 30,000</span>
-              <span className="bm-price-label">Lifetime Access · One Time</span>
+              <span className="bm-price-amount">{selectedPlan.price}</span>
+              <span className="bm-price-label">{selectedPlan.cadence}</span>
             </div>
 
             <div className="bm-field">
@@ -179,7 +205,7 @@ export default function BookingModal({ onClose }: { onClose: () => void }) {
         {step === 2 && (
           <div className="bm-step bm-fadeIn">
             <h2 className="bm-step-title">Complete Payment 💳</h2>
-            <p className="bm-step-subtitle">Send <strong>Rs 30,000</strong> using any method below, then attach proof.</p>
+            <p className="bm-step-subtitle">Send <strong>{selectedPlan.price}</strong> ({selectedPlan.cadence}) using any method below, then attach proof.</p>
 
             <div className="bm-payment-tabs">
               <button className={`bm-payment-tab ${paymentTab === "bank" ? "active" : ""}`} onClick={() => setPaymentTab("bank")}>🏦 Bank</button>
@@ -296,7 +322,7 @@ export default function BookingModal({ onClose }: { onClose: () => void }) {
               <div className="bm-check-circle">✓</div>
               <h2 className="bm-step-title">Payment Submitted! 🎉</h2>
               <p className="bm-step-subtitle">
-                Thank you, <strong>{formData.name}</strong>! Your payment is being verified.
+                Thank you, <strong>{formData.name}</strong>! Your payment of <strong>{selectedPlan.price}</strong> is being verified.
               </p>
               <p className="bm-step-subtitle">
                 Redirecting you to WhatsApp to confirm your payment...
@@ -308,7 +334,7 @@ export default function BookingModal({ onClose }: { onClose: () => void }) {
                 className="bm-btn-primary bm-whatsapp-btn"
                 onClick={() => {
                   const msg = encodeURIComponent(
-                    `Assalam o Alaikum! 👋\n\nI just enrolled in YTEMPIRE BUILDERs Academy.\n\n📛 Name: ${formData.name}\n📧 Email: ${formData.email}\n📱 WhatsApp: ${formData.phone}\n💳 Transaction ID: ${formData.transactionId || "Attached screenshot"}\n\nPlease confirm my payment and grant LMS access. JazakAllah! 🙏`
+                    `Assalam o Alaikum! 👋\n\nI just enrolled in YTEMPIRE BUILDERs Academy.\n\n📦 Plan: ${selectedPlan.name}\n💰 Amount: ${selectedPlan.price}\n📛 Name: ${formData.name}\n📧 Email: ${formData.email}\n📱 WhatsApp: ${formData.phone}\n💳 Transaction ID: ${formData.transactionId || "Attached screenshot"}\n\nPlease confirm my payment and grant LMS access. JazakAllah! 🙏`
                   );
                   window.open(`https://wa.me/923213823702?text=${msg}`, "_blank");
                 }}

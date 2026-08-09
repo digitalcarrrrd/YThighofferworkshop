@@ -4,7 +4,7 @@ import { ghlClient } from '@/lib/ghlClient';
 export async function POST(req: Request) {
   try {
     const data = await req.json();
-    const { name, email, phone } = data;
+    const { name, email, phone, stage, plan, monetaryValue } = data;
 
     if (!name || !email) {
       return NextResponse.json(
@@ -13,40 +13,85 @@ export async function POST(req: Request) {
       );
     }
 
+    // Pipeline: "LMS lunch" 
+    const pipelineId = process.env.GHL_ACADEMY_PIPELINE_ID || 'CZYMTQUzq7a6faEIKdtZ';
+
+    // Stage IDs from the "LMS lunch" pipeline
+    const stages: Record<string, string> = {
+      'new-lead':       process.env.GHL_ACADEMY_STAGE_NEW_LEAD    || 'da280d2b-1c00-4141-b4b0-e286d877d80c',
+      'form-fill':      process.env.GHL_ACADEMY_STAGE_FORM_FILL   || 'e6ed9068-7d5e-49ff-ba46-5b9072545fd1',
+      'payment-sent':   process.env.GHL_ACADEMY_STAGE_PAYMENT     || 'a0d09d99-ada7-4f1a-9db7-d2a21631749d',
+      'closed':         process.env.GHL_ACADEMY_STAGE_CLOSED      || 'd082ad8f-b5e2-44ce-bebf-305ffeb644fa',
+    };
+
+    // Determine which stage to use (default: new-lead)
+    const targetStage = stages[stage] || stages['new-lead'];
+
+    // Build tags based on plan
+    const tags = ['academy-lead', 'yt-empire-builder'];
+    if (plan) tags.push(`plan:${plan}`);
+
     // 1. Create or Update Contact in GHL
     const contactResult = await ghlClient.upsertContact({
       firstName: name.split(' ')[0] || name,
       lastName: name.split(' ').slice(1).join(' ') || '',
       email: email,
       phone: phone || '',
-      tags: ['academy-lead', 'yt-empire-builder', 'payment pending'],
+      tags: tags,
     });
 
     if (!contactResult || !contactResult.contact || !contactResult.contact.id) {
       console.warn("Contact creation returned unexpected result:", contactResult);
-      return NextResponse.json({ success: false, error: 'Contact creation failed in GHL. Check if GHL_LOCATION_ID and GHL_PRIVATE_INTEGRATION_TOKEN are set in Vercel.' }, { status: 500 });
+      return NextResponse.json({
+        success: false,
+        error: 'Contact creation failed in GHL.'
+      }, { status: 500 });
     }
 
     const contactId = contactResult.contact.id;
 
-    // 2. Create Opportunity in the LMS pipeline
-    // Uses environment variables so you can link it to your new "Academy LMS" pipeline
-    const pipelineId = process.env.GHL_ACADEMY_PIPELINE_ID || 'AeBr4Q7skdfh8RyojRY0'; // Academy LMS
-    const pipelineStageId = process.env.GHL_ACADEMY_STAGE_ID || '6f27e437-bd24-4e65-abdc-ce63e5a3e558'; // Payment Pending
+    // 2. If stage is 'payment-sent', try to update existing opportunity first
+    if (stage === 'payment-sent' && data.opportunityId) {
+      try {
+        const updateResult = await ghlClient.updateOpportunityStage(
+          data.opportunityId,
+          targetStage
+        );
+        return NextResponse.json({
+          success: true,
+          contact: contactResult,
+          opportunity: updateResult,
+          opportunityId: data.opportunityId,
+        });
+      } catch {
+        console.warn("Could not update existing opportunity, creating new one");
+      }
+    }
 
+    // 3. Create new Opportunity
     const oppResult = await ghlClient.createOpportunity({
       contactId: contactId,
       name: `${name} - YT Empire Builder`,
       pipelineId: pipelineId,
-      pipelineStageId: pipelineStageId,
-      status: 'open'
+      pipelineStageId: targetStage,
+      status: 'open',
+      monetaryValue: monetaryValue || 0,
     });
 
-    return NextResponse.json({ success: true, contact: contactResult, opportunity: oppResult });
+    const opportunityId = oppResult?.opportunity?.id || oppResult?.id || null;
+
+    return NextResponse.json({
+      success: true,
+      contact: contactResult,
+      opportunity: oppResult,
+      opportunityId: opportunityId,
+    });
 
   } catch (error) {
     console.error('Academy Lead Capture Error:', error);
-    // Always return a success-like structure for the client to proceed smoothly
-    return NextResponse.json({ success: false, error: 'Failed to capture lead properly' }, { status: 500 });
+    return NextResponse.json({
+      success: false,
+      error: 'Failed to capture lead properly'
+    }, { status: 500 });
   }
 }
