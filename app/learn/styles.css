@@ -1,6 +1,6 @@
 .academy-wrapper {
-  background: #060908;
-  color: #e5e5e5;
+  background: #ffffff;
+  color: #111827;
   font-family: 'Inter', sans-serif;
   min-height: 100vh;
   line-height: 1.6;
@@ -8,7 +8,7 @@
   --accent-glow: rgba(255, 107, 74, 0.2);
   --glass: rgba(255, 255, 255, 0.05);
   --border: rgba(255, 255, 255, 0.1);
-  --text-muted: #95a99c;
+  --text-muted: #4b5563;
 }
 
 .academy-wrapper .shell {
@@ -34,7 +34,7 @@
 .academy-wrapper h2, 
 .academy-wrapper h3, 
 .academy-wrapper h4 {
-  color: #fff;
+  color: #111827;
   line-height: 1.1;
   letter-spacing: -0.02em;
 }
@@ -80,8 +80,8 @@
 }
 
 .academy-wrapper .button.dark {
-  background: #1a221f;
-  color: #fff;
+  background: #f3f4f6;
+  color: #111827;
   border: 1px solid var(--border);
 }
 
@@ -90,7 +90,7 @@
 }
 
 .academy-wrapper .text-link {
-  color: #fff;
+  color: #111827;
   text-decoration: none;
   font-weight: 600;
   border-bottom: 1px solid var(--accent);
@@ -107,7 +107,7 @@
 
 .academy-wrapper .nav .brand {
   font-weight: 800;
-  color: #fff;
+  color: #111827;
   text-decoration: none;
   display: flex;
   align-items: center;
@@ -136,7 +136,7 @@
 }
 
 .academy-wrapper .nav nav a:hover:not(.button) {
-  color: #fff;
+  color: #111827;
 }
 
 .academy-wrapper .hero {
@@ -167,7 +167,7 @@
 }
 
 .academy-wrapper .route-map {
-  background: #0f1512;
+  background: #f9fafb;
   border: 1px solid var(--border);
   border-radius: 16px;
   padding: 32px;
@@ -195,7 +195,7 @@
 }
 
 .academy-wrapper .route-node.active {
-  color: #fff;
+  color: #111827;
 }
 
 .academy-wrapper .route-node.active span {
@@ -237,14 +237,14 @@
 }
 
 .academy-wrapper blockquote {
-  background: #0f1512;
+  background: #f9fafb;
   padding: 40px;
   border-radius: 16px;
   font-size: 1.5rem;
   font-style: italic;
   font-weight: 700;
   line-height: 1.4;
-  color: #fff;
+  color: #111827;
   border-left: 4px solid var(--accent);
 }
 
@@ -256,7 +256,7 @@
 }
 
 .academy-wrapper .economy .flow button {
-  background: #0f1512;
+  background: #f9fafb;
   border: 1px solid var(--border);
   color: var(--text-muted);
   padding: 12px 24px;
@@ -270,7 +270,7 @@
 
 .academy-wrapper .economy .flow button.active {
   background: var(--glass);
-  color: #fff;
+  color: #111827;
   border-color: var(--accent);
 }
 
@@ -281,7 +281,7 @@
 .academy-wrapper .economy .claim {
   margin-top: 40px;
   padding: 40px;
-  background: #0f1512;
+  background: #f9fafb;
   border-radius: 16px;
   border: 1px solid var(--border);
 }
@@ -313,7 +313,7 @@
 }
 
 .academy-wrapper .path-tabs button[aria-selected="true"] {
-  color: #fff;
+  color: #111827;
   border-color: var(--accent);
 }
 
@@ -322,7 +322,7 @@
   grid-template-columns: 2fr 1fr;
   gap: 40px;
   margin-top: 32px;
-  background: #0f1512;
+  background: #f9fafb;
   padding: 40px;
   border-radius: 16px;
 }
@@ -346,7 +346,7 @@
 }
 
 .academy-wrapper .portal-wrap {
-  background: #0f1512;
+  background: #f9fafb;
 }
 
 .academy-wrapper .portal {
@@ -361,7 +361,7 @@
 }
 
 .academy-wrapper .portal aside {
-  background: #0a0e0c;
+  background: #ffffff;
   padding: 32px 24px;
   display: flex;
   flex-direction: column;
@@ -394,11 +394,11 @@
 
 .academy-wrapper .portal aside button.active {
   background: var(--glass);
-  color: #fff;
+  color: #111827;
 }
 
 .academy-wrapper .dashboard {
-  background: #0a0e0c;
+  background: #ffffff;
   padding: 40px;
 }
 
@@ -422,7 +422,7 @@
 }
 
 .academy-wrapper .toggle {
-  background: #000;
+  background: #e5e7eb;
   padding: 4px;
   border-radius: 8px;
   display: flex;
@@ -439,12 +439,12 @@
 }
 
 .academy-wrapper .toggle button.active {
-  background: #1a221f;
-  color: #fff;
+  background: #f3f4f6;
+  color: #111827;
 }
 
 .academy-wrapper .course-card {
-  background: #1a221f;
+  background: #f3f4f6;
   border: 1px solid var(--border);
   padding: 32px;
   border-radius: 12px;
@@ -484,7 +484,7 @@
 }
 
 .academy-wrapper .dash-grid article {
-  background: #1a221f;
+  background: #f3f4f6;
   border: 1px solid var(--border);
   padding: 24px;
   border-radius: 12px;
@@ -498,7 +498,7 @@
 
 .academy-wrapper .dash-grid b {
   display: block;
-  color: #fff;
+  color: #111827;
   margin-bottom: 16px;
 }
 
@@ -510,7 +510,7 @@
 }
 
 .academy-wrapper .modules details {
-  background: #0f1512;
+  background: #f9fafb;
   border: 1px solid var(--border);
   border-radius: 12px;
   margin-bottom: 16px;
@@ -547,7 +547,7 @@
 
 .academy-wrapper .modules summary b {
   font-size: 1.25rem;
-  color: #fff;
+  color: #111827;
 }
 
 .academy-wrapper .modules summary i {
@@ -583,7 +583,7 @@
 }
 
 .academy-wrapper .module-body dd {
-  color: #fff;
+  color: #111827;
   font-weight: 600;
   margin: 0;
 }
@@ -652,7 +652,7 @@
 
 .academy-wrapper .price-card {
   margin-top: 32px;
-  background: #0f1512;
+  background: #f9fafb;
   border: 1px solid var(--border);
   border-radius: 16px;
   padding: 40px;
@@ -682,7 +682,7 @@
 .academy-wrapper .price-card .price {
   font-size: 3rem;
   font-weight: 800;
-  color: #fff;
+  color: #111827;
   margin: 0;
 }
 
@@ -704,7 +704,7 @@
 .academy-wrapper .price-card li {
   padding: 12px 0;
   border-bottom: 1px solid var(--border);
-  color: #e5e5e5;
+  color: #111827;
 }
 
 .academy-wrapper .price-card .button {
@@ -731,7 +731,7 @@
   align-items: center;
   font-size: 1.25rem;
   font-weight: 700;
-  color: #fff;
+  color: #111827;
   cursor: pointer;
   list-style: none;
 }
@@ -856,4 +856,42 @@
     z-index: 100;
     box-shadow: 0 10px 30px rgba(0,0,0,0.5);
   }
+}
+
+
+/* RTL Support */
+[dir='rtl'] {
+  text-align: right;
+  font-family: 'Noto Nastaliq Urdu', 'Jameel Noori Nastaleeq', Tahoma, sans-serif;
+}
+[dir='rtl'] .nav .brand span {
+  margin-left: 0;
+  margin-right: 8px;
+}
+[dir='rtl'] .route-node i {
+  margin-left: 0;
+  margin-right: auto;
+}
+[dir='rtl'] .modules summary i {
+  margin-left: 0;
+  margin-right: auto;
+}
+[dir='rtl'] .portal aside {
+  text-align: right;
+}
+[dir='rtl'] .dash-top {
+  flex-direction: row-reverse;
+}
+[dir='rtl'] .course-card {
+  text-align: right;
+}
+[dir='rtl'] .dash-grid {
+  text-align: right;
+}
+[dir='rtl'] .module-body {
+  padding: 0 80px 24px 24px;
+}
+[dir='rtl'] blockquote {
+  border-left: none;
+  border-right: 4px solid var(--accent);
 }
