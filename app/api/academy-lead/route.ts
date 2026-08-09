@@ -24,19 +24,21 @@ export async function POST(req: Request) {
 
     if (!contactResult || !contactResult.contact || !contactResult.contact.id) {
       console.warn("Contact creation returned unexpected result:", contactResult);
-      return NextResponse.json({ success: true, warning: 'Contact created but no ID returned' });
+      return NextResponse.json({ success: false, error: 'Contact creation failed in GHL. Check if GHL_LOCATION_ID and GHL_PRIVATE_INTEGRATION_TOKEN are set in Vercel.' }, { status: 500 });
     }
 
     const contactId = contactResult.contact.id;
 
     // 2. Create Opportunity in the LMS pipeline
-    // Pipeline: "LMS lunch" (CZYMTQUzq7a6faEIKdtZ)
-    // Stage: "Paymnt sent" (a0d09d99-ada7-4f1a-9db7-d2a21631749d)
+    // Uses environment variables so you can link it to your new "Academy LMS" pipeline
+    const pipelineId = process.env.GHL_ACADEMY_PIPELINE_ID || 'CZYMTQUzq7a6faEIKdtZ';
+    const pipelineStageId = process.env.GHL_ACADEMY_STAGE_ID || 'a0d09d99-ada7-4f1a-9db7-d2a21631749d';
+
     const oppResult = await ghlClient.createOpportunity({
       contactId: contactId,
       name: `${name} - YT Empire Builder`,
-      pipelineId: 'CZYMTQUzq7a6faEIKdtZ',
-      pipelineStageId: 'a0d09d99-ada7-4f1a-9db7-d2a21631749d',
+      pipelineId: pipelineId,
+      pipelineStageId: pipelineStageId,
       status: 'open'
     });
 
