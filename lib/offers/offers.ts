@@ -146,8 +146,8 @@ export const yt2Offer = {
   id: "workshop-yt2",
   slug: "yt2",
   title: "YouTube Workshop 2",
-  leadTag: "lead:workshop-yt2",
-  status: "disabled",
+  leadTag: "workshop-yt2",
+  status: "active",
 } satisfies OfferConfig;
 
 export const yt3Offer = {
@@ -155,8 +155,8 @@ export const yt3Offer = {
   id: "workshop-yt3",
   slug: "yt3",
   title: "YouTube Workshop 3",
-  leadTag: "lead:workshop-yt3",
-  status: "disabled",
+  leadTag: "workshop-yt3",
+  status: "active",
 } satisfies OfferConfig;
 
 export const yt4Offer = {
@@ -164,8 +164,8 @@ export const yt4Offer = {
   id: "workshop-yt4",
   slug: "yt4",
   title: "YouTube Workshop 4",
-  leadTag: "lead:workshop-yt4",
-  status: "disabled",
+  leadTag: "workshop-yt4",
+  status: "active",
 } satisfies OfferConfig;
 
 export const yt5Offer = {
@@ -173,8 +173,8 @@ export const yt5Offer = {
   id: "workshop-yt5",
   slug: "yt5",
   title: "YouTube Workshop 5",
-  leadTag: "lead:workshop-yt5",
-  status: "disabled",
+  leadTag: "workshop-yt5",
+  status: "active",
 } satisfies OfferConfig;
 
 export const offers: readonly OfferConfig[] = [

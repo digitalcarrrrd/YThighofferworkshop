@@ -1,7 +1,13 @@
 "use client";
 
-import { useState } from "react";
-import { getStoredUtmAttribution } from "@/lib/analytics";
+import { useEffect, useMemo, useState } from "react";
+import { captureUtmAttribution, getStoredUtmAttribution } from "@/lib/analytics";
+
+declare global {
+  interface Window {
+    fbq?: (...args: unknown[]) => void;
+  }
+}
 
 export type WorkshopRegistrationFormProps = {
   offerId: string;
@@ -10,193 +16,129 @@ export type WorkshopRegistrationFormProps = {
   submitLabel?: string;
   variant?: "dark" | "light" | "minimal" | "branded";
   className?: string;
-  paymentMethods?: string[];
   successMessage?: string;
   onSuccess?: () => void;
+  initialData?: { fullName?: string; phone?: string };
+  paymentMethods?: string[];
   hideContactFields?: boolean;
-  initialData?: {
-    fullName?: string;
-    phone?: string;
-  };
 };
+
+const ageRanges = ["Under 18", "18–24", "25–34", "35–44", "45+"];
+
+function normalizePakistanPhone(value: string) {
+  const digits = value.replace(/\D/g, "");
+  if (/^923\d{9}$/.test(digits)) return `+${digits}`;
+  if (/^03\d{9}$/.test(digits)) return `+92${digits.slice(1)}`;
+  if (/^3\d{9}$/.test(digits)) return `+92${digits}`;
+  return null;
+}
 
 export function WorkshopRegistrationForm({
   offerId,
   offerName,
   workshopDate,
-  submitLabel = "Submit Registration",
+  submitLabel = "Reserve My Seat",
   variant = "light",
   className = "",
-  paymentMethods = ["Bank Transfer", "Easypaisa/JazzCash"],
-  successMessage = "After payment verification, the workshop link will be sent on WhatsApp.",
+  successMessage = "Your request is saved. Our support team will confirm your seat on WhatsApp.",
   onSuccess,
-  hideContactFields = false,
   initialData,
 }: WorkshopRegistrationFormProps) {
   const [busy, setBusy] = useState(false);
   const [error, setError] = useState("");
   const [success, setSuccess] = useState(false);
-  
   const [fullName, setFullName] = useState(initialData?.fullName || "");
   const [phone, setPhone] = useState(initialData?.phone || "");
+  const [city, setCity] = useState("");
+  const [ageRange, setAgeRange] = useState("");
   const [email, setEmail] = useState("");
-  const [transactionId, setTransactionId] = useState("");
-  const [paymentMethod, setPaymentMethod] = useState(paymentMethods[0] || "Bank Transfer");
-  
-  const baseClasses = "workshop-form";
-  const variantClasses = {
-    dark: "theme-dark",
-    light: "theme-light",
-    minimal: "theme-minimal",
-    branded: "theme-branded",
-  };
+  const [eventId, setEventId] = useState("");
+
+  useEffect(() => {
+    captureUtmAttribution();
+    window.fbq?.("track", "ViewContent", { content_name: offerId, content_type: "workshop" });
+  }, [offerId]);
+
+  const whatsappUrl = useMemo(() => {
+    const attribution = getStoredUtmAttribution();
+    const number = process.env.NEXT_PUBLIC_WHATSAPP_NUMBER || "923213823702";
+    const campaign = attribution.utm_campaign || "direct";
+    const message = `Assalamualaikum. I registered for ${offerName}.\nName: ${fullName}\nWhatsApp: ${phone}\nCampaign: ${campaign}\nReference: ${eventId || "pending"}`;
+    return `https://wa.me/${number.replace(/\D/g, "")}?text=${encodeURIComponent(message)}`;
+  }, [eventId, fullName, offerName, phone]);
 
   async function submit(e: React.FormEvent<HTMLFormElement>) {
     e.preventDefault();
     setBusy(true);
     setError("");
 
+    const normalizedPhone = normalizePakistanPhone(phone);
+    if (!normalizedPhone) {
+      setError("Enter a valid Pakistan WhatsApp number, for example +923001234567.");
+      setBusy(false);
+      return;
+    }
+
     try {
-      const formElement = e.currentTarget;
-      const fileInput = formElement.querySelector<HTMLInputElement>('input[type="file"]');
-      const proof = fileInput?.files?.[0];
+      const attribution = getStoredUtmAttribution();
+      const r = await fetch("/api/workshop-lead", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({
+          offerId,
+          fullName,
+          phone: normalizedPhone,
+          city,
+          ageRange,
+          email,
+          consent: true,
+          landingPage: window.location.pathname,
+          ...attribution,
+        }),
+      });
+      const data = (await r.json()) as { ok?: boolean; error?: string; eventId?: string };
+      if (!r.ok) throw new Error(data.error || "Submission failed. Please try again.");
 
-      if (proof) {
-        if (!["image/jpeg", "image/png", "image/webp"].includes(proof.type)) {
-          throw new Error("Invalid screenshot type. Only JPG, PNG, and WebP are allowed.");
-        }
-        if (proof.size > 5_000_000) {
-          throw new Error("Screenshot must be smaller than 5MB.");
-        }
-      }
-
-      const body = new FormData(formElement);
-      body.set("offerId", offerId);
-      body.set("offerName", offerName);
-      body.set("batchDate", workshopDate);
-      body.set("paymentMethod", paymentMethod);
-      body.set("landingPage", window.location.pathname);
-      Object.entries(getStoredUtmAttribution()).forEach(([key, value]) => body.set(key, value));
-
-      const r = await fetch("/api/workshop-registration", { method: "POST", body });
-      const data = await r.json() as { ok?: boolean; error?: string };
-      
-      if (!r.ok) {
-        throw new Error(data.error || "Submission failed. Please try again.");
-      }
-
-      const waText = `Assalamualaikum.
-
-I have submitted my workshop registration.
-
-Name: ${fullName}
-Email: ${email}
-WhatsApp: ${phone}
-Offer: ${offerName}
-Transaction ID: ${transactionId || "Not provided"}
-Status: Payment Pending Verification
-
-Please verify my payment and confirm my seat.`;
-
-      const waUrl = `https://wa.me/923213823702?text=${encodeURIComponent(waText)}`;
-
+      const confirmedEventId = data.eventId || crypto.randomUUID();
+      setPhone(normalizedPhone);
+      setEventId(confirmedEventId);
       setSuccess(true);
+      window.fbq?.("track", "Lead", { content_name: offerId }, { eventID: confirmedEventId });
       onSuccess?.();
-
-      // Automatically redirect to WhatsApp in the current window to avoid popup blockers
-      window.location.href = waUrl;
     } catch (err) {
-      setError(err instanceof Error ? err.message : "An unexpected error occurred. Please try again.");
+      setError(err instanceof Error ? err.message : "Unexpected error. Please try again.");
     } finally {
       setBusy(false);
     }
   }
 
+  const theme = `workshop-form theme-${variant} ${className}`;
   if (success) {
-    const waText = `Assalamualaikum.
-
-I have submitted my workshop registration.
-
-Name: ${fullName}
-Email: ${email}
-WhatsApp: ${phone}
-Offer: ${offerName}
-Transaction ID: ${transactionId || "Not provided"}
-Status: Payment Pending Verification
-
-Please verify my payment and confirm my seat.`;
-
     return (
-      <div className={`success-state ${baseClasses} ${variantClasses[variant]} ${className}`}>
-        <div className="check" style={{ fontSize: "40px", marginBottom: "16px" }}>✅</div>
-        <h2>Registration received!</h2>
+      <div className={`success-state ${theme}`}>
+        <div aria-hidden="true" style={{ fontSize: 40, marginBottom: 16 }}>✅</div>
+        <h2>Registration received</h2>
         <p>{successMessage}</p>
-        <p style={{ marginTop: "16px", marginBottom: "16px", fontSize: "0.9rem", color: "#64748b" }}>
-          Please click the button below to send your confirmation on WhatsApp.
-        </p>
-        <a
-          href={`https://wa.me/923213823702?text=${encodeURIComponent(waText)}`}
-          target="_blank"
-          rel="noreferrer"
-          className="btn full whatsapp-btn"
-          style={{ display: "block", textAlign: "center", textDecoration: "none", background: "#25D366", color: "white", padding: "12px", borderRadius: "8px", fontWeight: "bold" }}
-        >
-          Confirm Payment on WhatsApp →
+        <p style={{ margin: "16px 0", fontSize: ".9rem" }}>Reference: {eventId}</p>
+        <a href={whatsappUrl} target="_blank" rel="noreferrer" className="btn full whatsapp-btn" style={{ display: "block", textAlign: "center", textDecoration: "none", background: "#25D366", color: "white", padding: 14, borderRadius: 8, fontWeight: 700 }}>
+          Continue on WhatsApp →
         </a>
       </div>
     );
   }
 
   return (
-    <form onSubmit={submit} className={`${baseClasses} ${variantClasses[variant]} ${className}`}>
-      {hideContactFields ? (
-        <>
-          <input type="hidden" name="fullName" value={fullName} />
-          <input type="hidden" name="phone" value={phone} />
-        </>
-      ) : (
-        <>
-          <div className="field">
-            <label>Full Name</label>
-            <input name="fullName" required minLength={2} autoComplete="name" value={fullName} onChange={e => setFullName(e.target.value)} />
-          </div>
-          <div className="field">
-            <label>WhatsApp Number</label>
-            <input name="phone" required inputMode="tel" placeholder="+92 3XX XXXXXXX" autoComplete="tel" value={phone} onChange={e => setPhone(e.target.value)} />
-          </div>
-        </>
-      )}
-      
-      <div className="field">
-        <label>Email Address</label>
-        <input name="email" type="email" required autoComplete="email" value={email} onChange={e => setEmail(e.target.value)} />
-      </div>
-
-      {paymentMethods.length > 0 && (
-        <div className="field">
-          <label>Payment Method</label>
-          <select name="paymentMethod" value={paymentMethod} onChange={e => setPaymentMethod(e.target.value)} required>
-            {paymentMethods.map(m => (
-              <option key={m} value={m}>{m}</option>
-            ))}
-          </select>
-        </div>
-      )}
-
-      <div className="field">
-        <label>Transaction ID (Optional)</label>
-        <input name="transactionId" value={transactionId} onChange={e => setTransactionId(e.target.value)} />
-      </div>
-      <div className="field">
-        <label>Payment Screenshot (JPG, PNG or WebP — max 5MB)</label>
-        <input name="paymentProof" type="file" required accept="image/jpeg,image/png,image/webp" capture="environment" />
-      </div>
-      
-      {error && <p className="error" style={{ color: "#ef4444", marginTop: "8px", marginBottom: "16px" }}>{error}</p>}
-      
-      <button type="submit" className="btn full submit-btn" disabled={busy} style={{ width: "100%", padding: "12px", marginTop: "16px" }}>
-        {busy ? "Submitting…" : submitLabel}
-      </button>
+    <form onSubmit={submit} className={theme}>
+      <div className="field"><label htmlFor={`${offerId}-name`}>Full Name</label><input id={`${offerId}-name`} required minLength={2} autoComplete="name" value={fullName} onChange={(e) => setFullName(e.target.value)} /></div>
+      <div className="field"><label htmlFor={`${offerId}-phone`}>WhatsApp Number</label><input id={`${offerId}-phone`} required inputMode="tel" placeholder="+92 3XX XXXXXXX" autoComplete="tel" value={phone} onChange={(e) => setPhone(e.target.value)} /></div>
+      <div className="field"><label htmlFor={`${offerId}-city`}>City</label><input id={`${offerId}-city`} required autoComplete="address-level2" value={city} onChange={(e) => setCity(e.target.value)} /></div>
+      <div className="field"><label htmlFor={`${offerId}-age`}>Age Range</label><select id={`${offerId}-age`} required value={ageRange} onChange={(e) => setAgeRange(e.target.value)}><option value="">Select age range</option>{ageRanges.map((value) => <option key={value}>{value}</option>)}</select></div>
+      <div className="field"><label htmlFor={`${offerId}-email`}>Email Address (optional)</label><input id={`${offerId}-email`} type="email" autoComplete="email" value={email} onChange={(e) => setEmail(e.target.value)} /></div>
+      <label style={{ display: "flex", gap: 10, alignItems: "flex-start", marginTop: 12, fontSize: ".85rem" }}><input type="checkbox" required style={{ marginTop: 3 }} /><span>I agree to receive workshop registration, payment and reminder messages from Abrar Nadir Workshops on WhatsApp. I can opt out at any time.</span></label>
+      <input type="hidden" value={workshopDate} readOnly />
+      {error && <p role="alert" style={{ color: "#ef4444", margin: "12px 0" }}>{error}</p>}
+      <button type="submit" className="btn full submit-btn" disabled={busy} style={{ width: "100%", padding: 14, marginTop: 16 }}>{busy ? "Submitting…" : submitLabel}</button>
+      <p style={{ fontSize: ".75rem", marginTop: 10, opacity: .72 }}>Your details are used for registration, attribution and WhatsApp follow-up.</p>
     </form>
   );
 }

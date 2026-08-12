@@ -3,7 +3,7 @@ import { Clock, CheckCircle, Gift } from 'lucide-react';
 const agendaItems = [
   {
     time: '7:00 PM',
-    title: 'YouTube Creator Economy 2025',
+    title: 'YouTube Creator Economy 2026',
     desc: '$70B+ opportunity — Pakistan mein kaise tap karna hai',
     icon: '🌍',
   },
@@ -16,7 +16,7 @@ const agendaItems = [
   {
     time: '7:40 PM',
     title: 'AI Video Production (LIVE Demo)',
-    desc: 'ChatGPT se script, AI voice, Midjourney se visuals — sab LIVE dikhaunga',
+    desc: 'ChatGPT se images, voice, scripts aur complete videos — mere system mein separate video editor ki zaroorat nahi. Sab LIVE dikhaunga',
     icon: '🤖',
   },
   {

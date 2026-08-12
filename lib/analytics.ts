@@ -23,6 +23,7 @@ export const utmKeys = [
   "utm_campaign",
   "utm_content",
   "utm_term",
+  "fbclid",
 ] as const;
 
 export type UtmKey = (typeof utmKeys)[number];
@@ -35,6 +36,7 @@ const emptyAttribution = (): UtmAttribution => ({
   utm_campaign: "",
   utm_content: "",
   utm_term: "",
+  fbclid: "",
 });
 
 function readStoredAttribution(): UtmAttribution {

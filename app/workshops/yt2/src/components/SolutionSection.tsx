@@ -4,7 +4,7 @@ const features = [
   {
     icon: <Bot className="w-7 h-7" />,
     title: 'AI Se Videos Banao',
-    desc: 'ChatGPT, Midjourney, ElevenLabs — AI tumhara kaam 80% kam kar deta hai',
+    desc: 'ChatGPT se images, voice, scripts aur complete videos banao — mere system ke saath separate video editor ki zaroorat nahi',
     color: 'from-purple-500 to-indigo-600',
   },
   {

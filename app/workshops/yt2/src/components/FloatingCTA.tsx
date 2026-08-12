@@ -26,7 +26,8 @@ export default function FloatingCTA() {
     const message = encodeURIComponent(
       `Assalam o Alaikum! 🙏\nMujhe YouTube AI Workshop ki seat book karni hai! ✅`
     );
-    window.open(`https://wa.me/923001234567?text=${message}`, '_blank');
+    const number = process.env.NEXT_PUBLIC_WHATSAPP_NUMBER || '923213823702';
+    window.open(`https://wa.me/${number.replace(/\D/g, '')}?text=${message}`, '_blank');
   };
 
   return (
