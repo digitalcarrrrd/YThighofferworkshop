@@ -1,3 +1,5 @@
+"use client";
+
 import TopBar from './components/TopBar';
 import HeroSection from './components/HeroSection';
 import PainSection from './components/PainSection';

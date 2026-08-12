@@ -48,9 +48,17 @@ export function useCountdown(): CountdownTime {
     };
   };
 
-  const [timeLeft, setTimeLeft] = useState<CountdownTime>(calculateTimeLeft());
+  // Keep the server and first browser render identical. The live countdown is
+  // populated immediately after hydration to avoid a React mismatch.
+  const [timeLeft, setTimeLeft] = useState<CountdownTime>({
+    hours: 0,
+    minutes: 0,
+    seconds: 0,
+    isExpired: false,
+  });
 
   useEffect(() => {
+    setTimeLeft(calculateTimeLeft());
     const timer = setInterval(() => {
       setTimeLeft(calculateTimeLeft());
     }, 1000);
