@@ -34,7 +34,7 @@ export default function ContentColonyPrebookingPage() {
         <div className={styles.eyebrow}>CONTENT COLONY • JOHAR TOWN, LAHORE</div>
         <div className={styles.offerBadge}>AZADI OFFER • AUGUST-SEPTEMBER</div>
         <h1>Stop collecting information.<br /><span>Start building the machine.</span></h1>
-        <p>A focused co-live and cowork residency for creators who need the environment, systems and accountability to execute-not another folder of lessons.</p>
+        <p>A focused co-live and cowork residency for creators who need the environment, systems and accountability to execute, not another folder of lessons.</p>
         <div className={styles.heroActions}><a className={styles.primary} href="#packages">See residency options</a><a className={styles.secondary} href={applicationFormUrl} target="_blank" rel="noopener noreferrer">Open application form</a></div>
         <div className={styles.proof}><span>Limited pilot allocation</span><span>Johar Town, Lahore</span><span>Application required</span></div>
       </section>
