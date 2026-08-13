@@ -208,14 +208,23 @@
   .payerror{color:#ff9b88;font-size:.82rem;min-height:1.2em;margin:10px 0}
   .paycontinue{width:100%;border:0;border-radius:10px;padding:15px;background:linear-gradient(135deg,var(--gold),var(--gold-deep));color:#1a1400;font:700 1rem 'Archivo';cursor:pointer}
   .paymentDetails{display:none}.paymentDetails.show{display:block}
-  .paymentMethod{background:var(--panel2);border:1px solid var(--line);border-radius:13px;padding:16px;margin-top:12px}
+  .paymentTabs{display:grid;grid-template-columns:repeat(3,1fr);gap:7px;background:#0f1118;border-radius:12px;padding:5px;margin:14px 0 10px}
+  .paymentTab{border:0;border-radius:9px;background:transparent;color:var(--muted);padding:10px 5px;font:700 .78rem 'Archivo';cursor:pointer}
+  .paymentTab.active{background:var(--panel2);color:var(--gold);box-shadow:0 3px 12px rgba(0,0,0,.3)}
+  .paymentMethod{display:none;background:var(--panel2);border:1px solid var(--line);border-radius:13px;padding:16px;margin-top:10px}
+  .paymentMethod.active{display:block}
   .paymentMethod h3{font-family:'Archivo Black';font-size:1rem;color:var(--gold);margin-bottom:8px}
   .paymentLine{display:flex;justify-content:space-between;gap:14px;align-items:center;padding:5px 0;font-size:.88rem}
   .paymentLine span{color:var(--muted)}
   .paymentLine strong{text-align:right;word-break:break-all}
   .copyBtn{margin-top:9px;width:100%;border:1px solid var(--gold);background:transparent;color:var(--gold);border-radius:9px;padding:9px;font-weight:700;cursor:pointer}
+  .verifyFields{display:grid;grid-template-columns:1.35fr .65fr 1fr;gap:9px;margin-top:14px}
+  .verifyFields label{display:block;color:var(--muted);font-size:.7rem;font-weight:700;margin-bottom:5px}
+  .verifyFields input{width:100%;background:#0f1118;border:1px solid var(--line);border-radius:9px;color:var(--text);padding:10px;font:inherit;font-size:.84rem}
+  .verifyFields input:focus{outline:none;border-color:var(--gold)}
+  .whatsappVerify{display:block;width:100%;margin-top:12px;border:0;border-radius:10px;padding:14px;background:#25D366;color:#052b14;font:800 .92rem 'Archivo';cursor:pointer;text-align:center;text-decoration:none}
   .paymentNote{margin-top:16px;color:var(--muted);font-size:.82rem;text-align:center}
-  @media(max-width:560px){.payfields{grid-template-columns:1fr}.paybox{padding:24px 18px}.paymentLine{align-items:flex-start;flex-direction:column;gap:2px}.paymentLine strong{text-align:left}}
+  @media(max-width:560px){.payfields{grid-template-columns:1fr}.paybox{padding:24px 18px}.paymentLine{align-items:flex-start;flex-direction:column;gap:2px}.paymentLine strong{text-align:left}.verifyFields{grid-template-columns:1fr 1fr}.verifyFields>div:first-child{grid-column:1/-1}}
 
   .faq{max-width:820px;margin:0 auto}
   details{border-bottom:1px solid var(--line);padding:18px 0}
@@ -585,27 +594,39 @@
     <div class="paymentDetails" id="paymentDetails">
       <div class="eyebrow">Choose one payment method</div>
       <h2>Community payment details</h2>
-      <p class="intro">Pay using any option below. Keep a screenshot or transaction receipt for verification.</p>
-      <div class="paymentMethod">
+      <p class="intro">Select a method, make payment, then send its screenshot to our verification team.</p>
+      <div class="paymentTabs" role="tablist">
+        <button class="paymentTab active" type="button" data-payment-tab="meezan">Meezan</button>
+        <button class="paymentTab" type="button" data-payment-tab="easypaisa">Easypaisa</button>
+        <button class="paymentTab" type="button" data-payment-tab="binance">Binance</button>
+      </div>
+      <div class="paymentMethod active" data-payment-panel="meezan">
         <h3>Meezan Bank Limited</h3>
         <div class="paymentLine"><span>Account title</span><strong>Muhammad Abrar</strong></div>
         <div class="paymentLine"><span>Account number</span><strong>02370103321036</strong></div>
         <div class="paymentLine"><span>IBAN</span><strong>PK39MEZN0002370103321036</strong></div>
         <button class="copyBtn" type="button" data-copy="PK39MEZN0002370103321036">Copy IBAN</button>
       </div>
-      <div class="paymentMethod">
+      <div class="paymentMethod" data-payment-panel="easypaisa">
         <h3>Easypaisa</h3>
         <div class="paymentLine"><span>Name</span><strong>Muhammad Abrar Ghauri</strong></div>
         <div class="paymentLine"><span>Number</span><strong>03274532186</strong></div>
         <button class="copyBtn" type="button" data-copy="03274532186">Copy Easypaisa number</button>
       </div>
-      <div class="paymentMethod">
+      <div class="paymentMethod" data-payment-panel="binance">
         <h3>Binance</h3>
         <div class="paymentLine"><span>Name</span><strong>abrarnadircb</strong></div>
         <div class="paymentLine"><span>Binance ID</span><strong>117971802</strong></div>
         <button class="copyBtn" type="button" data-copy="117971802">Copy Binance ID</button>
       </div>
-      <p class="paymentNote">Your submitted name and WhatsApp number will be used to match and verify the payment.</p>
+      <div class="verifyFields">
+        <div><label for="payEmail">Email</label><input id="payEmail" type="email" autocomplete="email" placeholder="you@email.com"></div>
+        <div><label for="payAge">Age</label><input id="payAge" type="number" inputmode="numeric" min="13" max="90" placeholder="Age"></div>
+        <div><label for="payCity">City</label><input id="payCity" autocomplete="address-level2" placeholder="Your city"></div>
+      </div>
+      <div class="payerror" id="verifyError" aria-live="polite"></div>
+      <button class="whatsappVerify" id="whatsappVerify" type="button">Send payment screenshot on WhatsApp →</button>
+      <p class="paymentNote">WhatsApp will open with your details already written. Attach your payment screenshot there and send it to our team.</p>
     </div>
   </div>
 </div>
@@ -826,6 +847,32 @@
     await navigator.clipboard.writeText(button.dataset.copy);
     const original=button.textContent;button.textContent='Copied ✓';setTimeout(()=>button.textContent=original,1600);
   }));
+  let selectedPayment='Meezan Bank';
+  const TEAM_WHATSAPP_NUMBER='';
+  const paymentNames={meezan:'Meezan Bank',easypaisa:'Easypaisa',binance:'Binance'};
+  document.querySelectorAll('[data-payment-tab]').forEach(tab=>tab.addEventListener('click',()=>{
+    document.querySelectorAll('[data-payment-tab]').forEach(item=>item.classList.remove('active'));
+    document.querySelectorAll('[data-payment-panel]').forEach(item=>item.classList.remove('active'));
+    tab.classList.add('active');
+    document.querySelector('[data-payment-panel="'+tab.dataset.paymentTab+'"]').classList.add('active');
+    selectedPayment=paymentNames[tab.dataset.paymentTab];
+  }));
+  document.getElementById('whatsappVerify').addEventListener('click',async()=>{
+    const name=document.getElementById('payName').value.trim();
+    const phone=document.getElementById('payPhone').value.trim();
+    const email=document.getElementById('payEmail').value.trim();
+    const age=document.getElementById('payAge').value.trim();
+    const city=document.getElementById('payCity').value.trim();
+    const error=document.getElementById('verifyError');
+    if(!/^\S+@\S+\.\S+$/.test(email)||!age||!city){error.textContent='Please enter a valid email, age and city.';return}
+    if(!TEAM_WHATSAPP_NUMBER){error.textContent='The payment-verification WhatsApp number is being connected. Please try again shortly.';return}
+    error.textContent='';
+    const button=document.getElementById('whatsappVerify');button.disabled=true;button.textContent='Preparing WhatsApp…';
+    try{await sendLead({name,phone,email,age,city,paymentMethod:selectedPayment,leadType:'community-payment',requestedOffer:'YT Empire Builders Community'});}catch(e){console.warn(e);}
+    const message=`Hi YT Empire Builders Team! I have completed my community payment and want verification.\n\nName: ${name}\nWhatsApp: ${phone}\nEmail: ${email}\nAge: ${age}\nCity: ${city}\nPayment method: ${selectedPayment}\nOffer: YT Empire Builders Community\n\nI will attach my payment screenshot below. Please verify my payment and activate my access.`;
+    window.open('https://wa.me/'+TEAM_WHATSAPP_NUMBER+'?text='+encodeURIComponent(message),'_blank');
+    button.disabled=false;button.textContent='Send payment screenshot on WhatsApp →';
+  });
 
   document.getElementById('qsend').addEventListener('click',async()=>{
     const pick=q=>{const g=document.querySelector('.opts[data-q="'+q+'"] .sel');return g?g.textContent.trim():'—';};
