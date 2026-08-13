@@ -20,7 +20,7 @@ export default function YtEmpireBuildersPage() {
       }}
     >
       <iframe
-        src="/yt-empire-builders-v2.html?v=20260814-payment"
+        src="/yt-empire-builders-v2.html?v=20260814-tabs"
         title="YT Empire Builders"
         style={{
           display: "block",
