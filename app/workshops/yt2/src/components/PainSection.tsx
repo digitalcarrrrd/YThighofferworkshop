@@ -4,7 +4,7 @@ const painPoints = [
   {
     icon: <TrendingDown className="w-6 h-6 text-brand-red" />,
     emoji: '📉',
-    title: 'Dollar ₹278+ ho gaya',
+    title: 'Dollar $278+ ho gaya',
     desc: 'Tumhari savings ki value 60% gir gayi hai 3 saal mein. Mehnat wahi, paisa aadha.',
   },
   {
