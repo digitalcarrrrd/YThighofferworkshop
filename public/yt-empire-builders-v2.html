@@ -1,0 +1,762 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>YT Empire Builders — Build a Faceless YouTube Channel That Pays You</title>
+<meta name="description" content="The complete AI system for building faceless YouTube channels. 1,000+ members. PKR 3 crore+ generated. Lifetime access, no batches. Azadi offer — up to 25% off.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Archivo:wght@400;500;600;700&family=Archivo+Black&family=Caveat:wght@600;700&family=Noto+Nastaliq+Urdu:wght@400;700&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --ink:#0D0E13;--panel:#15171F;--panel2:#1C1F2A;--line:#2A2D3A;
+    --gold:#E4B84A;--gold-deep:#C9971F;--ember:#F0502E;--green:#37C871;
+    --text:#F4F2EA;--muted:#9EA0AE;--muted2:#71737F;--maxw:1160px;
+  }
+  *{box-sizing:border-box;margin:0;padding:0}
+  html{scroll-behavior:smooth}
+  body{background:var(--ink);color:var(--text);font-family:'Archivo',sans-serif;line-height:1.6;-webkit-font-smoothing:antialiased;overflow-x:hidden;padding-bottom:80px}
+  h1,h2,h3{font-family:'Archivo Black',sans-serif;font-weight:900;line-height:1.04;letter-spacing:-.01em}
+  .wrap{max-width:var(--maxw);margin:0 auto;padding:0 24px}
+  .eyebrow{font-size:.7rem;letter-spacing:.28em;text-transform:uppercase;color:var(--gold);font-weight:700}
+  .aside{font-family:'Caveat',cursive;font-size:1.5rem;color:var(--gold);line-height:1.3}
+  .btn{display:inline-block;font-weight:700;text-decoration:none;border-radius:10px;padding:16px 30px;font-size:1rem;transition:transform .15s,box-shadow .15s;cursor:pointer;border:none;font-family:'Archivo'}
+  .btn-primary{background:var(--ember);color:#fff;box-shadow:0 10px 30px -10px rgba(240,80,46,.6)}
+  .btn-primary:hover{transform:translateY(-2px)}
+  .btn-gold{background:linear-gradient(135deg,var(--gold),var(--gold-deep));color:#1a1400;box-shadow:0 10px 30px -12px rgba(228,184,74,.5)}
+  .btn-gold:hover{transform:translateY(-2px)}
+  .btn-ghost{background:transparent;color:var(--text);border:1px solid var(--line)}
+  .btn-ghost:hover{border-color:var(--gold);color:var(--gold)}
+  section{padding:66px 0;position:relative}
+  .center{text-align:center}.muted{color:var(--muted)}
+
+  /* AZADI BAR */
+  .azadi{background:linear-gradient(90deg,#0b5c37,#12905a,#0b5c37);color:#fff;text-align:center;padding:10px 16px;font-size:.87rem;font-weight:700}
+  .azadi b{color:#ffe89a}
+
+  /* HOOKS + INTERRUPTS */
+  .hook{text-align:center;padding:30px 24px;max-width:860px;margin:0 auto}
+  .hook p{font-family:'Caveat',cursive;font-size:clamp(1.45rem,3.4vw,1.95rem);color:var(--gold);line-height:1.25}
+  .hook .arw{display:block;margin:8px auto 0;color:var(--ember);font-size:1.3rem;animation:bob 1.8s ease-in-out infinite}
+  @keyframes bob{0%,100%{transform:translateY(0)}50%{transform:translateY(6px)}}
+  .interrupt{background:var(--ember);color:#fff;padding:20px 0;text-align:center}
+  .interrupt p{font-family:'Archivo Black';font-size:clamp(1.05rem,2.6vw,1.5rem);line-height:1.2;max-width:28ch;margin:0 auto}
+  .interrupt.dark{background:#000}.interrupt.dark p{color:var(--gold)}
+
+  nav{position:sticky;top:0;z-index:60;background:rgba(13,14,19,.86);backdrop-filter:blur(12px);border-bottom:1px solid var(--line)}
+  nav .wrap{display:flex;align-items:center;justify-content:space-between;padding:14px 24px}
+  .logo{font-family:'Archivo Black';font-size:1.02rem}.logo b{color:var(--gold)}
+  nav .btn{padding:11px 20px;font-size:.88rem}
+  .navlinks{display:flex;gap:22px;align-items:center}
+  .navlinks a{color:var(--muted);text-decoration:none;font-size:.88rem;font-weight:500}
+  .navlinks a:hover{color:var(--text)}
+  @media(max-width:920px){.navlinks a{display:none}}
+
+  /* HERO */
+  .hero{padding:74px 0 36px;text-align:center;position:relative;overflow:hidden}
+  .hero::before{content:"";position:absolute;inset:0;background:radial-gradient(58% 52% at 50% 0%,rgba(228,184,74,.12),transparent 70%);pointer-events:none}
+  .pill{display:inline-flex;align-items:center;gap:9px;background:rgba(55,200,113,.1);border:1px solid rgba(55,200,113,.3);color:var(--green);padding:8px 16px;border-radius:30px;font-size:.8rem;font-weight:700}
+  .pill .dot{width:8px;height:8px;border-radius:50%;background:var(--green);animation:pulse 2s infinite}
+  @keyframes pulse{0%{box-shadow:0 0 0 0 rgba(55,200,113,.5)}70%{box-shadow:0 0 0 8px rgba(55,200,113,0)}100%{box-shadow:0 0 0 0 rgba(55,200,113,0)}}
+  .hero h1{font-size:clamp(2.5rem,7vw,5.1rem);max-width:15ch;margin:20px auto 0}
+  .hero h1 .g{color:var(--gold)}
+  .hero p.sub{font-size:clamp(1.05rem,2.2vw,1.28rem);color:var(--muted);max-width:58ch;margin:20px auto 0}
+  .hero p.sub b{color:var(--text)}
+  .hero-cta{margin-top:28px;display:flex;gap:14px;justify-content:center;flex-wrap:wrap}
+  /* HERO TIMER */
+  .htimer{margin:26px auto 0;max-width:520px;background:rgba(240,80,46,.08);border:1px solid rgba(240,80,46,.4);border-radius:14px;padding:16px}
+  .htimer .lbl{font-size:.74rem;letter-spacing:.18em;text-transform:uppercase;color:#ffb3a1;font-weight:700}
+  .clock{display:flex;justify-content:center;gap:10px;margin-top:10px}
+  .clock div{background:rgba(0,0,0,.35);border:1px solid rgba(240,80,46,.3);border-radius:10px;padding:8px 12px;min-width:62px}
+  .clock b{display:block;font-family:'Archivo Black';font-size:1.5rem;color:var(--text);line-height:1}
+  .clock span{font-size:.62rem;letter-spacing:.12em;text-transform:uppercase;color:var(--muted2)}
+  .statsbar{margin-top:34px;display:grid;grid-template-columns:repeat(4,1fr);gap:14px;max-width:820px;margin-left:auto;margin-right:auto}
+  @media(max-width:640px){.statsbar{grid-template-columns:1fr 1fr}}
+  .stat{background:var(--panel);border:1px solid var(--line);border-radius:14px;padding:18px 10px}
+  .stat b{display:block;font-family:'Archivo Black';font-size:1.6rem;color:var(--gold);line-height:1}
+  .stat span{font-size:.75rem;color:var(--muted);display:block;margin-top:7px}
+
+  .shead{max-width:64ch;margin:0 auto 38px;text-align:center}
+  .shead h2{font-size:clamp(1.85rem,4.3vw,2.9rem);margin-top:12px}
+  .shead p{color:var(--muted);margin-top:14px;font-size:1.04rem}
+
+  .confus{display:grid;grid-template-columns:1fr 1fr;gap:14px;max-width:900px;margin:0 auto}
+  @media(max-width:700px){.confus{grid-template-columns:1fr}}
+  .cf{background:var(--panel);border:1px solid var(--line);border-radius:14px;padding:20px 22px}
+  .cf .q{font-weight:700;color:var(--text);font-size:.98rem}
+  .cf .q span{color:var(--ember)}
+  .cf .a{color:var(--muted);font-size:.91rem;margin-top:8px}
+  .cf .a b{color:var(--green)}
+
+  .foryou{display:grid;grid-template-columns:repeat(3,1fr);gap:14px}
+  @media(max-width:860px){.foryou{grid-template-columns:1fr 1fr}}
+  @media(max-width:560px){.foryou{grid-template-columns:1fr}}
+  .fy{background:var(--panel);border:1px solid var(--line);border-radius:14px;padding:24px;transition:border-color .15s}
+  .fy:hover{border-color:var(--gold)}
+  .fy .emoji{font-size:1.5rem}
+  .fy h4{font-family:'Archivo Black';font-size:1rem;margin:10px 0 6px}
+  .fy p{color:var(--muted);font-size:.9rem}
+  .fy .feel{font-family:'Caveat';color:var(--gold);font-size:1.18rem;margin-top:8px;line-height:1.2}
+
+  .unlock{background:linear-gradient(180deg,var(--panel2),var(--panel));border-top:1px solid var(--line);border-bottom:1px solid var(--line)}
+  .grid3{display:grid;grid-template-columns:repeat(3,1fr);gap:14px}
+  @media(max-width:900px){.grid3{grid-template-columns:1fr 1fr}}
+  @media(max-width:600px){.grid3{grid-template-columns:1fr}}
+  .vcard{background:var(--panel);border:1px solid var(--line);border-radius:14px;padding:22px;position:relative}
+  .vcard.hot{border-color:rgba(228,184,74,.5)}
+  .vcard .tag{position:absolute;top:14px;right:14px;background:var(--gold);color:#1a1400;font-size:.58rem;font-weight:700;letter-spacing:.1em;padding:3px 8px;border-radius:5px;text-transform:uppercase}
+  .vcard .ic{font-size:1.4rem}
+  .vcard h4{font-family:'Archivo Black';font-size:1.02rem;margin:10px 0 6px}
+  .vcard p{color:var(--muted);font-size:.9rem}
+  .nobatch{margin:28px auto 0;max-width:820px;text-align:center;background:rgba(55,200,113,.07);border:1px solid rgba(55,200,113,.3);border-radius:14px;padding:22px}
+  .nobatch h3{font-size:1.25rem;color:var(--green)}
+  .nobatch p{color:var(--muted);margin-top:8px;font-size:.95rem}
+
+  .spot{display:grid;grid-template-columns:repeat(3,1fr);gap:14px}
+  @media(max-width:860px){.spot{grid-template-columns:1fr 1fr}}
+  @media(max-width:560px){.spot{grid-template-columns:1fr}}
+  .sp{background:var(--panel);border:1px solid var(--line);border-radius:12px;padding:20px}
+  .sp .n{font-family:'Archivo Black';color:var(--gold);font-size:.72rem;letter-spacing:.1em}
+  .sp h4{font-weight:700;font-size:1.02rem;margin:7px 0 5px}
+  .sp p{color:var(--muted);font-size:.87rem}
+  .allmods{margin-top:20px;text-align:center;color:var(--muted);font-size:.9rem}
+
+  .sys{display:grid;grid-template-columns:repeat(2,1fr);gap:16px}
+  @media(max-width:760px){.sys{grid-template-columns:1fr}}
+  .syscard{background:linear-gradient(180deg,var(--panel2),var(--panel));border:1px solid var(--line);border-radius:16px;padding:26px}
+  .syscard .k{font-family:'Archivo Black';color:var(--gold);font-size:.74rem;letter-spacing:.14em;text-transform:uppercase}
+  .syscard h3{font-size:1.25rem;margin:9px 0}
+  .syscard p{color:var(--muted);font-size:.93rem}
+
+  /* ROUTER */
+  .router{max-width:900px;margin:0 auto}
+  .rrow{display:flex;align-items:center;justify-content:space-between;gap:16px;background:var(--panel);border:1px solid var(--line);border-left:3px solid var(--line);border-radius:12px;padding:15px 20px;margin-bottom:9px;text-decoration:none;transition:.15s}
+  .rrow:hover{border-color:var(--gold);border-left-color:var(--gold);transform:translateX(4px)}
+  .rrow .me{font-weight:700;font-size:.96rem;color:var(--text)}
+  .rrow .me small{display:block;font-weight:400;font-size:.79rem;color:var(--muted2);margin-top:2px}
+  .rrow .go{text-align:right;white-space:nowrap}
+  .rrow .go b{display:block;font-family:'Archivo Black';font-size:.88rem;color:var(--gold)}
+  .rrow .go small{font-size:.73rem;color:var(--muted2)}
+
+  /* OFFERS */
+  .ofam{display:grid;grid-template-columns:repeat(auto-fit,minmax(310px,1fr));gap:16px}
+  @media(max-width:600px){.ofam{grid-template-columns:1fr}}
+  .famcard{background:var(--panel);border:1px solid var(--line);border-radius:16px;padding:24px;display:flex;flex-direction:column}
+  .famcard.best{border:1.5px solid var(--gold);background:linear-gradient(180deg,rgba(228,184,74,.06),var(--panel))}
+  .pickfor{display:inline-block;background:rgba(55,200,113,.12);border:1px solid rgba(55,200,113,.35);color:var(--green);font-size:.64rem;font-weight:700;letter-spacing:.08em;text-transform:uppercase;padding:4px 10px;border-radius:20px;margin-bottom:10px;align-self:flex-start}
+  .famcard .fh{display:flex;align-items:center;gap:9px}
+  .famcard .fh .ic{font-size:1.25rem}
+  .famcard h3{font-size:1.1rem}
+  .famcard .for{font-family:'Caveat';color:var(--gold);font-size:1.12rem;margin:2px 0 8px}
+  .famcard .fdesc{font-size:.85rem;color:var(--muted);margin-bottom:6px}
+  .bundle{display:flex;justify-content:space-between;align-items:flex-start;gap:12px;padding:11px 0;border-top:1px solid var(--line)}
+  .bundle .bn{font-size:.89rem;font-weight:600;color:var(--text)}
+  .bundle .bd{font-size:.76rem;color:var(--muted2)}
+  .bundle .bp{font-family:'Archivo Black';font-size:.94rem;color:var(--gold);white-space:nowrap;text-align:right}
+  .bundle .bp small{display:block;font-family:'Archivo';font-weight:400;font-size:.67rem;color:var(--muted2)}
+  .bundle .was{display:block;font-family:'Archivo';font-weight:600;font-size:.71rem;color:var(--muted2);text-decoration:line-through}
+  .famcard .req{font-size:.71rem;color:var(--ember);margin-top:9px;font-weight:600}
+  .famcard .fcta{margin-top:14px}
+  .famcard .fcta a{display:block;text-align:center;padding:12px;border-radius:10px;font-weight:700;font-size:.89rem;text-decoration:none;background:var(--panel2);color:var(--text);border:1px solid var(--line);transition:.15s}
+  .famcard .fcta a:hover{border-color:var(--gold);color:var(--gold)}
+  .famcard.best .fcta a{background:linear-gradient(135deg,var(--gold),var(--gold-deep));color:#1a1400;border:none}
+  .urg{max-width:860px;margin:24px auto 0;text-align:center;background:rgba(240,80,46,.08);border:1px solid rgba(240,80,46,.35);border-radius:12px;padding:15px;color:#ffb3a1;font-weight:600;font-size:.94rem}
+  .urg b{font-family:'Archivo Black';color:var(--ember)}
+
+  .club{background:radial-gradient(70% 120% at 80% 0%,rgba(228,184,74,.12),transparent),linear-gradient(180deg,#12131b,#0b0c11);border-top:1px solid var(--line);border-bottom:1px solid var(--line)}
+  .clubbox{display:grid;grid-template-columns:1.1fr 1fr;gap:34px;align-items:center}
+  @media(max-width:820px){.clubbox{grid-template-columns:1fr}}
+  .clubbox h2{font-size:clamp(1.85rem,4.3vw,2.7rem)}
+  .clubbox p{color:var(--muted);margin-top:14px;font-size:1rem}
+  .clubbox .earn{margin-top:18px;background:rgba(228,184,74,.1);border:1px solid var(--gold);border-radius:12px;padding:15px 18px;font-size:.93rem}
+  .clubbox .earn b{color:var(--gold)}
+  .clubgrid{display:grid;grid-template-columns:1fr 1fr;gap:12px}
+  .cg{background:rgba(255,255,255,.02);border:1px solid var(--line);border-radius:12px;padding:18px}
+  .cg .ic{font-size:1.3rem}.cg h4{font-weight:700;font-size:.95rem;margin:7px 0 3px}
+  .cg p{color:var(--muted);font-size:.83rem;margin:0}
+
+  .quote{background:linear-gradient(180deg,var(--panel2),var(--ink));border-top:1px solid var(--line)}
+  .mentor{max-width:760px;margin:0 auto 22px;text-align:center;background:rgba(228,184,74,.06);border:1px solid rgba(228,184,74,.35);border-radius:14px;padding:20px 24px}
+  .mentor .t{font-family:'Archivo Black';font-size:1.1rem;color:var(--gold)}
+  .mentor p{color:var(--muted);font-size:.93rem;margin-top:7px}
+  .qform{max-width:760px;margin:0 auto;background:var(--panel);border:1px solid var(--line);border-radius:18px;padding:34px}
+  .qrow{margin-bottom:18px}
+  .qrow label{display:block;font-weight:700;font-size:.9rem;margin-bottom:9px}
+  .opts{display:flex;flex-wrap:wrap;gap:9px}
+  .opt{border:1px solid var(--line);background:var(--panel2);border-radius:10px;padding:10px 15px;font-size:.85rem;color:var(--muted);cursor:pointer;transition:.15s;user-select:none}
+  .opt:hover{border-color:var(--gold)}
+  .opt.sel{background:rgba(228,184,74,.14);border-color:var(--gold);color:var(--text);font-weight:600}
+  .qform input,.qform textarea{width:100%;background:var(--panel2);border:1px solid var(--line);border-radius:10px;padding:12px 14px;color:var(--text);font-family:'Archivo';font-size:.94rem;resize:vertical}
+  .qform input:focus,.qform textarea:focus{outline:none;border-color:var(--gold)}
+  .q2{display:grid;grid-template-columns:1fr 1fr;gap:14px}
+  @media(max-width:560px){.q2{grid-template-columns:1fr}}
+  .qsend{width:100%;margin-top:4px;background:var(--green);color:#04210f;font-weight:700;border:none;border-radius:10px;padding:16px;font-size:1rem;font-family:'Archivo';cursor:pointer;transition:.15s}
+  .qsend:hover{transform:translateY(-2px)}
+  .qnote{text-align:center;color:var(--muted2);font-size:.8rem;margin-top:12px}
+
+  .faq{max-width:820px;margin:0 auto}
+  details{border-bottom:1px solid var(--line);padding:18px 0}
+  details.star{background:rgba(228,184,74,.05);border:1px solid rgba(228,184,74,.4);border-radius:12px;padding:18px 20px;margin:12px 0}
+  summary{font-weight:700;font-size:1rem;cursor:pointer;list-style:none;display:flex;justify-content:space-between;gap:18px}
+  summary::-webkit-details-marker{display:none}
+  summary::after{content:"+";color:var(--gold);font-family:'Archivo Black';font-size:1.35rem;line-height:1}
+  details[open] summary::after{content:"–"}
+  details p{color:var(--muted);margin-top:10px;font-size:.93rem}
+
+  .finalcta{background:radial-gradient(60% 80% at 50% 0%,rgba(228,184,74,.1),transparent),var(--panel);border-top:1px solid var(--line);text-align:center}
+  .finalcta h2{font-size:clamp(2rem,5vw,3.3rem);max-width:20ch;margin:14px auto 0}
+  footer{padding:34px 0 20px;border-top:1px solid var(--line);color:var(--muted2);font-size:.83rem;text-align:center}
+
+  .sticky{position:fixed;left:0;right:0;bottom:0;z-index:70;background:rgba(13,14,19,.96);backdrop-filter:blur(12px);border-top:1px solid var(--gold);padding:11px 18px;display:flex;align-items:center;justify-content:center;gap:16px;flex-wrap:wrap;transform:translateY(130%);transition:transform .35s ease}
+  .sticky.show{transform:none}
+  .sticky .txt{font-size:.88rem;font-weight:600}
+  .sticky .txt b{color:var(--gold);font-family:'Archivo Black'}
+  .sticky a{padding:11px 20px;font-size:.88rem;border-radius:9px;font-weight:700;text-decoration:none;background:linear-gradient(135deg,var(--gold),var(--gold-deep));color:#1a1400}
+  @media(max-width:600px){.sticky .txt{font-size:.78rem;width:100%;text-align:center}.sticky{gap:9px;padding:9px 12px}body{padding-bottom:112px}}
+
+  .ofam.single{grid-template-columns:repeat(auto-fit,minmax(320px,1fr));max-width:860px;margin:0 auto}
+  .langbtn{background:transparent;border:1px solid var(--line);color:var(--text);border-radius:9px;padding:9px 15px;font-family:'Archivo';font-weight:700;font-size:.85rem;cursor:pointer;transition:.15s;margin-right:10px}
+  .langbtn:hover{border-color:var(--gold);color:var(--gold)}
+  .navright{display:flex;align-items:center}
+  body.urdu{direction:rtl;font-family:'Noto Nastaliq Urdu','Archivo',sans-serif}
+  body.urdu h1,body.urdu h2,body.urdu h3,body.urdu h4,body.urdu .logo,body.urdu .stat b,body.urdu .clock b{font-family:'Noto Nastaliq Urdu','Archivo Black',sans-serif;line-height:1.7}
+  body.urdu .aside,body.urdu .hook p,body.urdu .fy .feel,body.urdu .famcard .for{font-family:'Noto Nastaliq Urdu',cursive;font-size:1.05rem;line-height:2}
+  body.urdu p,body.urdu li,body.urdu summary,body.urdu label{line-height:2.1}
+  body.urdu .eyebrow{letter-spacing:0}
+  body.urdu .rrow:hover{transform:translateX(-4px)}
+  body.urdu .clock,body.urdu .hero-cta,body.urdu .opts{direction:rtl}
+  .reveal{opacity:0;transform:translateY(18px);transition:opacity .55s,transform .55s}
+  .reveal.in{opacity:1;transform:none}
+  @media(prefers-reduced-motion:reduce){.reveal{opacity:1;transform:none;transition:none}.btn,.pill .dot,.hook .arw{animation:none;transition:none}}
+</style>
+</head>
+<body>
+
+<div class="azadi">☪ &nbsp;<b>AZADI OFFER — UP TO 25% OFF</b> &nbsp;·&nbsp; ends 14 August &nbsp;·&nbsp; <b id="t1">--:--:--</b> left &nbsp;☪</div>
+
+<nav>
+  <div class="wrap">
+    <div class="logo">YT <b>Empire</b> Builders</div>
+    <div class="navlinks">
+      <a href="#doubts">Your doubts</a>
+      <a href="#unlock">What you get</a>
+      <a href="#pick">Find your offer</a>
+      <a href="#offers">Pricing</a>
+      <a href="#faq">FAQ</a>
+    </div>
+    <div class="navright">
+      <button class="langbtn" id="langbtn" type="button">اردو</button>
+      <a href="#pick" class="btn btn-gold" data-ur="اپنا آفر دیکھیں">Find my offer</a>
+    </div>
+  </div>
+</nav>
+
+<header class="hero">
+  <div class="wrap">
+    <div class="pill reveal"><span class="dot"></span> 1,000+ members · PKR 3 crore+ generated</div>
+    <h1 class="reveal">Your face. Your voice. Your degree. <span class="g">None of it is needed.</span></h1>
+    <p class="sub reveal">A faceless YouTube channel earns in dollars while you sleep — no camera, no fluent English, no office. <b>1,000+ Pakistanis are already doing it.</b> This is the exact system they used.</p>
+    <div class="hero-cta reveal">
+      <a href="#pick" class="btn btn-primary">Find my offer in 5 seconds</a>
+      <a href="#quote" class="btn btn-ghost">Get a custom price →</a>
+    </div>
+    <div class="htimer reveal">
+      <div class="lbl">🇵🇰 Azadi discount ends in</div>
+      <div class="clock">
+        <div><b id="d">--</b><span>Days</span></div>
+        <div><b id="h">--</b><span>Hours</span></div>
+        <div><b id="m">--</b><span>Mins</span></div>
+        <div><b id="s">--</b><span>Secs</span></div>
+      </div>
+    </div>
+    <div class="statsbar reveal">
+      <div class="stat"><b>3 Cr+</b><span>PKR earned by members</span></div>
+      <div class="stat"><b>500+</b><span>niches with prompts</span></div>
+      <div class="stat"><b>45</b><span>done-for-you workbooks</span></div>
+      <div class="stat"><b>~45d</b><span>typical time to monetize*</span></div>
+    </div>
+  </div>
+</header>
+
+<div class="interrupt reveal"><p>Read this before you scroll away.</p></div>
+
+<div class="hook reveal"><p>Let me guess the 6 doubts in your head right now…</p><span class="arw">↓</span></div>
+
+<section id="doubts" style="padding-top:10px">
+  <div class="wrap">
+    <div class="shead reveal"><div class="eyebrow">30-second reality check</div><h2>Your 6 doubts — answered</h2></div>
+    <div class="confus">
+      <div class="cf reveal"><div class="q"><span>“</span>Is AI YouTube dead now?</div><div class="a">It's dead for lazy copy-paste — and <b>easier than ever</b> with a real system built on information gain and human observation.</div></div>
+      <div class="cf reveal"><div class="q"><span>“</span>Do I need a degree or fluent English?</div><div class="a">No. Faceless channels need <b>zero camera, zero degree</b>. AI writes, voices and edits — you run the system.</div></div>
+      <div class="cf reveal"><div class="q"><span>“</span>I tried before and failed.</div><div class="a">That's a <b>packaging and niche problem</b>, not you. Share your history and we'll show you exactly what went wrong.</div></div>
+      <div class="cf reveal"><div class="q"><span>“</span>Will my channel get killed?</div><div class="a">A full module covers <b>fingerprinting, sandboxing and IP safety</b> so your channels stay alive.</div></div>
+      <div class="cf reveal"><div class="q"><span>“</span>I don't have the budget.</div><div class="a">Start from <b>PKR 5,000</b> on installments — or get a <b>custom price</b> built around your real situation.</div></div>
+      <div class="cf reveal"><div class="q"><span>“</span>Does YouTube really pay people like me?</div><div class="a">Members have generated <b>3 crore+ PKR</b>. AdSense, payments and daily-pay networks are all covered inside.</div></div>
+    </div>
+  </div>
+</section>
+
+<div class="hook reveal"><p>Doubts gone. But is this really for someone like you?</p><span class="arw">↓</span></div>
+
+<section style="background:var(--panel);padding-top:18px">
+  <div class="wrap">
+    <div class="shead reveal"><div class="eyebrow">Whoever you are</div><h2>Six people. One door.</h2><p>Age, gender, background — none of it matters. A phone and a little daily time is enough.</p></div>
+    <div class="foryou">
+      <div class="fy reveal"><div class="emoji">🎒</div><h4>The teen</h4><p>Stop asking your parents for money. Earn your first income while your friends are still thinking about it.</p><div class="feel">"I pay for my own life."</div></div>
+      <div class="fy reveal"><div class="emoji">🎓</div><h4>The graduate</h4><p>Degree done, no job? This skill works faster than a degree — and there's no interview to wait for.</p><div class="feel">"Skills pay. Papers don't."</div></div>
+      <div class="fy reveal"><div class="emoji">💼</div><h4>The salaried</h4><p>Salary finishes, bills don't. Build a second income that doesn't depend on a boss or a date on the calendar.</p><div class="feel">"Freedom, not permission."</div></div>
+      <div class="fy reveal"><div class="emoji">🏠</div><h4>The homemaker</h4><p>From home, on your own schedule — your own identity and your own earnings.</p><div class="feel">"My work. My money."</div></div>
+      <div class="fy reveal"><div class="emoji">🎥</div><h4>The creator</h4><p>You already make content. Now run it through a system that actually turns views into income.</p><div class="feel">"Same effort. Bigger result."</div></div>
+      <div class="fy reveal"><div class="emoji">🏢</div><h4>The business owner</h4><p>A new asset and a new revenue line — one that keeps running with a small team, or without you.</p><div class="feel">"One more business, less work."</div></div>
+    </div>
+  </div>
+</section>
+
+<div class="interrupt dark reveal"><p>Motivation is free. Systems are not.</p></div>
+
+<div class="hook reveal"><p>Here's the machine that does the heavy lifting 👇</p><span class="arw">↓</span></div>
+
+<section id="unlock" class="unlock" style="padding-top:18px">
+  <div class="wrap">
+    <div class="shead reveal"><div class="eyebrow">One payment. Everything, forever.</div><h2>What you unlock the moment you join</h2><p>No drip. No batches. Everything now — and everything we add later, free.</p></div>
+    <div class="grid3">
+      <div class="vcard hot reveal"><span class="tag">New</span><div class="ic">⚡</div><h4>500+ niches with prompts</h4><p>Pick a niche, grab the prompts, start. No blank page, no guesswork.</p></div>
+      <div class="vcard hot reveal"><span class="tag">Every 15 days</span><div class="ic">📗</div><h4>45 done-for-you workbooks</h4><p>Ready-to-run workbooks — with fresh ones dropped into the community every 15 days, forever.</p></div>
+      <div class="vcard hot reveal"><span class="tag">New</span><div class="ic">🎬</div><h4>Codex + Claude Code skills</h4><p>Turn your package into a finished video with the custom skill. It edits for you.</p></div>
+      <div class="vcard hot reveal"><span class="tag">New</span><div class="ic">📊</div><h4>Channels tracker + monthly audits</h4><p>Track every channel and get monthly audit reports automatically.</p></div>
+      <div class="vcard reveal"><div class="ic">🧬</div><h4>System 2.1 + Content DNA Premium</h4><p>Decode and replicate any niche with quality — the core prompts are included.</p></div>
+      <div class="vcard reveal"><div class="ic">🤖</div><h4>Custom GPTs</h4><p>Bots that write professional scripts on philosophy, health, true crime and more — one click.</p></div>
+      <div class="vcard reveal"><div class="ic">🔐</div><h4>Tools libraries (hidden tools)</h4><p>Insider tools and sites nobody talks about — your quiet unfair advantage.</p></div>
+      <div class="vcard reveal"><div class="ic">📡</div><h4>Weekly live recordings</h4><p>New sessions on automating everything with AI, plus live sessions with Sir Abrar.</p></div>
+      <div class="vcard reveal"><div class="ic">💬</div><h4>Community + priority support</h4><p>LMS and WhatsApp, daily 9am–9pm. Leaderboard members get answered first.</p></div>
+    </div>
+    <div class="nobatch reveal">
+      <h3>No batches. Ever.</h3>
+      <p>You're not joining a cohort that ends. One payment = the full course, all 500+ niches, all 45 workbooks, every future drop and every new skill — for life. Support <b>renews free</b> after 3 months as long as you keep taking action.</p>
+    </div>
+  </div>
+</section>
+
+<div class="hook reveal"><p>Tools without a plan are just noise. This is the plan 👇</p><span class="arw">↓</span></div>
+
+<section style="padding-top:18px">
+  <div class="wrap">
+    <div class="shead reveal"><div class="eyebrow">Under the hood</div><h2>Why this works, repeatably</h2></div>
+    <div class="sys">
+      <div class="syscard reveal"><div class="k">Formula 0–3</div><h3>The 4 Formulas</h3><p>Never start from zero. Transfer proven demand four ways — from time, another market, a new format, or by fusing two niches.</p></div>
+      <div class="syscard reveal"><div class="k">Decode + gain</div><h3>Content DNA Premium + System 2.1</h3><p>Decode a winning channel's format, then add the one new thing that earns distribution. Not clones — upgrades.</p></div>
+      <div class="syscard reveal"><div class="k">Production</div><h3>Workbooks with editing map & beats</h3><p>Every workbook carries the editing map, beat sheet and labeling system, so editing is frame-accurate, not guesswork.</p></div>
+      <div class="syscard reveal"><div class="k">Automation</div><h3>Codex + Claude Code → finished videos</h3><p>Feed the skill your package and generate videos. Audit channels, fix them, renew content on demand.</p></div>
+    </div>
+  </div>
+</section>
+
+<div class="hook reveal"><p>And this is what you'll actually learn 👇</p><span class="arw">↓</span></div>
+
+<section style="background:var(--panel);padding-top:18px">
+  <div class="wrap">
+    <div class="shead reveal"><div class="eyebrow">Inside the course</div><h2>The lessons members obsess over</h2><p>13 modules take you from beginner to operator. These are the ones nobody skips.</p></div>
+    <div class="spot">
+      <div class="sp reveal"><div class="n">MODULE 06</div><h4>Hercules of Prompt Engineering</h4><p>One-click bots for scripts, viral hooks, thumbnails and 3-hour long scripts.</p></div>
+      <div class="sp reveal"><div class="n">MODULE 03</div><h4>Best niche & your data</h4><p>YouTube's hidden feature for finding winning niches — plus CTR, AVD and RPM decoded.</p></div>
+      <div class="sp reveal"><div class="n">NEW MODULE</div><h4>Nobody Kills Your Channel</h4><p>Fingerprinting, sandboxing and IP issues — handled, so your channels stay safe.</p></div>
+      <div class="sp reveal"><div class="n">MODULE 08</div><h4>Copyright-free clipping</h4><p>Turn existing footage into 100% yours, legally — with a $500 graphics pack.</p></div>
+      <div class="sp reveal"><div class="n">MODULE 12</div><h4>Payment hacks</h4><p>Get paid daily instead of waiting 40 days — and access future earnings early.</p></div>
+      <div class="sp reveal"><div class="n">MODULE 10</div><h4>Making money & networks</h4><p>1000+ companies that pay creators, plus networks that pay daily revenue.</p></div>
+    </div>
+    <p class="allmods reveal">…plus niche research, channel setup, algorithm hacks, translating into 100+ languages, pro editing, scaling to multiple channels, and the full resource library.</p>
+  </div>
+</section>
+
+<div class="hook reveal"><p>There's one room members would kill to enter. You can't buy it — you earn it 👇</p><span class="arw">↓</span></div>
+
+<section class="club" style="padding-top:24px">
+  <div class="wrap">
+    <div class="clubbox">
+      <div class="reveal">
+        <div class="eyebrow">Earn your way in</div>
+        <h2>The Inner Club</h2>
+        <p>The closest seat to Sir Abrar. He shares <b style="color:var(--text)">real-time data</b>, builds strategies <em>with</em> you, and tests brand-new ideas — and you see the reports before anyone else.</p>
+        <div class="earn">You don't buy your way in — you <b>earn</b> it. Generate <b>$500</b> from any free or paid session and your seat unlocks.</div>
+      </div>
+      <div class="clubgrid reveal">
+        <div class="cg"><div class="ic">📈</div><h4>Real-time data</h4><p>Live signals straight from Sir Abrar.</p></div>
+        <div class="cg"><div class="ic">♟️</div><h4>Strategy building</h4><p>Strategies built with you, for your channels.</p></div>
+        <div class="cg"><div class="ic">🧪</div><h4>First-look tests</h4><p>New ideas tested — you get the reports first.</p></div>
+        <div class="cg"><div class="ic">🏆</div><h4>Leaderboard priority</h4><p>Top members get answered first, directly.</p></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<div class="hook reveal"><p>Now — which one is actually yours? Don't read all eight. Just find your line 👇</p><span class="arw">↓</span></div>
+
+<!-- DECISION ROUTER -->
+<section id="pick" style="padding-top:18px;padding-bottom:20px">
+  <div class="wrap">
+    <div class="shead reveal" style="margin-bottom:26px"><div class="eyebrow">5-second decision</div><h2>Find yourself. Get your answer.</h2></div>
+    <div class="router">
+      <a class="rrow reveal" href="#offers"><div class="me">"I don't have much money, but I want to learn."<small>Student · beginner · tight budget</small></div><div class="go"><b>Community — from 5,000/mo</b><small>installments →</small></div></a>
+      <a class="rrow reveal" href="#quote"><div class="me">"I have no time for lectures. I just want results."<small>Busy · already has paid AI tools</small></div><div class="go"><b>Done-for-you workbooks</b><small>custom quote →</small></div></a>
+      <a class="rrow reveal" href="#quote"><div class="me">"I have a channel but it's going nowhere."<small>Low views · stuck · tried already</small></div><div class="go"><b>Audit + strategy</b><small>custom quote →</small></div></a>
+      <a class="rrow reveal" href="#quote"><div class="me">"I want a channel live, fast — without guessing."<small>Wants speed and certainty</small></div><div class="go"><b>Launch sprint</b><small>custom quote →</small></div></a>
+      <a class="rrow reveal" href="#quote"><div class="me">"I want my whole production automated."<small>Operator scaling output</small></div><div class="go"><b>Custom workflow</b><small>custom quote →</small></div></a>
+      <a class="rrow reveal" href="#quote"><div class="me">"I have a team. I need it to run without me."<small>Business owner · agency</small></div><div class="go"><b>Team systems</b><small>custom quote →</small></div></a>
+      <a class="rrow reveal" href="#quote"><div class="me">"I just want to test the water first."<small>Curious · low risk</small></div><div class="go"><b>Single workshop</b><small>custom quote →</small></div></a>
+      <a class="rrow reveal" href="#quote"><div class="me">"Honestly, I don't know which one I need."<small>Confused — and that's normal</small></div><div class="go"><b>Custom price</b><small>Abrar decides for you →</small></div></a>
+    </div>
+  </div>
+</section>
+
+<!-- OFFERS -->
+<section id="offers" style="padding-top:26px">
+  <div class="wrap">
+    <div class="shead reveal"><div class="eyebrow">One clear choice</div><h2>Join the community. That's it.</h2><p>Everything lives inside one membership. Azadi discount applies until 14 August.</p></div>
+    <div class="ofam single">
+
+      <div class="famcard best reveal">
+        <div class="pickfor">Everything · lifetime · no batches</div>
+        <div class="fh"><span class="ic">👑</span><h3>Full Community Access (LMS)</h3></div>
+        <div class="for">one payment, the whole empire</div>
+        <div class="fdesc">All 13 modules, 500+ niches with prompts, all 45 workbooks plus new drops every 15 days, the Codex + Claude Code skills, custom GPTs, channels tracker with monthly audits, hidden tools libraries, weekly live recordings, and daily support from 9am to 9pm.</div>
+        <div class="bundle"><div><div class="bn">Installment entry</div><div class="bd">Start today · miss one and access pauses</div></div><div class="bp">5,000<small>per month</small></div></div>
+        <div class="bundle"><div><div class="bn">Pay in full</div><div class="bd">Lifetime access · biggest saving</div></div><div class="bp"><span class="was">40,000</span>30,000</div></div>
+        <div class="bundle"><div><div class="bn">Community + Priority</div><div class="bd">Leaderboard priority and faster support</div></div><div class="bp"><span class="was">50,000</span>37,500</div></div>
+        <div class="fcta"><a href="#quote">Join the community</a></div>
+      </div>
+
+      <div class="famcard reveal">
+        <div class="pickfor">Anything else you need</div>
+        <div class="fh"><span class="ic">🎯</span><h3>Built Around You</h3></div>
+        <div class="for">tell us your situation</div>
+        <div class="fdesc">Need something other than the community? Done-for-you workbooks, a channel audit with strategy, a custom workflow, a launch sprint, or a team setup — we build it around your goal, your tools and your budget. Share your situation and Abrar sends back a personal plan and price.</div>
+        <div class="bundle"><div><div class="bn">Workbooks · Audits · Workflows</div><div class="bd">Launch sprints · team systems · workshops</div></div><div class="bp">Custom<small>reviewed personally</small></div></div>
+        <div class="fcta"><a href="#quote">Get my custom price</a></div>
+      </div>
+
+    <div class="urg reveal">🇵🇰 <b>Azadi offer — up to 25% off</b> on every package · ends 14 August · <b id="t2">--:--:--</b> remaining</div>
+  </div>
+</section>
+
+<div class="hook reveal"><p>Still unsure? Don't guess. Tell me your situation and I'll price it around <em>you</em> 👇</p><span class="arw">↓</span></div>
+
+<!-- CUSTOM PRICE -->
+<section id="quote" class="quote" style="padding-top:18px">
+  <div class="wrap">
+    <div class="shead reveal"><div class="eyebrow">Not a checkout — a conversation</div><h2>Get a custom price, built around your life</h2></div>
+    <div class="mentor reveal">
+      <div class="t">This isn't a fixed sticker price.</div>
+      <p>Tell me your real situation, like you'd tell a mentor. Abrar reviews it personally and sends back a <b style="color:var(--gold)">custom price and plan</b> that fits your budget, your time and where you are in life.</p>
+    </div>
+    <div class="qform reveal">
+      <div class="qrow"><label>1. What's your main goal?</label><div class="opts" data-q="Goal">
+        <div class="opt">Side hustle income</div><div class="opt">Full-time freedom</div><div class="opt">Scale a business</div><div class="opt">Build a 100-channel portfolio</div>
+      </div></div>
+      <div class="qrow"><label>2. Where are you right now?</label><div class="opts" data-q="Stage">
+        <div class="opt">Complete beginner</div><div class="opt">Have a channel</div><div class="opt">Tried before, failed</div><div class="opt">Working creator</div>
+      </div></div>
+      <div class="qrow"><label>3. Your current income situation?</label><div class="opts" data-q="Income">
+        <div class="opt">No income yet</div><div class="opt">Student / pocket money</div><div class="opt">Job — money's tight</div><div class="opt">Job — comfortable</div><div class="opt">Own a business</div>
+      </div></div>
+      <div class="qrow"><label>4. How much pressure are you under?</label><div class="opts" data-q="Pressure">
+        <div class="opt">Need income urgently</div><div class="opt">Stable, want more</div><div class="opt">Building for the future</div>
+      </div></div>
+      <div class="qrow"><label>5. What can you realistically start with today?</label><div class="opts" data-q="Budget">
+        <div class="opt">Under 5k</div><div class="opt">5k–15k</div><div class="opt">15k–40k</div><div class="opt">40k+</div><div class="opt">Not sure yet</div>
+      </div></div>
+      <div class="qrow"><label>6. Your environment right now?</label><div class="opts" data-q="Environment">
+        <div class="opt">Family supports me</div><div class="opt">On my own</div><div class="opt">Juggling job or study</div><div class="opt">I have a small team</div>
+      </div></div>
+      <div class="qrow"><label>7. Time you can give per week?</label><div class="opts" data-q="Time">
+        <div class="opt">A few hours</div><div class="opt">Part-time</div><div class="opt">Full-time</div>
+      </div></div>
+      <div class="qrow"><label>8. Your biggest blocker?</label><div class="opts" data-q="Blocker">
+        <div class="opt">Money</div><div class="opt">Time</div><div class="opt">Confusion</div><div class="opt">Failed before</div><div class="opt">No tools</div>
+      </div></div>
+      <div class="qrow"><label>9. Anything else Abrar should know? (optional)</label>
+        <textarea id="qmsg" rows="3" placeholder="Your story in a line or two — where you are, what you've tried, what you need."></textarea>
+      </div>
+      <div class="qrow q2">
+        <div><label>Your name</label><input id="qname" type="text" placeholder="Full name"></div>
+        <div><label>WhatsApp number</label><input id="qphone" type="tel" placeholder="e.g. 03xx-xxxxxxx"></div>
+      </div>
+      <button class="qsend" id="qsend">Send my situation — get my custom price on WhatsApp →</button>
+      <p class="qnote">Abrar reviews every submission personally. No spam — just a plan and a price made for you.</p>
+    </div>
+  </div>
+</section>
+
+<!-- FAQ -->
+<section id="faq">
+  <div class="wrap">
+    <div class="shead reveal"><div class="eyebrow">Last few questions</div><h2>Everything you're still wondering</h2></div>
+    <div class="faq">
+
+      <details class="star reveal" open><summary>What if I never make money from YouTube?</summary><p>You still walk away with skills that pay. By then you'll know content analysis, content creation and how to genuinely use AI — our modules are designed so execution builds real, marketable ability. You can freelance with those skills, sell them as a service, or use them in any business. And as a community member you keep access to future opportunities with Sir Abrar. YouTube is the training ground; the skill is the asset.</p></details>
+
+      <details class="star reveal"><summary>How is this different from every other Pakistani course?</summary><p>Most local trainers recycle old, traditional methods — the same way the school system keeps teaching things that stopped working years ago. People paid and got nothing new. This community is part of Abrar Nadir's vision to train <b>1.6 million people</b> in AI automation, workflows, real-time skills, content creation and YouTube automation. Everything here is built on live data and updated as the game changes — not a recording from three years ago.</p></details>
+
+      <details class="reveal"><summary>I don't understand Urdu or Hindi. Can I still join?</summary><p>Yes. Take the LMS, make your own notes, and use those notes to train your own AI tools — that's exactly how you'll build and launch channels easily in whatever language you work in. The systems, prompts and workbooks do the heavy lifting.</p></details>
+
+      <details class="reveal"><summary>Do I have to keep paying again and again?</summary><p>No — it's one payment for lifetime access. If you choose installments we'll send reminders, but if you miss even one, access is removed immediately. Pay in full and you never think about it again.</p></details>
+
+      <details class="reveal"><summary>How long until my channel gets monetized?</summary><p>Inside the LMS most students hit monetization in around 45 days or less without issues — but results vary by individual and how consistently you execute.</p></details>
+
+      <details class="reveal"><summary>If I join today, can I pay my bills in two months?</summary><p>This is a long-term business, not a lottery. You have to work daily — we give you the systems so your execution actually turns into results. Treat it like a business and it pays like one.</p></details>
+
+      <details class="reveal"><summary>Can I tour the LMS before buying?</summary><p>No — but you don't have to take our word for it. We have a 99%+ success ratio and hundreds of real results posted publicly on the Abrar Nadir Facebook page. Verify there, then join with confidence.</p></details>
+
+      <details class="reveal"><summary>I can't sit through long lectures.</summary><p>Then don't. Start with execution from day one — take the workbooks and produce immediately. If you want to work on more than 5 channels, confirm pricing first: a 5-niche workbook pack is PKR 15,000.</p></details>
+
+      <details class="reveal"><summary>What's the real benefit of the community?</summary><p>You learn things first — the moment they're proven on data — and get systems built on that data before the public does. You're always a step ahead.</p></details>
+
+      <details class="reveal"><summary>There are already 1,000+ members. Will I fall behind?</summary><p>No. Use the custom-price form: share your history and situation and you'll get a clear, personal starting point — so you start smart, not behind.</p></details>
+
+      <details class="reveal"><summary>What's the difference between workbooks and the LMS?</summary><p>Workbooks are built from Abrar's private systems — done-for-you and ready to run. The LMS teaches you every module yourself. Want day-one execution with your tools ready? Take the workbooks. Want to master it for life? Take the community.</p></details>
+
+      <details class="reveal"><summary>Isn't AI content banned on YouTube now?</summary><p>That's a myth. The inauthentic-content enforcement was one wave and those policies have settled. Real information-gain content with a human layer is exactly what wins now.</p></details>
+
+      <details class="reveal"><summary>What content will I actually make?</summary><p>Whatever niche you want. Our whole goal is to train you to build and grow a channel in any niche yourself — we never bind you to copying one template. You become the operator, not a copycat.</p></details>
+
+      <details class="reveal"><summary>I want partnership or in-person learning.</summary><p>Those opportunities open up once you're an LMS participant inside the community — stay active and they come to you.</p></details>
+
+    </div>
+  </div>
+</section>
+
+<section class="finalcta">
+  <div class="wrap">
+    <div class="eyebrow reveal">14 August — independence isn't just for a country</div>
+    <h2 class="reveal">A year from now, you'll wish you started today.</h2>
+    <div class="aside reveal" style="margin-top:14px">Learn it, or order it done — either way, you win.</div>
+    <div class="hero-cta reveal" style="margin-top:26px">
+      <a href="#pick" class="btn btn-primary">Find my offer</a>
+      <a href="#quote" class="btn btn-gold">Get my custom price</a>
+    </div>
+    <p class="reveal" style="margin-top:20px;color:var(--muted2);font-size:.79rem">*Monetization timelines and results vary by individual and effort. They are not guaranteed.</p>
+  </div>
+</section>
+
+<footer><div class="wrap">YT Empire Builders · by Abrar Nadir — YouTube Systems · Lifetime access · No batches · Installments from PKR 5,000 · 1,000+ members · PKR 3 crore+ generated</div></footer>
+
+<div class="sticky" id="stickybar">
+  <div class="txt">🇵🇰 Azadi offer — up to 25% off · <b id="t3">--:--:--</b> left</div>
+  <a href="#pick">Find my offer</a>
+  <a href="#quote" style="background:var(--green);color:#04210f">Get my price</a>
+</div>
+
+<script>
+
+  /* ================= URDU TRANSLATION ================= */
+  const UR = {
+  "Your doubts":"آپ کے شکوک","What you get":"آپ کو کیا ملے گا","Find your offer":"اپنا آفر ڈھونڈیں","Pricing":"قیمتیں","FAQ":"سوالات",
+  "Find my offer":"اپنا آفر دیکھیں","Find my offer in 5 seconds":"پانچ سیکنڈ میں اپنا آفر دیکھیں","Get a custom price →":"اپنی مرضی کی قیمت لیں ←",
+  "1,000+ members · PKR 3 crore+ generated":"1,000+ ممبرز · 3 کروڑ+ روپے کمائے گئے",
+  "Your face. Your voice. Your degree.":"آپ کا چہرہ۔ آپ کی آواز۔ آپ کی ڈگری۔","None of it is needed.":"کسی چیز کی ضرورت نہیں۔",
+  "1,000+ Pakistanis are already doing it.":"1,000+ پاکستانی یہ پہلے سے کر رہے ہیں۔",
+  "🇵🇰 Azadi discount ends in":"🇵🇰 آزادی ڈسکاؤنٹ ختم ہونے میں",
+  "Days":"دن","Hours":"گھنٹے","Mins":"منٹ","Secs":"سیکنڈ",
+  "PKR earned by members":"روپے ممبرز نے کمائے","niches with prompts":"نِچز پرامپٹس کے ساتھ","done-for-you workbooks":"تیار شدہ ورک بکس","typical time to monetize*":"عام طور پر مونیٹائزیشن کا وقت*",
+  "Read this before you scroll away.":"جانے سے پہلے یہ ضرور پڑھیں۔",
+  "Let me guess the 6 doubts in your head right now…":"مجھے اندازہ ہے، ابھی آپ کے ذہن میں چھ سوال چل رہے ہیں…",
+  "30-second reality check":"تیس سیکنڈ کی حقیقت","Your 6 doubts — answered":"آپ کے چھ شکوک — جواب کے ساتھ",
+  "Is AI YouTube dead now?":"کیا اے آئی یوٹیوب اب ختم ہو گیا؟",
+  "It's dead for lazy copy-paste — and":"یہ صرف سست کاپی پیسٹ کے لیے ختم ہے —","easier than ever":"پہلے سے کہیں زیادہ آسان","with a real system built on information gain and human observation.":"ایک اصل سسٹم کے ساتھ جو نئی معلومات اور انسانی مشاہدے پر بنا ہے۔",
+  "Do I need a degree or fluent English?":"کیا مجھے ڈگری یا اچھی انگریزی چاہیے؟",
+  "No. Faceless channels need":"نہیں۔ فیس لیس چینلز کے لیے چاہیے","zero camera, zero degree":"نہ کیمرہ، نہ ڈگری",". AI writes, voices and edits — you run the system.":"۔ اے آئی لکھتا، بولتا اور ایڈٹ کرتا ہے — آپ سسٹم چلاتے ہیں۔",
+  "I tried before and failed.":"میں پہلے کوشش کر چکا ہوں، ناکام ہوا۔",
+  "That's a":"یہ ہے","packaging and niche problem":"پیکجنگ اور نِچ کا مسئلہ",", not you. Share your history and we'll show you exactly what went wrong.":"، آپ کا نہیں۔ اپنی تفصیل بتائیں، ہم بتائیں گے غلطی کہاں ہوئی۔",
+  "Will my channel get killed?":"کیا میرا چینل بند ہو جائے گا؟",
+  "A full module covers":"ایک پورا ماڈیول اس پر ہے —","fingerprinting, sandboxing and IP safety":"فنگر پرنٹنگ، سینڈ باکسنگ اور آئی پی سیفٹی","so your channels stay alive.":"تاکہ آپ کے چینلز محفوظ رہیں۔",
+  "I don't have the budget.":"میرے پاس بجٹ نہیں ہے۔",
+  "Start from":"شروع کریں صرف","PKR 5,000":"5,000 روپے","on installments — or get a":"سے، آسان اقساط پر — یا لیں","custom price":"اپنی مرضی کی قیمت","built around your real situation.":"جو آپ کے حالات کے مطابق ہو۔",
+  "Does YouTube really pay people like me?":"کیا یوٹیوب واقعی مجھ جیسے لوگوں کو پیسے دیتا ہے؟",
+  "Members have generated":"ممبرز نے کمائے ہیں","3 crore+ PKR":"3 کروڑ+ روپے",". AdSense, payments and daily-pay networks are all covered inside.":"۔ ایڈسینس، پیمنٹس اور روزانہ ادائیگی والے نیٹ ورکس سب اندر شامل ہیں۔",
+  "Doubts gone. But is this really for someone like you?":"شک ختم۔ لیکن کیا یہ واقعی آپ جیسے شخص کے لیے ہے؟",
+  "Whoever you are":"آپ کوئی بھی ہوں","Six people. One door.":"چھ لوگ۔ ایک دروازہ۔","Age, gender, background — none of it matters. A phone and a little daily time is enough.":"عمر، جنس، پس منظر — کسی سے فرق نہیں پڑتا۔ ایک فون اور تھوڑا روزانہ وقت کافی ہے۔",
+  "The teen":"نوجوان","Stop asking your parents for money. Earn your first income while your friends are still thinking about it.":"والدین سے پیسے مانگنا بند۔ اپنی پہلی کمائی کریں، جب دوست ابھی سوچ ہی رہے ہوں۔","\"I pay for my own life.\"":"”اپنا خرچ خود اٹھاتا ہوں۔“",
+  "The graduate":"گریجویٹ","Degree done, no job? This skill works faster than a degree — and there's no interview to wait for.":"ڈگری ہو گئی، نوکری نہیں؟ یہ ہنر ڈگری سے تیز کام کرتا ہے — اور کسی انٹرویو کا انتظار نہیں۔","\"Skills pay. Papers don't.\"":"”ہنر کماتا ہے، کاغذ نہیں۔“",
+  "The salaried":"ملازمت پیشہ","Salary finishes, bills don't. Build a second income that doesn't depend on a boss or a date on the calendar.":"تنخواہ ختم ہو جاتی ہے، بل نہیں۔ ایک دوسری آمدنی بنائیں جو باس یا تاریخ کی محتاج نہ ہو۔","\"Freedom, not permission.\"":"”آزادی، اجازت نہیں۔“",
+  "The homemaker":"گھر سے کام کرنے والی","From home, on your own schedule — your own identity and your own earnings.":"گھر سے، اپنے وقت پر — اپنی پہچان اور اپنی کمائی۔","\"My work. My money.\"":"”میرا کام۔ میرے پیسے۔“",
+  "The creator":"کری ایٹر","You already make content. Now run it through a system that actually turns views into income.":"آپ پہلے سے کانٹینٹ بناتے ہیں۔ اب اسے ایسے سسٹم میں ڈالیں جو ویوز کو آمدنی بنائے۔","\"Same effort. Bigger result.\"":"”محنت وہی، نتیجہ بڑا۔“",
+  "The business owner":"کاروباری شخص","A new asset and a new revenue line — one that keeps running with a small team, or without you.":"ایک نیا اثاثہ اور نئی آمدنی — جو چھوٹی ٹیم کے ساتھ، یا آپ کے بغیر بھی چلتی رہے۔","\"One more business, less work.\"":"”ایک اور کاروبار، کم محنت۔“",
+  "Motivation is free. Systems are not.":"موٹیویشن مفت ہے۔ سسٹم نہیں۔",
+  "Here's the machine that does the heavy lifting 👇":"یہ ہے وہ مشین جو سارا بھاری کام کرتی ہے 👇",
+  "One payment. Everything, forever.":"ایک ادائیگی۔ سب کچھ، ہمیشہ کے لیے۔","What you unlock the moment you join":"جوائن کرتے ہی آپ کو کیا مل جاتا ہے","No drip. No batches. Everything now — and everything we add later, free.":"نہ قسط وار مواد، نہ بیچ سسٹم۔ سب کچھ ابھی — اور آگے جو بھی شامل ہو، مفت۔",
+  "New":"نیا","Every 15 days":"ہر 15 دن بعد",
+  "500+ niches with prompts":"500+ نِچز، پرامپٹس کے ساتھ","Pick a niche, grab the prompts, start. No blank page, no guesswork.":"نِچ چنیں، پرامپٹ لیں، شروع کریں۔ نہ خالی صفحہ، نہ اندازے۔",
+  "45 done-for-you workbooks":"45 تیار شدہ ورک بکس","Ready-to-run workbooks — with fresh ones dropped into the community every 15 days, forever.":"چلانے کے لیے تیار ورک بکس — اور ہر 15 دن بعد نئی، ہمیشہ کے لیے۔",
+  "Codex + Claude Code skills":"کوڈیکس + کلاڈ کوڈ اسکلز","Turn your package into a finished video with the custom skill. It edits for you.":"اپنے پیکج کو کسٹم اسکل سے مکمل ویڈیو بنائیں۔ ایڈیٹنگ یہ خود کرتی ہے۔",
+  "Channels tracker + monthly audits":"چینل ٹریکر + ماہانہ آڈٹ","Track every channel and get monthly audit reports automatically.":"ہر چینل ٹریک کریں اور ماہانہ آڈٹ رپورٹ خودکار حاصل کریں۔",
+  "System 2.1 + Content DNA Premium":"سسٹم 2.1 + کانٹینٹ ڈی این اے پریمیم","Decode and replicate any niche with quality — the core prompts are included.":"کسی بھی نِچ کو ڈی کوڈ اور بہترین انداز میں دہرائیں — بنیادی پرامپٹس شامل ہیں۔",
+  "Custom GPTs":"کسٹم جی پی ٹیز","Bots that write professional scripts on philosophy, health, true crime and more — one click.":"بوٹس جو فلسفہ، صحت، ٹرو کرائم اور مزید پر پروفیشنل اسکرپٹ لکھیں — ایک کلک میں۔",
+  "Tools libraries (hidden tools)":"ٹولز لائبریری (خفیہ ٹولز)","Insider tools and sites nobody talks about — your quiet unfair advantage.":"وہ ٹولز اور سائٹس جن کا کوئی ذکر نہیں کرتا — آپ کی خاموش برتری۔",
+  "Weekly live recordings":"ہفتہ وار لائیو ریکارڈنگز","New sessions on automating everything with AI, plus live sessions with Sir Abrar.":"اے آئی سے ہر چیز آٹومیٹ کرنے پر نئے سیشنز، اور سر ابرار کے ساتھ لائیو سیشنز۔",
+  "Community + priority support":"کمیونٹی + پرائیورٹی سپورٹ","LMS and WhatsApp, daily 9am–9pm. Leaderboard members get answered first.":"ایل ایم ایس اور واٹس ایپ، روزانہ صبح 9 سے رات 9 بجے۔ لیڈر بورڈ ممبرز کو پہلے جواب ملتا ہے۔",
+  "No batches. Ever.":"کوئی بیچ سسٹم نہیں۔ کبھی نہیں۔",
+  "Tools without a plan are just noise. This is the plan 👇":"منصوبے کے بغیر ٹولز صرف شور ہیں۔ یہ ہے منصوبہ 👇",
+  "Under the hood":"اندر کیا ہے","Why this works, repeatably":"یہ بار بار کیوں کام کرتا ہے",
+  "The 4 Formulas":"چار فارمولے","Never start from zero. Transfer proven demand four ways — from time, another market, a new format, or by fusing two niches.":"صفر سے شروع نہ کریں۔ ثابت شدہ ڈیمانڈ چار طریقوں سے منتقل کریں — وقت سے، دوسری مارکیٹ سے، نئے فارمیٹ سے، یا دو نِچز ملا کر۔",
+  "Content DNA Premium + System 2.1":"کانٹینٹ ڈی این اے پریمیم + سسٹم 2.1","Decode a winning channel's format, then add the one new thing that earns distribution. Not clones — upgrades.":"کامیاب چینل کا فارمیٹ ڈی کوڈ کریں، پھر وہ ایک نئی چیز شامل کریں جو ریچ دلائے۔ نقل نہیں — بہتری۔",
+  "Workbooks with editing map & beats":"ایڈیٹنگ میپ اور بیٹس والی ورک بکس","Every workbook carries the editing map, beat sheet and labeling system, so editing is frame-accurate, not guesswork.":"ہر ورک بک میں ایڈیٹنگ میپ، بیٹ شیٹ اور لیبلنگ سسٹم ہوتا ہے، تاکہ ایڈیٹنگ درست ہو، اندازہ نہیں۔",
+  "Codex + Claude Code → finished videos":"کوڈیکس + کلاڈ کوڈ ← مکمل ویڈیوز","Feed the skill your package and generate videos. Audit channels, fix them, renew content on demand.":"اسکل کو اپنا پیکج دیں اور ویڈیوز بنائیں۔ چینلز کا آڈٹ کریں، ٹھیک کریں، کانٹینٹ نیا کریں۔",
+  "And this is what you'll actually learn 👇":"اور آپ اصل میں یہ سیکھیں گے 👇",
+  "Inside the course":"کورس کے اندر","The lessons members obsess over":"وہ اسباق جن پر ممبرز فدا ہیں","13 modules take you from beginner to operator. These are the ones nobody skips.":"13 ماڈیولز آپ کو مبتدی سے آپریٹر بناتے ہیں۔ یہ وہ ہیں جو کوئی نہیں چھوڑتا۔",
+  "Hercules of Prompt Engineering":"پرامپٹ انجینئرنگ کا ہرکولیس","One-click bots for scripts, viral hooks, thumbnails and 3-hour long scripts.":"اسکرپٹ، وائرل ہکس، تھمب نیلز اور تین گھنٹے کے اسکرپٹ کے لیے ایک کلک بوٹس۔",
+  "Best niche & your data":"بہترین نِچ اور آپ کا ڈیٹا","YouTube's hidden feature for finding winning niches — plus CTR, AVD and RPM decoded.":"جیتنے والی نِچ ڈھونڈنے کا یوٹیوب کا خفیہ فیچر — اور سی ٹی آر، اے وی ڈی، آر پی ایم کی وضاحت۔",
+  "NEW MODULE":"نیا ماڈیول","Nobody Kills Your Channel":"کوئی آپ کا چینل بند نہیں کر سکتا","Fingerprinting, sandboxing and IP issues — handled, so your channels stay safe.":"فنگر پرنٹنگ، سینڈ باکسنگ اور آئی پی مسائل — حل، تاکہ چینلز محفوظ رہیں۔",
+  "Copyright-free clipping":"کاپی رائٹ فری کلپنگ","Turn existing footage into 100% yours, legally — with a $500 graphics pack.":"موجود فوٹیج کو قانونی طور پر 100% اپنا بنائیں — 500 ڈالر کے گرافکس پیک کے ساتھ۔",
+  "Payment hacks":"پیمنٹ ہیکس","Get paid daily instead of waiting 40 days — and access future earnings early.":"40 دن انتظار کے بجائے روزانہ ادائیگی لیں — اور آنے والی کمائی پہلے حاصل کریں۔",
+  "Making money & networks":"کمائی اور نیٹ ورکس","1000+ companies that pay creators, plus networks that pay daily revenue.":"1000+ کمپنیاں جو کری ایٹرز کو ادائیگی کرتی ہیں، اور روزانہ ریونیو دینے والے نیٹ ورکس۔",
+  "There's one room members would kill to enter. You can't buy it — you earn it 👇":"ایک کمرہ ایسا ہے جس میں ہر ممبر جانا چاہتا ہے۔ یہ خریدا نہیں جاتا — کمایا جاتا ہے 👇",
+  "Earn your way in":"اپنی جگہ کمائیں","The Inner Club":"اِنر کلب",
+  "Generate":"کمائیں","$500":"500 ڈالر","from any free or paid session and your seat unlocks.":"کسی بھی مفت یا پیڈ سیشن سے، اور آپ کی نشست کھل جاتی ہے۔","You don't buy your way in — you":"آپ اسے خریدتے نہیں — آپ اسے","earn":"کماتے","it.":"ہیں۔",
+  "Real-time data":"ریئل ٹائم ڈیٹا","Live signals straight from Sir Abrar.":"سر ابرار کی طرف سے براہِ راست سگنلز۔",
+  "Strategy building":"حکمتِ عملی کی تیاری","Strategies built with you, for your channels.":"آپ کے ساتھ، آپ کے چینلز کے لیے حکمتِ عملی۔",
+  "First-look tests":"سب سے پہلے ٹیسٹ","New ideas tested — you get the reports first.":"نئے آئیڈیاز ٹیسٹ ہوتے ہیں — رپورٹ آپ کو پہلے ملتی ہے۔",
+  "Leaderboard priority":"لیڈر بورڈ پرائیورٹی","Top members get answered first, directly.":"سرفہرست ممبرز کو براہِ راست پہلے جواب ملتا ہے۔",
+  "Now — which one is actually yours? Don't read all eight. Just find your line 👇":"اب — آپ کے لیے کون سا ہے؟ سب کچھ پڑھنے کی ضرورت نہیں۔ بس اپنی لائن ڈھونڈیں 👇",
+  "5-second decision":"پانچ سیکنڈ کا فیصلہ","Find yourself. Get your answer.":"خود کو پہچانیں۔ جواب حاصل کریں۔",
+  "\"I don't have much money, but I want to learn.\"":"”پیسے کم ہیں، لیکن سیکھنا ہے۔“","Student · beginner · tight budget":"طالبعلم · مبتدی · کم بجٹ","Community — from 5,000/mo":"کمیونٹی — 5,000 ماہانہ سے","installments →":"اقساط ←",
+  "\"I have no time for lectures. I just want results.\"":"”لیکچرز کا وقت نہیں۔ بس نتیجہ چاہیے۔“","Busy · already has paid AI tools":"مصروف · پیڈ اے آئی ٹولز موجود","Done-for-you workbooks":"تیار شدہ ورک بکس","custom quote →":"اپنی قیمت لیں ←",
+  "\"I have a channel but it's going nowhere.\"":"”چینل ہے مگر چل نہیں رہا۔“","Low views · stuck · tried already":"کم ویوز · رکا ہوا · کوشش کر چکے","Audit + strategy":"آڈٹ + حکمتِ عملی",
+  "\"I want a channel live, fast — without guessing.\"":"”چینل جلدی لائیو کرنا ہے، بغیر اندازوں کے۔“","Wants speed and certainty":"رفتار اور یقین چاہیے","Launch sprint":"لانچ سپرنٹ",
+  "\"I want my whole production automated.\"":"”پوری پروڈکشن آٹومیٹ کرنی ہے۔“","Operator scaling output":"آپریٹر جو پیداوار بڑھا رہا ہے","Custom workflow":"کسٹم ورک فلو",
+  "\"I have a team. I need it to run without me.\"":"”ٹیم ہے۔ چاہیے کہ میرے بغیر چلے۔“","Business owner · agency":"کاروباری · ایجنسی","Team systems":"ٹیم سسٹمز",
+  "\"I just want to test the water first.\"":"”پہلے تھوڑا آزما کر دیکھنا ہے۔“","Curious · low risk":"جاننے کے خواہشمند · کم خطرہ","Single workshop":"ایک ورکشاپ",
+  "\"Honestly, I don't know which one I need.\"":"”سچ کہوں تو مجھے پتا نہیں کون سا چاہیے۔“","Confused — and that's normal":"الجھن ہے — اور یہ نارمل ہے","Custom price":"اپنی مرضی کی قیمت","Abrar decides for you →":"ابرار خود فیصلہ کریں گے ←",
+  "One clear choice":"ایک واضح انتخاب","Join the community. That's it.":"کمیونٹی جوائن کریں۔ بس اتنا ہی۔","Everything lives inside one membership. Azadi discount applies until 14 August.":"سب کچھ ایک ہی ممبرشپ میں ہے۔ آزادی ڈسکاؤنٹ 14 اگست تک ہے۔",
+  "Everything · lifetime · no batches":"سب کچھ · تاحیات · بیچ سسٹم نہیں","Full Community Access (LMS)":"مکمل کمیونٹی رسائی (ایل ایم ایس)","one payment, the whole empire":"ایک ادائیگی، پوری سلطنت",
+  "All 13 modules, 500+ niches with prompts, all 45 workbooks plus new drops every 15 days, the Codex + Claude Code skills, custom GPTs, channels tracker with monthly audits, hidden tools libraries, weekly live recordings, and daily support from 9am to 9pm.":"تمام 13 ماڈیولز، 500+ نِچز پرامپٹس کے ساتھ، تمام 45 ورک بکس اور ہر 15 دن بعد نئی، کوڈیکس + کلاڈ کوڈ اسکلز، کسٹم جی پی ٹیز، ماہانہ آڈٹ والا چینل ٹریکر، خفیہ ٹولز لائبریری، ہفتہ وار لائیو ریکارڈنگز، اور روزانہ صبح 9 سے رات 9 بجے تک سپورٹ۔",
+  "Installment entry":"اقساط پر داخلہ","Start today · miss one and access pauses":"آج شروع کریں · ایک قسط رہ گئی تو رسائی رک جائے گی","per month":"ماہانہ",
+  "Pay in full":"یکمشت ادائیگی","Lifetime access · biggest saving":"تاحیات رسائی · سب سے زیادہ بچت",
+  "Community + Priority":"کمیونٹی + پرائیورٹی","Leaderboard priority and faster support":"لیڈر بورڈ پرائیورٹی اور تیز سپورٹ","Join the community":"کمیونٹی جوائن کریں",
+  "Anything else you need":"اس کے علاوہ جو بھی چاہیے","Built Around You":"آپ کے مطابق بنایا گیا","tell us your situation":"اپنی صورتحال بتائیں",
+  "Need something other than the community? Done-for-you workbooks, a channel audit with strategy, a custom workflow, a launch sprint, or a team setup — we build it around your goal, your tools and your budget. Share your situation and Abrar sends back a personal plan and price.":"کمیونٹی کے علاوہ کچھ چاہیے؟ تیار شدہ ورک بکس، حکمتِ عملی کے ساتھ چینل آڈٹ، کسٹم ورک فلو، لانچ سپرنٹ، یا ٹیم سیٹ اپ — ہم اسے آپ کے مقصد، ٹولز اور بجٹ کے مطابق بناتے ہیں۔ اپنی صورتحال بتائیں، ابرار ذاتی پلان اور قیمت بھیجیں گے۔",
+  "Workbooks · Audits · Workflows":"ورک بکس · آڈٹ · ورک فلوز","Launch sprints · team systems · workshops":"لانچ سپرنٹ · ٹیم سسٹم · ورکشاپس","Custom":"اپنی مرضی کی","reviewed personally":"ذاتی طور پر دیکھا جائے گا","Get my custom price":"میری قیمت بتائیں",
+  "Still unsure? Don't guess. Tell me your situation and I'll price it around":"اب بھی الجھن ہے؟ اندازہ نہ لگائیں۔ اپنی صورتحال بتائیں، قیمت آپ کے مطابق بنے گی",
+  "Not a checkout — a conversation":"یہ چیک آؤٹ نہیں — ایک گفتگو ہے","Get a custom price, built around your life":"اپنی زندگی کے مطابق قیمت حاصل کریں","This isn't a fixed sticker price.":"یہ کوئی مقررہ قیمت نہیں ہے۔",
+  "1. What's your main goal?":"1۔ آپ کا بنیادی مقصد کیا ہے؟","Side hustle income":"سائیڈ انکم","Full-time freedom":"مکمل آزادی","Scale a business":"کاروبار بڑھانا","Build a 100-channel portfolio":"100 چینلز کا پورٹ فولیو",
+  "2. Where are you right now?":"2۔ اس وقت آپ کہاں کھڑے ہیں؟","Complete beginner":"بالکل نیا","Have a channel":"چینل موجود ہے","Tried before, failed":"پہلے کوشش کی، ناکام","Working creator":"فعال کری ایٹر",
+  "3. Your current income situation?":"3۔ آپ کی موجودہ آمدنی کیسی ہے؟","No income yet":"ابھی کوئی آمدنی نہیں","Student / pocket money":"طالبعلم / جیب خرچ","Job — money's tight":"نوکری — تنگی ہے","Job — comfortable":"نوکری — آرام سے","Own a business":"اپنا کاروبار",
+  "4. How much pressure are you under?":"4۔ آپ پر کتنا دباؤ ہے؟","Need income urgently":"فوری آمدنی چاہیے","Stable, want more":"حالات ٹھیک، مزید چاہیے","Building for the future":"مستقبل کے لیے بنا رہا ہوں",
+  "5. What can you realistically start with today?":"5۔ آج آپ حقیقت میں کتنے سے شروع کر سکتے ہیں؟","Under 5k":"5 ہزار سے کم","Not sure yet":"ابھی طے نہیں",
+  "6. Your environment right now?":"6۔ آپ کے حالات کیسے ہیں؟","Family supports me":"گھر والوں کا ساتھ ہے","On my own":"اکیلا ہوں","Juggling job or study":"نوکری یا پڑھائی کے ساتھ","I have a small team":"چھوٹی ٹیم ہے",
+  "7. Time you can give per week?":"7۔ ہفتے میں کتنا وقت دے سکتے ہیں؟","A few hours":"چند گھنٹے","Part-time":"پارٹ ٹائم","Full-time":"فل ٹائم",
+  "8. Your biggest blocker?":"8۔ سب سے بڑی رکاوٹ کیا ہے؟","Money":"پیسہ","Time":"وقت","Confusion":"الجھن","Failed before":"پہلے ناکامی","No tools":"ٹولز نہیں",
+  "9. Anything else Abrar should know? (optional)":"9۔ ابرار کو اور کچھ بتانا چاہیں گے؟ (اختیاری)",
+  "Your name":"آپ کا نام","WhatsApp number":"واٹس ایپ نمبر","Full name":"پورا نام",
+  "Send my situation — get my custom price on WhatsApp →":"میری تفصیل بھیجیں — واٹس ایپ پر قیمت حاصل کریں ←",
+  "Abrar reviews every submission personally. No spam — just a plan and a price made for you.":"ابرار ہر تفصیل خود دیکھتے ہیں۔ کوئی اسپام نہیں — صرف آپ کے لیے بنایا گیا پلان اور قیمت۔",
+  "Last few questions":"آخری چند سوالات","Everything you're still wondering":"جو کچھ آپ کے ذہن میں باقی ہے",
+  "What if I never make money from YouTube?":"اگر میرے پیسے یوٹیوب سے نہ بنے تو؟",
+  "How is this different from every other Pakistani course?":"یہ باقی پاکستانی کورسز سے مختلف کیسے ہے؟",
+  "I don't understand Urdu or Hindi. Can I still join?":"مجھے اردو یا ہندی نہیں آتی۔ کیا میں پھر بھی جوائن کر سکتا ہوں؟",
+  "Do I have to keep paying again and again?":"کیا مجھے بار بار ادائیگی کرنی ہوگی؟",
+  "How long until my channel gets monetized?":"میرا چینل کب تک مونیٹائز ہوگا؟",
+  "If I join today, can I pay my bills in two months?":"اگر آج جوائن کروں تو کیا دو ماہ میں بل ادا کر سکوں گا؟",
+  "Can I tour the LMS before buying?":"کیا خریدنے سے پہلے ایل ایم ایس دیکھ سکتا ہوں؟",
+  "I can't sit through long lectures.":"میں لمبے لیکچرز نہیں دیکھ سکتا۔",
+  "What's the real benefit of the community?":"کمیونٹی کا اصل فائدہ کیا ہے؟",
+  "There are already 1,000+ members. Will I fall behind?":"پہلے سے 1,000+ ممبرز ہیں۔ کیا میں پیچھے رہ جاؤں گا؟",
+  "What's the difference between workbooks and the LMS?":"ورک بکس اور ایل ایم ایس میں کیا فرق ہے؟",
+  "Isn't AI content banned on YouTube now?":"کیا یوٹیوب پر اے آئی کانٹینٹ اب بند ہے؟",
+  "What content will I actually make?":"میں اصل میں کیا کانٹینٹ بناؤں گا؟",
+  "I want partnership or in-person learning.":"مجھے پارٹنرشپ یا آمنے سامنے سیکھنا ہے۔",
+  "14 August — independence isn't just for a country":"14 اگست — آزادی صرف ملک کی نہیں ہوتی",
+  "A year from now, you'll wish you started today.":"ایک سال بعد آپ سوچیں گے، کاش آج شروع کر دیتا۔",
+  "Learn it, or order it done — either way, you win.":"خود سیکھیں یا بنوا لیں — فائدہ دونوں طرح آپ کا ہے۔",
+  "Get my custom price":"میری قیمت بتائیں","See offers":"آفرز دیکھیں","Get my price":"قیمت بتائیں"
+  };
+
+  (function(){
+    const btn=document.getElementById('langbtn'); if(!btn) return;
+    const nodes=[];
+    const walker=document.createTreeWalker(document.body,NodeFilter.SHOW_TEXT,{
+      acceptNode(n){
+        const p=n.parentNode;
+        if(!p||['SCRIPT','STYLE','NOSCRIPT'].includes(p.nodeName)) return NodeFilter.FILTER_REJECT;
+        if(p.id==='langbtn') return NodeFilter.FILTER_REJECT;
+        return n.nodeValue.trim()?NodeFilter.FILTER_ACCEPT:NodeFilter.FILTER_REJECT;
+      }
+    });
+    let n; while((n=walker.nextNode())) nodes.push({node:n,en:n.nodeValue});
+    // placeholders + attribute text
+    const attrs=[...document.querySelectorAll('[placeholder]')].map(el=>({el,en:el.getAttribute('placeholder')}));
+    let urdu=false;
+    btn.addEventListener('click',()=>{
+      urdu=!urdu;
+      document.body.classList.toggle('urdu',urdu);
+      btn.textContent=urdu?'English':'اردو';
+      nodes.forEach(o=>{
+        const key=o.en.trim();
+        o.node.nodeValue = (urdu && UR[key]) ? o.en.replace(key,UR[key]) : o.en;
+      });
+      attrs.forEach(o=>o.el.setAttribute('placeholder',(urdu&&UR[o.en.trim()])?UR[o.en.trim()]:o.en));
+    });
+  })();
+
+  // reveal on scroll
+  const io=new IntersectionObserver(es=>{es.forEach(e=>{if(e.isIntersecting){e.target.classList.add('in');io.unobserve(e.target)}})},{threshold:.1});
+  document.querySelectorAll('.reveal').forEach((el,i)=>{el.style.transitionDelay=(Math.min(i%6,5)*35)+'ms';io.observe(el)});
+
+  // AZADI countdown — change this deadline for each campaign
+  (function(){
+    const DEADLINE=new Date('2026-08-14T23:59:59+05:00').getTime();
+    const line=[document.getElementById('t1'),document.getElementById('t2'),document.getElementById('t3')].filter(Boolean);
+    const D=document.getElementById('d'),H=document.getElementById('h'),M=document.getElementById('m'),S=document.getElementById('s');
+    const p=n=>String(n).padStart(2,'0');
+    const tick=()=>{
+      let diff=Math.floor((DEADLINE-Date.now())/1000);
+      if(diff<0)diff=0;
+      const d=Math.floor(diff/86400),h=Math.floor((diff%86400)/3600),m=Math.floor((diff%3600)/60),s=diff%60;
+      if(D){D.textContent=p(d);H.textContent=p(h);M.textContent=p(m);S.textContent=p(s);}
+      const txt=diff===0?'Offer ended':(d>0?d+'d ':'')+p(h)+':'+p(m)+':'+p(s);
+      line.forEach(el=>el.textContent=txt);
+    };
+    tick(); setInterval(tick,1000);
+  })();
+
+  // sticky bar after hero
+  (function(){
+    const bar=document.getElementById('stickybar'); if(!bar) return;
+    const onScroll=()=>{ window.scrollY>700?bar.classList.add('show'):bar.classList.remove('show'); };
+    window.addEventListener('scroll',onScroll,{passive:true}); onScroll();
+  })();
+
+  // form option selection
+  document.querySelectorAll('.opts').forEach(g=>{
+    g.addEventListener('click',e=>{
+      const o=e.target.closest('.opt'); if(!o) return;
+      g.querySelectorAll('.opt').forEach(x=>x.classList.remove('sel'));
+      o.classList.add('sel');
+    });
+  });
+
+  // REPLACE with your WhatsApp number (country code, no + and no spaces). Example: 923001234567
+  const WHATSAPP_NUMBER='';
+  document.getElementById('qsend').addEventListener('click',()=>{
+    const pick=q=>{const g=document.querySelector('.opts[data-q="'+q+'"] .sel');return g?g.textContent.trim():'—';};
+    const v=id=>{const e=document.getElementById(id);return e&&e.value.trim()?e.value.trim():'—';};
+    const msg=
+`Hi Abrar! Please review my situation and send me a custom price and plan.
+
+Name: ${v('qname')}
+WhatsApp: ${v('qphone')}
+
+Goal: ${pick('Goal')}
+Stage: ${pick('Stage')}
+Income situation: ${pick('Income')}
+Pressure: ${pick('Pressure')}
+Can start with: ${pick('Budget')}
+Environment: ${pick('Environment')}
+Time per week: ${pick('Time')}
+Biggest blocker: ${pick('Blocker')}
+
+My note: ${v('qmsg')}`;
+    if(!WHATSAPP_NUMBER){alert('The application form is being connected. Please try again shortly.');return;} window.open('https://wa.me/'+WHATSAPP_NUMBER+'?text='+encodeURIComponent(msg),'_blank');
+  });
+</script>
+</body>
+</html>
