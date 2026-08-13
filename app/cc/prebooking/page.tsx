@@ -1,11 +1,12 @@
 import type { Metadata } from "next";
-import { PrebookingForm } from "./PrebookingForm";
 import styles from "./page.module.css";
 
 export const metadata: Metadata = {
   title: "Content Colony Azadi Prebooking | Abrar Nadir",
   description: "Apply for the Content Colony execution residency in Johar Town, Lahore.",
 };
+
+const applicationFormUrl = "https://docs.google.com/forms/d/e/1FAIpQLSdVDZv2Ql_IyCAatysZ4Z1GGKAiIa4mCbAC43HhvLzrDK353A/viewform?usp=header";
 
 const packages = [
   { name: "10-Day Builder", allocation: "8 seats", price: "PKR 85,000", future: "PKR 110,000", plan: "PKR 68K + 17K", featured: false },
@@ -27,19 +28,19 @@ const facilities = [
 export default function ContentColonyPrebookingPage() {
   return (
     <main className={styles.page}>
-      <nav className={styles.nav}><span className={styles.logo}>CONTENT COLONY</span><a href="#apply">Apply now</a></nav>
+      <nav className={styles.nav}><span className={styles.logo}>CONTENT COLONY</span><a href={applicationFormUrl} target="_blank" rel="noopener noreferrer">Application form</a></nav>
 
       <section className={styles.hero}>
         <div className={styles.eyebrow}>CONTENT COLONY • JOHAR TOWN, LAHORE</div>
-        <div className={styles.offerBadge}>AZADI OFFER • AUGUST–SEPTEMBER</div>
+        <div className={styles.offerBadge}>AZADI OFFER • AUGUST-SEPTEMBER</div>
         <h1>Stop collecting information.<br /><span>Start building the machine.</span></h1>
-        <p>A focused co-live and cowork residency for creators who need the environment, systems and accountability to execute—not another folder of lessons.</p>
-        <div className={styles.heroActions}><a className={styles.primary} href="#packages">See residency options</a><a className={styles.secondary} href="#included">What you receive</a></div>
+        <p>A focused co-live and cowork residency for creators who need the environment, systems and accountability to execute-not another folder of lessons.</p>
+        <div className={styles.heroActions}><a className={styles.primary} href="#packages">See residency options</a><a className={styles.secondary} href={applicationFormUrl} target="_blank" rel="noopener noreferrer">Open application form</a></div>
         <div className={styles.proof}><span>Limited pilot allocation</span><span>Johar Town, Lahore</span><span>Application required</span></div>
       </section>
 
       <section className={styles.priceStory}>
-        <div><span className={styles.kicker}>PREBOOK BEFORE OCTOBER</span><h2>Your early decision protects today’s price.</h2></div>
+        <div><span className={styles.kicker}>PREBOOK BEFORE OCTOBER</span><h2>Your early decision protects today's price.</h2></div>
         <p>Public pricing rises after the Azadi prebooking window. Apply now to be considered at the current pilot rate; payment is requested only after selection.</p>
       </section>
 
@@ -53,7 +54,7 @@ export default function ContentColonyPrebookingPage() {
               <div className={styles.price}>{item.price}</div>
               <div className={styles.future}>October/public price <s>{item.future}</s></div>
               <div className={styles.installment}>Payment plan: {item.plan}</div>
-              <a href="#apply">Apply for this option</a>
+              <a href={applicationFormUrl} target="_blank" rel="noopener noreferrer">Apply for this option</a>
             </article>
           ))}
         </div>
@@ -68,11 +69,6 @@ export default function ContentColonyPrebookingPage() {
       <section className={styles.early}>
         <span>EARLY PARTICIPATION</span><h2>Selected applicants may start before their official residency.</h2>
         <p>You may be invited for coworking, networking, selected workshops, planning and a daily 40-minute Abrar execution session. These early participation days do not reduce your official residency days.</p>
-      </section>
-
-      <section id="apply" className={styles.application}>
-        <div className={styles.applicationCopy}><span>FOUNDING PREBOOKING IS OPEN</span><h2>Apply for your Content Colony seat.</h2><p>This is a qualification form, not an instant checkout. Tell us what you are building and where execution is stuck. Our team will review the application and contact selected applicants directly on WhatsApp.</p><ul><li>Your package preference is not a payment commitment.</li><li>YT Empire Builder members can identify themselves in the form.</li><li>Your information is used only for application review and follow-up.</li></ul></div>
-        <PrebookingForm />
       </section>
 
       <footer className={styles.footer}><span>CONTENT COLONY • ABRAR NADIR</span><span>Johar Town, Lahore</span></footer>
