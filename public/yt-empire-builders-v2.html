@@ -867,11 +867,18 @@
     if(!/^\S+@\S+\.\S+$/.test(email)||!age||!city){error.textContent='Please enter a valid email, age and city.';return}
     if(!TEAM_WHATSAPP_NUMBER){error.textContent='The payment-verification WhatsApp number is being connected. Please try again shortly.';return}
     error.textContent='';
-    const button=document.getElementById('whatsappVerify');button.disabled=true;button.textContent='Preparing WhatsApp…';
-    try{await sendLead({name,phone,email,age,city,paymentMethod:selectedPayment,leadType:'community-payment',requestedOffer:'YT Empire Builders Community'});}catch(e){console.warn(e);}
-    const message=`Hi YT Empire Builders Team! I have completed my community payment and want verification.\n\nName: ${name}\nWhatsApp: ${phone}\nEmail: ${email}\nAge: ${age}\nCity: ${city}\nPayment method: ${selectedPayment}\nOffer: YT Empire Builders Community\n\nI will attach my payment screenshot below. Please verify my payment and activate my access.`;
-    window.open('https://wa.me/'+TEAM_WHATSAPP_NUMBER+'?text='+encodeURIComponent(message),'_blank');
-    button.disabled=false;button.textContent='Send payment screenshot on WhatsApp →';
+    const button=document.getElementById('whatsappVerify');button.disabled=true;button.textContent='Saving your details…';
+    try{
+      await sendLead({name,phone,email,age,city,paymentMethod:selectedPayment,leadType:'community-payment',requestedOffer:'YT Empire Builders Community'});
+      const message=`Hi YT Empire Builders Team! I have completed my community payment and want verification.\n\nName: ${name}\nWhatsApp: ${phone}\nEmail: ${email}\nAge: ${age}\nCity: ${city}\nPayment method: ${selectedPayment}\nOffer: YT Empire Builders Community\n\nI will attach my payment screenshot below. Please verify my payment and activate my access.`;
+      window.open('https://wa.me/'+TEAM_WHATSAPP_NUMBER+'?text='+encodeURIComponent(message),'_blank');
+      button.textContent='Details saved — WhatsApp opened ✓';
+    }catch(e){
+      console.error(e);
+      error.textContent='Your details could not be saved. WhatsApp was not opened. Please try again.';
+      button.disabled=false;
+      button.textContent='Try again — save details first';
+    }
   });
 
   document.getElementById('qsend').addEventListener('click',async()=>{
