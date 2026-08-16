@@ -121,7 +121,7 @@ export default function HomePage() {
 
           <h1 className="reveal">
             I build systems.<br />
-            <span style={{ color: "#F59E0B", WebkitTextStroke: "0px", textShadow: "0 0 40px rgba(245,158,11,0.35)" }}>
+            <span className="hero-crystal-yellow">
               Then I teach them.
             </span>
           </h1>
@@ -152,7 +152,7 @@ export default function HomePage() {
       </header>
 
       {/* =========================================================================
-          KINETIC SINGLE-LINE SCREEN TAKEOVER (WITH YELLOW ACCENT)
+          KINETIC SINGLE-LINE SCREEN TAKEOVER (WITH CRYSTAL YELLOW DROP SHADOW)
           ========================================================================= */}
       <section className="screen-takeover">
         <div className="wrap">
@@ -161,7 +161,7 @@ export default function HomePage() {
           </div>
           <h2 className="reveal">
             Pakistan doesn&apos;t have a skills problem.<br />
-            <mark style={{ color: "#F59E0B", background: "transparent", WebkitTextStroke: "0px", textShadow: "0 0 35px rgba(245,158,11,0.4)" }}>
+            <mark className="takeover-crystal-yellow">
               It has a systems problem.
             </mark>
           </h2>

@@ -31,12 +31,12 @@ class AudioEngine {
 
       this.droneGain = ctx.createGain();
       this.droneGain.gain.setValueAtTime(0.001, ctx.currentTime);
-      // Audible, rich meditative volume
-      this.droneGain.gain.exponentialRampToValueAtTime(0.12, ctx.currentTime + 1.5);
+      // Increased audible, rich spiritual volume
+      this.droneGain.gain.exponentialRampToValueAtTime(0.32, ctx.currentTime + 1.2);
 
       const filter = ctx.createBiquadFilter();
       filter.type = "lowpass";
-      filter.frequency.setValueAtTime(650, ctx.currentTime);
+      filter.frequency.setValueAtTime(850, ctx.currentTime);
 
       // 432Hz Harmonic Solfeggio Scale (Root 432Hz, 216Hz, 108Hz bass, 528Hz Love freq, 648Hz Fifth)
       const frequencies = [108, 216, 432, 528, 648];
@@ -48,7 +48,7 @@ class AudioEngine {
         osc.detune.setValueAtTime((i - 2) * 6, ctx.currentTime);
 
         const oscGain = ctx.createGain();
-        oscGain.gain.setValueAtTime(0.25 / frequencies.length, ctx.currentTime);
+        oscGain.gain.setValueAtTime(0.65 / frequencies.length, ctx.currentTime);
 
         osc.connect(oscGain);
         oscGain.connect(filter);
