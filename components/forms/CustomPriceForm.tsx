@@ -103,7 +103,7 @@ const QUESTIONS: QuestionStep[] = [
 ];
 
 export default function CustomPriceForm() {
-  const [currentStep, setCurrentStep] = useState(0); // 0 to 8: questions, 8 is final contact step
+  const [currentStep, setCurrentStep] = useState(0);
   const [answers, setAnswers] = useState<Record<string, string>>({
     goal: "",
     currentStage: "",
@@ -122,19 +122,18 @@ export default function CustomPriceForm() {
   const [isSuccess, setIsSuccess] = useState(false);
   const [errorMsg, setErrorMsg] = useState("");
 
-  const totalSteps = QUESTIONS.length + 1; // 8 questions + 1 contact step = 9 steps
+  const totalSteps = QUESTIONS.length + 1; // 8 questions + 1 contact step = 9
   const progressPercent = Math.round(((currentStep + 1) / totalSteps) * 100);
 
   const handleSelectOption = (questionId: string, label: string) => {
     audioService.playDuolingoSelect();
     setAnswers((prev) => ({ ...prev, [questionId]: label }));
 
-    // Smooth auto-advance to next question
     setTimeout(() => {
       if (currentStep < totalSteps - 1) {
         setCurrentStep((prev) => prev + 1);
       }
-    }, 280);
+    }, 250);
   };
 
   const handleNext = () => {
@@ -195,74 +194,91 @@ export default function CustomPriceForm() {
   const currentAnswer = activeQuestion ? answers[activeQuestion.id] : null;
 
   return (
-    <div id="custom-price" className="w-full max-w-[680px] mx-auto my-12 px-4 sm:px-0">
-      {/* Header */}
-      <div className="text-center mb-8">
-        <div className="text-[11px] font-mono font-bold tracking-[0.25em] text-[#E5A93C] uppercase mb-3">
+    <div id="custom-price" style={{ width: "100%", maxWidth: "720px", margin: "60px auto 40px", padding: "0 20px" }}>
+      {/* Header Section */}
+      <div style={{ textAlign: "center", marginBottom: "32px" }}>
+        <div style={{ fontSize: "12px", fontFamily: "monospace", fontWeight: 800, letterSpacing: "0.28em", color: "#F59E0B", textTransform: "uppercase", marginBottom: "12px" }}>
           NOT A CHECKOUT — A CONVERSATION
         </div>
-        <h2 className="text-3xl sm:text-5xl font-black text-white tracking-tight leading-[1.05]">
+
+        <h2 style={{ fontSize: "clamp(2.2rem, 5vw, 3.8rem)", fontWeight: 900, color: "#FFFFFF", lineHeight: 1.08, letterSpacing: "-0.02em" }}>
           Get a custom price.<br />
-          <span className="text-[#60A5FA]">built around your life</span>
+          <span style={{ color: "#60A5FA" }}>built around your life</span>
         </h2>
 
-        {/* Mentor Note Box */}
-        <div className="mt-5 p-4 sm:p-5 rounded-xl bg-[#0D0E12] border border-[#2B2D38] text-center max-w-[580px] mx-auto shadow-xl">
-          <div className="text-xs sm:text-sm font-bold text-white mb-1">
+        {/* Highlighted Mentor Note Box */}
+        <div style={{ marginTop: "24px", padding: "20px 24px", borderRadius: "14px", background: "#111116", border: "1px solid #2C2C38", maxWidth: "600px", margin: "24px auto 0", boxShadow: "0 10px 30px rgba(0,0,0,0.5)" }}>
+          <div style={{ fontSize: "14px", fontWeight: 800, color: "#FFFFFF", marginBottom: "6px" }}>
             This isn&apos;t a fixed sticker price.
           </div>
-          <p className="text-xs text-[#A2A4B0] leading-relaxed">
+          <p style={{ fontSize: "13px", color: "#B0B0BC", lineHeight: 1.6, margin: 0 }}>
             Tell me your real situation, like you&apos;d tell a mentor. Abrar reviews it personally and sends back a custom price and plan that fits your budget, your time and where you are in life.
           </p>
         </div>
       </div>
 
-      {/* Duolingo-Style Card Container */}
-      <div className="rounded-2xl bg-[#0C0D11] border border-[#222228] p-6 sm:p-8 shadow-2xl relative overflow-hidden">
-        {/* Top Progress Header */}
-        <div className="mb-6">
-          <div className="flex items-center justify-between text-xs font-mono text-gray-400 mb-2">
+      {/* Main Duolingo Questionnaire Card */}
+      <div style={{ background: "#0D0D12", border: "1px solid #262632", borderRadius: "20px", padding: "32px 28px", boxShadow: "0 20px 50px rgba(0,0,0,0.8)", position: "relative" }}>
+        {/* Top Progress & Navigation Header */}
+        <div style={{ marginBottom: "28px" }}>
+          <div style={{ display: "flex", alignItems: "center", justifyContent: "space-between", fontSize: "13px", fontFamily: "monospace", color: "#9CA3AF", marginBottom: "12px" }}>
             <button
               type="button"
               onClick={handleBack}
               disabled={currentStep === 0}
-              className={`flex items-center gap-1 font-bold transition-all ${
-                currentStep === 0
-                  ? "opacity-20 cursor-not-allowed text-gray-600"
-                  : "text-white hover:text-amber-400 cursor-pointer"
-              }`}
+              style={{
+                display: "inline-flex",
+                alignItems: "center",
+                gap: "6px",
+                fontWeight: 800,
+                background: "transparent",
+                border: "none",
+                color: currentStep === 0 ? "#4B5563" : "#FFFFFF",
+                cursor: currentStep === 0 ? "not-allowed" : "pointer",
+                transition: "color 0.15s ease",
+              }}
             >
               ← Back
             </button>
-            <span className="font-bold text-white">
+
+            <span style={{ fontWeight: 800, color: "#F3F4F6", fontSize: "14px" }}>
               Step {currentStep + 1} of {totalSteps}
             </span>
-            <span className="text-emerald-400 font-bold">{progressPercent}%</span>
+
+            <span style={{ color: "#10B981", fontWeight: 800 }}>{progressPercent}%</span>
           </div>
 
           {/* Animated Progress Bar */}
-          <div className="w-full h-2.5 bg-[#1C1D24] rounded-full overflow-hidden p-0.5">
+          <div style={{ width: "100%", height: "10px", background: "#1F1F2A", borderRadius: "9999px", overflow: "hidden", padding: "2px" }}>
             <div
-              className="h-full bg-gradient-to-r from-emerald-500 via-[#22C55E] to-emerald-400 rounded-full transition-all duration-300 ease-out shadow-[0_0_12px_rgba(34,197,94,0.4)]"
-              style={{ width: `${progressPercent}%` }}
+              style={{
+                width: `${progressPercent}%`,
+                height: "100%",
+                background: "linear-gradient(90deg, #10B981 0%, #22C55E 100%)",
+                borderRadius: "9999px",
+                transition: "width 0.35s cubic-bezier(0.4, 0, 0.2, 1)",
+                boxShadow: "0 0 12px rgba(34, 197, 94, 0.5)",
+              }}
             />
           </div>
         </div>
 
         {/* Step Content: Question Mode */}
         {isQuestionStep && activeQuestion && (
-          <div className="space-y-6 animate-fade-in">
-            <div>
-              <h3 className="text-xl sm:text-2xl font-black text-white leading-tight">
+          <div style={{ display: "flex", flexDirection: "column", gap: "20px" }}>
+            <div style={{ marginBottom: "6px" }}>
+              <h3 style={{ fontSize: "clamp(1.4rem, 3vw, 1.85rem)", fontWeight: 900, color: "#FFFFFF", lineHeight: 1.2, margin: 0 }}>
                 {activeQuestion.title}
               </h3>
               {activeQuestion.subtitle && (
-                <p className="text-xs text-gray-400 mt-1">{activeQuestion.subtitle}</p>
+                <p style={{ fontSize: "13px", color: "#9CA3AF", marginTop: "6px", lineHeight: 1.5, margin: "6px 0 0" }}>
+                  {activeQuestion.subtitle}
+                </p>
               )}
             </div>
 
-            {/* Duolingo-style Tactile 3D Cards Grid */}
-            <div className="grid grid-cols-1 gap-3">
+            {/* Tactile Option Cards */}
+            <div style={{ display: "flex", flexDirection: "column", gap: "12px" }}>
               {activeQuestion.options.map((opt) => {
                 const isSelected = currentAnswer === opt.label;
                 return (
@@ -270,32 +286,55 @@ export default function CustomPriceForm() {
                     key={opt.label}
                     type="button"
                     onClick={() => handleSelectOption(activeQuestion.id, opt.label)}
-                    className={`w-full p-4 rounded-xl text-left flex items-center justify-between transition-all duration-150 transform cursor-pointer border-2 ${
-                      isSelected
-                        ? "bg-white text-black border-white border-b-4 border-b-emerald-500 shadow-[0_0_20px_rgba(255,255,255,0.25)] scale-[1.01]"
-                        : "bg-[#141418] text-white border-[#26262D] border-b-4 border-b-[#1C1C22] hover:border-[#444450] hover:bg-[#1A1A20] active:border-b-2 active:translate-y-0.5"
-                    }`}
+                    style={{
+                      width: "100%",
+                      padding: "16px 20px",
+                      borderRadius: "14px",
+                      textAlign: "left",
+                      display: "flex",
+                      alignItems: "center",
+                      justifyContent: "space-between",
+                      cursor: "pointer",
+                      transition: "all 0.15s ease",
+                      border: isSelected ? "2px solid #FFFFFF" : "2px solid #2E2E3C",
+                      borderBottomWidth: isSelected ? "4px" : "4px",
+                      borderBottomColor: isSelected ? "#22C55E" : "#1E1E28",
+                      background: isSelected ? "#FFFFFF" : "#14141B",
+                      color: isSelected ? "#000000" : "#FFFFFF",
+                      transform: isSelected ? "scale(1.01)" : "none",
+                      boxShadow: isSelected ? "0 10px 25px rgba(255,255,255,0.15)" : "none",
+                    }}
                   >
-                    <div className="flex items-center gap-3.5">
-                      <span className="text-2xl">{opt.icon}</span>
+                    <div style={{ display: "flex", alignItems: "center", gap: "16px" }}>
+                      <span style={{ fontSize: "28px", lineHeight: 1 }}>{opt.icon}</span>
                       <div>
-                        <div className={`font-bold text-sm ${isSelected ? "text-black" : "text-white"}`}>
+                        <div style={{ fontWeight: 800, fontSize: "15px", color: isSelected ? "#000000" : "#FFFFFF" }}>
                           {opt.label}
                         </div>
                         {opt.desc && (
-                          <div className={`text-xs mt-0.5 ${isSelected ? "text-gray-700" : "text-gray-400"}`}>
+                          <div style={{ fontSize: "12px", marginTop: "3px", color: isSelected ? "#4B5563" : "#9CA3AF" }}>
                             {opt.desc}
                           </div>
                         )}
                       </div>
                     </div>
 
+                    {/* Circular Check Indicator */}
                     <div
-                      className={`w-5 h-5 rounded-full border-2 flex items-center justify-center text-xs font-bold ${
-                        isSelected
-                          ? "bg-emerald-500 border-emerald-500 text-white"
-                          : "border-gray-600 bg-transparent"
-                      }`}
+                      style={{
+                        width: "24px",
+                        height: "24px",
+                        borderRadius: "50%",
+                        border: isSelected ? "2px solid #22C55E" : "2px solid #4B5563",
+                        background: isSelected ? "#22C55E" : "transparent",
+                        color: "#FFFFFF",
+                        display: "flex",
+                        alignItems: "center",
+                        justifyContent: "center",
+                        fontSize: "12px",
+                        fontWeight: 900,
+                        flexShrink: 0,
+                      }}
                     >
                       {isSelected ? "✓" : ""}
                     </div>
@@ -304,13 +343,26 @@ export default function CustomPriceForm() {
               })}
             </div>
 
-            {/* Continue Button if answered */}
-            <div className="pt-2 flex justify-end">
+            {/* Continue Button */}
+            <div style={{ paddingTop: "12px", display: "flex", justifyContent: "flex-end" }}>
               <button
                 type="button"
                 onClick={handleNext}
                 disabled={!currentAnswer}
-                className="px-6 py-3 rounded-xl bg-white text-black font-black text-xs uppercase tracking-wider hover:bg-gray-200 transition-all disabled:opacity-30 disabled:cursor-not-allowed cursor-pointer"
+                style={{
+                  padding: "12px 24px",
+                  borderRadius: "12px",
+                  background: "#FFFFFF",
+                  color: "#000000",
+                  fontWeight: 900,
+                  fontSize: "13px",
+                  textTransform: "uppercase",
+                  letterSpacing: "0.06em",
+                  border: "none",
+                  cursor: currentAnswer ? "pointer" : "not-allowed",
+                  opacity: currentAnswer ? 1 : 0.35,
+                  transition: "opacity 0.2s ease, transform 0.15s ease",
+                }}
               >
                 Continue →
               </button>
@@ -318,24 +370,24 @@ export default function CustomPriceForm() {
           </div>
         )}
 
-        {/* Step 9: Final Contact Details & Submission */}
+        {/* Step 9: Final Contact Submission Step */}
         {!isQuestionStep && (
-          <form onSubmit={handleSubmit} className="space-y-6 animate-fade-in">
+          <form onSubmit={handleSubmit} style={{ display: "flex", flexDirection: "column", gap: "20px" }}>
             <div>
-              <div className="text-xs font-mono text-emerald-400 font-bold uppercase tracking-wider mb-1">
+              <div style={{ fontSize: "12px", fontFamily: "monospace", color: "#10B981", fontWeight: 800, textTransform: "uppercase", letterSpacing: "0.15em", marginBottom: "4px" }}>
                 🎉 ALMOST DONE
               </div>
-              <h3 className="text-xl sm:text-2xl font-black text-white">
+              <h3 style={{ fontSize: "clamp(1.4rem, 3vw, 1.85rem)", fontWeight: 900, color: "#FFFFFF", lineHeight: 1.2, margin: 0 }}>
                 Tell Abrar how to send your custom plan
               </h3>
-              <p className="text-xs text-gray-400 mt-1">
+              <p style={{ fontSize: "13px", color: "#9CA3AF", marginTop: "6px", lineHeight: 1.5, margin: "6px 0 0" }}>
                 Every submission is reviewed personally to calculate your custom price.
               </p>
             </div>
 
-            {/* Story Notes */}
-            <div className="space-y-1.5">
-              <label className="block text-xs font-bold text-gray-300">
+            {/* Story Notes Input */}
+            <div style={{ display: "flex", flexDirection: "column", gap: "6px" }}>
+              <label style={{ fontSize: "13px", fontWeight: 700, color: "#E5E7EB" }}>
                 9. Anything else Abrar should know? (Optional)
               </label>
               <textarea
@@ -343,14 +395,25 @@ export default function CustomPriceForm() {
                 value={notes}
                 onChange={(e) => setNotes(e.target.value)}
                 placeholder="Your story in a line or two — where you are, what you've tried, what you need."
-                className="w-full p-3.5 rounded-xl bg-[#121216] border border-[#282830] text-white text-xs placeholder-gray-500 focus:outline-none focus:border-white transition-all resize-y"
+                style={{
+                  width: "100%",
+                  padding: "14px 16px",
+                  borderRadius: "12px",
+                  background: "#14141B",
+                  border: "1px solid #2E2E3C",
+                  color: "#FFFFFF",
+                  fontSize: "13px",
+                  lineHeight: 1.5,
+                  outline: "none",
+                  resize: "vertical",
+                }}
               />
             </div>
 
-            {/* Contact Inputs */}
-            <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
-              <div>
-                <label className="block text-xs font-bold text-gray-300 mb-1.5">
+            {/* Contact Inputs Grid */}
+            <div style={{ display: "grid", gridTemplateColumns: "repeat(auto-fit, minmax(220px, 1fr))", gap: "16px" }}>
+              <div style={{ display: "flex", flexDirection: "column", gap: "6px" }}>
+                <label style={{ fontSize: "13px", fontWeight: 700, color: "#E5E7EB" }}>
                   Your Name *
                 </label>
                 <input
@@ -359,12 +422,21 @@ export default function CustomPriceForm() {
                   placeholder="e.g. Ali Khan"
                   value={fullName}
                   onChange={(e) => setFullName(e.target.value)}
-                  className="w-full px-4 py-3 rounded-xl bg-[#121216] border border-[#282830] text-white text-xs placeholder-gray-500 focus:outline-none focus:border-white transition-all"
+                  style={{
+                    width: "100%",
+                    padding: "14px 16px",
+                    borderRadius: "12px",
+                    background: "#14141B",
+                    border: "1px solid #2E2E3C",
+                    color: "#FFFFFF",
+                    fontSize: "13px",
+                    outline: "none",
+                  }}
                 />
               </div>
 
-              <div>
-                <label className="block text-xs font-bold text-gray-300 mb-1.5">
+              <div style={{ display: "flex", flexDirection: "column", gap: "6px" }}>
+                <label style={{ fontSize: "13px", fontWeight: 700, color: "#E5E7EB" }}>
                   WhatsApp Number *
                 </label>
                 <input
@@ -373,48 +445,70 @@ export default function CustomPriceForm() {
                   placeholder="e.g. 03xx-xxxxxxx"
                   value={whatsapp}
                   onChange={(e) => setWhatsapp(e.target.value)}
-                  className="w-full px-4 py-3 rounded-xl bg-[#121216] border border-[#282830] text-white text-xs placeholder-gray-500 focus:outline-none focus:border-white transition-all"
+                  style={{
+                    width: "100%",
+                    padding: "14px 16px",
+                    borderRadius: "12px",
+                    background: "#14141B",
+                    border: "1px solid #2E2E3C",
+                    color: "#FFFFFF",
+                    fontSize: "13px",
+                    outline: "none",
+                  }}
                 />
               </div>
             </div>
 
             {errorMsg && (
-              <div className="p-3 rounded-lg bg-red-950/50 border border-red-500/40 text-red-300 text-xs text-center font-bold">
+              <div style={{ padding: "12px 16px", borderRadius: "10px", background: "rgba(185, 28, 28, 0.25)", border: "1px solid #EF4444", color: "#FCA5A5", fontSize: "13px", textAlign: "center", fontWeight: 700 }}>
                 {errorMsg}
               </div>
             )}
 
             {isSuccess && (
-              <div className="p-4 rounded-xl bg-emerald-950/50 border border-emerald-500/40 text-emerald-300 text-xs text-center font-semibold space-y-1">
+              <div style={{ padding: "16px 20px", borderRadius: "12px", background: "rgba(16, 185, 129, 0.2)", border: "1px solid #10B981", color: "#6EE7B7", fontSize: "13px", textAlign: "center", fontWeight: 600 }}>
                 <div>✓ Application Received! Opening WhatsApp...</div>
-                <div className="text-[11px] text-gray-300">
-                  If WhatsApp didn&apos;t open automatically,{" "}
+                <div style={{ fontSize: "12px", color: "#D1D5DB", marginTop: "4px" }}>
+                  If WhatsApp didn&apos;t open,{" "}
                   <a
-                    href={`https://wa.me/923274532186?text=Hi%20Abrar,%20I%20have%20submitted%20my%20situation%20for%20a%20custom%20price.%20Name:%20${encodeURIComponent(
-                      fullName
-                    )}`}
+                    href={`https://wa.me/923274532186?text=Hi%20Abrar,%20I%20have%20submitted%20my%20situation%20for%20a%20custom%20price.%20Name:%20${encodeURIComponent(fullName)}`}
                     target="_blank"
                     rel="noopener noreferrer"
-                    className="underline text-emerald-400 font-bold"
+                    style={{ textDecoration: "underline", color: "#34D399", fontWeight: 800 }}
                   >
-                    click here to message Abrar directly
+                    click here to message Abrar
                   </a>.
                 </div>
               </div>
             )}
 
-            {/* Duolingo Chunky 3D Submit Button */}
-            <div>
+            {/* Chunky 3D Submit Button */}
+            <div style={{ paddingTop: "6px" }}>
               <button
                 type="submit"
                 disabled={isSubmitting}
-                className="w-full py-4 rounded-xl bg-[#22C55E] hover:bg-[#1EA750] text-black font-black text-sm tracking-wide border-b-4 border-b-[#15803D] active:border-b-2 active:translate-y-1 shadow-lg shadow-emerald-500/25 transition-all cursor-pointer disabled:opacity-50"
+                style={{
+                  width: "100%",
+                  padding: "18px 24px",
+                  borderRadius: "14px",
+                  background: "#22C55E",
+                  color: "#000000",
+                  fontWeight: 900,
+                  fontSize: "15px",
+                  letterSpacing: "0.02em",
+                  border: "none",
+                  borderBottom: "4px solid #15803D",
+                  cursor: isSubmitting ? "not-allowed" : "pointer",
+                  boxShadow: "0 10px 30px rgba(34, 197, 94, 0.35)",
+                  transition: "all 0.15s ease",
+                  opacity: isSubmitting ? 0.6 : 1,
+                }}
               >
                 {isSubmitting
                   ? "Submitting Your Plan..."
                   : "Send my situation — get my custom price on WhatsApp →"}
               </button>
-              <div className="text-center text-[11px] text-gray-500 mt-3">
+              <div style={{ textAlign: "center", fontSize: "12px", color: "#6B7280", marginTop: "12px" }}>
                 Abrar reviews every submission personally. No spam — just a plan and a price made for you.
               </div>
             </div>

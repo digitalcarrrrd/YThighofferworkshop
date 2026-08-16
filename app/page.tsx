@@ -23,7 +23,6 @@ export default function HomePage() {
   const [clientPhone, setClientPhone] = useState("");
   const [copiedId, setCopiedId] = useState<string | null>(null);
 
-  // Intersection Observer for scroll reveals
   useEffect(() => {
     const observer = new IntersectionObserver(
       (entries) => {
@@ -72,14 +71,14 @@ export default function HomePage() {
   };
 
   return (
-    <div className="min-h-screen bg-black text-white selection:bg-white selection:text-black font-sans">
+    <div className="min-h-screen bg-black text-white selection:bg-amber-400 selection:text-black font-sans">
       {/* =========================================================================
           NAVBAR
           ========================================================================= */}
       <nav>
         <div className="wrap">
           <a href="#" className="logo">
-            ABRAR NADIR
+            ABRAR <span style={{ color: "#F59E0B" }}>NADIR</span>
           </a>
 
           <div className="nlinks">
@@ -89,7 +88,7 @@ export default function HomePage() {
             <a href="#custom-price" onMouseEnter={handleHoverSound}>Custom Plan</a>
           </div>
 
-          <div style={{ display: "flex", alignItems: "center", gap: "10px" }}>
+          <div style={{ display: "flex", alignItems: "center", gap: "12px" }}>
             {/* Spiritual Audio Drone Switcher */}
             <button
               onClick={toggleSound}
@@ -112,7 +111,7 @@ export default function HomePage() {
       </nav>
 
       {/* =========================================================================
-          HERO
+          HERO (WITH YELLOW ACCENT ON 'THEN I TEACH THEM')
           ========================================================================= */}
       <header className="hero">
         <div className="wrap">
@@ -122,7 +121,9 @@ export default function HomePage() {
 
           <h1 className="reveal">
             I build systems.<br />
-            <span>Then I teach them.</span>
+            <span style={{ color: "#F59E0B", WebkitTextStroke: "0px", textShadow: "0 0 40px rgba(245,158,11,0.35)" }}>
+              Then I teach them.
+            </span>
           </h1>
 
           <p className="sub reveal">
@@ -131,19 +132,19 @@ export default function HomePage() {
 
           <div className="heroline reveal">
             <div>
-              <b>15+</b>
+              <b style={{ color: "#F59E0B" }}>15+</b>
               <span>years online</span>
             </div>
             <div>
-              <b>3,000+</b>
+              <b style={{ color: "#FFFFFF" }}>3,000+</b>
               <span>operators trained</span>
             </div>
             <div>
-              <b>3 Cr+</b>
+              <b style={{ color: "#22C55E" }}>3 Cr+</b>
               <span>PKR earned by students</span>
             </div>
             <div>
-              <b>1.6M</b>
+              <b style={{ color: "#F59E0B" }}>1.6M</b>
               <span>the mission</span>
             </div>
           </div>
@@ -151,7 +152,7 @@ export default function HomePage() {
       </header>
 
       {/* =========================================================================
-          KINETIC SINGLE-LINE SCREEN TAKEOVER (FEELS ALIVE ON SCROLL)
+          KINETIC SINGLE-LINE SCREEN TAKEOVER (WITH YELLOW ACCENT)
           ========================================================================= */}
       <section className="screen-takeover">
         <div className="wrap">
@@ -160,9 +161,11 @@ export default function HomePage() {
           </div>
           <h2 className="reveal">
             Pakistan doesn&apos;t have a skills problem.<br />
-            <mark>It has a systems problem.</mark>
+            <mark style={{ color: "#F59E0B", background: "transparent", WebkitTextStroke: "0px", textShadow: "0 0 35px rgba(245,158,11,0.4)" }}>
+              It has a systems problem.
+            </mark>
           </h2>
-          <p className="reveal hand" style={{ marginTop: "20px", fontSize: "1.6rem" }}>
+          <p className="reveal hand" style={{ marginTop: "20px", fontSize: "1.6rem", color: "#FCD34D" }}>
             &ldquo;Not another course seller. A system builder — with receipts.&rdquo;
           </p>
         </div>
@@ -196,7 +199,7 @@ export default function HomePage() {
               <p>
                 Most creators fail because they treat YouTube like art instead of a manufacturing pipeline.
               </p>
-              <div className="pull">
+              <div className="pull" style={{ color: "#FCD34D", borderLeftColor: "#F59E0B" }}>
                 &ldquo;I learned it the expensive way so you don't have to.&rdquo;
               </div>
             </div>
@@ -213,7 +216,7 @@ export default function HomePage() {
               <p>Those notes became formulas. The formulas became a system.</p>
 
               <div className="result">
-                <div className="tag">Student result</div>
+                <div className="tag" style={{ color: "#D97706" }}>Student result</div>
                 <div className="big">11.5K views · 114.9K impressions</div>
                 <p>
                   A masculine-psychology channel breaking out in its first 28 days using the repackaging formula.
@@ -236,7 +239,7 @@ export default function HomePage() {
               </p>
 
               <div className="result">
-                <div className="tag">Student result</div>
+                <div className="tag" style={{ color: "#D97706" }}>Student result</div>
                 <div className="big">Monetized in 45 days</div>
                 <p>
                   From zero to YouTube Partner Program without policy issues, using the launch workbooks and free AI workflows.
@@ -257,7 +260,7 @@ export default function HomePage() {
               <p>
                 I&apos;m building the opposite: real systems, updated on live data, taught to people who actually execute. That is why we built the Academy, founded the Content Colony, and mentor serious operators. The number I&apos;m chasing is 1.6 million.
               </p>
-              <div className="pull">
+              <div className="pull" style={{ color: "#FCD34D", borderLeftColor: "#F59E0B" }}>
                 &ldquo;Not another course seller. A system builder — with receipts.&rdquo;
               </div>
             </div>
@@ -278,7 +281,7 @@ export default function HomePage() {
 
           <div className="rgrid">
             <div className="rc reveal" onMouseEnter={handleHoverSound}>
-              <b>3 Cr+</b>
+              <b style={{ color: "#D97706" }}>3 Cr+</b>
               <div className="lbl">PKR generated across the community</div>
               <div className="nm">All members combined</div>
             </div>
@@ -288,12 +291,12 @@ export default function HomePage() {
               <div className="nm">Results vary by effort</div>
             </div>
             <div className="rc reveal" onMouseEnter={handleHoverSound}>
-              <b>3,000+</b>
+              <b style={{ color: "#D97706" }}>3,000+</b>
               <div className="lbl">Operators inside the community</div>
               <div className="nm">And growing weekly</div>
             </div>
             <div className="rc reveal" onMouseEnter={handleHoverSound}>
-              <b>$2,840/mo</b>
+              <b style={{ color: "#22C55E" }}>$2,840/mo</b>
               <div className="lbl">First month high-RPM yield</div>
               <div className="nm">Zain A. · US Finance Channel</div>
             </div>
@@ -349,7 +352,7 @@ export default function HomePage() {
         {/* Door 01: YT Empire Builders Academy */}
         <a
           className="door reveal"
-          href="/academy/ytempirebuilder"
+          href="https://www.abrarnadir.com/academy/ytempirebuilder"
           onMouseEnter={handleHoverSound}
         >
           <div>
@@ -425,7 +428,7 @@ export default function HomePage() {
       {/* =========================================================================
           DUOLINGO-STYLE INTERACTIVE CUSTOM PRICE QUESTIONNAIRE
           ========================================================================= */}
-      <section className="reveal" style={{ padding: "80px 0 40px" }}>
+      <section className="reveal" style={{ padding: "40px 0 20px" }}>
         <CustomPriceForm />
       </section>
 
@@ -443,14 +446,16 @@ export default function HomePage() {
       </section>
 
       {/* =========================================================================
-          FOOTER WITH SOCIAL LINKS
+          FOOTER (CLEAN INLINE LINKS — TWITTER REMOVED)
           ========================================================================= */}
       <footer>
         <div className="wrap">
           <div className="fgrid">
-            <div className="logo">ABRAR NADIR</div>
+            <div className="logo">
+              ABRAR <span style={{ color: "#F59E0B" }}>NADIR</span>
+            </div>
 
-            <div className="fsoc">
+            <div className="fsoc" style={{ display: "flex", flexWrap: "wrap", gap: "22px", alignItems: "center" }}>
               <a
                 href="https://www.youtube.com/@TutorialsMakerUrduHindi0/"
                 target="_blank"
@@ -458,14 +463,6 @@ export default function HomePage() {
                 onMouseEnter={handleHoverSound}
               >
                 YouTube
-              </a>
-              <a
-                href="https://x.com/strugglingabrar"
-                target="_blank"
-                rel="noopener noreferrer"
-                onMouseEnter={handleHoverSound}
-              >
-                X (Twitter)
               </a>
               <a
                 href="https://www.instagram.com/abrar.h.264"
@@ -515,51 +512,86 @@ export default function HomePage() {
       </footer>
 
       {/* =========================================================================
-          PILLAR 3 / PACKAGE POPUP MODAL (FIXED CLEAN CSS & NON-OVERLAPPING)
+          PILLAR 3 / PACKAGE POPUP MODAL (ROOMY & NON-OVERLAPPING)
           ========================================================================= */}
       {isModalOpen && (
         <div
-          className="fixed inset-0 z-50 bg-black/90 backdrop-blur-md flex items-center justify-center p-4 sm:p-6 overflow-y-auto"
+          style={{
+            position: "fixed",
+            inset: 0,
+            zIndex: 99999,
+            backgroundColor: "rgba(0,0,0,0.88)",
+            backdropFilter: "blur(8px)",
+            display: "flex",
+            alignItems: "center",
+            justifyContent: "center",
+            padding: "20px",
+            overflowY: "auto",
+          }}
           onClick={() => setIsModalOpen(false)}
         >
           <div
             onClick={(e) => e.stopPropagation()}
-            className="w-full max-w-[520px] bg-[#0E0E12] border border-[#2B2B36] rounded-2xl p-6 sm:p-8 shadow-2xl relative text-left my-auto"
+            style={{
+              width: "100%",
+              maxWidth: "520px",
+              backgroundColor: "#0E0E14",
+              border: "1px solid #2E2E3C",
+              borderRadius: "20px",
+              padding: "28px 24px",
+              boxShadow: "0 25px 60px rgba(0,0,0,0.9)",
+              position: "relative",
+              textAlign: "left",
+              margin: "auto",
+            }}
           >
-            {/* Modal Header Row: Title & Close Button separated cleanly */}
-            <div className="flex items-start justify-between gap-4 pb-3 border-b border-[#22222A]">
-              <div className="space-y-1">
-                <div className="text-[10px] font-mono tracking-widest text-[#E5A93C] uppercase font-bold flex items-center gap-1.5">
-                  <span>⚡</span>
-                  <span>EXECUTIVE ADVISORY PORTAL</span>
+            {/* Modal Header Row: Clean flex separation */}
+            <div style={{ display: "flex", alignItems: "flex-start", justifyContent: "space-between", gap: "16px", paddingBottom: "16px", borderBottom: "1px solid #22222E" }}>
+              <div>
+                <div style={{ fontSize: "11px", fontFamily: "monospace", letterSpacing: "0.2em", color: "#F59E0B", textTransform: "uppercase", fontWeight: 800 }}>
+                  ⚡ EXECUTIVE ADVISORY PORTAL
                 </div>
-                <h3 className="text-lg sm:text-xl font-black text-white leading-snug">
+                <h3 style={{ fontSize: "19px", fontWeight: 900, color: "#FFFFFF", marginTop: "4px", lineHeight: 1.25 }}>
                   {selectedPlan.title}
                 </h3>
               </div>
 
-              {/* Clean Distinct Close Button */}
+              {/* Close Button */}
               <button
                 type="button"
                 onClick={() => setIsModalOpen(false)}
-                className="w-8 h-8 rounded-full bg-[#1A1A22] hover:bg-white hover:text-black border border-[#33333E] text-gray-300 flex items-center justify-center text-sm font-bold transition-all cursor-pointer flex-shrink-0"
+                style={{
+                  width: "34px",
+                  height: "34px",
+                  borderRadius: "50%",
+                  backgroundColor: "#1C1C26",
+                  border: "1px solid #383848",
+                  color: "#D1D5DB",
+                  display: "flex",
+                  alignItems: "center",
+                  justifyContent: "center",
+                  fontSize: "14px",
+                  fontWeight: 800,
+                  cursor: "pointer",
+                  flexShrink: 0,
+                }}
               >
                 ✕
               </button>
             </div>
 
             {/* Price Badge */}
-            <div className="pt-3 pb-1 flex items-center justify-between">
-              <span className="text-xs text-gray-400 font-medium">{selectedPlan.subtitle}</span>
-              <span className="text-xs font-mono font-bold text-[#60A5FA] bg-[#60A5FA]/10 px-2.5 py-1 rounded-md border border-[#60A5FA]/20">
+            <div style={{ padding: "12px 0 16px", display: "flex", alignItems: "center", justifyContent: "space-between", flexWrap: "wrap", gap: "8px" }}>
+              <span style={{ fontSize: "13px", color: "#9CA3AF" }}>{selectedPlan.subtitle}</span>
+              <span style={{ fontSize: "13px", fontFamily: "monospace", fontWeight: 800, color: "#60A5FA", background: "rgba(96,165,250,0.12)", padding: "4px 10px", borderRadius: "6px", border: "1px solid rgba(96,165,250,0.25)" }}>
                 {selectedPlan.pricePkr} ({selectedPlan.priceUsd})
               </span>
             </div>
 
-            {/* Inputs */}
-            <div className="space-y-4 pt-2">
+            {/* Form Fields */}
+            <div style={{ display: "flex", flexDirection: "column", gap: "14px" }}>
               <div>
-                <label className="block text-xs font-bold text-gray-300 mb-1.5">
+                <label style={{ display: "block", fontSize: "12px", fontWeight: 700, color: "#E5E7EB", marginBottom: "6px" }}>
                   Your Full Name
                 </label>
                 <input
@@ -568,12 +600,21 @@ export default function HomePage() {
                   placeholder="e.g. Ali Khan"
                   value={clientName}
                   onChange={(e) => setClientName(e.target.value)}
-                  className="w-full px-4 py-3 rounded-xl bg-[#14141A] border border-[#282834] text-white placeholder-gray-500 text-xs focus:outline-none focus:border-white transition-all"
+                  style={{
+                    width: "100%",
+                    padding: "12px 14px",
+                    borderRadius: "10px",
+                    backgroundColor: "#14141C",
+                    border: "1px solid #2A2A38",
+                    color: "#FFFFFF",
+                    fontSize: "13px",
+                    outline: "none",
+                  }}
                 />
               </div>
 
               <div>
-                <label className="block text-xs font-bold text-gray-300 mb-1.5">
+                <label style={{ display: "block", fontSize: "12px", fontWeight: 700, color: "#E5E7EB", marginBottom: "6px" }}>
                   WhatsApp Number
                 </label>
                 <input
@@ -582,30 +623,48 @@ export default function HomePage() {
                   placeholder="+92 300 1234567"
                   value={clientPhone}
                   onChange={(e) => setClientPhone(e.target.value)}
-                  className="w-full px-4 py-3 rounded-xl bg-[#14141A] border border-[#282834] text-white placeholder-gray-500 text-xs focus:outline-none focus:border-white transition-all"
+                  style={{
+                    width: "100%",
+                    padding: "12px 14px",
+                    borderRadius: "10px",
+                    backgroundColor: "#14141C",
+                    border: "1px solid #2A2A38",
+                    color: "#FFFFFF",
+                    fontSize: "13px",
+                    outline: "none",
+                  }}
                 />
               </div>
 
               {/* Instant Copy Bank Gateways */}
-              <div className="p-3.5 rounded-xl bg-[#09090C] border border-[#22222A] space-y-2.5">
-                <div className="text-amber-400 font-bold uppercase tracking-wider text-[10px] font-mono">
+              <div style={{ padding: "14px", borderRadius: "12px", backgroundColor: "#08080C", border: "1px solid #20202A", display: "flex", flexDirection: "column", gap: "10px" }}>
+                <div style={{ color: "#F59E0B", fontWeight: 800, textTransform: "uppercase", fontSize: "11px", letterSpacing: "0.08em", fontFamily: "monospace" }}>
                   Direct Bank Accounts (Click to Copy)
                 </div>
 
                 {/* Easypaisa / JazzCash */}
                 <div
                   onClick={() => handleCopy("03274532186", "easy")}
-                  className="p-3 rounded-lg bg-[#14141A] border border-[#262632] hover:border-amber-400 flex items-center justify-between cursor-pointer transition-all"
+                  style={{
+                    padding: "10px 12px",
+                    borderRadius: "8px",
+                    backgroundColor: "#14141C",
+                    border: "1px solid #282836",
+                    display: "flex",
+                    alignItems: "center",
+                    justifyContent: "space-between",
+                    cursor: "pointer",
+                  }}
                 >
                   <div>
-                    <div className="text-gray-400 text-[10px]">
+                    <div style={{ color: "#9CA3AF", fontSize: "11px" }}>
                       Easypaisa / JazzCash (Muhammad Abrar)
                     </div>
-                    <div className="font-mono font-bold text-white text-sm">
+                    <div style={{ fontFamily: "monospace", fontWeight: 800, color: "#FFFFFF", fontSize: "14px" }}>
                       03274532186
                     </div>
                   </div>
-                  <span className="text-xs font-bold text-amber-400">
+                  <span style={{ fontSize: "12px", fontWeight: 800, color: "#F59E0B" }}>
                     {copiedId === "easy" ? "✓ Copied!" : "📋 Copy"}
                   </span>
                 </div>
@@ -613,23 +672,32 @@ export default function HomePage() {
                 {/* Meezan Bank */}
                 <div
                   onClick={() => handleCopy("02370103321036", "meezan")}
-                  className="p-3 rounded-lg bg-[#14141A] border border-[#262632] hover:border-amber-400 flex items-center justify-between cursor-pointer transition-all"
+                  style={{
+                    padding: "10px 12px",
+                    borderRadius: "8px",
+                    backgroundColor: "#14141C",
+                    border: "1px solid #282836",
+                    display: "flex",
+                    alignItems: "center",
+                    justifyContent: "space-between",
+                    cursor: "pointer",
+                  }}
                 >
                   <div>
-                    <div className="text-gray-400 text-[10px]">
+                    <div style={{ color: "#9CA3AF", fontSize: "11px" }}>
                       Meezan Bank Ltd (Muhammad Abrar)
                     </div>
-                    <div className="font-mono font-bold text-white text-sm">
+                    <div style={{ fontFamily: "monospace", fontWeight: 800, color: "#FFFFFF", fontSize: "14px" }}>
                       02370103321036
                     </div>
                   </div>
-                  <span className="text-xs font-bold text-amber-400">
+                  <span style={{ fontSize: "12px", fontWeight: 800, color: "#F59E0B" }}>
                     {copiedId === "meezan" ? "✓ Copied!" : "📋 Copy"}
                   </span>
                 </div>
               </div>
 
-              {/* Submit to WhatsApp */}
+              {/* Submit to WhatsApp Button */}
               <a
                 href={`https://wa.me/923274532186?text=Hi%20Abrar,%20I%20want%20to%20book%20${encodeURIComponent(
                   selectedPlan.title
@@ -638,7 +706,22 @@ export default function HomePage() {
                 )}`}
                 target="_blank"
                 rel="noopener noreferrer"
-                className="block w-full text-center py-3.5 rounded-xl bg-[#22C55E] hover:bg-[#1EA750] text-black font-black text-xs tracking-wide border-b-4 border-b-[#15803D] active:border-b-2 active:translate-y-1 shadow-lg shadow-emerald-500/25 transition-all cursor-pointer"
+                style={{
+                  display: "block",
+                  width: "100%",
+                  textAlign: "center",
+                  padding: "15px",
+                  borderRadius: "12px",
+                  backgroundColor: "#22C55E",
+                  color: "#000000",
+                  fontWeight: 900,
+                  fontSize: "14px",
+                  letterSpacing: "0.02em",
+                  borderBottom: "4px solid #15803D",
+                  boxShadow: "0 10px 25px rgba(34, 197, 94, 0.35)",
+                  cursor: "pointer",
+                  textDecoration: "none",
+                }}
               >
                 Send Details & Screenshot on WhatsApp 💬
               </a>
