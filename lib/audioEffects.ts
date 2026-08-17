@@ -23,32 +23,48 @@ class AudioEngine {
     return this.ctx;
   }
 
-  // 432Hz Healing Spiritual Meditative Ambient Sound Engine
+  // 432Hz Healing Spiritual Meditative Ambient Sound Engine (Full Rich Volume)
   public startSpiritualDrone() {
     try {
       const ctx = this.ensureContext();
-      if (!ctx || this.isDronePlaying || this.isMuted) return;
+      if (!ctx || this.isMuted) return;
+
+      if (ctx.state === "suspended") {
+        ctx.resume().catch(() => {});
+      }
+
+      // Stop existing if any
+      this.stopSpiritualDrone();
 
       this.droneGain = ctx.createGain();
-      this.droneGain.gain.setValueAtTime(0.001, ctx.currentTime);
-      // Increased audible, rich spiritual volume
-      this.droneGain.gain.exponentialRampToValueAtTime(0.32, ctx.currentTime + 1.2);
+      this.droneGain.gain.setValueAtTime(0.01, ctx.currentTime);
+      // High, clearly audible, lush meditative master volume (0.80)
+      this.droneGain.gain.exponentialRampToValueAtTime(0.80, ctx.currentTime + 1.0);
 
       const filter = ctx.createBiquadFilter();
       filter.type = "lowpass";
-      filter.frequency.setValueAtTime(850, ctx.currentTime);
+      filter.frequency.setValueAtTime(2200, ctx.currentTime);
+      filter.Q.setValueAtTime(1.5, ctx.currentTime);
 
-      // 432Hz Harmonic Solfeggio Scale (Root 432Hz, 216Hz, 108Hz bass, 528Hz Love freq, 648Hz Fifth)
-      const frequencies = [108, 216, 432, 528, 648];
+      // Multi-layer Harmonic Solfeggio Tibetan Ambient Scale
+      // 108Hz (Deep Sub), 216Hz (Warm Root), 432Hz (Pure Heart Root), 528Hz (Healing Solfeggio), 648Hz (Golden Fifth), 864Hz (Crystal Octave)
+      const layers = [
+        { freq: 108, type: "sine" as const, gain: 0.35, detune: -4 },
+        { freq: 216, type: "sine" as const, gain: 0.30, detune: 3 },
+        { freq: 432, type: "triangle" as const, gain: 0.35, detune: -6 },
+        { freq: 528, type: "sine" as const, gain: 0.30, detune: 5 },
+        { freq: 648, type: "sine" as const, gain: 0.25, detune: -3 },
+        { freq: 864, type: "sine" as const, gain: 0.18, detune: 6 },
+      ];
 
-      this.oscillators = frequencies.map((freq, i) => {
+      this.oscillators = layers.map((layer) => {
         const osc = ctx.createOscillator();
-        osc.type = i % 2 === 0 ? "sine" : "triangle";
-        osc.frequency.setValueAtTime(freq, ctx.currentTime);
-        osc.detune.setValueAtTime((i - 2) * 6, ctx.currentTime);
+        osc.type = layer.type;
+        osc.frequency.setValueAtTime(layer.freq, ctx.currentTime);
+        osc.detune.setValueAtTime(layer.detune, ctx.currentTime);
 
         const oscGain = ctx.createGain();
-        oscGain.gain.setValueAtTime(0.65 / frequencies.length, ctx.currentTime);
+        oscGain.gain.setValueAtTime(layer.gain, ctx.currentTime);
 
         osc.connect(oscGain);
         oscGain.connect(filter);
@@ -68,7 +84,7 @@ class AudioEngine {
     if (this.droneGain && this.ctx) {
       try {
         this.droneGain.gain.setValueAtTime(this.droneGain.gain.value, this.ctx.currentTime);
-        this.droneGain.gain.exponentialRampToValueAtTime(0.0001, this.ctx.currentTime + 0.8);
+        this.droneGain.gain.exponentialRampToValueAtTime(0.0001, this.ctx.currentTime + 0.6);
         setTimeout(() => {
           this.oscillators.forEach((o) => {
             try {
@@ -78,7 +94,7 @@ class AudioEngine {
           });
           this.oscillators = [];
           this.isDronePlaying = false;
-        }, 850);
+        }, 650);
       } catch {
         this.isDronePlaying = false;
       }
@@ -91,9 +107,10 @@ class AudioEngine {
     try {
       const ctx = this.ensureContext();
       if (!ctx) return;
+      if (ctx.state === "suspended") ctx.resume().catch(() => {});
 
       const now = ctx.currentTime;
-      const notes = [523.25, 659.25]; // C5 -> E5 quick cheerful pop
+      const notes = [523.25, 659.25]; // C5 -> E5
 
       notes.forEach((freq, i) => {
         const osc = ctx.createOscillator();
@@ -102,27 +119,28 @@ class AudioEngine {
         osc.type = "sine";
         osc.frequency.setValueAtTime(freq, now + i * 0.05);
 
-        gain.gain.setValueAtTime(0.08, now + i * 0.05);
-        gain.gain.exponentialRampToValueAtTime(0.0001, now + i * 0.05 + 0.12);
+        gain.gain.setValueAtTime(0.22, now + i * 0.05);
+        gain.gain.exponentialRampToValueAtTime(0.0001, now + i * 0.05 + 0.14);
 
         osc.connect(gain);
         gain.connect(ctx.destination);
 
         osc.start(now + i * 0.05);
-        osc.stop(now + i * 0.05 + 0.13);
+        osc.stop(now + i * 0.05 + 0.15);
       });
     } catch {}
   }
 
-  // Duolingo-style celebration chime when completing a step or submitting
+  // Duolingo-style celebration chime
   public playDuolingoSuccess() {
     if (this.isMuted) return;
     try {
       const ctx = this.ensureContext();
       if (!ctx) return;
+      if (ctx.state === "suspended") ctx.resume().catch(() => {});
 
       const now = ctx.currentTime;
-      const notes = [523.25, 659.25, 783.99, 1046.5]; // C5 -> E5 -> G5 -> C6 celebration fanfare!
+      const notes = [523.25, 659.25, 783.99, 1046.5]; // C5 -> E5 -> G5 -> C6
 
       notes.forEach((freq, i) => {
         const osc = ctx.createOscillator();
@@ -131,14 +149,14 @@ class AudioEngine {
         osc.type = "triangle";
         osc.frequency.setValueAtTime(freq, now + i * 0.07);
 
-        gain.gain.setValueAtTime(0.1, now + i * 0.07);
-        gain.gain.exponentialRampToValueAtTime(0.0001, now + i * 0.07 + 0.25);
+        gain.gain.setValueAtTime(0.28, now + i * 0.07);
+        gain.gain.exponentialRampToValueAtTime(0.0001, now + i * 0.07 + 0.28);
 
         osc.connect(gain);
         gain.connect(ctx.destination);
 
         osc.start(now + i * 0.07);
-        osc.stop(now + i * 0.07 + 0.26);
+        osc.stop(now + i * 0.07 + 0.29);
       });
     } catch {}
   }
@@ -149,6 +167,7 @@ class AudioEngine {
     try {
       const ctx = this.ensureContext();
       if (!ctx) return;
+      if (ctx.state === "suspended") ctx.resume().catch(() => {});
 
       const osc = ctx.createOscillator();
       const gain = ctx.createGain();
@@ -156,18 +175,17 @@ class AudioEngine {
       osc.type = "sine";
       osc.frequency.setValueAtTime(880, ctx.currentTime);
 
-      gain.gain.setValueAtTime(0.03, ctx.currentTime);
-      gain.gain.exponentialRampToValueAtTime(0.0001, ctx.currentTime + 0.05);
+      gain.gain.setValueAtTime(0.08, ctx.currentTime);
+      gain.gain.exponentialRampToValueAtTime(0.0001, ctx.currentTime + 0.06);
 
       osc.connect(gain);
       gain.connect(ctx.destination);
 
       osc.start();
-      osc.stop(ctx.currentTime + 0.06);
+      osc.stop(ctx.currentTime + 0.07);
     } catch {}
   }
 
-  // Generic Click Tone
   public playClickTone() {
     this.playDuolingoSelect();
   }
