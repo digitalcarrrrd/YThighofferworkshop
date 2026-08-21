@@ -878,20 +878,20 @@
       </div>
 
       <div class="lms-plans">
-        <!-- 3 Installments Plan (PKR 3,900) -->
+        <!-- Easy Installments Plan (PKR 3,900) -->
         <div class="plan-card">
           <div class="plan-tag">Low-Ticket Entry</div>
           <div>
-            <div class="plan-name">3 Easy Installments</div>
+            <div class="plan-name">Easy Installments</div>
             <div class="plan-for">Start learning today without financial stress</div>
-            <div class="plan-price">PKR 3,900<small>per month × 3 months</small></div>
-            <p class="plan-sub">Pay only PKR 3,900 today to unlock immediate LMS access. Pay the remaining over the next 2 months.</p>
+            <div class="plan-price">PKR 3,900<small>per month × 7 months</small></div>
+            <p class="plan-sub">Pay only PKR 3,900 today to unlock immediate LMS access. Pay the remaining in 7 months.</p>
             
             <div class="plan-diff-note">
               <span>ℹ️ <b>Standard LMS Community Support included.</b> (90-Day VIP WhatsApp 1-on-1 Mentorship worth PKR 7,000 is reserved for Pay In Full).</span>
             </div>
           </div>
-          <button class="plan-btn plan-btn-ghost btnOpenModal" data-plan="3 Installments (PKR 3,900/mo)" type="button">Enroll with 3 Installments (PKR 3,900/mo) →</button>
+          <button class="plan-btn plan-btn-ghost btnOpenModal" data-plan="Easy Installments (PKR 3,900/mo)" type="button">Enroll with Installments (PKR 3,900/mo) →</button>
         </div>
 
         <!-- Pay In Full Plan (VIP Elite Status) -->
@@ -950,11 +950,11 @@
 
       <details class="reveal"><summary>Why should I choose VIP Elite (Pay in Full) instead of Installments?</summary><p>When you choose VIP Elite, you get the exclusive <b>90 Days VIP WhatsApp 1-on-1 Mentorship (worth PKR 7,000) completely FREE</b>! You also get <b>Direct Channel Review by Sir Abrar</b>, <b>Future Workshops Free VIP Pass</b>, <b>Content Vault Access Gateway Pass</b>, priority Inner Club fast-tracking, and lifetime permanent access.</p></details>
 
-      <details class="reveal"><summary>How do the 3 installments work?</summary><p>You pay only PKR 3,900 today to get immediate access to the entire LMS platform and community. Your second installment (PKR 3,900) is due after 30 days, and the final installment after 60 days. Once all 3 installments are completed, your access becomes permanent for life.</p></details>
+      <details class="reveal"><summary>How do the installments work?</summary><p>You pay only PKR 3,900 today to get immediate access to the entire LMS platform and community. Pay the remaining in 7 months (PKR 3,900/month). Once all installments are completed, your access becomes permanent for life.</p></details>
 
       <details class="reveal"><summary>I don't understand Urdu or Hindi. Can I still join?</summary><p>Yes. Take the LMS, make your own notes, and use those notes to train your own AI tools — that's exactly how you'll build and launch channels easily in whatever language you work in. The systems, prompts and workbooks do the heavy lifting.</p></details>
 
-      <details class="reveal"><summary>Do I have to keep paying again and again?</summary><p>No — it's one payment for lifetime access (or 3 low monthly installments). You never get charged unexpected monthly recurring fees.</p></details>
+      <details class="reveal"><summary>Do I have to keep paying again and again?</summary><p>No — it's one payment for lifetime access (or easy monthly installments in 7 months). You never get charged unexpected monthly recurring fees.</p></details>
 
       <details class="reveal"><summary>How long until my channel gets monetized?</summary><p>Inside the LMS most students hit monetization in around 45 days or less without issues — but results vary by individual and how consistently you execute.</p></details>
 
@@ -986,7 +986,7 @@
 
 <div class="sticky" id="stickybar">
   <div class="txt">YT Empire Builders · <b>12 Modules + LMS Access</b></div>
-  <a class="btn-inst btnOpenModal" data-plan="3 Installments (PKR 3,900/mo)">3 Installments (3.9k/mo)</a>
+  <a class="btn-inst btnOpenModal" data-plan="Easy Installments (PKR 3,900/mo)">Installments (3.9k/mo)</a>
   <a class="btn-full btnOpenModal" id="stickyFullBtn" data-plan="Pay in Full (PKR 30,000)">Pay in Full VIP (30,000)</a>
 </div>
 
@@ -1005,7 +1005,7 @@
           <label for="payPlanSelect">Selected Plan</label>
           <select id="payPlanSelect">
             <option value="Pay in Full">Pay in Full (VIP Elite Access — Lifetime + 90 Days Mentorship)</option>
-            <option value="3 Installments (PKR 3,900/mo)">3 Easy Installments — PKR 3,900 / month</option>
+            <option value="Easy Installments (PKR 3,900/mo)">Easy Installments — PKR 3,900 / month (in 7 months)</option>
           </select>
         </div>
         <div style="grid-column:1/-1">
@@ -1096,7 +1096,7 @@
 
   function calculatePrice(plan) {
     if (plan.includes('Installment')) {
-      return { total: INSTALLMENT_PRICE, discount: 0, note: '1st Installment of 3 (PKR 3,900)' };
+      return { total: INSTALLMENT_PRICE, discount: 0, note: '1st Installment (PKR 3,900 / month in 7 months)' };
     }
     if (!appliedCoupon) {
       return { total: BASE_FULL_PRICE, discount: 0, note: 'Lifetime VIP Access' };
@@ -1280,7 +1280,7 @@
     const summaryTotalAmount = document.getElementById('summaryTotalAmount');
     const payModalAmount = document.getElementById('payModalAmount');
 
-    if (summaryPlanName) summaryPlanName.textContent = selectedPlan.includes('Installment') ? '3 Easy Installments (1st Installment)' : 'Pay in Full (VIP Elite Access)';
+    if (summaryPlanName) summaryPlanName.textContent = selectedPlan.includes('Installment') ? 'Easy Installments — PKR 3,900 / month (in 7 months)' : 'Pay in Full (VIP Elite Access)';
 
     if (selectedPlan.includes('Installment')) {
       if (summaryDiscountRow) summaryDiscountRow.style.display = 'none';
@@ -1340,7 +1340,7 @@
     const selectedPlan=planSelect ? planSelect.value : 'Pay in Full';
     const calc=calculatePrice(selectedPlan);
     const planString = selectedPlan.includes('Installment')
-      ? '3 Easy Installments (PKR 3,900/mo)' 
+      ? 'Easy Installments (PKR 3,900/mo in 7 months)' 
       : 'VIP Elite Access — Pay in Full (PKR ' + calc.total.toLocaleString() + (appliedCoupon ? ' [Voucher ' + appliedCoupon + ' Applied - Saved PKR ' + calc.discount.toLocaleString() + ']' : '') + ' + 90 Days VIP WhatsApp Mentorship)';
 
     const error=document.getElementById('payError');
@@ -1375,7 +1375,7 @@
     const selectedPlan=planSelect ? planSelect.value : 'Pay in Full';
     const calc=calculatePrice(selectedPlan);
     const planDetail = selectedPlan.includes('Installment')
-      ? '3 Easy Installments (PKR 3,900/mo)' 
+      ? 'Easy Installments (PKR 3,900/mo in 7 months)' 
       : 'VIP Elite Access — Pay in Full (PKR ' + calc.total.toLocaleString() + (appliedCoupon ? ' [Voucher ' + appliedCoupon + ' - Saved PKR ' + calc.discount.toLocaleString() + ']' : '') + ') + 90 Days VIP WhatsApp Mentorship + Direct Channel Review by Sir Abrar + Future Workshops VIP Pass + Content Vault Gateway Pass Included FREE';
 
     const email=document.getElementById('payEmail').value.trim();
