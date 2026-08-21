@@ -270,10 +270,15 @@
   .plan-sub{font-size:.86rem;color:var(--muted);margin-bottom:14px;line-height:1.4}
   .was-strike{text-decoration:line-through;color:var(--muted2);font-size:1.4rem;font-weight:600;margin-right:8px}
 
-  /* VIP ELITE PERKS LIST */
-  .vip-perks-list{list-style:none;display:flex;flex-direction:column;gap:9px;margin:14px 0 18px;background:rgba(0,0,0,.25);border:1px solid rgba(228,184,74,.25);border-radius:12px;padding:14px 16px}
-  .vip-perks-list li{font-size:.84rem;color:#f1f5f9;display:flex;align-items:flex-start;gap:8px;line-height:1.35}
-  .vip-perks-list li span.ic{color:var(--gold);font-weight:bold;flex-shrink:0}
+  /* VIP ELITE PERKS BOX */
+  .vip-perks-box{background:rgba(0,0,0,.4);border:1.5px solid rgba(228,184,74,.35);border-radius:14px;padding:16px 18px;margin:16px 0 20px}
+  .vip-perks-head{display:flex;justify-content:space-between;align-items:center;margin-bottom:12px;padding-bottom:8px;border-bottom:1px solid rgba(255,255,255,.08)}
+  .vip-perks-title{font-family:'Archivo Black',sans-serif;font-size:.85rem;color:var(--gold);letter-spacing:.05em;text-transform:uppercase}
+  .vip-perks-worth{font-size:.72rem;font-weight:800;background:rgba(55,200,113,.15);color:var(--green);padding:3px 8px;border-radius:6px}
+  .vip-perks-list{list-style:none;display:flex;flex-direction:column;gap:10px}
+  .vip-perks-list li{display:flex;align-items:flex-start;gap:10px;font-size:.88rem;color:#f1f5f9;line-height:1.35}
+  .vip-perks-list li .ck{color:var(--green);font-weight:900;font-size:.95rem;flex-shrink:0}
+  .free-tag{background:var(--green);color:#04210f;font-size:.68rem;font-weight:800;padding:1px 6px;border-radius:4px;margin-left:6px;display:inline-block}
 
   /* VIP BONUS BOX INSIDE FULL PAYMENT CARD */
   .vip-bonus-card{background:rgba(228,184,74,.1);border:1.5px solid var(--gold);border-radius:14px;padding:14px 16px;margin:12px 0 18px;position:relative}
@@ -913,27 +918,24 @@
               <span id="fullPriceCurrent">PKR 30,000</span>
               <small>one-time payment · lifetime permanent access</small>
             </div>
-            <p class="plan-sub">Single payment covers all 12 modules, all workbooks, future drops, plus exclusive 1-on-1 founder privileges.</p>
+            <p class="plan-sub">Single payment covers all 12 modules, all workbooks, future drops, plus exclusive founder privileges.</p>
 
-            <!-- 90 DAYS VIP WHATSAPP SUPPORT BONUS -->
-            <div class="vip-bonus-card">
-              <div class="vip-bonus-badge">🔥 EXCLUSIVE FOUNDER BONUS</div>
-              <div class="vip-bonus-headline">
-                <span class="bonus-name">90-Day VIP WhatsApp 1-on-1 Mentorship</span>
-                <span class="bonus-price"><span class="strike-price">PKR 7,000</span> <span class="free-pill">100% FREE</span></span>
+            <!-- SLEEK UNIFIED VIP PERKS BOX -->
+            <div class="vip-perks-box">
+              <div class="vip-perks-head">
+                <span class="vip-perks-title">👑 VIP Elite Inclusions</span>
+                <span class="vip-perks-worth">Worth $4,194+ (FREE)</span>
               </div>
-              <p class="bonus-text">Get direct priority access to our senior mentorship team on WhatsApp for 90 days. We review your scripts, niches, and video edits individually.</p>
+              <ul class="vip-perks-list">
+                <li><span class="ck">✓</span> <span><b>90-Day VIP WhatsApp Mentorship</b> <span class="free-tag">PKR 7,000 FREE</span></span></li>
+                <li><span class="ck">✓</span> <span><b>Direct Channel Review</b> by Sir Abrar</span></li>
+                <li><span class="ck">✓</span> <span><b>Joint Venture & Collaboration</b> on scaled channels</span></li>
+                <li><span class="ck">✓</span> <span><b>Content Colony Access Gateway Pass</b> (All secret AI tools)</span></li>
+                <li><span class="ck">✓</span> <span><b>Future Live Workshops VIP Pass</b> (100% Free)</span></li>
+                <li><span class="ck">✓</span> <span><b>Inner Club Fast-Track</b> leaderboard priority</span></li>
+                <li><span class="ck">✓</span> <span><b>Permanent Lifetime LMS Access</b> (Zero recurring fees)</span></li>
+              </ul>
             </div>
-
-            <!-- VIP PERKS -->
-            <ul class="vip-perks-list">
-              <li><span class="ic">⚡</span> <b>Direct Channel Review by Sir Abrar</b></li>
-              <li><span class="ic">🤝</span> <b>Joint Venture & Collaboration Opportunities</b> (Partner with us on high-scale channels)</li>
-              <li><span class="ic">🔓</span> <b>Content Colony Access Gateway Pass</b> (VIP access to secret tools, bots & automated workflows)</li>
-              <li><span class="ic">🎟️</span> <b>Future Workshops Free VIP Pass</b> (All upcoming live masterclasses included 100% free)</li>
-              <li><span class="ic">🏆</span> <b>Fast-Track Inner Club Leaderboard Access</b></li>
-              <li><span class="ic">♾️</span> <b>Permanent Lifetime LMS Access</b> with zero recurring fees</li>
-            </ul>
 
           </div>
           <button class="plan-btn plan-btn-gold btnOpenModal" id="fullPlanBtn" data-plan="Pay in Full (PKR 30,000)" type="button">Claim VIP Elite Access (PKR 30,000) →</button>
