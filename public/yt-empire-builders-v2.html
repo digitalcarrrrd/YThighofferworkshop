@@ -270,15 +270,11 @@
   .plan-sub{font-size:.86rem;color:var(--muted);margin-bottom:14px;line-height:1.4}
   .was-strike{text-decoration:line-through;color:var(--muted2);font-size:1.4rem;font-weight:600;margin-right:8px}
 
-  /* VIP ELITE PERKS BOX */
-  .vip-perks-box{background:rgba(0,0,0,.4);border:1.5px solid rgba(228,184,74,.35);border-radius:14px;padding:16px 18px;margin:16px 0 20px}
-  .vip-perks-head{display:flex;justify-content:space-between;align-items:center;margin-bottom:12px;padding-bottom:8px;border-bottom:1px solid rgba(255,255,255,.08)}
-  .vip-perks-title{font-family:'Archivo Black',sans-serif;font-size:.85rem;color:var(--gold);letter-spacing:.05em;text-transform:uppercase}
-  .vip-perks-worth{font-size:.72rem;font-weight:800;background:rgba(55,200,113,.15);color:var(--green);padding:3px 8px;border-radius:6px}
-  .vip-perks-list{list-style:none;display:flex;flex-direction:column;gap:10px}
-  .vip-perks-list li{display:flex;align-items:flex-start;gap:10px;font-size:.88rem;color:#f1f5f9;line-height:1.35}
-  .vip-perks-list li .ck{color:var(--green);font-weight:900;font-size:.95rem;flex-shrink:0}
-  .free-tag{background:var(--green);color:#04210f;font-size:.68rem;font-weight:800;padding:1px 6px;border-radius:4px;margin-left:6px;display:inline-block}
+  /* REFUND BADGE BOX */
+  .refund-badge-box{display:flex;align-items:center;gap:12px;background:rgba(55,200,113,.08);border:1px solid rgba(55,200,113,.3);border-radius:12px;padding:11px 14px;margin:12px 0 18px;font-size:.82rem}
+  .refund-badge-box .refund-icon{font-size:1.3rem;flex-shrink:0}
+  .refund-badge-box strong{display:block;color:var(--text);font-size:.86rem;line-height:1.2}
+  .refund-badge-box span{color:var(--green);font-size:.76rem;font-weight:600}
 
   /* VIP BONUS BOX INSIDE FULL PAYMENT CARD */
   .vip-bonus-card{background:rgba(228,184,74,.1);border:1.5px solid var(--gold);border-radius:14px;padding:14px 16px;margin:12px 0 18px;position:relative}
@@ -901,7 +897,16 @@
             <p class="plan-sub">Pay only PKR 3,900 today to unlock immediate LMS access. Pay the remaining in 7 months.</p>
             
             <div class="plan-diff-note">
-              <span>ℹ️ <b>Standard LMS Community Support included.</b> (90-Day VIP WhatsApp 1-on-1 Mentorship worth PKR 7,000 is reserved for Pay In Full).</span>
+              <span>ℹ️ <b>Standard LMS Support included.</b> (90-Day WhatsApp VIP Mentorship worth PKR 7,000 is reserved for Pay In Full).</span>
+            </div>
+
+            <!-- 7-DAY REFUND GUARANTEE -->
+            <div class="refund-badge-box" style="border-color:rgba(255,255,255,.1);background:rgba(255,255,255,.03)">
+              <span class="refund-icon">🛡️</span>
+              <div>
+                <strong>7-Day Money-Back Guarantee</strong>
+                <span>100% risk-free · No questions asked</span>
+              </div>
             </div>
           </div>
           <button class="plan-btn plan-btn-ghost btnOpenModal" data-plan="Easy Installments (PKR 3,900/mo)" type="button">Enroll with Installments (PKR 3,900/mo) →</button>
@@ -909,36 +914,38 @@
 
         <!-- Pay In Full Plan (VIP Elite Status) -->
         <div class="plan-card featured">
-          <div class="plan-tag elite">👑 VIP Elite Founder · Lifetime Pro</div>
+          <div class="plan-tag elite">👑 Best Value · Lifetime Pro</div>
           <div>
-            <div class="plan-name">Pay In Full (VIP Elite Access)</div>
-            <div class="plan-for">Full Vault + Exclusive Founder Privileges</div>
+            <div class="plan-name">Pay In Full</div>
+            <div class="plan-for">One payment, permanent access, maximum savings</div>
             <div class="plan-price" id="fullPriceDisplay">
               <span id="fullPriceOriginal" style="display:none" class="was-strike">PKR 30,000</span>
               <span id="fullPriceCurrent">PKR 30,000</span>
               <small>one-time payment · lifetime permanent access</small>
             </div>
-            <p class="plan-sub">Single payment covers all 12 modules, all workbooks, future drops, plus exclusive founder privileges.</p>
+            <p class="plan-sub">Single payment covers all 12 modules, all workbooks, future drops, and permanent LMS access.</p>
 
-            <!-- SLEEK UNIFIED VIP PERKS BOX -->
-            <div class="vip-perks-box">
-              <div class="vip-perks-head">
-                <span class="vip-perks-title">👑 VIP Elite Inclusions</span>
-                <span class="vip-perks-worth">Worth $4,194+ (FREE)</span>
+            <!-- 90 DAYS VIP BONUS -->
+            <div class="vip-bonus-card">
+              <div class="vip-bonus-badge">🔥 EXCLUSIVE BONUS</div>
+              <div class="vip-bonus-headline">
+                <span class="bonus-name">90-Day VIP WhatsApp Support</span>
+                <span class="bonus-price"><span class="strike-price">PKR 7,000</span> <span class="free-pill">100% FREE</span></span>
               </div>
-              <ul class="vip-perks-list">
-                <li><span class="ck">✓</span> <span><b>90-Day VIP WhatsApp Mentorship</b> <span class="free-tag">PKR 7,000 FREE</span></span></li>
-                <li><span class="ck">✓</span> <span><b>Direct Channel Review</b> by Sir Abrar</span></li>
-                <li><span class="ck">✓</span> <span><b>Joint Venture & Collaboration</b> on scaled channels</span></li>
-                <li><span class="ck">✓</span> <span><b>Content Colony Access Gateway Pass</b> (All secret AI tools)</span></li>
-                <li><span class="ck">✓</span> <span><b>Future Live Workshops VIP Pass</b> (100% Free)</span></li>
-                <li><span class="ck">✓</span> <span><b>Inner Club Fast-Track</b> leaderboard priority</span></li>
-                <li><span class="ck">✓</span> <span><b>Permanent Lifetime LMS Access</b> (Zero recurring fees)</span></li>
-              </ul>
+              <p class="bonus-text">Priority 1-on-1 WhatsApp guidance for 90 days. We review your scripts, niches, and video edits individually.</p>
+            </div>
+
+            <!-- 7-DAY REFUND GUARANTEE -->
+            <div class="refund-badge-box">
+              <span class="refund-icon">🛡️</span>
+              <div>
+                <strong>7-Day Money-Back Guarantee</strong>
+                <span>100% risk-free · No questions asked</span>
+              </div>
             </div>
 
           </div>
-          <button class="plan-btn plan-btn-gold btnOpenModal" id="fullPlanBtn" data-plan="Pay in Full (PKR 30,000)" type="button">Claim VIP Elite Access (PKR 30,000) →</button>
+          <button class="plan-btn plan-btn-gold btnOpenModal" id="fullPlanBtn" data-plan="Pay in Full (PKR 30,000)" type="button">Enroll — Pay In Full (PKR 30,000) →</button>
         </div>
       </div>
 
@@ -959,7 +966,7 @@
 
       <details class="star reveal"><summary>How is this different from every other Pakistani course?</summary><p>Most local trainers recycle old, traditional methods — the same way the school system keeps teaching things that stopped working years ago. People paid and got nothing new. This community is part of Abrar Nadir's vision to train <b>1.6 million people</b> in AI automation, workflows, real-time skills, content creation and YouTube automation. Everything here is built on live data and updated as the game changes — not a recording from three years ago.</p></details>
 
-      <details class="reveal"><summary>Why should I choose VIP Elite (Pay in Full) instead of Installments?</summary><p>When you choose VIP Elite, you get the exclusive <b>90 Days VIP WhatsApp 1-on-1 Mentorship (worth PKR 7,000) completely FREE</b>! You also get <b>Direct Channel Review by Sir Abrar</b>, <b>Joint Venture & Collaboration Opportunities</b>, <b>Content Colony Access Gateway Pass</b>, <b>Future Workshops Free VIP Pass</b>, priority Inner Club fast-tracking, and lifetime permanent access.</p></details>
+      <details class="reveal"><summary>Why should I choose Pay in Full instead of Installments?</summary><p>When you Pay in Full, you unlock the exclusive <b>90 Days VIP WhatsApp 1-on-1 Support (worth PKR 7,000) completely FREE</b>, lifetime LMS access, and maximum savings — fully protected by our <b>7-Day Money-Back Guarantee (No Questions Asked)</b>.</p></details>
 
       <details class="reveal"><summary>How do the installments work?</summary><p>You pay only PKR 3,900 today to get immediate access to the entire LMS platform and community. Pay the remaining in 7 months (PKR 3,900/month). Once all installments are completed, your access becomes permanent for life.</p></details>
 
@@ -998,7 +1005,7 @@
 <div class="sticky" id="stickybar">
   <div class="txt">YT Empire Builders · <b>12 Modules + LMS Access</b></div>
   <a class="btn-inst btnOpenModal" data-plan="Easy Installments (PKR 3,900/mo)">Installments (3.9k/mo)</a>
-  <a class="btn-full btnOpenModal" id="stickyFullBtn" data-plan="Pay in Full (PKR 30,000)">Pay in Full VIP (30,000)</a>
+  <a class="btn-full btnOpenModal" id="stickyFullBtn" data-plan="Pay in Full (PKR 30,000)">Pay in Full (30,000)</a>
 </div>
 
 <!-- PAYMENT MODAL -->
@@ -1015,7 +1022,7 @@
         <div style="grid-column:1/-1">
           <label for="payPlanSelect">Selected Plan</label>
           <select id="payPlanSelect">
-            <option value="Pay in Full">Pay in Full (VIP Elite Access — Lifetime + 90 Days Mentorship)</option>
+            <option value="Pay in Full">Pay in Full — PKR 30,000 (Lifetime Access + 90 Days VIP Support)</option>
             <option value="Easy Installments (PKR 3,900/mo)">Easy Installments — PKR 3,900 / month (in 7 months)</option>
           </select>
         </div>
@@ -1031,12 +1038,15 @@
 
       <!-- PRICE SUMMARY -->
       <div class="pay-summary-box">
-        <div class="pay-summary-line"><span>Plan:</span><strong id="summaryPlanName">Pay in Full (VIP Elite)</strong></div>
+        <div class="pay-summary-line"><span>Plan:</span><strong id="summaryPlanName">Pay in Full (Lifetime Access)</strong></div>
         <div class="pay-summary-line" id="summaryDiscountRow" style="display:none;color:var(--green)">
           <span>Voucher Discount:</span><strong id="summaryDiscountVal">-PKR 0</strong>
         </div>
         <div class="pay-summary-line" id="summaryVipRow">
-          <span>90-Day VIP WhatsApp Mentorship (PKR 7,000):</span><strong style="color:var(--green)">FREE (VIP Founder Perk)</strong>
+          <span>90-Day VIP WhatsApp Support (PKR 7,000):</span><strong style="color:var(--green)">FREE</strong>
+        </div>
+        <div class="pay-summary-line">
+          <span>Refund Policy:</span><strong style="color:var(--green)">7-Day 100% Money-Back Guarantee</strong>
         </div>
         <div class="pay-summary-line total">
           <span>Payable Amount:</span><span id="summaryTotalAmount">PKR 30,000</span>
@@ -1352,7 +1362,7 @@
     const calc=calculatePrice(selectedPlan);
     const planString = selectedPlan.includes('Installment')
       ? 'Easy Installments (PKR 3,900/mo in 7 months)' 
-      : 'VIP Elite Access — Pay in Full (PKR ' + calc.total.toLocaleString() + (appliedCoupon ? ' [Voucher ' + appliedCoupon + ' Applied - Saved PKR ' + calc.discount.toLocaleString() + ']' : '') + ' + 90 Days VIP WhatsApp Mentorship)';
+      : 'Pay in Full (PKR ' + calc.total.toLocaleString() + (appliedCoupon ? ' [Voucher ' + appliedCoupon + ' Applied - Saved PKR ' + calc.discount.toLocaleString() + ']' : '') + ' + 90 Days VIP WhatsApp Support + 7-Day Refund Guarantee)';
 
     const error=document.getElementById('payError');
     if(name.length<2||phone.replace(/\D/g,'').length<10){error.textContent='Please enter your full name and a valid WhatsApp number.';return}
@@ -1387,7 +1397,7 @@
     const calc=calculatePrice(selectedPlan);
     const planDetail = selectedPlan.includes('Installment')
       ? 'Easy Installments (PKR 3,900/mo in 7 months)' 
-      : 'VIP Elite Access — Pay in Full (PKR ' + calc.total.toLocaleString() + (appliedCoupon ? ' [Voucher ' + appliedCoupon + ' - Saved PKR ' + calc.discount.toLocaleString() + ']' : '') + ') + 90 Days VIP WhatsApp Mentorship + Direct Channel Review by Sir Abrar + Joint Venture Opportunities + Content Colony Gateway Pass + Future Workshops VIP Pass Included FREE';
+      : 'Pay in Full — Lifetime Access (PKR ' + calc.total.toLocaleString() + (appliedCoupon ? ' [Voucher ' + appliedCoupon + ' - Saved PKR ' + calc.discount.toLocaleString() + ']' : '') + ') + 90 Days VIP WhatsApp Support + 7-Day Money-Back Guarantee Included FREE';
 
     const email=document.getElementById('payEmail').value.trim();
     const age=document.getElementById('payAge').value.trim();
