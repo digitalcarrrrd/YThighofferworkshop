@@ -151,30 +151,60 @@
   .cg .ic{font-size:1.3rem}.cg h4{font-weight:700;font-size:.95rem;margin:7px 0 3px}
   .cg p{color:var(--muted);font-size:.83rem;margin:0}
 
-  /* LMS ENHANCED OFFER */
-  .lms-box{max-width:920px;margin:0 auto;background:linear-gradient(180deg,rgba(228,184,74,.07),var(--panel));border:2px solid var(--gold);border-radius:24px;padding:40px;box-shadow:0 25px 70px -15px rgba(228,184,74,.18);position:relative}
+  /* LMS ENHANCED OFFER & PLANS */
+  .lms-box{max-width:940px;margin:0 auto;background:linear-gradient(180deg,rgba(228,184,74,.07),var(--panel));border:2px solid var(--gold);border-radius:24px;padding:40px;box-shadow:0 25px 70px -15px rgba(228,184,74,.18);position:relative}
   @media(max-width:640px){.lms-box{padding:24px 18px}}
   .lms-badge{display:inline-block;background:var(--gold);color:#1a1400;font-size:.75rem;font-weight:800;letter-spacing:.12em;text-transform:uppercase;padding:5px 14px;border-radius:20px;margin-bottom:14px}
-  .lms-header{text-align:center;max-width:680px;margin:0 auto 30px}
+  .lms-header{text-align:center;max-width:680px;margin:0 auto 26px}
   .lms-header h2{font-size:clamp(1.9rem,4.5vw,2.8rem);margin-bottom:12px}
   .lms-header p{color:var(--muted);font-size:1rem}
-  .lms-features{display:grid;grid-template-columns:repeat(2,1fr);gap:12px;margin-bottom:32px;background:rgba(0,0,0,.25);border:1px solid var(--line);border-radius:16px;padding:22px}
+  .lms-features{display:grid;grid-template-columns:repeat(2,1fr);gap:12px;margin-bottom:28px;background:rgba(0,0,0,.25);border:1px solid var(--line);border-radius:16px;padding:22px}
   @media(max-width:640px){.lms-features{grid-template-columns:1fr}}
   .lms-feat-item{display:flex;align-items:flex-start;gap:10px;font-size:.88rem;color:var(--text)}
   .lms-feat-item span{color:var(--green);font-weight:bold;flex-shrink:0}
 
+  /* COUPON BOX */
+  .coupon-box{background:var(--panel2);border:1.5px dashed rgba(228,184,74,.5);border-radius:16px;padding:20px;margin-bottom:28px;text-align:center}
+  .coupon-label{font-size:.85rem;font-weight:700;color:var(--gold);letter-spacing:.05em;text-transform:uppercase;margin-bottom:10px}
+  .coupon-form{display:flex;gap:10px;max-width:440px;margin:0 auto;justify-content:center}
+  .coupon-form input{flex:1;background:var(--panel);border:1px solid var(--line);border-radius:10px;padding:11px 14px;color:var(--text);font-family:'Archivo';font-size:.92rem;text-transform:uppercase;font-weight:700;letter-spacing:.08em}
+  .coupon-form input:focus{outline:none;border-color:var(--gold)}
+  .btn-coupon{background:linear-gradient(135deg,var(--gold),var(--gold-deep));color:#1a1400;border:none;border-radius:10px;padding:11px 18px;font-weight:800;font-size:.88rem;cursor:pointer;font-family:'Archivo';transition:transform .15s}
+  .btn-coupon:hover{transform:translateY(-1px)}
+  .coupon-msg{font-size:.84rem;min-height:1.2em;margin-top:9px;font-weight:700}
+  .coupon-msg.success{color:var(--green)}
+  .coupon-msg.error{color:#ff8877}
+  .demo-coupons{display:flex;gap:8px;flex-wrap:wrap;align-items:center;justify-content:center;margin-top:14px;font-size:.78rem;color:var(--muted)}
+  .demo-coupons span{font-weight:600}
+  .tag-coupon{background:rgba(255,255,255,.07);border:1px solid rgba(255,255,255,.15);color:var(--gold);padding:4px 10px;border-radius:12px;font-size:.74rem;font-weight:700;cursor:pointer;transition:all .15s}
+  .tag-coupon:hover{background:rgba(228,184,74,.2);border-color:var(--gold)}
+
   .lms-plans{display:grid;grid-template-columns:1fr 1fr;gap:20px}
-  @media(max-width:700px){.lms-plans{grid-template-columns:1fr}}
-  .plan-card{background:var(--panel2);border:2px solid var(--line);border-radius:18px;padding:26px;display:flex;flex-direction:column;justify-content:space-between;position:relative;transition:all .2s}
+  @media(max-width:760px){.lms-plans{grid-template-columns:1fr}}
+  .plan-card{background:var(--panel2);border:2px solid var(--line);border-radius:20px;padding:28px;display:flex;flex-direction:column;justify-content:space-between;position:relative;transition:all .2s}
   .plan-card:hover{border-color:var(--gold);transform:translateY(-3px)}
-  .plan-card.featured{border-color:var(--gold);background:linear-gradient(180deg,rgba(228,184,74,.12),var(--panel2));box-shadow:0 12px 35px -8px rgba(228,184,74,.22)}
-  .plan-tag{position:absolute;top:-12px;right:18px;background:var(--green);color:#04210f;font-size:.68rem;font-weight:800;letter-spacing:.08em;text-transform:uppercase;padding:4px 12px;border-radius:14px}
-  .plan-name{font-family:'Archivo Black';font-size:1.25rem;color:var(--text)}
-  .plan-for{font-family:'Caveat';color:var(--gold);font-size:1.15rem;margin-top:2px}
-  .plan-price{font-family:'Archivo Black';font-size:2.2rem;color:var(--gold);margin:14px 0 4px;line-height:1}
-  .plan-price small{font-family:'Archivo';font-size:.85rem;font-weight:400;color:var(--muted);display:block;margin-top:4px}
-  .plan-sub{font-size:.85rem;color:var(--muted);margin-bottom:20px;line-height:1.4}
-  .plan-btn{display:block;width:100%;text-align:center;padding:15px;border-radius:10px;font-weight:800;font-size:1rem;text-decoration:none;border:none;cursor:pointer;font-family:'Archivo';transition:transform .15s}
+  .plan-card.featured{border-color:var(--gold);background:linear-gradient(180deg,rgba(228,184,74,.12),var(--panel2));box-shadow:0 15px 40px -10px rgba(228,184,74,.25)}
+  .plan-tag{position:absolute;top:-13px;right:20px;background:var(--green);color:#04210f;font-size:.7rem;font-weight:800;letter-spacing:.08em;text-transform:uppercase;padding:4px 14px;border-radius:14px}
+  .plan-name{font-family:'Archivo Black';font-size:1.3rem;color:var(--text)}
+  .plan-for{font-family:'Caveat';color:var(--gold);font-size:1.18rem;margin-top:2px}
+  .plan-price{font-family:'Archivo Black';font-size:2.3rem;color:var(--gold);margin:14px 0 4px;line-height:1}
+  .plan-price small{font-family:'Archivo';font-size:.85rem;font-weight:400;color:var(--muted);display:block;margin-top:5px}
+  .plan-sub{font-size:.86rem;color:var(--muted);margin-bottom:16px;line-height:1.4}
+  .was-strike{text-decoration:line-through;color:var(--muted2);font-size:1.4rem;font-weight:600;margin-right:8px}
+
+  /* VIP BONUS BOX INSIDE FULL PAYMENT CARD */
+  .vip-bonus-card{background:rgba(228,184,74,.09);border:1.5px solid var(--gold);border-radius:14px;padding:14px 16px;margin:16px 0 20px;position:relative}
+  .vip-bonus-badge{display:inline-block;background:var(--ember);color:#fff;font-size:.65rem;font-weight:800;letter-spacing:.1em;text-transform:uppercase;padding:3px 8px;border-radius:6px;margin-bottom:6px}
+  .vip-bonus-headline{display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:6px;margin-bottom:6px}
+  .bonus-name{font-family:'Archivo Black';font-size:.96rem;color:var(--text)}
+  .bonus-price{font-size:.88rem;font-weight:800}
+  .strike-price{text-decoration:line-through;color:var(--muted);margin-right:4px}
+  .free-pill{background:var(--green);color:#04210f;font-weight:900;padding:2px 8px;border-radius:8px;font-size:.78rem;letter-spacing:.05em}
+  .bonus-text{font-size:.8rem;color:#ddd;line-height:1.35;margin:0}
+
+  .plan-diff-note{background:rgba(255,255,255,.04);border:1px solid rgba(255,255,255,.1);border-radius:12px;padding:12px;margin:14px 0 20px;font-size:.78rem;color:var(--muted);line-height:1.35}
+
+  .plan-btn{display:block;width:100%;text-align:center;padding:16px;border-radius:10px;font-weight:800;font-size:1rem;text-decoration:none;border:none;cursor:pointer;font-family:'Archivo';transition:transform .15s}
   .plan-btn:hover{transform:translateY(-2px)}
   .plan-btn-gold{background:linear-gradient(135deg,var(--gold),var(--gold-deep));color:#1a1400;box-shadow:0 8px 25px -8px rgba(228,184,74,.6)}
   .plan-btn-ghost{background:transparent;color:var(--text);border:1.5px solid var(--gold)}
@@ -183,14 +213,24 @@
   /* PAYMENT MODAL */
   .paymodal{position:fixed;inset:0;z-index:200;display:none;align-items:center;justify-content:center;padding:20px;background:rgba(0,0,0,.78);backdrop-filter:blur(8px)}
   .paymodal.open{display:flex}
-  .paybox{width:min(620px,100%);max-height:92vh;overflow:auto;background:var(--panel);border:1px solid var(--gold);border-radius:20px;padding:28px;box-shadow:0 30px 90px rgba(0,0,0,.55);position:relative}
+  .paybox{width:min(640px,100%);max-height:92vh;overflow:auto;background:var(--panel);border:1px solid var(--gold);border-radius:20px;padding:28px;box-shadow:0 30px 90px rgba(0,0,0,.55);position:relative}
   .payclose{position:absolute;right:16px;top:13px;background:transparent;border:0;color:var(--muted);font-size:1.8rem;cursor:pointer}
   .paybox h2{font-size:clamp(1.55rem,4vw,2.15rem);padding-right:32px}
-  .paybox .intro{color:var(--muted);margin:9px 0 22px}
+  .paybox .intro{color:var(--muted);margin:9px 0 18px}
   .payfields{display:grid;grid-template-columns:1fr 1fr;gap:12px}
   .payfields label{display:block;font-size:.82rem;font-weight:700;margin-bottom:7px}
   .payfields input,.payfields select{width:100%;background:var(--panel2);border:1px solid var(--line);border-radius:10px;padding:13px;color:var(--text);font:inherit}
   .payfields input:focus,.payfields select:focus{outline:none;border-color:var(--gold)}
+
+  .modal-coupon-row{display:flex;gap:8px;margin-top:4px}
+  .modal-coupon-row input{flex:1;text-transform:uppercase;font-weight:700}
+  .modal-coupon-btn{background:var(--panel2);border:1px solid var(--gold);color:var(--gold);padding:0 15px;border-radius:10px;font-weight:700;cursor:pointer}
+  .modal-coupon-btn:hover{background:var(--gold);color:#1a1400}
+  
+  .pay-summary-box{background:#0e1017;border:1px solid var(--gold);border-radius:12px;padding:14px;margin-top:14px}
+  .pay-summary-line{display:flex;justify-content:space-between;align-items:center;font-size:.88rem;margin-bottom:4px}
+  .pay-summary-line.total{font-size:1.1rem;font-weight:800;color:var(--gold);margin-top:8px;padding-top:8px;border-top:1px dashed var(--line)}
+
   .payerror{color:#ff9b88;font-size:.82rem;min-height:1.2em;margin:10px 0}
   .paycontinue{width:100%;border:0;border-radius:10px;padding:15px;background:linear-gradient(135deg,var(--gold),var(--gold-deep));color:#1a1400;font:700 1rem 'Archivo';cursor:pointer}
   .paymentDetails{display:none}.paymentDetails.show{display:block}
@@ -298,7 +338,7 @@
       <div class="cf reveal"><div class="q"><span>“</span>Do I need a degree or fluent English?</div><div class="a">No. Faceless channels need <b>zero camera, zero degree</b>. AI writes, voices and edits — you run the system.</div></div>
       <div class="cf reveal"><div class="q"><span>“</span>I tried before and failed.</div><div class="a">That's a <b>packaging and niche problem</b>, not you. Learn the system and fix exactly what went wrong.</div></div>
       <div class="cf reveal"><div class="q"><span>“</span>Will my channel get killed?</div><div class="a">A full module covers <b>fingerprinting, sandboxing and IP safety</b> so your channels stay alive.</div></div>
-      <div class="cf reveal"><div class="q"><span>“</span>I don't have the budget.</div><div class="a">Start easily on <b>3 easy installments</b> or pay in full for maximum savings.</div></div>
+      <div class="cf reveal"><div class="q"><span>“</span>I don't have the budget.</div><div class="a">Start easily on <b>3 easy installments</b> or pay in full to unlock <b>90 Days VIP WhatsApp support</b> for free.</div></div>
       <div class="cf reveal"><div class="q"><span>“</span>Does YouTube really pay people like me?</div><div class="a">Members have generated <b>3 crore+ PKR</b>. AdSense, payments and daily-pay networks are all covered inside.</div></div>
     </div>
   </div>
@@ -706,6 +746,24 @@
         <div class="lms-feat-item"><span>✓</span> Daily Support via LMS & WhatsApp (9am–9pm)</div>
       </div>
 
+      <!-- COUPON CODE SECTION -->
+      <div class="coupon-box">
+        <div class="coupon-label">🎟️ Have a Discount Coupon? Apply Below</div>
+        <div class="coupon-form">
+          <input type="text" id="couponInput" placeholder="Enter coupon code" autocomplete="off">
+          <button type="button" id="applyCouponBtn" class="btn-coupon">Apply Coupon</button>
+        </div>
+        <div id="couponMsg" class="coupon-msg"></div>
+        <div class="demo-coupons">
+          <span>Demo Coupons:</span>
+          <button type="button" class="tag-coupon" data-code="EMPIRE5000">EMPIRE5000 (-5k)</button>
+          <button type="button" class="tag-coupon" data-code="VIP20">VIP20 (-20%)</button>
+          <button type="button" class="tag-coupon" data-code="ABRAR10">ABRAR10 (-10%)</button>
+          <button type="button" class="tag-coupon" data-code="EARLYBIRD">EARLYBIRD (-4k)</button>
+          <button type="button" class="tag-coupon" data-code="SPECIAL50">SPECIAL50 (-50%)</button>
+        </div>
+      </div>
+
       <div class="lms-plans">
         <!-- 3 Installments Plan -->
         <div class="plan-card">
@@ -715,6 +773,10 @@
             <div class="plan-for">Start learning today without budget pressure</div>
             <div class="plan-price">PKR 10,000<small>per month × 3 months</small></div>
             <p class="plan-sub">Pay 10,000 today to unlock immediate LMS access. Pay remaining over the next 2 months.</p>
+            
+            <div class="plan-diff-note">
+              <span>ℹ️ <b>Standard LMS Support included.</b> (90-Day WhatsApp VIP Mentorship worth PKR 7,000 is reserved for Pay In Full).</span>
+            </div>
           </div>
           <button class="plan-btn plan-btn-ghost btnOpenModal" data-plan="3 Installments (PKR 10,000/mo)" type="button">Enroll with 3 Installments →</button>
         </div>
@@ -724,11 +786,26 @@
           <div class="plan-tag" style="background:var(--gold)">Best Value · Lifetime</div>
           <div>
             <div class="plan-name">Pay In Full</div>
-            <div class="plan-for">One payment, lifetime access, biggest saving</div>
-            <div class="plan-price">PKR 30,000<small>one-time payment · lifetime access</small></div>
+            <div class="plan-for">One payment, lifetime access, maximum bonus</div>
+            <div class="plan-price" id="fullPriceDisplay">
+              <span id="fullPriceOriginal" style="display:none" class="was-strike">PKR 30,000</span>
+              <span id="fullPriceCurrent">PKR 30,000</span>
+              <small>one-time payment · lifetime access</small>
+            </div>
             <p class="plan-sub">Single payment covers all 12 modules, all workbooks, future drops, and permanent access.</p>
+
+            <!-- 90 DAYS VIP WHATSAPP SUPPORT BONUS -->
+            <div class="vip-bonus-card">
+              <div class="vip-bonus-badge">🔥 EXCLUSIVE FULL PAYMENT BONUS</div>
+              <div class="vip-bonus-headline">
+                <span class="bonus-name">90-Day VIP WhatsApp 1-on-1 Support</span>
+                <span class="bonus-price"><span class="strike-price">PKR 7,000</span> <span class="free-pill">100% FREE</span></span>
+              </div>
+              <p class="bonus-text">Get direct priority access to Sir Abrar and our senior team for 90 days. We review your scripts, niches, and video edits individually.</p>
+            </div>
+
           </div>
-          <button class="plan-btn plan-btn-gold btnOpenModal" data-plan="Pay in Full (PKR 30,000)" type="button">Enroll — Pay In Full (PKR 30,000) →</button>
+          <button class="plan-btn plan-btn-gold btnOpenModal" id="fullPlanBtn" data-plan="Pay in Full (PKR 30,000)" type="button">Enroll — Pay In Full (PKR 30,000) →</button>
         </div>
       </div>
 
@@ -746,6 +823,8 @@
       <details class="star reveal" open><summary>What if I never make money from YouTube?</summary><p>You still walk away with skills that pay. By then you'll know content analysis, content creation and how to genuinely use AI — our modules are designed so execution builds real, marketable ability. You can freelance with those skills, sell them as a service, or use them in any business. And as a community member you keep access to future opportunities with Sir Abrar. YouTube is the training ground; the skill is the asset.</p></details>
 
       <details class="star reveal"><summary>How is this different from every other Pakistani course?</summary><p>Most local trainers recycle old, traditional methods — the same way the school system keeps teaching things that stopped working years ago. People paid and got nothing new. This community is part of Abrar Nadir's vision to train <b>1.6 million people</b> in AI automation, workflows, real-time skills, content creation and YouTube automation. Everything here is built on live data and updated as the game changes — not a recording from three years ago.</p></details>
+
+      <details class="reveal"><summary>Why should I Pay in Full instead of Installments?</summary><p>When you Pay in Full, you get the exclusive <b>90 Days VIP WhatsApp 1-on-1 Support (worth PKR 7,000) completely FREE</b>! You get direct priority access to Sir Abrar and our team for 90 days, plus maximum savings.</p></details>
 
       <details class="reveal"><summary>How do the 3 installments work?</summary><p>You pay PKR 10,000 today to get immediate access to the entire LMS platform and community. Your second installment is due after 30 days, and the final installment after 60 days. Once all 3 installments are completed, your access becomes permanent for life.</p></details>
 
@@ -784,7 +863,7 @@
 <div class="sticky" id="stickybar">
   <div class="txt">YT Empire Builders · <b>12 Modules + LMS Access</b></div>
   <a class="btn-inst btnOpenModal" data-plan="3 Installments (PKR 10,000/mo)">3 Installments (10k/mo)</a>
-  <a class="btn-full btnOpenModal" data-plan="Pay in Full (PKR 30,000)">Pay in Full (30,000)</a>
+  <a class="btn-full btnOpenModal" id="stickyFullBtn" data-plan="Pay in Full (PKR 30,000)">Pay in Full (30,000)</a>
 </div>
 
 <!-- PAYMENT MODAL -->
@@ -801,18 +880,42 @@
         <div style="grid-column:1/-1">
           <label for="payPlanSelect">Selected Plan</label>
           <select id="payPlanSelect">
-            <option value="Pay in Full (PKR 30,000)">Pay in Full — PKR 30,000 (Lifetime Access)</option>
+            <option value="Pay in Full">Pay in Full — Lifetime Access + 90 Days VIP WhatsApp Support</option>
             <option value="3 Installments (PKR 10,000/mo)">3 Easy Installments — PKR 10,000 / month</option>
           </select>
         </div>
+        <div style="grid-column:1/-1">
+          <label>Discount Coupon (Optional)</label>
+          <div class="modal-coupon-row">
+            <input type="text" id="modalCouponInput" placeholder="Enter coupon code" autocomplete="off">
+            <button type="button" id="modalApplyCouponBtn" class="modal-coupon-btn">Apply</button>
+          </div>
+          <div id="modalCouponMsg" class="coupon-msg" style="margin-top:4px"></div>
+        </div>
       </div>
+
+      <!-- PRICE SUMMARY -->
+      <div class="pay-summary-box">
+        <div class="pay-summary-line"><span>Plan:</span><strong id="summaryPlanName">Pay in Full</strong></div>
+        <div class="pay-summary-line" id="summaryDiscountRow" style="display:none;color:var(--green)">
+          <span>Coupon Discount:</span><strong id="summaryDiscountVal">-PKR 0</strong>
+        </div>
+        <div class="pay-summary-line" id="summaryVipRow">
+          <span>90-Day VIP WhatsApp Support (PKR 7,000):</span><strong style="color:var(--green)">FREE</strong>
+        </div>
+        <div class="pay-summary-line total">
+          <span>Payable Amount:</span><span id="summaryTotalAmount">PKR 30,000</span>
+        </div>
+      </div>
+
       <div class="payerror" id="payError" aria-live="polite"></div>
       <button class="paycontinue" id="showPayment" type="button">Continue to payment details</button>
     </div>
+
     <div class="paymentDetails" id="paymentDetails">
       <div class="eyebrow">Choose one payment method</div>
       <h2>Community payment details</h2>
-      <p class="intro">Select a method, make payment, then send its screenshot to our verification team.</p>
+      <p class="intro">Select a method, transfer the exact amount <b id="payModalAmount" style="color:var(--gold)">PKR 30,000</b>, then send screenshot to verify.</p>
       <div class="paymentTabs" role="tablist">
         <button class="paymentTab active" type="button" data-payment-tab="meezan">Meezan</button>
         <button class="paymentTab" type="button" data-payment-tab="easypaisa">Easypaisa</button>
@@ -851,6 +954,110 @@
 
 <script>
 
+  /* ================= COUPONS CONFIGURATION ================= */
+  const COUPONS = {
+    'EMPIRE5000': { type: 'flat', value: 5000, desc: 'PKR 5,000 Flat Discount' },
+    'VIP20':      { type: 'percent', value: 20, desc: '20% Off' },
+    'ABRAR10':    { type: 'percent', value: 10, desc: '10% Off' },
+    'EARLYBIRD':  { type: 'flat', value: 4000, desc: 'PKR 4,000 Discount' },
+    'SPECIAL50':  { type: 'percent', value: 50, desc: '50% Special Discount' }
+  };
+
+  const BASE_FULL_PRICE = 30000;
+  const INSTALLMENT_PRICE = 10000;
+  let appliedCoupon = null;
+
+  function calculatePrice(plan) {
+    if (plan.includes('Installment')) {
+      return { total: INSTALLMENT_PRICE, discount: 0, note: '1st Installment of 3' };
+    }
+    if (!appliedCoupon) {
+      return { total: BASE_FULL_PRICE, discount: 0, note: 'Lifetime Access' };
+    }
+    const c = COUPONS[appliedCoupon];
+    let discount = 0;
+    if (c.type === 'flat') {
+      discount = c.value;
+    } else if (c.type === 'percent') {
+      discount = Math.round((BASE_FULL_PRICE * c.value) / 100);
+    }
+    const total = Math.max(0, BASE_FULL_PRICE - discount);
+    return { total, discount, note: 'Coupon Applied: ' + appliedCoupon };
+  }
+
+  function updatePriceUI() {
+    const fullCalc = calculatePrice('Pay in Full');
+    const fullPriceCurr = document.getElementById('fullPriceCurrent');
+    const fullPriceOrig = document.getElementById('fullPriceOriginal');
+    const fullPlanBtn = document.getElementById('fullPlanBtn');
+    const stickyFullBtn = document.getElementById('stickyFullBtn');
+
+    if (appliedCoupon && fullCalc.discount > 0) {
+      fullPriceOrig.style.display = 'inline';
+      fullPriceCurr.textContent = 'PKR ' + fullCalc.total.toLocaleString();
+      fullPlanBtn.textContent = 'Enroll — Pay in Full (PKR ' + fullCalc.total.toLocaleString() + ') →';
+      if (stickyFullBtn) stickyFullBtn.textContent = 'Pay in Full (' + (fullCalc.total / 1000) + 'k)';
+    } else {
+      fullPriceOrig.style.display = 'none';
+      fullPriceCurr.textContent = 'PKR 30,000';
+      fullPlanBtn.textContent = 'Enroll — Pay In Full (PKR 30,000) →';
+      if (stickyFullBtn) stickyFullBtn.textContent = 'Pay in Full (30,000)';
+    }
+
+    updateModalSummary();
+  }
+
+  function applyCouponCode(code, source = 'main') {
+    const cleanCode = code.trim().toUpperCase();
+    const mainMsg = document.getElementById('couponMsg');
+    const modalMsg = document.getElementById('modalCouponMsg');
+    const mainInput = document.getElementById('couponInput');
+    const modalInput = document.getElementById('modalCouponInput');
+
+    if (!cleanCode) {
+      appliedCoupon = null;
+      if (mainMsg) { mainMsg.textContent = ''; mainMsg.className = 'coupon-msg'; }
+      if (modalMsg) { modalMsg.textContent = ''; modalMsg.className = 'coupon-msg'; }
+      updatePriceUI();
+      return;
+    }
+
+    if (COUPONS[cleanCode]) {
+      appliedCoupon = cleanCode;
+      const c = COUPONS[cleanCode];
+      const msg = '✓ Coupon ' + cleanCode + ' applied! ' + c.desc;
+      if (mainMsg) { mainMsg.textContent = msg; mainMsg.className = 'coupon-msg success'; }
+      if (modalMsg) { modalMsg.textContent = msg; modalMsg.className = 'coupon-msg success'; }
+      if (mainInput) mainInput.value = cleanCode;
+      if (modalInput) modalInput.value = cleanCode;
+      updatePriceUI();
+    } else {
+      const errorMsg = '✖ Invalid coupon code. Try EMPIRE5000 or VIP20.';
+      if (mainMsg) { mainMsg.textContent = errorMsg; mainMsg.className = 'coupon-msg error'; }
+      if (modalMsg) { modalMsg.textContent = errorMsg; modalMsg.className = 'coupon-msg error'; }
+    }
+  }
+
+  document.getElementById('applyCouponBtn').addEventListener('click', () => {
+    applyCouponCode(document.getElementById('couponInput').value, 'main');
+  });
+  document.getElementById('couponInput').addEventListener('keydown', (e) => {
+    if (e.key === 'Enter') { e.preventDefault(); applyCouponCode(e.target.value, 'main'); }
+  });
+
+  document.getElementById('modalApplyCouponBtn').addEventListener('click', () => {
+    applyCouponCode(document.getElementById('modalCouponInput').value, 'modal');
+  });
+  document.getElementById('modalCouponInput').addEventListener('keydown', (e) => {
+    if (e.key === 'Enter') { e.preventDefault(); applyCouponCode(e.target.value, 'modal'); }
+  });
+
+  document.querySelectorAll('.tag-coupon').forEach(tag => {
+    tag.addEventListener('click', () => {
+      applyCouponCode(tag.dataset.code, 'main');
+    });
+  });
+
   /* ================= URDU TRANSLATION ================= */
   const UR = {
   "Your doubts":"آپ کے شکوک","Old Way vs AI":"پرانا طریقہ بنام اے آئی","12 Modules":"12 ماڈیولز","What you get":"آپ کو کیا ملے گا","LMS Offer":"ایل ایم ایس آفر","FAQ":"سوالات",
@@ -871,7 +1078,7 @@
   "Will my channel get killed?":"کیا میرا چینل بند ہو جائے گا؟",
   "A full module covers":"ایک پورا ماڈیول اس پر ہے —","fingerprinting, sandboxing and IP safety":"فنگر پرنٹنگ، سینڈ باکسنگ اور آئی پی سیفٹی","so your channels stay alive.":"تاکہ آپ کے چینلز محفوظ رہیں۔",
   "I don't have the budget.":"میرے پاس بجٹ نہیں ہے۔",
-  "Start easily on":"شروع کریں آسانی سے","3 easy installments":"3 آسان اقساط میں","or pay in full for maximum savings.":"یا یکمشت ادائیگی پر زیادہ بچت کریں۔",
+  "Start easily on":"شروع کریں آسانی سے","3 easy installments":"3 آسان اقساط میں",
   "Does YouTube really pay people like me?":"کیا یوٹیوب واقعی مجھ جیسے لوگوں کو پیسے دیتا ہے؟",
   "Members have generated":"ممبرز نے کمائے ہیں","3 crore+ PKR":"3 کروڑ+ روپے",". AdSense, payments and daily-pay networks are all covered inside.":"۔ ایڈسینس، پیمنٹس اور روزانہ ادائیگی والے نیٹ ورکس سب اندر شامل ہیں۔",
   "Doubts gone. But is this really for someone like you?":"شک ختم۔ لیکن کیا یہ واقعی آپ جیسے شخص کے لیے ہے؟",
@@ -899,17 +1106,8 @@
   "The 12-Module Empire Curriculum":"12 ماڈیولز پر مشتمل ایمپائر نصاب",
   "Full Community Access (LMS)":"مکمل کمیونٹی رسائی (ایل ایم ایس)",
   "Pay In Full":"یکمشت ادائیگی","3 Easy Installments":"3 آسان اقساط",
-  "Enroll with 3 Installments →":"3 اقساط پر داخلہ لیں ←","Enroll — Pay In Full (PKR 30,000) →":"داخلہ لیں — یکمشت 30,000 روپے ←",
+  "Enroll with 3 Installments →":"3 اقساط پر داخلہ لیں ←",
   "Last few questions":"آخری چند سوالات","Everything you're still wondering":"جو کچھ آپ کے ذہن میں باقی ہے",
-  "What if I never make money from YouTube?":"اگر میرے پیسے یوٹیوب سے نہ بنے تو؟",
-  "How is this different from every other Pakistani course?":"یہ باقی پاکستانی کورسز سے مختلف کیسے ہے؟",
-  "I don't understand Urdu or Hindi. Can I still join?":"مجھے اردو یا ہندی نہیں آتی۔ کیا میں پھر بھی جوائن کر سکتا ہوں؟",
-  "Do I have to keep paying again and again?":"کیا مجھے بار بار ادائیگی کرنی ہوگی؟",
-  "How long until my channel gets monetized?":"میرا چینل کب تک مونیٹائز ہوگا؟",
-  "If I join today, can I pay my bills in two months?":"اگر آج جوائن کروں تو کیا دو ماہ میں بل ادا کر سکوں گا؟",
-  "Can I tour the LMS before buying?":"کیا خریدنے سے پہلے ایل ایم ایس دیکھ سکتا ہوں؟",
-  "Isn't AI content banned on YouTube now?":"کیا یوٹیوب پر اے آئی کانٹینٹ اب بند ہے؟",
-  "What content will I actually make?":"میں اصل میں کیا کانٹینٹ بناؤں گا؟",
   "A year from now, you'll wish you started today.":"ایک سال بعد آپ سوچیں گے، کاش آج شروع کر دیتا۔"
   };
 
@@ -959,6 +1157,42 @@
   const paymentModal=document.getElementById('paymentModal');
   const planSelect=document.getElementById('payPlanSelect');
 
+  function updateModalSummary() {
+    const selectedPlan = planSelect ? planSelect.value : 'Pay in Full';
+    const calc = calculatePrice(selectedPlan);
+    const summaryPlanName = document.getElementById('summaryPlanName');
+    const summaryDiscountRow = document.getElementById('summaryDiscountRow');
+    const summaryDiscountVal = document.getElementById('summaryDiscountVal');
+    const summaryVipRow = document.getElementById('summaryVipRow');
+    const summaryTotalAmount = document.getElementById('summaryTotalAmount');
+    const payModalAmount = document.getElementById('payModalAmount');
+
+    if (summaryPlanName) summaryPlanName.textContent = selectedPlan.includes('Installment') ? '3 Easy Installments (1st Installment)' : 'Pay in Full — Lifetime Access';
+
+    if (selectedPlan.includes('Installment')) {
+      if (summaryDiscountRow) summaryDiscountRow.style.display = 'none';
+      if (summaryVipRow) summaryVipRow.style.display = 'none';
+      if (summaryTotalAmount) summaryTotalAmount.textContent = 'PKR 10,000';
+      if (payModalAmount) payModalAmount.textContent = 'PKR 10,000';
+    } else {
+      if (summaryVipRow) summaryVipRow.style.display = 'flex';
+      if (appliedCoupon && calc.discount > 0) {
+        if (summaryDiscountRow) {
+          summaryDiscountRow.style.display = 'flex';
+          summaryDiscountVal.textContent = '-PKR ' + calc.discount.toLocaleString() + ' (' + appliedCoupon + ')';
+        }
+      } else {
+        if (summaryDiscountRow) summaryDiscountRow.style.display = 'none';
+      }
+      if (summaryTotalAmount) summaryTotalAmount.textContent = 'PKR ' + calc.total.toLocaleString();
+      if (payModalAmount) payModalAmount.textContent = 'PKR ' + calc.total.toLocaleString();
+    }
+  }
+
+  if (planSelect) {
+    planSelect.addEventListener('change', updateModalSummary);
+  }
+
   const openPayment=(plan)=>{
     if(plan && planSelect){
       for(let i=0; i<planSelect.options.length; i++){
@@ -968,6 +1202,7 @@
         }
       }
     }
+    updateModalSummary();
     paymentModal.classList.add('open');
     document.body.style.overflow='hidden';
     setTimeout(()=>document.getElementById('payName').focus(),50);
@@ -989,12 +1224,17 @@
   document.getElementById('showPayment').addEventListener('click',async()=>{
     const name=document.getElementById('payName').value.trim();
     const phone=document.getElementById('payPhone').value.trim();
-    const plan=planSelect ? planSelect.value : 'Full Community Access';
+    const selectedPlan=planSelect ? planSelect.value : 'Pay in Full';
+    const calc=calculatePrice(selectedPlan);
+    const planString = selectedPlan.includes('Installment')
+      ? '3 Easy Installments (PKR 10,000/mo)' 
+      : 'Pay in Full (PKR ' + calc.total.toLocaleString() + (appliedCoupon ? ' [Coupon ' + appliedCoupon + ' Applied - Saved PKR ' + calc.discount.toLocaleString() + ']' : '') + ' + 90 Days VIP WhatsApp Support)';
+
     const error=document.getElementById('payError');
     if(name.length<2||phone.replace(/\D/g,'').length<10){error.textContent='Please enter your full name and a valid WhatsApp number.';return}
     error.textContent='';
     const button=document.getElementById('showPayment');button.disabled=true;button.textContent='Saving your details…';
-    try{await sendLead({name,phone,leadType:'community-payment',requestedOffer:plan});}catch(e){console.warn(e);}
+    try{await sendLead({name,phone,leadType:'community-payment',requestedOffer:planString,coupon:appliedCoupon||'None',payableAmount:calc.total});}catch(e){console.warn(e);}
     document.getElementById('leadStep').style.display='none';
     document.getElementById('paymentDetails').classList.add('show');
   });
@@ -1019,7 +1259,12 @@
   document.getElementById('whatsappVerify').addEventListener('click',async()=>{
     const name=document.getElementById('payName').value.trim();
     const phone=document.getElementById('payPhone').value.trim();
-    const plan=planSelect ? planSelect.value : 'Full Community Access';
+    const selectedPlan=planSelect ? planSelect.value : 'Pay in Full';
+    const calc=calculatePrice(selectedPlan);
+    const planDetail = selectedPlan.includes('Installment')
+      ? '3 Easy Installments (PKR 10,000/mo)' 
+      : 'Pay in Full — PKR ' + calc.total.toLocaleString() + (appliedCoupon ? ' (Coupon: ' + appliedCoupon + ' - Saved PKR ' + calc.discount.toLocaleString() + ')' : '') + ' + 90 Days VIP WhatsApp Mentorship Included FREE';
+
     const email=document.getElementById('payEmail').value.trim();
     const age=document.getElementById('payAge').value.trim();
     const city=document.getElementById('payCity').value.trim();
@@ -1029,8 +1274,8 @@
     error.textContent='';
     const button=document.getElementById('whatsappVerify');button.disabled=true;button.textContent='Saving your details…';
     try{
-      await sendLead({name,phone,email,age,city,paymentMethod:selectedPayment,leadType:'community-payment',requestedOffer:plan});
-      const message=`Hi YT Empire Builders Team! I have completed my community payment and want verification.\n\nName: ${name}\nWhatsApp: ${phone}\nEmail: ${email}\nAge: ${age}\nCity: ${city}\nSelected Plan: ${plan}\nPayment method: ${selectedPayment}\n\nI will attach my payment screenshot below. Please verify my payment and activate my LMS access.`;
+      await sendLead({name,phone,email,age,city,paymentMethod:selectedPayment,leadType:'community-payment',requestedOffer:planDetail,coupon:appliedCoupon||'None',payableAmount:calc.total});
+      const message=`Hi YT Empire Builders Team! I have completed my community payment and want verification.\n\nName: ${name}\nWhatsApp: ${phone}\nEmail: ${email}\nAge: ${age}\nCity: ${city}\nSelected Plan: ${planDetail}\nPayable Amount: PKR ${calc.total.toLocaleString()}\nPayment Method: ${selectedPayment}\n\nI will attach my payment screenshot below. Please verify my payment and activate my LMS access.`;
       window.open('https://wa.me/'+TEAM_WHATSAPP_NUMBER+'?text='+encodeURIComponent(message),'_blank');
       button.textContent='Details saved — WhatsApp opened ✓';
     }catch(e){
