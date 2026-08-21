@@ -861,7 +861,15 @@
           </li>
           <li class="value-item">
             <div class="value-item-left"><span class="value-check">✓</span> <span>720 hours of Live Support within 90 days</span></div>
-            <div class="value-item-right pill-tag">PREMIUM</div>
+            <div class="value-item-right pill-tag" style="color:var(--gold);font-weight:900">ELITE</div>
+          </li>
+          <li class="value-item">
+            <div class="value-item-left"><span class="value-check">✓</span> <span>Content Colony Access Gateway Pass</span></div>
+            <div class="value-item-right pill-tag" style="color:#60a5fa;font-weight:900">GATEWAY PASS</div>
+          </li>
+          <li class="value-item">
+            <div class="value-item-left"><span class="value-check">✓</span> <span>Joint Venture & Partnership Opportunities</span></div>
+            <div class="value-item-right pill-tag" style="color:var(--green);font-weight:900">FOUNDER ACCESS</div>
           </li>
         </ul>
 
@@ -869,18 +877,18 @@
 
         <div class="value-total-row">
           <div class="value-total-label">TOTAL EST. VALUE</div>
-          <div class="value-total-val">$3,194+</div>
+          <div class="value-total-val">$4,194+</div>
         </div>
 
         <div class="value-savings-banner">
-          🎁 Total Value: <b>$3,194+ (PKR 900,000+)</b> — Claim Yours Today Starting At <b>PKR 3,900/mo</b>
+          🎁 Total Value: <b>$4,194+ (PKR 1,200,000+)</b> — Claim Yours Today Starting At <b>PKR 3,900/mo</b>
         </div>
       </div>
 
       <div class="lms-plans">
-        <!-- Easy Installments Plan (PKR 3,900) -->
+        <!-- Action Taker Installments Plan (PKR 3,900) -->
         <div class="plan-card">
-          <div class="plan-tag">Low-Ticket Entry</div>
+          <div class="plan-tag">🚀 Action Taker Access</div>
           <div>
             <div class="plan-name">Easy Installments</div>
             <div class="plan-for">Start learning today without financial stress</div>
@@ -920,8 +928,9 @@
             <!-- VIP PERKS -->
             <ul class="vip-perks-list">
               <li><span class="ic">⚡</span> <b>Direct Channel Review by Sir Abrar</b></li>
+              <li><span class="ic">🤝</span> <b>Joint Venture & Collaboration Opportunities</b> (Partner with us on high-scale channels)</li>
+              <li><span class="ic">🔓</span> <b>Content Colony Access Gateway Pass</b> (VIP access to secret tools, bots & automated workflows)</li>
               <li><span class="ic">🎟️</span> <b>Future Workshops Free VIP Pass</b> (All upcoming live masterclasses included 100% free)</li>
-              <li><span class="ic">🔓</span> <b>Content Vault Access Gateway Pass</b> (Instant VIP access to all secret tools, bots & automation workflows)</li>
               <li><span class="ic">🏆</span> <b>Fast-Track Inner Club Leaderboard Access</b></li>
               <li><span class="ic">♾️</span> <b>Permanent Lifetime LMS Access</b> with zero recurring fees</li>
             </ul>
@@ -948,7 +957,7 @@
 
       <details class="star reveal"><summary>How is this different from every other Pakistani course?</summary><p>Most local trainers recycle old, traditional methods — the same way the school system keeps teaching things that stopped working years ago. People paid and got nothing new. This community is part of Abrar Nadir's vision to train <b>1.6 million people</b> in AI automation, workflows, real-time skills, content creation and YouTube automation. Everything here is built on live data and updated as the game changes — not a recording from three years ago.</p></details>
 
-      <details class="reveal"><summary>Why should I choose VIP Elite (Pay in Full) instead of Installments?</summary><p>When you choose VIP Elite, you get the exclusive <b>90 Days VIP WhatsApp 1-on-1 Mentorship (worth PKR 7,000) completely FREE</b>! You also get <b>Direct Channel Review by Sir Abrar</b>, <b>Future Workshops Free VIP Pass</b>, <b>Content Vault Access Gateway Pass</b>, priority Inner Club fast-tracking, and lifetime permanent access.</p></details>
+      <details class="reveal"><summary>Why should I choose VIP Elite (Pay in Full) instead of Installments?</summary><p>When you choose VIP Elite, you get the exclusive <b>90 Days VIP WhatsApp 1-on-1 Mentorship (worth PKR 7,000) completely FREE</b>! You also get <b>Direct Channel Review by Sir Abrar</b>, <b>Joint Venture & Collaboration Opportunities</b>, <b>Content Colony Access Gateway Pass</b>, <b>Future Workshops Free VIP Pass</b>, priority Inner Club fast-tracking, and lifetime permanent access.</p></details>
 
       <details class="reveal"><summary>How do the installments work?</summary><p>You pay only PKR 3,900 today to get immediate access to the entire LMS platform and community. Pay the remaining in 7 months (PKR 3,900/month). Once all installments are completed, your access becomes permanent for life.</p></details>
 
@@ -1376,7 +1385,7 @@
     const calc=calculatePrice(selectedPlan);
     const planDetail = selectedPlan.includes('Installment')
       ? 'Easy Installments (PKR 3,900/mo in 7 months)' 
-      : 'VIP Elite Access — Pay in Full (PKR ' + calc.total.toLocaleString() + (appliedCoupon ? ' [Voucher ' + appliedCoupon + ' - Saved PKR ' + calc.discount.toLocaleString() + ']' : '') + ') + 90 Days VIP WhatsApp Mentorship + Direct Channel Review by Sir Abrar + Future Workshops VIP Pass + Content Vault Gateway Pass Included FREE';
+      : 'VIP Elite Access — Pay in Full (PKR ' + calc.total.toLocaleString() + (appliedCoupon ? ' [Voucher ' + appliedCoupon + ' - Saved PKR ' + calc.discount.toLocaleString() + ']' : '') + ') + 90 Days VIP WhatsApp Mentorship + Direct Channel Review by Sir Abrar + Joint Venture Opportunities + Content Colony Gateway Pass + Future Workshops VIP Pass Included FREE';
 
     const email=document.getElementById('payEmail').value.trim();
     const age=document.getElementById('payAge').value.trim();
