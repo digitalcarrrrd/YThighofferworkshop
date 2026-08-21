@@ -3,7 +3,7 @@ import type { Metadata } from "next";
 export const metadata: Metadata = {
   title: "YT Empire Builders — Build a Faceless YouTube Channel",
   description:
-    "Build and scale a faceless YouTube channel with AI systems, practical workbooks, community support, and custom implementation offers.",
+    "Build and scale a faceless YouTube channel with AI systems, 12 in-depth modules, practical workbooks, and lifetime LMS community support.",
   alternates: {
     canonical: "https://www.abrarnadir.com/academy/ytempirebuilder",
   },
@@ -20,7 +20,7 @@ export default function YtEmpireBuildersPage() {
       }}
     >
       <iframe
-        src="/yt-empire-builders-v2.html?v=20260814-whatsapp"
+        src="/yt-empire-builders-v2.html?v=20260821-lms"
         title="YT Empire Builders"
         style={{
           display: "block",
