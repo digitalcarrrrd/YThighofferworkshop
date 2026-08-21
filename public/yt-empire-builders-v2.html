@@ -151,33 +151,122 @@
   .cg .ic{font-size:1.3rem}.cg h4{font-weight:700;font-size:.95rem;margin:7px 0 3px}
   .cg p{color:var(--muted);font-size:.83rem;margin:0}
 
+  /* TOTAL ESTIMATED VALUE STACK CARD (DESIGN FROM IMAGE) */
+  .value-stack-card {
+    background: #141923;
+    border: 1px solid #232a38;
+    border-radius: 24px;
+    padding: 32px 30px;
+    max-width: 760px;
+    margin: 0 auto 36px;
+    box-shadow: 0 25px 60px rgba(0, 0, 0, 0.45);
+  }
+  @media(max-width: 600px) {
+    .value-stack-card { padding: 22px 16px; border-radius: 18px; }
+  }
+  .value-list {
+    list-style: none;
+    display: flex;
+    flex-direction: column;
+    gap: 15px;
+    margin-bottom: 22px;
+  }
+  .value-item {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    gap: 16px;
+    font-size: 1.02rem;
+    color: #f1f5f9;
+  }
+  @media(max-width: 580px) {
+    .value-item { font-size: 0.88rem; }
+  }
+  .value-item-left {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    font-weight: 600;
+  }
+  .value-check {
+    color: #37c871;
+    font-size: 1.15rem;
+    font-weight: 900;
+    flex-shrink: 0;
+  }
+  .value-item-right {
+    font-family: 'Archivo Black', sans-serif;
+    font-size: 1.12rem;
+    color: #60a5fa;
+    text-align: right;
+    white-space: nowrap;
+    letter-spacing: 0.02em;
+  }
+  .value-item-right.pill-tag {
+    font-family: 'Archivo', sans-serif;
+    font-size: 0.72rem;
+    font-weight: 800;
+    letter-spacing: 0.12em;
+    color: #94a3b8;
+    text-transform: uppercase;
+  }
+  .value-divider {
+    height: 1px;
+    background: #232a38;
+    margin: 20px 0 22px;
+  }
+  .value-total-row {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+  }
+  .value-total-label {
+    font-family: 'Archivo Black', sans-serif;
+    font-size: 0.95rem;
+    letter-spacing: 0.14em;
+    text-transform: uppercase;
+    color: #94a3b8;
+  }
+  .value-total-val {
+    font-family: 'Archivo Black', sans-serif;
+    font-size: 1.95rem;
+    color: #60a5fa;
+    letter-spacing: -0.01em;
+  }
+  .value-savings-banner {
+    margin-top: 22px;
+    background: linear-gradient(135deg, rgba(55,200,113,.15), rgba(228,184,74,.15));
+    border: 1px solid rgba(55, 200, 113, 0.4);
+    border-radius: 14px;
+    padding: 16px;
+    text-align: center;
+    font-size: 1rem;
+    color: #e2e8f0;
+    font-weight: 700;
+  }
+  .value-savings-banner b {
+    color: var(--gold);
+  }
+
   /* LMS ENHANCED OFFER & PLANS */
-  .lms-box{max-width:940px;margin:0 auto;background:linear-gradient(180deg,rgba(228,184,74,.07),var(--panel));border:2px solid var(--gold);border-radius:24px;padding:40px;box-shadow:0 25px 70px -15px rgba(228,184,74,.18);position:relative}
+  .lms-box{max-width:960px;margin:0 auto;background:linear-gradient(180deg,rgba(228,184,74,.07),var(--panel));border:2px solid var(--gold);border-radius:24px;padding:40px;box-shadow:0 25px 70px -15px rgba(228,184,74,.18);position:relative}
   @media(max-width:640px){.lms-box{padding:24px 18px}}
   .lms-badge{display:inline-block;background:var(--gold);color:#1a1400;font-size:.75rem;font-weight:800;letter-spacing:.12em;text-transform:uppercase;padding:5px 14px;border-radius:20px;margin-bottom:14px}
   .lms-header{text-align:center;max-width:680px;margin:0 auto 26px}
   .lms-header h2{font-size:clamp(1.9rem,4.5vw,2.8rem);margin-bottom:12px}
   .lms-header p{color:var(--muted);font-size:1rem}
-  .lms-features{display:grid;grid-template-columns:repeat(2,1fr);gap:12px;margin-bottom:28px;background:rgba(0,0,0,.25);border:1px solid var(--line);border-radius:16px;padding:22px}
-  @media(max-width:640px){.lms-features{grid-template-columns:1fr}}
-  .lms-feat-item{display:flex;align-items:flex-start;gap:10px;font-size:.88rem;color:var(--text)}
-  .lms-feat-item span{color:var(--green);font-weight:bold;flex-shrink:0}
 
   /* COUPON BOX */
-  .coupon-box{background:var(--panel2);border:1.5px dashed rgba(228,184,74,.5);border-radius:16px;padding:20px;margin-bottom:28px;text-align:center}
-  .coupon-label{font-size:.85rem;font-weight:700;color:var(--gold);letter-spacing:.05em;text-transform:uppercase;margin-bottom:10px}
-  .coupon-form{display:flex;gap:10px;max-width:440px;margin:0 auto;justify-content:center}
+  .coupon-box{background:var(--panel2);border:1.5px dashed rgba(228,184,74,.4);border-radius:16px;padding:18px 22px;margin:0 auto 28px;max-width:540px;text-align:center}
+  .coupon-label{font-size:.82rem;font-weight:700;color:var(--gold);letter-spacing:.05em;text-transform:uppercase;margin-bottom:10px}
+  .coupon-form{display:flex;gap:10px;margin:0 auto;justify-content:center}
   .coupon-form input{flex:1;background:var(--panel);border:1px solid var(--line);border-radius:10px;padding:11px 14px;color:var(--text);font-family:'Archivo';font-size:.92rem;text-transform:uppercase;font-weight:700;letter-spacing:.08em}
   .coupon-form input:focus{outline:none;border-color:var(--gold)}
-  .btn-coupon{background:linear-gradient(135deg,var(--gold),var(--gold-deep));color:#1a1400;border:none;border-radius:10px;padding:11px 18px;font-weight:800;font-size:.88rem;cursor:pointer;font-family:'Archivo';transition:transform .15s}
+  .btn-coupon{background:linear-gradient(135deg,var(--gold),var(--gold-deep));color:#1a1400;border:none;border-radius:10px;padding:11px 20px;font-weight:800;font-size:.88rem;cursor:pointer;font-family:'Archivo';transition:transform .15s}
   .btn-coupon:hover{transform:translateY(-1px)}
-  .coupon-msg{font-size:.84rem;min-height:1.2em;margin-top:9px;font-weight:700}
+  .coupon-msg{font-size:.84rem;min-height:1.2em;margin-top:8px;font-weight:700}
   .coupon-msg.success{color:var(--green)}
   .coupon-msg.error{color:#ff8877}
-  .demo-coupons{display:flex;gap:8px;flex-wrap:wrap;align-items:center;justify-content:center;margin-top:14px;font-size:.78rem;color:var(--muted)}
-  .demo-coupons span{font-weight:600}
-  .tag-coupon{background:rgba(255,255,255,.07);border:1px solid rgba(255,255,255,.15);color:var(--gold);padding:4px 10px;border-radius:12px;font-size:.74rem;font-weight:700;cursor:pointer;transition:all .15s}
-  .tag-coupon:hover{background:rgba(228,184,74,.2);border-color:var(--gold)}
 
   .lms-plans{display:grid;grid-template-columns:1fr 1fr;gap:20px}
   @media(max-width:760px){.lms-plans{grid-template-columns:1fr}}
@@ -735,33 +824,67 @@
         <p>Everything lives inside one comprehensive system. Get complete lifetime access with zero batch restrictions, available in full or via easy 3-month installments.</p>
       </div>
 
-      <div class="lms-features">
-        <div class="lms-feat-item"><span>✓</span> All 12 In-Depth Modules & Video Blueprints</div>
-        <div class="lms-feat-item"><span>✓</span> 500+ Niches with Ready-to-Use Prompts</div>
-        <div class="lms-feat-item"><span>✓</span> 45 Done-For-You Workbooks (+ New drops every 15 days)</div>
-        <div class="lms-feat-item"><span>✓</span> Codex + Claude Code Automated Video Skills</div>
-        <div class="lms-feat-item"><span>✓</span> Custom Script, Voice & Thumbnail GPTs</div>
-        <div class="lms-feat-item"><span>✓</span> Secret AI Tools Library (Hidden Insider Tools)</div>
-        <div class="lms-feat-item"><span>✓</span> Weekly Live Recordings & Strategy Sessions</div>
-        <div class="lms-feat-item"><span>✓</span> Daily Support via LMS & WhatsApp (9am–9pm)</div>
+      <!-- VALUE STACK CARD (DESIGN FROM REFERENCE IMAGE) -->
+      <div class="value-stack-card reveal">
+        <ul class="value-list">
+          <li class="value-item">
+            <div class="value-item-left"><span class="value-check">✓</span> <span>12 Module Automation Course</span></div>
+            <div class="value-item-right">$997</div>
+          </li>
+          <li class="value-item">
+            <div class="value-item-left"><span class="value-check">✓</span> <span>Execution Blueprints & Roadmaps</span></div>
+            <div class="value-item-right">$200</div>
+          </li>
+          <li class="value-item">
+            <div class="value-item-left"><span class="value-check">✓</span> <span>3 Plug & Play Execution Systems</span></div>
+            <div class="value-item-right">$1500</div>
+          </li>
+          <li class="value-item">
+            <div class="value-item-left"><span class="value-check">✓</span> <span>400+ Niches and 200 + Niches Ready Made Prompts</span></div>
+            <div class="value-item-right pill-tag">INCLUDED</div>
+          </li>
+          <li class="value-item">
+            <div class="value-item-left"><span class="value-check">✓</span> <span>Mega Prompts, Gpt's, Templates, Workflows</span></div>
+            <div class="value-item-right pill-tag">INCLUDED</div>
+          </li>
+          <li class="value-item">
+            <div class="value-item-left"><span class="value-check">✓</span> <span>Lifetime LMS Access</span></div>
+            <div class="value-item-right pill-tag">LIFETIME</div>
+          </li>
+          <li class="value-item">
+            <div class="value-item-left"><span class="value-check">✓</span> <span>Weekly Live Sessions</span></div>
+            <div class="value-item-right pill-tag">WEEKLY</div>
+          </li>
+          <li class="value-item">
+            <div class="value-item-left"><span class="value-check">✓</span> <span>Money Back Guaranteed</span></div>
+            <div class="value-item-right pill-tag">SECURE</div>
+          </li>
+          <li class="value-item">
+            <div class="value-item-left"><span class="value-check">✓</span> <span>720 hours of Live Support within 90 days</span></div>
+            <div class="value-item-right pill-tag">PREMIUM</div>
+          </li>
+        </ul>
+
+        <div class="value-divider"></div>
+
+        <div class="value-total-row">
+          <div class="value-total-label">TOTAL EST. VALUE</div>
+          <div class="value-total-val">$3,194+</div>
+        </div>
+
+        <div class="value-savings-banner">
+          🎁 Total Value: <b>$3,194+ (PKR 900,000+)</b> — Yours Today for only <b>PKR 30,000</b> (Save 97%)
+        </div>
       </div>
 
-      <!-- COUPON CODE SECTION -->
+      <!-- COUPON CODE SECTION (CLEAN & PRIVATE) -->
       <div class="coupon-box">
         <div class="coupon-label">🎟️ Have a Discount Coupon? Apply Below</div>
         <div class="coupon-form">
           <input type="text" id="couponInput" placeholder="Enter coupon code" autocomplete="off">
-          <button type="button" id="applyCouponBtn" class="btn-coupon">Apply Coupon</button>
+          <button type="button" id="applyCouponBtn" class="btn-coupon">Apply</button>
         </div>
         <div id="couponMsg" class="coupon-msg"></div>
-        <div class="demo-coupons">
-          <span>Demo Coupons:</span>
-          <button type="button" class="tag-coupon" data-code="EMPIRE5000">EMPIRE5000 (-5k)</button>
-          <button type="button" class="tag-coupon" data-code="VIP20">VIP20 (-20%)</button>
-          <button type="button" class="tag-coupon" data-code="ABRAR10">ABRAR10 (-10%)</button>
-          <button type="button" class="tag-coupon" data-code="EARLYBIRD">EARLYBIRD (-4k)</button>
-          <button type="button" class="tag-coupon" data-code="SPECIAL50">SPECIAL50 (-50%)</button>
-        </div>
       </div>
 
       <div class="lms-plans">
@@ -954,7 +1077,7 @@
 
 <script>
 
-  /* ================= COUPONS CONFIGURATION ================= */
+  /* ================= PRIVATE COUPONS CONFIGURATION ================= */
   const COUPONS = {
     'EMPIRE5000': { type: 'flat', value: 5000, desc: 'PKR 5,000 Flat Discount' },
     'VIP20':      { type: 'percent', value: 20, desc: '20% Off' },
@@ -1032,7 +1155,7 @@
       if (modalInput) modalInput.value = cleanCode;
       updatePriceUI();
     } else {
-      const errorMsg = '✖ Invalid coupon code. Try EMPIRE5000 or VIP20.';
+      const errorMsg = '✖ Invalid coupon code. Please check and try again.';
       if (mainMsg) { mainMsg.textContent = errorMsg; mainMsg.className = 'coupon-msg error'; }
       if (modalMsg) { modalMsg.textContent = errorMsg; modalMsg.className = 'coupon-msg error'; }
     }
@@ -1050,12 +1173,6 @@
   });
   document.getElementById('modalCouponInput').addEventListener('keydown', (e) => {
     if (e.key === 'Enter') { e.preventDefault(); applyCouponCode(e.target.value, 'modal'); }
-  });
-
-  document.querySelectorAll('.tag-coupon').forEach(tag => {
-    tag.addEventListener('click', () => {
-      applyCouponCode(tag.dataset.code, 'main');
-    });
   });
 
   /* ================= URDU TRANSLATION ================= */
