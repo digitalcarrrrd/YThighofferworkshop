@@ -53,11 +53,11 @@ export default function WorkshopYt3Client() {
     }
   }, []);
 
-  // Handle Scroll for Sticky Mobile CTA
+  // Handle Scroll for Sticky Mobile CTA (always visible on mobile after small scroll)
   useEffect(() => {
     const handleScroll = () => {
       const scrollY = window.pageYOffset || document.documentElement.scrollTop;
-      if (scrollY > 500 && !payModalOpen) {
+      if (scrollY > 280 && !payModalOpen) {
         setStickyVisible(true);
       } else {
         setStickyVisible(false);
@@ -65,6 +65,8 @@ export default function WorkshopYt3Client() {
     };
 
     window.addEventListener("scroll", handleScroll, { passive: true });
+    // Check initial scroll
+    handleScroll();
     return () => window.removeEventListener("scroll", handleScroll);
   }, [payModalOpen]);
 
@@ -118,7 +120,9 @@ export default function WorkshopYt3Client() {
   };
 
   const copyToClipboard = (text: string, key: string) => {
-    navigator.clipboard.writeText(text);
+    if (navigator.clipboard) {
+      navigator.clipboard.writeText(text);
+    }
     setCopiedKey(key);
     setTimeout(() => setCopiedKey(null), 1800);
   };
@@ -148,7 +152,7 @@ export default function WorkshopYt3Client() {
   const triggerWhatsAppOpen = () => {
     const message = buildWhatsAppMessage();
     const waUrl = `https://wa.me/${TEAM_WHATSAPP_NUMBER}?text=${encodeURIComponent(message)}`;
-    window.open(waUrl, "_blank");
+    window.location.href = waUrl;
   };
 
   const handleSubmitProof = async (e: React.FormEvent) => {
@@ -174,36 +178,39 @@ export default function WorkshopYt3Client() {
     setIsSubmitting(true);
 
     try {
-      // Send Lead to API in background
-      await fetch("/api/register", {
+      // Get URL params for UTM tracking
+      const params = typeof window !== "undefined" ? new URLSearchParams(window.location.search) : new URLSearchParams();
+
+      // 1. Send to CRM backend API route (Connects to GHL and triggers automated workflows)
+      await fetch("/api/yt3-submit", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({
           fullName: fullName.trim(),
-          whatsappNumber: whatsappNumber.trim(),
-          email: "",
+          phone: whatsappNumber.trim(),
           paymentMethod: paymentMethod === "Meezan Bank" ? "Bank Transfer" : paymentMethod,
-          transactionId: transactionId.trim() || "N/A (Screenshot Attached)",
-          paymentScreenshot: screenshotBase64,
-          consent: true,
-          batchDate: new Date().toISOString().split("T")[0],
-          batchDisplayDate: dynamicDate,
-          deviceCategory: typeof window !== "undefined" && window.innerWidth < 640 ? "mobile" : "desktop",
-          timestamp: new Date().toISOString(),
+          transactionId: transactionId.trim() || "N/A",
+          batchDate: dynamicDate,
+          utm_source: params.get("utm_source") || "",
+          utm_medium: params.get("utm_medium") || "",
+          utm_campaign: params.get("utm_campaign") || "",
+          utm_content: params.get("utm_content") || "",
+          utm_term: params.get("utm_term") || "",
+          fbclid: params.get("fbclid") || "",
         }),
-      }).catch((err) => console.warn("Lead save error:", err));
+      }).catch((err) => console.warn("CRM workflow submission note:", err));
 
-      // Track Pixel if active
+      // 2. Track Meta Pixel Event
       if (typeof (window as any).fbq === "function") {
         (window as any).fbq("track", "CompleteRegistration", {
           value: 1999,
           currency: "PKR",
-          content_name: "YouTube Empire Builders Workshop",
+          content_name: "YouTube Empire Builders Workshop 3",
         });
       }
 
       setIsSubmitting(false);
-      setModalStep(2); // Show 10s countdown redirect
+      setModalStep(2); // Transition to 10-second polite waiting & redirect screen
     } catch {
       setIsSubmitting(false);
       setModalStep(2); // Proceed to WhatsApp regardless so user is never blocked
@@ -289,8 +296,8 @@ export default function WorkshopYt3Client() {
                   <div className="yt3-info-value">7:00 PM PKT</div>
                 </div>
                 <div className="yt3-info-item">
-                  <div className="yt3-info-label">Max Participants</div>
-                  <div className="yt3-info-value">100</div>
+                  <div className="yt3-info-label">Max Seats</div>
+                  <div className="yt3-info-value">100 Limited</div>
                 </div>
                 <div className="yt3-info-item">
                   <div className="yt3-info-label">Price</div>
@@ -300,7 +307,7 @@ export default function WorkshopYt3Client() {
             </div>
 
             <button className="yt3-cta-btn" onClick={openPayModal}>
-              Aaj Raat Ki Seat PKR 1,999 Mein Lock Karein
+              <span>Aaj Raat Ki Seat PKR 1,999 Mein Lock Karein</span>
               <span className="arrow">&rarr;</span>
             </button>
 
@@ -584,7 +591,7 @@ export default function WorkshopYt3Client() {
             </div>
             <div className="yt3-bonus-cta-wrap">
               <button className="yt3-cta-btn" onClick={openPayModal}>
-                Abhi Seat Lock Karein — PKR 1,999
+                <span>Abhi Seat Lock Karein — PKR 1,999</span>
                 <span className="arrow">&rarr;</span>
               </button>
             </div>
@@ -657,70 +664,49 @@ export default function WorkshopYt3Client() {
           </div>
         </section>
 
-        {/* PAYMENT DETAILS */}
+        {/* PAYMENT DETAILS SECTION */}
         <section className="yt3-section yt3-payment-section" id="payment">
           <div className="yt3-container" style={{ maxWidth: "700px" }}>
             <h2 className="yt3-section-title">Direct Payment Details</h2>
             <p className="yt3-section-subtitle">Kisi bhi payment method se PKR 1,999 transfer karein.</p>
             
             {/* Bank */}
-            <div style={{ marginBottom: "20px" }}>
-              <h3 style={{ fontSize: "15px", fontWeight: 700, color: "#0F172A", marginBottom: "10px", display: "flex", alignItems: "center", gap: "6px" }}>
+            <div style={{ marginBottom: "16px" }}>
+              <h3 style={{ fontSize: "15px", fontWeight: 800, color: "#0F172A", marginBottom: "8px", display: "flex", alignItems: "center", gap: "6px" }}>
                 🏦 Meezan Bank Limited
               </h3>
               <div style={{ display: "flex", flexDirection: "column", gap: "6px" }}>
-                <div style={{ display: "flex", justifyContent: "space-between", alignItems: "center", background: "#F8FAFC", padding: "10px 14px", borderRadius: "8px" }}>
-                  <div><p style={{ fontSize: "11px", color: "#94A3B8", margin: 0 }}>Account Title</p><p style={{ fontSize: "14px", fontWeight: 600, color: "#0F172A", margin: "2px 0 0" }}>Muhammad Abrar</p></div>
+                <div style={{ display: "flex", justifyContent: "space-between", alignItems: "center", background: "#F8FAFC", padding: "10px 14px", borderRadius: "10px", border: "1px solid #E2E8F0" }}>
+                  <div><p style={{ fontSize: "11px", color: "#94A3B8", margin: 0, fontWeight: 700 }}>Account Title</p><p style={{ fontSize: "14px", fontWeight: 700, color: "#0F172A", margin: "2px 0 0" }}>Muhammad Abrar</p></div>
                   <button onClick={() => copyToClipboard("Muhammad Abrar", "title")} className={`yt3-copy-btn ${copiedKey === "title" ? "copied" : ""}`}>{copiedKey === "title" ? "Copied ✓" : "Copy"}</button>
                 </div>
-                <div style={{ display: "flex", justifyContent: "space-between", alignItems: "center", background: "#F8FAFC", padding: "10px 14px", borderRadius: "8px" }}>
-                  <div><p style={{ fontSize: "11px", color: "#94A3B8", margin: 0 }}>Account Number</p><p style={{ fontSize: "14px", fontWeight: 600, color: "#0F172A", margin: "2px 0 0" }}>02370103321036</p></div>
+                <div style={{ display: "flex", justifyContent: "space-between", alignItems: "center", background: "#F8FAFC", padding: "10px 14px", borderRadius: "10px", border: "1px solid #E2E8F0" }}>
+                  <div><p style={{ fontSize: "11px", color: "#94A3B8", margin: 0, fontWeight: 700 }}>Account Number</p><p style={{ fontSize: "14px", fontWeight: 700, color: "#0F172A", margin: "2px 0 0", fontFamily: "monospace" }}>02370103321036</p></div>
                   <button onClick={() => copyToClipboard("02370103321036", "acc")} className={`yt3-copy-btn ${copiedKey === "acc" ? "copied" : ""}`}>{copiedKey === "acc" ? "Copied ✓" : "Copy"}</button>
                 </div>
-                <div style={{ display: "flex", justifyContent: "space-between", alignItems: "center", background: "#F8FAFC", padding: "10px 14px", borderRadius: "8px" }}>
-                  <div><p style={{ fontSize: "11px", color: "#94A3B8", margin: 0 }}>IBAN</p><p style={{ fontSize: "14px", fontWeight: 600, color: "#0F172A", margin: "2px 0 0" }}>PK39MEZN0002370103321036</p></div>
+                <div style={{ display: "flex", justifyContent: "space-between", alignItems: "center", background: "#F8FAFC", padding: "10px 14px", borderRadius: "10px", border: "1px solid #E2E8F0" }}>
+                  <div><p style={{ fontSize: "11px", color: "#94A3B8", margin: 0, fontWeight: 700 }}>IBAN</p><p style={{ fontSize: "14px", fontWeight: 700, color: "#0F172A", margin: "2px 0 0", fontFamily: "monospace" }}>PK39MEZN0002370103321036</p></div>
                   <button onClick={() => copyToClipboard("PK39MEZN0002370103321036", "iban")} className={`yt3-copy-btn ${copiedKey === "iban" ? "copied" : ""}`}>{copiedKey === "iban" ? "Copied ✓" : "Copy"}</button>
                 </div>
               </div>
             </div>
 
             {/* EasyPaisa & Binance */}
-            <div style={{ display: "grid", gridTemplateColumns: "1fr 1fr", gap: "12px" }}>
-              <div>
-                <h3 style={{ fontSize: "15px", fontWeight: 700, color: "#0F172A", marginBottom: "10px", display: "flex", alignItems: "center", gap: "6px" }}>
-                  📱 EasyPaisa
-                </h3>
-                <div style={{ display: "flex", flexDirection: "column", gap: "6px" }}>
-                  <div style={{ display: "flex", justifyContent: "space-between", alignItems: "center", background: "#F8FAFC", padding: "10px 14px", borderRadius: "8px" }}>
-                    <div>
-                      <p style={{ fontSize: "11px", color: "#94A3B8", margin: 0 }}>Number</p>
-                      <p style={{ fontSize: "14px", fontWeight: 600, color: "#0F172A", margin: "2px 0 0" }}>03274532186</p>
-                    </div>
-                    <button onClick={() => copyToClipboard("03274532186", "ep_num")} className={`yt3-copy-btn ${copiedKey === "ep_num" ? "copied" : ""}`}>{copiedKey === "ep_num" ? "Copied ✓" : "Copy"}</button>
-                  </div>
-                  <div style={{ background: "#F8FAFC", padding: "10px 14px", borderRadius: "8px" }}>
-                    <p style={{ fontSize: "11px", color: "#94A3B8", margin: 0 }}>Name</p>
-                    <p style={{ fontSize: "14px", fontWeight: 600, color: "#0F172A", margin: "2px 0 0" }}>Muhammad Abrar Ghauri</p>
-                  </div>
+            <div style={{ display: "grid", gridTemplateColumns: "1fr", gap: "10px" }}>
+              <div style={{ display: "flex", justifyContent: "space-between", alignItems: "center", background: "#F8FAFC", padding: "10px 14px", borderRadius: "10px", border: "1px solid #E2E8F0" }}>
+                <div>
+                  <p style={{ fontSize: "11px", color: "#94A3B8", margin: 0, fontWeight: 700 }}>📱 EasyPaisa (Muhammad Abrar Ghauri)</p>
+                  <p style={{ fontSize: "14px", fontWeight: 700, color: "#0F172A", margin: "2px 0 0", fontFamily: "monospace" }}>03274532186</p>
                 </div>
+                <button onClick={() => copyToClipboard("03274532186", "ep_num")} className={`yt3-copy-btn ${copiedKey === "ep_num" ? "copied" : ""}`}>{copiedKey === "ep_num" ? "Copied ✓" : "Copy"}</button>
               </div>
-              <div>
-                <h3 style={{ fontSize: "15px", fontWeight: 700, color: "#0F172A", marginBottom: "10px", display: "flex", alignItems: "center", gap: "6px" }}>
-                  🟡 Binance (Crypto / USDT)
-                </h3>
-                <div style={{ display: "flex", flexDirection: "column", gap: "6px" }}>
-                  <div style={{ display: "flex", justifyContent: "space-between", alignItems: "center", background: "#F8FAFC", padding: "10px 14px", borderRadius: "8px" }}>
-                    <div>
-                      <p style={{ fontSize: "11px", color: "#94A3B8", margin: 0 }}>Binance ID / UID</p>
-                      <p style={{ fontSize: "14px", fontWeight: 600, color: "#0F172A", margin: "2px 0 0" }}>117971802</p>
-                    </div>
-                    <button onClick={() => copyToClipboard("117971802", "binance_id")} className={`yt3-copy-btn ${copiedKey === "binance_id" ? "copied" : ""}`}>{copiedKey === "binance_id" ? "Copied ✓" : "Copy"}</button>
-                  </div>
-                  <div style={{ background: "#F8FAFC", padding: "10px 14px", borderRadius: "8px" }}>
-                    <p style={{ fontSize: "11px", color: "#94A3B8", margin: 0 }}>Name</p>
-                    <p style={{ fontSize: "14px", fontWeight: 600, color: "#0F172A", margin: "2px 0 0" }}>abrarnadircb</p>
-                  </div>
+
+              <div style={{ display: "flex", justifyContent: "space-between", alignItems: "center", background: "#F8FAFC", padding: "10px 14px", borderRadius: "10px", border: "1px solid #E2E8F0" }}>
+                <div>
+                  <p style={{ fontSize: "11px", color: "#94A3B8", margin: 0, fontWeight: 700 }}>🟡 Binance Pay UID (abrarnadircb)</p>
+                  <p style={{ fontSize: "14px", fontWeight: 700, color: "#0F172A", margin: "2px 0 0", fontFamily: "monospace" }}>117971802</p>
                 </div>
+                <button onClick={() => copyToClipboard("117971802", "binance_id")} className={`yt3-copy-btn ${copiedKey === "binance_id" ? "copied" : ""}`}>{copiedKey === "binance_id" ? "Copied ✓" : "Copy"}</button>
               </div>
             </div>
           </div>
@@ -741,7 +727,7 @@ export default function WorkshopYt3Client() {
                       onClick={() => toggleFaq(index)}
                       aria-expanded={isActive}
                     >
-                      {faq.q}
+                      <span>{faq.q}</span>
                       <span className="yt3-faq-toggle">+</span>
                     </button>
                     {isActive && (
@@ -765,7 +751,7 @@ export default function WorkshopYt3Client() {
               <span className="currency">PKR</span> 1,999
             </div>
             <button className="yt3-cta-btn" onClick={openPayModal}>
-              Aaj Raat Ki Seat Lock Karein
+              <span>Aaj Raat Ki Seat Lock Karein</span>
               <span className="arrow">&rarr;</span>
             </button>
             <p className="fine-print">Registration 7:00 PM PKT pe close. Live workshop 8:00 – 10:00 PM PKT. Recording 24 ghante available.</p>
@@ -780,7 +766,7 @@ export default function WorkshopYt3Client() {
           <p style={{ marginTop: "6px" }}>
             Results may vary. Workshop provides education and frameworks — success depends on individual execution.
           </p>
-          <div style={{ marginTop: "12px", display: "flex", flexWrap: "wrap", gap: "16px", justifyContent: "center" }}>
+          <div style={{ marginTop: "12px", display: "flex", flexWrap: "wrap", gap: "14px", justifyContent: "center" }}>
             <button type="button" onClick={() => openPolicy("refund")} style={{ background: "none", border: "none", color: "#94A3B8", fontSize: "12px", cursor: "pointer", textDecoration: "underline" }}>
               Refund Policy
             </button>
@@ -808,7 +794,7 @@ export default function WorkshopYt3Client() {
         </button>
       </div>
 
-      {/* BEAUTIFUL ALL-IN-ONE REGISTRATION & PAYMENT POPUP */}
+      {/* MOBILE-FIRST BEAUTIFUL ALL-IN-ONE REGISTRATION & PAYMENT POPUP */}
       {payModalOpen && (
         <div className="yt3-paymodal-overlay" onClick={closePayModal} role="dialog" aria-modal="true">
           <div className="yt3-paybox" onClick={(e) => e.stopPropagation()}>
@@ -817,7 +803,7 @@ export default function WorkshopYt3Client() {
             <div className="yt3-paybox-header">
               <div>
                 <div className="yt3-paybox-header-title">Live Workshop Registration</div>
-                <h3>{modalStep === 1 ? "Complete Your Registration & Payment" : "Verification in Progress"}</h3>
+                <h3>{modalStep === 1 ? "Complete Registration & Payment" : "Verification in Progress"}</h3>
               </div>
               <button className="yt3-paybox-close" onClick={closePayModal} aria-label="Close modal">
                 &times;
@@ -829,7 +815,7 @@ export default function WorkshopYt3Client() {
               {modalStep === 1 ? (
                 <form onSubmit={handleSubmitProof}>
                   
-                  {/* Step 1: User details */}
+                  {/* User details */}
                   <div className="yt3-form-group">
                     <label>Full Name *</label>
                     <input
@@ -959,11 +945,11 @@ export default function WorkshopYt3Client() {
 
                   {/* Transaction ID optional */}
                   <div className="yt3-form-group">
-                    <label>Transaction ID / TID <span style={{ color: "#94A3B8", fontWeight: "normal", fontSize: "12px" }}>(Optional)</span></label>
+                    <label>Transaction ID / Reference Number <span style={{ color: "#94A3B8", fontWeight: "normal", fontSize: "11.5px" }}>(Optional)</span></label>
                     <input
                       type="text"
                       className="yt3-form-input"
-                      placeholder="Agar available ho toh likhein"
+                      placeholder="Agar available ho toh darj karein"
                       value={transactionId}
                       onChange={(e) => setTransactionId(e.target.value)}
                     />
@@ -971,7 +957,7 @@ export default function WorkshopYt3Client() {
 
                   {/* Upload Screenshot */}
                   <div className="yt3-form-group">
-                    <label>Attach Payment Screenshot *</label>
+                    <label>Payment Screenshot / Receipt *</label>
                     <div className="yt3-upload-zone" onClick={() => fileInputRef.current?.click()}>
                       <input
                         type="file"
@@ -982,30 +968,30 @@ export default function WorkshopYt3Client() {
                       />
                       {screenshotBase64 ? (
                         <div>
-                          <span style={{ display: "inline-block", background: "#DCFCE7", color: "#166534", fontSize: "12px", fontWeight: 700, padding: "3px 10px", borderRadius: "9999px" }}>
-                            Screenshot Uploaded ✓
+                          <span style={{ display: "inline-block", background: "#DCFCE7", color: "#166534", fontSize: "12px", fontWeight: 800, padding: "3px 10px", borderRadius: "9999px" }}>
+                            Screenshot Attached ✓
                           </span>
                           <p style={{ fontSize: "12px", color: "#475569", marginTop: "4px", fontWeight: 600 }}>{screenshotFilename}</p>
                         </div>
                       ) : (
                         <div>
-                          <span style={{ fontSize: "24px", display: "block", marginBottom: "4px" }}>📸</span>
-                          <p style={{ fontSize: "13px", fontWeight: 700, color: "#1E293B" }}>Click to upload payment screenshot</p>
-                          <p style={{ fontSize: "11px", color: "#64748B" }}>JPG, PNG, WEBP ya PDF (Max: 10MB)</p>
+                          <span style={{ fontSize: "24px", display: "block", marginBottom: "2px" }}>📸</span>
+                          <p style={{ fontSize: "13px", fontWeight: 800, color: "#1E293B" }}>Attach Payment Screenshot</p>
+                          <p style={{ fontSize: "11px", color: "#64748B" }}>Tap to upload from mobile or gallery</p>
                         </div>
                       )}
                     </div>
                   </div>
 
                   {formError && (
-                    <div style={{ background: "#FEF2F2", border: "1px solid #FECACA", color: "#DC2626", padding: "10px 14px", borderRadius: "10px", fontSize: "13px", fontWeight: 600, marginBottom: "14px" }}>
+                    <div style={{ background: "#FEF2F2", border: "1px solid #FECACA", color: "#DC2626", padding: "10px 14px", borderRadius: "10px", fontSize: "13px", fontWeight: 700, marginBottom: "14px" }}>
                       {formError}
                     </div>
                   )}
 
                   {/* CTA Button */}
                   <button type="submit" className="yt3-verify-btn" disabled={isSubmitting}>
-                    {isSubmitting ? "Submitting..." : "Verify Payment on WhatsApp →"}
+                    {isSubmitting ? "Processing Verification..." : "Verify Payment on WhatsApp →"}
                   </button>
                 </form>
               ) : (
@@ -1028,7 +1014,7 @@ export default function WorkshopYt3Client() {
                   </div>
 
                   <p style={{ fontSize: "12px", color: "#64748B", marginBottom: "16px", fontWeight: 600 }}>
-                    Opening WhatsApp automatically in {countdown} seconds...
+                    Connecting you with the manager in {countdown} seconds...
                   </p>
 
                   <button
@@ -1054,12 +1040,12 @@ export default function WorkshopYt3Client() {
               <h2>💰 100% Refund Guarantee — No Questions Asked</h2>
             </div>
             <div className="yt3-policy-modal-body">
-              <p>We are confident in the value of this workshop. That&apos;s why we offer a <strong>100% money-back guarantee</strong>. If you feel the workshop didn&apos;t meet your expectations, you can request a full 100% refund within 72 hours of the workshop&apos;s scheduled end time.</p>
+              <p>We offer a <strong>100% money-back guarantee</strong>. If you feel the workshop didn&apos;t meet your expectations, you can request a full 100% refund within 72 hours of the workshop&apos;s scheduled end time.</p>
               <p><strong>Refund Eligibility:</strong></p>
               <ul>
                 <li>Full 100% refund request must be submitted within <strong>72 hours</strong> of the workshop&apos;s scheduled end time.</li>
                 <li>Requests must be sent via WhatsApp to our support number: <strong>+92 329 6158206</strong>.</li>
-                <li>No explanation or justification is required — simply state your request.</li>
+                <li>No explanation or justification is required.</li>
               </ul>
             </div>
           </div>
@@ -1074,13 +1060,7 @@ export default function WorkshopYt3Client() {
               <h2>🔄 Seat Transfer Policy</h2>
             </div>
             <div className="yt3-policy-modal-body">
-              <p>If you are unable to attend the workshop, you may transfer your seat to another person under the following conditions:</p>
-              <ul>
-                <li>Transfer requests must be submitted at least <strong>2 hours before</strong> the workshop starts.</li>
-                <li>The transferee must register via WhatsApp with their own details.</li>
-                <li>Only one transfer per registration is allowed.</li>
-              </ul>
-              <p>To request a transfer, contact us via WhatsApp (+92 329 6158206) with your registration details.</p>
+              <p>If you are unable to attend the workshop, you may transfer your seat to another person at least <strong>2 hours before</strong> the workshop starts by contacting WhatsApp (+92 329 6158206).</p>
             </div>
           </div>
         </div>
@@ -1094,13 +1074,7 @@ export default function WorkshopYt3Client() {
               <h2>📋 Disclaimer</h2>
             </div>
             <div className="yt3-policy-modal-body">
-              <p><strong>General Disclaimer</strong></p>
-              <p>This workshop is designed for educational and informational purposes only. The content, strategies, and techniques shared during the workshop are based on the presenter&apos;s personal experience and research.</p>
-              <p><strong>No Guaranteed Income:</strong></p>
-              <ul>
-                <li>This workshop does not guarantee any specific income level, subscriber count, or business outcome.</li>
-                <li>Success in YouTube content creation requires consistent effort, quality content, and market understanding.</li>
-              </ul>
+              <p>This workshop is designed for educational and informational purposes only. Individual results may vary depending on effort, market conditions, and consistency of execution.</p>
             </div>
           </div>
         </div>
@@ -1114,9 +1088,8 @@ export default function WorkshopYt3Client() {
               <h2>🔒 Privacy Policy</h2>
             </div>
             <div className="yt3-policy-modal-body">
-              <p><strong>Privacy Policy — How We Handle Your Data</strong></p>
-              <p>Your privacy is important to us. We collect your Full Name and WhatsApp Number solely for workshop communication, registration verification, and 7-day community access.</p>
-              <p><strong>Contact:</strong> For any privacy-related questions, reach out via WhatsApp at <strong>+92 329 6158206</strong>.</p>
+              <p>We respect your privacy. Your contact info is collected solely for workshop registration verification and WhatsApp community support.</p>
+              <p><strong>Contact:</strong> WhatsApp +92 329 6158206.</p>
             </div>
           </div>
         </div>
