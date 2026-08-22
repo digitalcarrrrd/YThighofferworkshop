@@ -7,7 +7,7 @@ import {
   Zap, ChevronDown, 
   TrendingUp, Home, Lock, AlertTriangle,
   MessageSquare, Monitor,
-  GraduationCap, Briefcase, Heart, Smile
+  GraduationCap, Briefcase, Heart, Smile, Gift, Flame
 } from "lucide-react";
 
 const TEAM_WHATSAPP_NUMBER = "923296158206";
@@ -37,7 +37,7 @@ export default function WorkshopYt7Client() {
   // Timer & interactive states
   const [timeLeft, setTimeLeft] = useState<string>("00:00:00");
   const [isAfterSeven, setIsAfterSeven] = useState<boolean>(false);
-  const [selectedYear, setSelectedYear] = useState<"1st" | "2nd" | "3rd" | "4th" | "grad1" | "grad2">("1st");
+  const [selectedYear, setSelectedYear] = useState<"new_adm" | "1st" | "2nd" | "3rd" | "4th" | "master">("new_adm");
   const [openFaqIdx, setOpenFaqIdx] = useState<number | null>(null);
   const [floatingVisible, setFloatingVisible] = useState<boolean>(false);
 
@@ -249,14 +249,14 @@ export default function WorkshopYt7Client() {
         {isAfterSeven ? (
           <span>Aaj Ki Registration Band Ho Gayi — Kal Raat 8 PM Ka Slot Ab Open Hai</span>
         ) : (
-          <span>🔴 Aaj Raat 8 PM Live — Registration {timeLeft} Mein Band — Sirf 100 Seats — Degree Students Ke Liye Special Batch</span>
+          <span>🔴 Aaj Raat 8 PM Live — Registration {timeLeft} Mein Band — Sirf 100 Seats — 2026 University Batch</span>
         )}
       </div>
 
       {/* HERO SECTION */}
       <header className="pt-12 md:pt-20 pb-16 px-4 md:px-6 max-w-5xl mx-auto text-center border-b border-slate-800">
         <div className="inline-flex items-center gap-2 border border-amber-500/50 bg-amber-500/10 text-amber-400 px-4 py-1.5 rounded-full text-xs font-bold tracking-wide uppercase mb-8 shadow-sm">
-          <span>Pakistan Ke University Students, Graduates Aur Woh Jinhon Ne Degree Le Li — Lekin Zindagi Abhi Shuru Nahi Hui</span>
+          <span>🎓 Pakistan Ke University & College Students, New Admissions, Bachelor&apos;s & Master&apos;s Ke Liye — 2026 Batch</span>
         </div>
 
         <h1 className="space-y-3 mb-8">
@@ -298,6 +298,20 @@ export default function WorkshopYt7Client() {
           </div>
         </div>
 
+        {/* Seat Fill FOMO Bar */}
+        <div className="max-w-xl mx-auto bg-[#0F1D32] border border-amber-500/40 rounded-2xl p-4 mb-6 text-left shadow-lg">
+          <div className="flex justify-between items-center text-xs font-bold mb-2">
+            <span className="text-amber-400 flex items-center gap-1.5">
+              <Flame size={15} className="text-red-500 animate-bounce" /> 
+              Live Batch Status: 78% Seats Filled
+            </span>
+            <span className="text-red-400 font-mono">Only 22 Seats Left!</span>
+          </div>
+          <div className="w-full bg-slate-800 h-3 rounded-full overflow-hidden p-0.5 border border-slate-700">
+            <div className="bg-gradient-to-r from-amber-500 to-red-500 h-full rounded-full w-[78%] transition-all duration-1000 shadow-sm" />
+          </div>
+        </div>
+
         {/* Hero CTA */}
         <div className="max-w-xl mx-auto">
           <button 
@@ -307,7 +321,14 @@ export default function WorkshopYt7Client() {
             <span>Degree Ke Saath Apna YouTube Empire Shuru Karein — PKR 1,999</span>
             <ArrowRight size={22} className="shrink-0" />
           </button>
-          <p className="text-xs text-slate-400 mt-3 flex items-center justify-center gap-2 font-medium">
+          
+          {/* Money Back Guarantee Badge */}
+          <div className="mt-4 p-3 bg-green-950/40 border border-green-500/40 rounded-xl flex items-center justify-center gap-2 text-xs text-green-300 font-bold">
+            <ShieldCheck size={16} className="text-green-400 shrink-0" />
+            <span>100% Money Back Guarantee — Value na mile toh full refund!</span>
+          </div>
+
+          <p className="text-xs text-slate-400 mt-2 flex items-center justify-center gap-2 font-medium">
             <Lock size={13} className="text-green-400" />
             🔒 Aaj Raat 7 PM Se Pehle | 100 Seats Only | 2 Ghante Ka Complete System
           </p>
@@ -325,15 +346,12 @@ export default function WorkshopYt7Client() {
 
           <div className="space-y-6 text-slate-200 text-base md:text-lg leading-relaxed">
             <p>
+              Lahore ki ek university. Engineering department. <strong>2026. New Admission & Semester 1.</strong><br />
               Sach batao. Final answer kya tha jab admission form bhara tha?<br />
-              <em>&apos;Degree ke baad achhi job milegi.&apos;</em> • <em>&apos;Life set ho jayegi.&apos;</em> • <em>&apos;Parents ka sapna poora karoonga.&apos;</em> • <em>&apos;Secure future ban jayega.&apos;</em>
+              <em>&apos;Degree ke baad achhi job milegi.&apos;</em> • <em>&apos;Life set ho jayegi.&apos;</em> • <em>&apos;Parents ka sapna poora karoonga.&apos;</em>
             </p>
 
             <div className="h-px bg-slate-800 my-6" />
-
-            <p>
-              Aur ab — ya toh aap fourth year mein hain aur sach dikhna shuru ho gaya hai. Ya aap graduate ho chuke hain aur sach dikhna shuru ho gaya hai. Ya aap pehle ya doosre year mein hain aur seniors ka haal dekh kar andar se dar lag raha hai.
-            </p>
 
             <div className="bg-[#0F1D32] border border-red-500/30 p-6 rounded-2xl space-y-2 text-slate-200">
               <h3 className="text-red-400 font-bold text-base uppercase">Woh Sach Yeh Hai:</h3>
@@ -344,180 +362,6 @@ export default function WorkshopYt7Client() {
                 • Mehangai 20%+ per saal hai aur PKR ki value gir rahi hai.
               </p>
             </div>
-
-            <p className="italic text-slate-300">
-              Aur sabse bura sach? Jo banda aapke saath padhta tha — jisne parallel YouTube channel banaya tha degree ke saath saath — woh aaj dollar mein kama raha hai. Aap abhi bhi CV bhej rahe hain.<br /><br />
-              <strong className="text-white">Mujhe aapse baat karni hai. Kyunki koi aur nahi karta.</strong>
-            </p>
-          </div>
-        </div>
-      </section>
-
-      {/* SECTION 2: THE MATH THEY NEVER SHOWED YOU */}
-      <section className="py-16 md:py-24 px-4 md:px-6 bg-[#07111F] border-b border-slate-800">
-        <div className="max-w-4xl mx-auto">
-          <div className="text-center mb-10">
-            <h2 className="text-2xl sm:text-4xl font-extrabold text-white mb-2">
-              Woh Hisab Jo Kisi Ne Nahi Bataya
-            </h2>
-            <p className="text-slate-400 text-sm font-mono">University ne finance padhai lekin personal math nahi sikhaya.</p>
-          </div>
-
-          <div className="bg-[#0F1D32] border border-slate-700 rounded-2xl overflow-hidden mb-10">
-            <div className="grid grid-cols-2 bg-slate-900 p-4 text-xs sm:text-sm font-bold uppercase tracking-wider border-b border-slate-700">
-              <span className="text-red-400">DEGREE PATH</span>
-              <span className="text-green-400">YOUTUBE PATH</span>
-            </div>
-            <div className="divide-y divide-slate-800 text-xs sm:text-sm">
-              <div className="grid grid-cols-2 p-3 sm:p-4 text-slate-300"><span>PKR 4-25 lakh cost</span><span className="text-green-400 font-bold">PKR 0 start cost</span></div>
-              <div className="grid grid-cols-2 p-3 sm:p-4 text-slate-300"><span>4 saal waqt</span><span className="text-green-400 font-bold">6-12 mahine</span></div>
-              <div className="grid grid-cols-2 p-3 sm:p-4 text-slate-300"><span>1 employer pe depend</span><span className="text-green-400 font-bold">Global audience</span></div>
-              <div className="grid grid-cols-2 p-3 sm:p-4 text-slate-300"><span>PKR 25K start salary</span><span className="text-green-400 font-bold">Dollar ($) mein earning</span></div>
-              <div className="grid grid-cols-2 p-3 sm:p-4 text-slate-300"><span>Ceiling: PKR 80K avg</span><span className="text-green-400 font-bold">Ceiling: Unlimited</span></div>
-              <div className="grid grid-cols-2 p-3 sm:p-4 text-slate-300"><span>9-6 office schedule</span><span className="text-green-400 font-bold">Ghar se, kahin bhi</span></div>
-              <div className="grid grid-cols-2 p-3 sm:p-4 text-slate-300"><span>Boss decide karta hai</span><span className="text-green-400 font-bold">Aap decide karte hain</span></div>
-              <div className="grid grid-cols-2 p-3 sm:p-4 text-slate-300"><span>Inflation salary khata hai</span><span className="text-green-400 font-bold">Dollar value protect karta hai</span></div>
-              <div className="grid grid-cols-2 p-3 sm:p-4 text-slate-300"><span>Retire = income zero</span><span className="text-green-400 font-bold">Channel chalti rahe</span></div>
-            </div>
-          </div>
-
-          <div className="text-center">
-            <button 
-              onClick={openPayModal}
-              className="bg-green-600 hover:bg-green-700 text-white font-extrabold text-base sm:text-lg py-4 px-8 rounded-2xl shadow-xl transition-all"
-            >
-              <span>Mujhe Dollar Income Blueprint Chahiye →</span>
-            </button>
-          </div>
-        </div>
-      </section>
-
-      {/* SECTION 3: THREE TYPES OF STUDENTS */}
-      <section className="py-16 md:py-24 px-4 md:px-6 bg-[#040A12] border-b border-slate-800">
-        <div className="max-w-4xl mx-auto">
-          <div className="text-center mb-10">
-            <h2 className="text-2xl sm:text-4xl font-extrabold text-white mb-2">
-              Pakistan Ke Teen Qisam Ke Students. Aap Konse Hain?
-            </h2>
-          </div>
-
-          <div className="grid sm:grid-cols-3 gap-6 mb-10">
-            <div className="bg-red-500/10 border border-red-500/30 p-6 rounded-2xl">
-              <div className="text-red-400 font-bold text-sm uppercase tracking-wider mb-2">TYPE 1: &quot;THE WAITER&quot; 😶</div>
-              <p className="text-xs text-slate-300 leading-relaxed mb-3">
-                <strong>Story:</strong> <em>&apos;Baad mein dekhein ge. Abhi exams hain. Pehle job lagao.&apos;</em><br />
-                <strong>Reality:</strong> 2-3 saal baad bhi CV bhej rahe hote hain jab saath wale aage nikal chuke hote hain.
-              </p>
-              <div className="text-[11px] font-bold text-red-400">1 Saal Baad: Abhi bhi CV bhej rahe honge.</div>
-            </div>
-
-            <div className="bg-green-500/10 border-2 border-green-500/40 p-6 rounded-2xl shadow-lg">
-              <div className="text-green-400 font-bold text-sm uppercase tracking-wider mb-2">TYPE 2: &quot;PARALLEL BUILDER&quot; ⚡</div>
-              <p className="text-xs text-slate-300 leading-relaxed mb-3">
-                <strong>Story:</strong> Degree + YouTube channel parallel. Raat ko 2-3 ghante consistent.<br />
-                <strong>Reality:</strong> Semester 4 monetization, Semester 6 PKR 50k+/mo, Graduation par financially independent.
-              </p>
-              <div className="text-[11px] font-bold text-green-400">1 Saal Baad: Dollar mein kama rahe honge.</div>
-            </div>
-
-            <div className="bg-amber-500/10 border border-amber-500/30 p-6 rounded-2xl">
-              <div className="text-amber-400 font-bold text-sm uppercase tracking-wider mb-2">TYPE 3: &quot;THE REGRETTER&quot; 😔</div>
-              <p className="text-xs text-slate-300 leading-relaxed mb-3">
-                <strong>Story:</strong> Degree ho gayi. Pehli job PKR 30,000. <em>&apos;Kya ab bhi ho sakta hai?&apos;</em><br />
-                <strong>Reality:</strong> Der nahi hui lekin har din ki delay competition ko 2x aage le jaati hai.
-              </p>
-              <div className="text-[11px] font-bold text-amber-400">1 Saal Baad: Action lenge toh growing asset hoga.</div>
-            </div>
-          </div>
-        </div>
-      </section>
-
-      {/* SECTION 7: THE 4-YEAR CLOCK — INTERACTIVE SELECTOR */}
-      <section className="py-16 md:py-24 px-4 md:px-6 bg-[#07111F] border-b border-slate-800">
-        <div className="max-w-4xl mx-auto">
-          <div className="text-center mb-8">
-            <h2 className="text-2xl sm:text-4xl font-extrabold text-white mb-2">
-              4 Saal Ka Clock Chal Raha Hai. Aap Abhi Kahan Hain?
-            </h2>
-          </div>
-
-          <div className="flex flex-wrap justify-center gap-2 mb-8">
-            {[
-              { id: "1st", label: "First Year" },
-              { id: "2nd", label: "Second Year" },
-              { id: "3rd", label: "Third Year" },
-              { id: "4th", label: "Fourth Year" },
-              { id: "grad1", label: "Graduate (1 yr out)" },
-              { id: "grad2", label: "Graduate (2+ yrs out)" },
-            ].map((tab) => (
-              <button
-                key={tab.id}
-                onClick={() => setSelectedYear(tab.id as any)}
-                className={`py-2.5 px-4 rounded-xl text-xs sm:text-sm font-bold border transition-all ${
-                  selectedYear === tab.id 
-                    ? "bg-green-600 text-white border-green-500 shadow-lg shadow-green-900/40" 
-                    : "bg-[#0F1D32] text-slate-400 border-slate-700 hover:border-slate-500"
-                }`}
-              >
-                {tab.label}
-              </button>
-            ))}
-          </div>
-
-          <div className="bg-[#0F1D32] border border-slate-700 p-6 sm:p-8 rounded-2xl max-w-3xl mx-auto text-left">
-            {selectedYear === "1st" && (
-              <div className="space-y-3">
-                <h3 className="text-base font-bold text-green-400">First Year: Sabse Zyada Waqt. Sabse Bada Moka.</h3>
-                <p className="text-sm text-slate-200 leading-relaxed">
-                  Year 1 mein setup • Year 2 mein first monetization • Year 4 graduation par $500-1,500/month (PKR 1,39,000-4,17,000/mo). Job ki zaroorat nahi hogi — choice hogi!
-                </p>
-              </div>
-            )}
-
-            {selectedYear === "2nd" && (
-              <div className="space-y-3">
-                <h3 className="text-base font-bold text-green-400">Second Year: 2.5 Saal Baaki Hain.</h3>
-                <p className="text-sm text-slate-200 leading-relaxed">
-                  Semester 5-6 first income • Semester 7-8 growing asset • Graduation par already earning. 6 mahine aur wait kiya toh compounding growth miss hogi.
-                </p>
-              </div>
-            )}
-
-            {selectedYear === "3rd" && (
-              <div className="space-y-3">
-                <h3 className="text-base font-bold text-green-400">Third Year: 1.5 Saal Baaki Hain. Tight Lekin Possible.</h3>
-                <p className="text-sm text-slate-200 leading-relaxed">
-                  Aaj start karenge toh graduation tak 2 options honge. Wait karenge toh graduation par sirf 1 option hoga: naukri ka intezar.
-                </p>
-              </div>
-            )}
-
-            {selectedYear === "4th" && (
-              <div className="space-y-3">
-                <h3 className="text-base font-bold text-amber-400">Fourth Year: 6-8 Mahine Baaki. Sabse Urgent.</h3>
-                <p className="text-sm text-slate-200 leading-relaxed">
-                  Semester end tak 50+ videos ready hongi. Post-grad 6 months mein monetization start. Warna PKR 25k job ke baad thak kar kabhi start nahi hoga.
-                </p>
-              </div>
-            )}
-
-            {selectedYear === "grad1" && (
-              <div className="space-y-3">
-                <h3 className="text-base font-bold text-green-400">Graduate (1 Year Out): Der Nahi Hui.</h3>
-                <p className="text-sm text-slate-200 leading-relaxed">
-                  Job mili hai ya nahi — shaam ke 2 ghante YouTube asset ko dein. 1 saal baad aap doosron ko mentorship de rahe honge.
-                </p>
-              </div>
-            )}
-
-            {selectedYear === "grad2" && (
-              <div className="space-y-3">
-                <h3 className="text-base font-bold text-green-400">Graduate (2+ Years Out): Best Time Is Today.</h3>
-                <p className="text-sm text-slate-200 leading-relaxed">
-                  2 saal pehle start karte toh behtar tha lekin aaj ka din bhi best available opportunity hai. Start today.
-                </p>
-              </div>
-            )}
           </div>
         </div>
       </section>
@@ -557,33 +401,12 @@ export default function WorkshopYt7Client() {
             >
               Degree Ke Saath YouTube Shuru Karein →
             </button>
-          </div>
-        </div>
-      </section>
-
-      {/* SECTION 13: FAQ */}
-      <section className="py-16 md:py-24 px-4 md:px-6 bg-[#07111F] border-b border-slate-800">
-        <div className="max-w-3xl mx-auto">
-          <div className="text-center mb-10">
-            <h2 className="text-2xl sm:text-4xl font-extrabold text-white mb-2">Student Specific FAQs</h2>
-          </div>
-          <div className="space-y-3">
-            {faqs.map((faq, i) => (
-              <div key={i} className="border border-slate-700 rounded-xl overflow-hidden bg-[#0F1D32]">
-                <button 
-                  onClick={() => setOpenFaqIdx(openFaqIdx === i ? null : i)}
-                  className="w-full p-4 sm:p-5 text-left flex justify-between items-center hover:bg-slate-800 transition-colors"
-                >
-                  <span className="font-bold text-sm sm:text-base text-slate-100">{faq.q}</span>
-                  <ChevronDown className={`transition-transform duration-300 text-slate-400 ${openFaqIdx === i ? "rotate-180 text-green-400" : ""}`} />
-                </button>
-                {openFaqIdx === i && (
-                  <div className="p-4 sm:p-5 border-t border-slate-800 text-xs sm:text-sm text-slate-300 leading-relaxed italic">
-                    &quot;{faq.a}&quot;
-                  </div>
-                )}
-              </div>
-            ))}
+            
+            {/* Money Back Guarantee Banner */}
+            <div className="mt-4 p-3 bg-green-950/50 border border-green-500/40 rounded-xl flex items-center justify-center gap-2 text-xs text-green-300 font-bold">
+              <ShieldCheck size={16} className="text-green-400 shrink-0" />
+              <span>100% Full Money Back Guarantee — Attend workshop, if no value get 100% refund!</span>
+            </div>
           </div>
         </div>
       </section>
@@ -620,7 +443,7 @@ export default function WorkshopYt7Client() {
       {/* ALL-IN-ONE REGISTRATION & PAYMENT POPUP */}
       {payModalOpen && (
         <div className="fixed inset-0 z-[9999] bg-black/85 backdrop-blur-md flex items-end sm:items-center justify-center p-0 sm:p-4 animate-in fade-in duration-200">
-          <div className="bg-[#0F1D32] text-white w-full max-w-xl rounded-t-3xl sm:rounded-3xl border-t-4 sm:border-2 border-green-500 shadow-2xl max-h-[92vh] flex flex-col overflow-hidden animate-in slide-in-from-bottom sm:zoom-in-95 duration-200">
+          <div className="bg-[#0F1D32] text-white w-full max-w-xl rounded-t-3xl sm:rounded-3xl border-t-4 sm:border-2 border-green-500 shadow-2xl max-h-[94vh] flex flex-col overflow-hidden animate-in slide-in-from-bottom sm:zoom-in-95 duration-200">
             
             {/* Header */}
             <div className="bg-[#07111F] p-4 sm:p-5 flex items-center justify-between border-b border-slate-700 shrink-0">
@@ -641,6 +464,31 @@ export default function WorkshopYt7Client() {
               {modalStep === 1 ? (
                 <form onSubmit={handleSubmitProof} className="space-y-4">
                   
+                  {/* FOMO Live Seat Fill Bar */}
+                  <div className="bg-[#07111F] border border-amber-500/40 rounded-xl p-3 text-xs">
+                    <div className="flex justify-between font-bold text-amber-400 mb-1.5">
+                      <span className="flex items-center gap-1"><Flame size={14} className="text-red-500" /> Batch Filling Fast: 78/100 Seats</span>
+                      <span className="text-red-400 font-mono">22 Left!</span>
+                    </div>
+                    <div className="w-full bg-slate-800 h-2 rounded-full overflow-hidden">
+                      <div className="bg-gradient-to-r from-amber-500 to-red-500 h-full w-[78%]" />
+                    </div>
+                  </div>
+
+                  {/* FREE Bonuses List inside Modal */}
+                  <div className="bg-[#07111F] border border-green-500/30 rounded-xl p-3.5 space-y-2">
+                    <div className="text-xs font-bold text-green-400 flex items-center gap-1.5">
+                      <Gift size={14} /> 5 Bonuses Included Free (Worth PKR 15,499):
+                    </div>
+                    <div className="grid grid-cols-1 gap-1 text-[11px] text-slate-300">
+                      <div className="flex justify-between"><span>🤖 AI Prompts Pack (50+ Prompts)</span><span className="text-green-400 font-bold">FREE (PKR 3,000)</span></div>
+                      <div className="flex justify-between"><span>🔍 Niche Research Template</span><span className="text-green-400 font-bold">FREE (PKR 2,000)</span></div>
+                      <div className="flex justify-between"><span>📅 90-Day Content Calendar</span><span className="text-green-400 font-bold">FREE (PKR 2,500)</span></div>
+                      <div className="flex justify-between"><span>💬 Private WhatsApp Group (7 Days)</span><span className="text-green-400 font-bold">FREE (PKR 5,000)</span></div>
+                      <div className="flex justify-between"><span>📹 Workshop Recording (24 Hours)</span><span className="text-green-400 font-bold">FREE (PKR 2,999)</span></div>
+                    </div>
+                  </div>
+
                   {/* Name */}
                   <div>
                     <label className="block text-xs font-bold text-slate-200 mb-1.5">Full Name *</label>
@@ -834,6 +682,12 @@ export default function WorkshopYt7Client() {
                   >
                     {isSubmitting ? "Processing..." : "Verify Payment on WhatsApp →"}
                   </button>
+
+                  {/* Trust Badge under button */}
+                  <div className="p-2.5 bg-green-950/30 border border-green-500/30 rounded-xl text-center text-xs text-green-300 font-bold flex items-center justify-center gap-1.5">
+                    <ShieldCheck size={15} className="text-green-400 shrink-0" />
+                    <span>🛡️ 100% Risk-Free Guarantee: After workshop, full refund if you don&apos;t see value!</span>
+                  </div>
                 </form>
               ) : (
                 /* STEP 2: 10-SECOND COUNTDOWN SCREEN */

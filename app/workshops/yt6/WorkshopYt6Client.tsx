@@ -7,7 +7,7 @@ import {
   Zap, ChevronDown, 
   TrendingUp, Home, Lock, AlertTriangle,
   MessageSquare, Monitor,
-  GraduationCap, Briefcase, Heart, Smile
+  GraduationCap, Briefcase, Heart, Smile, Gift, Flame
 } from "lucide-react";
 
 const TEAM_WHATSAPP_NUMBER = "923296158206";
@@ -37,7 +37,7 @@ export default function WorkshopYt6Client() {
   // Timer & interactive states
   const [timeLeft, setTimeLeft] = useState<string>("00:00:00");
   const [isAfterSeven, setIsAfterSeven] = useState<boolean>(false);
-  const [selectedYear, setSelectedYear] = useState<"1st" | "2nd" | "3rd" | "4th" | "grad" | "working">("1st");
+  const [selectedYear, setSelectedYear] = useState<"new_adm" | "1st" | "2nd" | "3rd" | "4th" | "master">("new_adm");
   const [floatingVisible, setFloatingVisible] = useState<boolean>(false);
 
   // Dynamic Date (PKT) & Cutoff Timer
@@ -157,7 +157,7 @@ export default function WorkshopYt6Client() {
   };
 
   const buildWhatsAppMessage = () => {
-    return `Salam Abrar Nadir & Support Team! Main ne YouTube Empire Builders Live Workshop ke liye payment details submit kar di hain.\n\n*Name:* ${fullName.trim()}\n*WhatsApp:* ${whatsappNumber.trim()}\n*Payment Method:* ${paymentMethod}${transactionId.trim() ? `\n*Transaction ID:* ${transactionId.trim()}` : ""}\n*Batch Date:* ${dynamicDate}\n*Amount Paid:* PKR 1,999\n\nI have attached my payment screenshot. Kindly verify and share the confirmed class link & WhatsApp group access. Shukriya! 😊`;
+    return `Salam Abrar Nadir & Support Team! Main ne YouTube Empire Builders (Workshop 6 - 2026 University & Degree Edition) ke liye payment transfer kar di hai.\n\n*Name:* ${fullName.trim()}\n*WhatsApp:* ${whatsappNumber.trim()}\n*Payment Method:* ${paymentMethod}${transactionId.trim() ? `\n*Transaction ID:* ${transactionId.trim()}` : ""}\n*Batch Date:* ${dynamicDate}\n*Amount Paid:* PKR 1,999\n\nI have attached my payment screenshot. Please verify and share the confirmed Zoom link & WhatsApp community invite. Shukriya! 😊`;
   };
 
   const triggerWhatsAppOpen = () => {
@@ -244,10 +244,12 @@ export default function WorkshopYt6Client() {
       {/* 2. HERO SECTION */}
       <header className="pt-12 md:pt-20 pb-16 px-4 md:px-6 max-w-5xl mx-auto text-center border-b border-slate-800">
         
+        {/* Pill Badge - 2026 Target */}
         <div className="inline-flex items-center gap-2 border border-amber-500/50 bg-amber-500/10 text-amber-400 px-4 py-1.5 rounded-full text-xs font-bold tracking-wide uppercase mb-8 shadow-sm">
-          <span>🎓 Pakistan Ke 4-Year Bachelor&apos;s Students Ke Liye — Past. Present. Future.</span>
+          <span>🎓 Pakistan Ke University & College Students, New Admissions, Bachelor&apos;s & Master&apos;s Ke Liye — 2026 Batch</span>
         </div>
 
+        {/* Hero Title */}
         <h1 className="space-y-3 mb-8">
           <span className="block text-2xl sm:text-4xl md:text-5xl font-black text-white leading-tight">
             Aapke Class Mein Ek Banda
@@ -272,6 +274,7 @@ export default function WorkshopYt6Client() {
           </span>
         </h1>
 
+        {/* Subheadline */}
         <p className="text-slate-300 text-sm sm:text-base md:text-lg max-w-3xl mx-auto leading-relaxed mb-10">
           <strong className="text-white">YouTube Empire Builders —</strong> Pakistan ka pehla practical live workshop jo aapko woh AI system deta hai jo sote waqt bhi dollar kamaata rahe. Degree ke saath. Legally. Safely. Seedha aapke bank account mein.
         </p>
@@ -297,7 +300,21 @@ export default function WorkshopYt6Client() {
           </div>
         </div>
 
-        {/* Hero CTA */}
+        {/* Seat Fill FOMO Bar */}
+        <div className="max-w-xl mx-auto bg-[#0F1D32] border border-amber-500/40 rounded-2xl p-4 mb-6 text-left shadow-lg">
+          <div className="flex justify-between items-center text-xs font-bold mb-2">
+            <span className="text-amber-400 flex items-center gap-1.5">
+              <Flame size={15} className="text-red-500 animate-bounce" /> 
+              Live Batch Status: 78% Seats Filled
+            </span>
+            <span className="text-red-400 font-mono">Only 22 Seats Left!</span>
+          </div>
+          <div className="w-full bg-slate-800 h-3 rounded-full overflow-hidden p-0.5 border border-slate-700">
+            <div className="bg-gradient-to-r from-amber-500 to-red-500 h-full rounded-full w-[78%] transition-all duration-1000 shadow-sm" />
+          </div>
+        </div>
+
+        {/* Hero CTA Button */}
         <div className="max-w-xl mx-auto">
           <button 
             onClick={openPayModal}
@@ -306,14 +323,21 @@ export default function WorkshopYt6Client() {
             <span>Aaj Raat Ka Woh Banda Banein Jo ChatGPT Sahi Use Karta Hai — PKR 1,999</span>
             <ArrowRight size={22} className="shrink-0" />
           </button>
-          <p className="text-xs text-slate-400 mt-3 flex items-center justify-center gap-2 font-medium">
+          
+          {/* Money Back Guarantee Badge */}
+          <div className="mt-4 p-3 bg-green-950/40 border border-green-500/40 rounded-xl flex items-center justify-center gap-2 text-xs text-green-300 font-bold">
+            <ShieldCheck size={16} className="text-green-400 shrink-0" />
+            <span>100% Money Back Guarantee — Value na mile toh full refund!</span>
+          </div>
+
+          <p className="text-xs text-slate-400 mt-2 flex items-center justify-center gap-2 font-medium">
             <Lock size={13} className="text-green-400" />
             🔒 7 PM se pehle | 100 seats per batch | Legal | Safe | Bank mein aata hai
           </p>
         </div>
       </header>
 
-      {/* 3. SECTION 1: THE NARRATIVE */}
+      {/* 3. SECTION 1: THE NARRATIVE (2026 Batch) */}
       <section className="py-16 md:py-24 px-4 md:px-6 bg-[#040A12] border-b border-slate-800">
         <div className="max-w-3xl mx-auto">
           <div className="text-center mb-12">
@@ -324,7 +348,7 @@ export default function WorkshopYt6Client() {
 
           <div className="space-y-6 text-slate-200 text-base md:text-lg leading-relaxed">
             <p>
-              Lahore ki ek university. Engineering department. 2022. Semester 5.<br />
+              Lahore ki ek university. Engineering department. <strong>2026. New Admission & Semester 1.</strong><br />
               Do student. Ek hi class. Ek hi teacher. Ek hi syllabus.<br />
               Dono ke ghar se fees aa rahi hai. Dono ke abbu mehnat karte hain.
             </p>
@@ -352,140 +376,18 @@ export default function WorkshopYt6Client() {
                 Raat ke 11 baje — jab Bilal so raha hota hai — Saad apne laptop par ChatGPT se script likhta hai, AI voice se voiceover banata hai, video upload karke so jaata hai.
               </p>
             </div>
-
-            <div className="h-px bg-slate-800 my-6" />
-
-            <p>
-              <strong>Semester 6. Final exams.</strong><br />
-              <strong>Bilal:</strong> Phir ChatGPT. Phir copy. Phir grade.<br />
-              <strong>Saad:</strong> Channel par 15 videos. Pehli 1,000 views. Thodi si dollar earning shuru.
-            </p>
-
-            <div className="h-px bg-slate-800 my-6" />
-
-            <div className="bg-[#0F1D32] border border-slate-700 p-6 rounded-2xl space-y-3">
-              <h3 className="text-base font-bold text-white uppercase tracking-wider">6 Mahine Baad Graduation Ke:</h3>
-              <p className="text-sm sm:text-base text-red-300">
-                <strong>Bilal:</strong> 200+ job applications. 13 rejections. 2 interviews. Ek offer — PKR 32,000/month. <em>&apos;Yeh toh socha nahi tha.&apos;</em>
-              </p>
-              <p className="text-sm sm:text-base text-green-300 font-semibold">
-                <strong>Saad:</strong> YouTube channel — 2,847 subscribers. $340/month. <span className="text-green-400 font-bold">PKR 94,520 monthly.</span> Ghar baith kar. Sote waqt bhi.
-              </p>
-            </div>
-
-            <div className="mt-8 p-6 bg-gradient-to-r from-slate-900 to-[#0F1D32] border-2 border-green-500/50 rounded-2xl text-center">
-              <p className="text-base sm:text-xl font-serif italic text-white mb-2">
-                Yeh Bilal aur Saad ki kahani nahi. Yeh Pakistan ki har university ki kahani hai.
-              </p>
-              <p className="text-lg sm:text-2xl font-black text-green-400">
-                Aap Bilal hain ya Saad — yeh aaj raat decide hoga.
-              </p>
-            </div>
           </div>
         </div>
       </section>
 
-      {/* 4. SECTION 2: SAME AI. COMPLETELY DIFFERENT USE */}
-      <section className="py-16 md:py-24 px-4 md:px-6 bg-white text-slate-900 border-b border-slate-200">
-        <div className="max-w-4xl mx-auto">
-          <div className="text-center mb-12">
-            <h2 className="text-2xl sm:text-4xl font-extrabold text-slate-950 mb-3">
-              Wahi ChatGPT. Wahi AI Tools. Wahi Internet. Bilkul Alag Zindagi.
-            </h2>
-          </div>
-
-          <div className="grid md:grid-cols-2 gap-6 mb-10">
-            <div className="bg-red-50 border-2 border-red-200 p-6 sm:p-8 rounded-2xl flex flex-col justify-between">
-              <div>
-                <h3 className="text-lg font-black text-red-900 mb-4 flex items-center gap-2">
-                  <span>❌</span> Galat Use (Bilal Path)
-                </h3>
-                <ul className="space-y-4 text-sm text-slate-700">
-                  <li className="flex items-start gap-2"><span className="text-red-600 font-bold">•</span><span><strong>ChatGPT se assignment copy:</strong><br />Result: Grade jo 4 saal baad kisi ko yaad nahi hoga.</span></li>
-                  <li className="flex items-start gap-2"><span className="text-red-600 font-bold">•</span><span><strong>AI se exam answers:</strong><br />Result: Degree jo PKR 25K/month ki naukri dilayegi.</span></li>
-                  <li className="flex items-start gap-2"><span className="text-red-600 font-bold">•</span><span><strong>AI se notes banana:</strong><br />Result: Professor khush. Future same hi rahega.</span></li>
-                </ul>
-              </div>
-              <div className="mt-6 pt-4 border-t border-red-200 text-xs font-bold text-red-800">
-                Total return: PKR 25,000-45,000/mo (Kisi aur ke liye kaam)
-              </div>
-            </div>
-
-            <div className="bg-green-50 border-2 border-green-300 p-6 sm:p-8 rounded-2xl flex flex-col justify-between shadow-lg">
-              <div>
-                <h3 className="text-lg font-black text-green-900 mb-4 flex items-center gap-2">
-                  <span>✅</span> Sahi Use (Saad Path)
-                </h3>
-                <ul className="space-y-4 text-sm text-slate-800">
-                  <li className="flex items-start gap-2"><span className="text-green-600 font-bold">•</span><span><strong>ChatGPT se YouTube script:</strong><br />Result: Video jo 3 saal tak views aur earning laata rahega.</span></li>
-                  <li className="flex items-start gap-2"><span className="text-green-600 font-bold">•</span><span><strong>AI voice tools se voiceover:</strong><br />Result: Pro studio audio with zero mic cost.</span></li>
-                  <li className="flex items-start gap-2"><span className="text-green-600 font-bold">•</span><span><strong>AI se topics & research:</strong><br />Result: Content jo algorithm khud push karta hai.</span></li>
-                </ul>
-              </div>
-              <div className="mt-6 pt-4 border-t border-green-200 text-xs font-bold text-green-800">
-                Total return: Dollar income (Growing asset, apna boss)
-              </div>
-            </div>
-          </div>
-
-          <div className="text-center">
-            <button 
-              onClick={openPayModal}
-              className="bg-green-600 hover:bg-green-700 text-white font-extrabold text-base sm:text-lg py-4 px-8 rounded-2xl shadow-xl transition-all"
-            >
-              Mujhe Sahi Use Seekhna Hai →
-            </button>
-          </div>
-        </div>
-      </section>
-
-      {/* 5. SECTION 3: NUMBERS */}
-      <section className="py-16 md:py-24 px-4 md:px-6 bg-[#07111F] border-b border-slate-800">
-        <div className="max-w-4xl mx-auto">
-          <div className="text-center mb-12">
-            <h2 className="text-2xl sm:text-4xl font-extrabold text-white mb-2">
-              Pakistan Mein 4-Year Degree Ke Baad Kya Actually Hota Hai?
-            </h2>
-            <p className="text-slate-400 text-sm font-mono">Numbers. Real. 2025-2026.</p>
-          </div>
-
-          <div className="grid grid-cols-2 sm:grid-cols-3 gap-4 mb-10 text-center">
-            <div className="bg-[#0F1D32] border border-red-500/30 p-4 sm:p-5 rounded-2xl">
-              <div className="text-2xl sm:text-3xl font-black text-red-400 mb-1">4,00,000+</div>
-              <div className="text-xs sm:text-sm font-bold text-white">Graduates Har Saal</div>
-            </div>
-            <div className="bg-[#0F1D32] border border-red-500/30 p-4 sm:p-5 rounded-2xl">
-              <div className="text-2xl sm:text-3xl font-black text-red-400 mb-1">30%+</div>
-              <div className="text-xs sm:text-sm font-bold text-white">Unemployment Rate</div>
-            </div>
-            <div className="bg-[#0F1D32] border border-red-500/30 p-4 sm:p-5 rounded-2xl">
-              <div className="text-2xl sm:text-3xl font-black text-red-400 mb-1">PKR 25,000</div>
-              <div className="text-xs sm:text-sm font-bold text-white">Starting Salary</div>
-            </div>
-            <div className="bg-[#0F1D32] border border-green-500/30 p-4 sm:p-5 rounded-2xl">
-              <div className="text-2xl sm:text-3xl font-black text-green-400 mb-1">$70 Billion+</div>
-              <div className="text-xs sm:text-sm font-bold text-white">YouTube Payout</div>
-            </div>
-            <div className="bg-[#0F1D32] border border-green-500/30 p-4 sm:p-5 rounded-2xl">
-              <div className="text-2xl sm:text-3xl font-black text-green-400 mb-1">$500/Month</div>
-              <div className="text-xs sm:text-sm font-bold text-white">= PKR 1,39,000</div>
-            </div>
-            <div className="bg-[#0F1D32] border border-green-500/30 p-4 sm:p-5 rounded-2xl">
-              <div className="text-2xl sm:text-3xl font-black text-green-400 mb-1">40M+</div>
-              <div className="text-xs sm:text-sm font-bold text-white">Users in Pakistan</div>
-            </div>
-          </div>
-        </div>
-      </section>
-
-      {/* 6. SECTION 9: WHAT YOU GET */}
+      {/* 4. SECTION 9: WHAT YOU GET */}
       <section className="py-16 md:py-24 px-4 md:px-6 bg-[#040A12] border-b border-slate-800">
         <div className="max-w-4xl mx-auto">
           <div className="text-center mb-10">
             <h2 className="text-2xl sm:text-4xl font-extrabold text-white mb-2">
-              Workshop Ke Baad Aapke Paas Kya Hoga
+              Student Starter Kit Included Free
             </h2>
-            <p className="text-slate-400 text-sm font-mono">10 Deliverables + 5 Founding Bonuses</p>
+            <p className="text-slate-400 text-sm font-mono">5 Founding Bonuses (Worth PKR 15,499)</p>
           </div>
 
           <div className="grid grid-cols-1 sm:grid-cols-2 gap-4 mb-10">
@@ -513,11 +415,17 @@ export default function WorkshopYt6Client() {
             >
               Aaj Raat Ki Seat Lock Karein →
             </button>
+            
+            {/* Money Back Guarantee Banner */}
+            <div className="mt-4 p-3 bg-green-950/50 border border-green-500/40 rounded-xl flex items-center justify-center gap-2 text-xs text-green-300 font-bold">
+              <ShieldCheck size={16} className="text-green-400 shrink-0" />
+              <span>100% Full Money Back Guarantee — Attend workshop, if no value get 100% refund!</span>
+            </div>
           </div>
         </div>
       </section>
 
-      {/* 7. FOOTER */}
+      {/* 5. FOOTER */}
       <footer className="py-12 px-4 bg-[#040A12] text-center text-slate-500 text-xs">
         <div className="max-w-4xl mx-auto space-y-3">
           <div className="font-bold text-white text-base">YouTube Empire Builders</div>
@@ -532,7 +440,7 @@ export default function WorkshopYt6Client() {
         </div>
       </footer>
 
-      {/* 8. FLOATING MOBILE CTA */}
+      {/* 6. FLOATING MOBILE CTA */}
       <div className={`fixed bottom-0 left-0 right-0 z-40 bg-[#07111F] border-t border-slate-700 p-3 flex items-center justify-between gap-3 shadow-2xl transition-transform duration-300 md:hidden ${floatingVisible ? "translate-y-0" : "translate-y-28"}`}>
         <div className="pl-2">
           <div className="text-[10px] font-mono text-slate-400 uppercase font-bold">Fee Today</div>
@@ -546,10 +454,10 @@ export default function WorkshopYt6Client() {
         </button>
       </div>
 
-      {/* 9. ALL-IN-ONE REGISTRATION & PAYMENT POPUP */}
+      {/* 7. ALL-IN-ONE REGISTRATION & PAYMENT POPUP */}
       {payModalOpen && (
         <div className="fixed inset-0 z-[9999] bg-black/85 backdrop-blur-md flex items-end sm:items-center justify-center p-0 sm:p-4 animate-in fade-in duration-200">
-          <div className="bg-[#0F1D32] text-white w-full max-w-xl rounded-t-3xl sm:rounded-3xl border-t-4 sm:border-2 border-green-500 shadow-2xl max-h-[92vh] flex flex-col overflow-hidden animate-in slide-in-from-bottom sm:zoom-in-95 duration-200">
+          <div className="bg-[#0F1D32] text-white w-full max-w-xl rounded-t-3xl sm:rounded-3xl border-t-4 sm:border-2 border-green-500 shadow-2xl max-h-[94vh] flex flex-col overflow-hidden animate-in slide-in-from-bottom sm:zoom-in-95 duration-200">
             
             {/* Header */}
             <div className="bg-[#07111F] p-4 sm:p-5 flex items-center justify-between border-b border-slate-700 shrink-0">
@@ -570,6 +478,31 @@ export default function WorkshopYt6Client() {
               {modalStep === 1 ? (
                 <form onSubmit={handleSubmitProof} className="space-y-4">
                   
+                  {/* FOMO Live Seat Fill Bar */}
+                  <div className="bg-[#07111F] border border-amber-500/40 rounded-xl p-3 text-xs">
+                    <div className="flex justify-between font-bold text-amber-400 mb-1.5">
+                      <span className="flex items-center gap-1"><Flame size={14} className="text-red-500" /> Batch Filling Fast: 78/100 Seats</span>
+                      <span className="text-red-400 font-mono">22 Left!</span>
+                    </div>
+                    <div className="w-full bg-slate-800 h-2 rounded-full overflow-hidden">
+                      <div className="bg-gradient-to-r from-amber-500 to-red-500 h-full w-[78%]" />
+                    </div>
+                  </div>
+
+                  {/* FREE Bonuses List inside Modal */}
+                  <div className="bg-[#07111F] border border-green-500/30 rounded-xl p-3.5 space-y-2">
+                    <div className="text-xs font-bold text-green-400 flex items-center gap-1.5">
+                      <Gift size={14} /> 5 Bonuses Included Free (Worth PKR 15,499):
+                    </div>
+                    <div className="grid grid-cols-1 gap-1 text-[11px] text-slate-300">
+                      <div className="flex justify-between"><span>🤖 AI Prompts Pack (50+ Prompts)</span><span className="text-green-400 font-bold">FREE (PKR 3,000)</span></div>
+                      <div className="flex justify-between"><span>🔍 Niche Research Template</span><span className="text-green-400 font-bold">FREE (PKR 2,000)</span></div>
+                      <div className="flex justify-between"><span>📅 90-Day Content Calendar</span><span className="text-green-400 font-bold">FREE (PKR 2,500)</span></div>
+                      <div className="flex justify-between"><span>💬 Private WhatsApp Group (7 Days)</span><span className="text-green-400 font-bold">FREE (PKR 5,000)</span></div>
+                      <div className="flex justify-between"><span>📹 Workshop Recording (24 Hours)</span><span className="text-green-400 font-bold">FREE (PKR 2,999)</span></div>
+                    </div>
+                  </div>
+
                   {/* Name */}
                   <div>
                     <label className="block text-xs font-bold text-slate-200 mb-1.5">Full Name *</label>
@@ -629,7 +562,7 @@ export default function WorkshopYt6Client() {
                       </button>
                     </div>
 
-                    {/* Payment Details Card */}
+                    {/* Bank Details Card */}
                     <div className="bg-[#07111F] border border-slate-700 p-4 rounded-xl space-y-2.5 text-xs">
                       {paymentMethod === "Meezan Bank" && (
                         <div>
@@ -763,6 +696,12 @@ export default function WorkshopYt6Client() {
                   >
                     {isSubmitting ? "Processing..." : "Verify Payment on WhatsApp →"}
                   </button>
+
+                  {/* Trust Badge under button */}
+                  <div className="p-2.5 bg-green-950/30 border border-green-500/30 rounded-xl text-center text-xs text-green-300 font-bold flex items-center justify-center gap-1.5">
+                    <ShieldCheck size={15} className="text-green-400 shrink-0" />
+                    <span>🛡️ 100% Risk-Free Guarantee: After workshop, full refund if you don&apos;t see value!</span>
+                  </div>
                 </form>
               ) : (
                 /* STEP 2: 10-SECOND COUNTDOWN SCREEN */
