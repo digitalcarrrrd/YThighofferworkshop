@@ -1,17 +1,33 @@
 "use client";
 
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useRef } from "react";
 import "./yt3.css";
 
-const GHL_URL = "https://api.leadconnectorhq.com/widget/form/DTVg8ZfDsUkx9XYsvYc7";
+const TEAM_WHATSAPP_NUMBER = "923296158206";
 
 export default function WorkshopYt3Client() {
   const [dynamicDate, setDynamicDate] = useState<string>("");
-  const [ghlModalOpen, setGhlModalOpen] = useState<boolean>(false);
-  const [ghlIframeLoading, setGhlIframeLoading] = useState<boolean>(true);
+  const [payModalOpen, setPayModalOpen] = useState<boolean>(false);
+  const [modalStep, setModalStep] = useState<1 | 2>(1);
   const [policyModal, setPolicyModal] = useState<"refund" | "transfer" | "disclaimer" | "privacy" | null>(null);
   const [activeFaq, setActiveFaq] = useState<number | null>(null);
   const [stickyVisible, setStickyVisible] = useState<boolean>(false);
+
+  // Form State
+  const [fullName, setFullName] = useState<string>("");
+  const [whatsappNumber, setWhatsappNumber] = useState<string>("");
+  const [paymentMethod, setPaymentMethod] = useState<"Meezan Bank" | "Easypaisa" | "Binance">("Meezan Bank");
+  const [transactionId, setTransactionId] = useState<string>("");
+  const [screenshotBase64, setScreenshotBase64] = useState<string>("");
+  const [screenshotFilename, setScreenshotFilename] = useState<string>("");
+  const [copiedKey, setCopiedKey] = useState<string | null>(null);
+  const [formError, setFormError] = useState<string>("");
+  const [isSubmitting, setIsSubmitting] = useState<boolean>(false);
+
+  // 10-second countdown
+  const [countdown, setCountdown] = useState<number>(10);
+  const countdownIntervalRef = useRef<NodeJS.Timeout | null>(null);
+  const fileInputRef = useRef<HTMLInputElement>(null);
 
   // Set Dynamic Date in Asia/Karachi Timezone
   useEffect(() => {
@@ -41,7 +57,7 @@ export default function WorkshopYt3Client() {
   useEffect(() => {
     const handleScroll = () => {
       const scrollY = window.pageYOffset || document.documentElement.scrollTop;
-      if (scrollY > 500 && !ghlModalOpen) {
+      if (scrollY > 500 && !payModalOpen) {
         setStickyVisible(true);
       } else {
         setStickyVisible(false);
@@ -50,29 +66,148 @@ export default function WorkshopYt3Client() {
 
     window.addEventListener("scroll", handleScroll, { passive: true });
     return () => window.removeEventListener("scroll", handleScroll);
-  }, [ghlModalOpen]);
+  }, [payModalOpen]);
+
+  // Handle Countdown & Auto WhatsApp Redirect
+  useEffect(() => {
+    if (modalStep === 2) {
+      setCountdown(10);
+      countdownIntervalRef.current = setInterval(() => {
+        setCountdown((prev) => {
+          if (prev <= 1) {
+            if (countdownIntervalRef.current) clearInterval(countdownIntervalRef.current);
+            triggerWhatsAppOpen();
+            return 0;
+          }
+          return prev - 1;
+        });
+      }, 1000);
+    } else {
+      if (countdownIntervalRef.current) clearInterval(countdownIntervalRef.current);
+    }
+
+    return () => {
+      if (countdownIntervalRef.current) clearInterval(countdownIntervalRef.current);
+    };
+  }, [modalStep]);
 
   // Handle Escape key to close modals
   useEffect(() => {
     const handleKeyDown = (e: KeyboardEvent) => {
       if (e.key === "Escape") {
-        if (ghlModalOpen) closeGHLModal();
+        if (payModalOpen && modalStep === 1) closePayModal();
         if (policyModal) setPolicyModal(null);
       }
     };
     window.addEventListener("keydown", handleKeyDown);
     return () => window.removeEventListener("keydown", handleKeyDown);
-  }, [ghlModalOpen, policyModal]);
+  }, [payModalOpen, modalStep, policyModal]);
 
-  const openGHLModal = () => {
-    setGhlIframeLoading(true);
-    setGhlModalOpen(true);
+  const openPayModal = () => {
+    setModalStep(1);
+    setFormError("");
+    setPayModalOpen(true);
     document.body.style.overflow = "hidden";
   };
 
-  const closeGHLModal = () => {
-    setGhlModalOpen(false);
+  const closePayModal = () => {
+    setPayModalOpen(false);
+    setModalStep(1);
     document.body.style.overflow = "";
+    if (countdownIntervalRef.current) clearInterval(countdownIntervalRef.current);
+  };
+
+  const copyToClipboard = (text: string, key: string) => {
+    navigator.clipboard.writeText(text);
+    setCopiedKey(key);
+    setTimeout(() => setCopiedKey(null), 1800);
+  };
+
+  const handleFileChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    const file = e.target.files?.[0];
+    if (!file) return;
+
+    if (file.size > 10 * 1024 * 1024) {
+      setFormError("Screenshot file size 10MB se kam honi chahiye.");
+      return;
+    }
+
+    setScreenshotFilename(file.name);
+    const reader = new FileReader();
+    reader.onloadend = () => {
+      setScreenshotBase64(reader.result as string);
+      setFormError("");
+    };
+    reader.readAsDataURL(file);
+  };
+
+  const buildWhatsAppMessage = () => {
+    return `Salam Abrar Nadir & Support Team! Main ne YouTube Live Workshop ke liye payment transfer kar di hai.\n\n*Name:* ${fullName.trim()}\n*WhatsApp:* ${whatsappNumber.trim()}\n*Payment Method:* ${paymentMethod}${transactionId.trim() ? `\n*Transaction ID:* ${transactionId.trim()}` : ""}\n*Batch Date:* ${dynamicDate}\n*Amount Paid:* PKR 1,999\n\nI have attached my payment screenshot. Please verify and share the confirmed Zoom link & WhatsApp community invite. Shukriya! 😊`;
+  };
+
+  const triggerWhatsAppOpen = () => {
+    const message = buildWhatsAppMessage();
+    const waUrl = `https://wa.me/${TEAM_WHATSAPP_NUMBER}?text=${encodeURIComponent(message)}`;
+    window.open(waUrl, "_blank");
+  };
+
+  const handleSubmitProof = async (e: React.FormEvent) => {
+    e.preventDefault();
+    setFormError("");
+
+    if (fullName.trim().length < 2) {
+      setFormError("Apna mukammal naam (Full Name) darj karein.");
+      return;
+    }
+
+    const cleanPhone = whatsappNumber.replace(/\D/g, "");
+    if (cleanPhone.length < 10) {
+      setFormError("Durust WhatsApp number darj karein (e.g. 03xx-xxxxxxx).");
+      return;
+    }
+
+    if (!screenshotBase64) {
+      setFormError("Payment receipt ya screenshot attach karna zaroori hai.");
+      return;
+    }
+
+    setIsSubmitting(true);
+
+    try {
+      // Send Lead to API in background
+      await fetch("/api/register", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({
+          fullName: fullName.trim(),
+          whatsappNumber: whatsappNumber.trim(),
+          email: "",
+          paymentMethod: paymentMethod === "Meezan Bank" ? "Bank Transfer" : paymentMethod,
+          transactionId: transactionId.trim() || "N/A (Screenshot Attached)",
+          paymentScreenshot: screenshotBase64,
+          consent: true,
+          batchDate: new Date().toISOString().split("T")[0],
+          batchDisplayDate: dynamicDate,
+          deviceCategory: typeof window !== "undefined" && window.innerWidth < 640 ? "mobile" : "desktop",
+          timestamp: new Date().toISOString(),
+        }),
+      }).catch((err) => console.warn("Lead save error:", err));
+
+      // Track Pixel if active
+      if (typeof (window as any).fbq === "function") {
+        (window as any).fbq("track", "CompleteRegistration", {
+          value: 1999,
+          currency: "PKR",
+          content_name: "YouTube Empire Builders Workshop",
+        });
+      }
+
+      setIsSubmitting(false);
+      setModalStep(2); // Show 10s countdown redirect
+    } catch {
+      setIsSubmitting(false);
+      setModalStep(2); // Proceed to WhatsApp regardless so user is never blocked
+    }
   };
 
   const openPolicy = (type: "refund" | "transfer" | "disclaimer" | "privacy") => {
@@ -104,7 +239,7 @@ export default function WorkshopYt3Client() {
     },
     {
       q: "Payment verify hone mein kitna time lagta hai?",
-      a: "Verification team Payment proof receive karne ke baad jaldi verification karegi. Confirmation WhatsApp par aayegi.",
+      a: "Verification team Payment proof receive karne ke baad foran verification karegi. Confirmation WhatsApp (+92 329 6158206) par foran deliver hogi.",
     },
     {
       q: "Kya recording share karni allowed hai?",
@@ -164,7 +299,7 @@ export default function WorkshopYt3Client() {
               </div>
             </div>
 
-            <button className="yt3-cta-btn" onClick={openGHLModal}>
+            <button className="yt3-cta-btn" onClick={openPayModal}>
               Aaj Raat Ki Seat PKR 1,999 Mein Lock Karein
               <span className="arrow">&rarr;</span>
             </button>
@@ -448,7 +583,7 @@ export default function WorkshopYt3Client() {
               <span className="new-price">PKR 1,999</span>
             </div>
             <div className="yt3-bonus-cta-wrap">
-              <button className="yt3-cta-btn" onClick={openGHLModal}>
+              <button className="yt3-cta-btn" onClick={openPayModal}>
                 Abhi Seat Lock Karein — PKR 1,999
                 <span className="arrow">&rarr;</span>
               </button>
@@ -525,8 +660,8 @@ export default function WorkshopYt3Client() {
         {/* PAYMENT DETAILS */}
         <section className="yt3-section yt3-payment-section" id="payment">
           <div className="yt3-container" style={{ maxWidth: "700px" }}>
-            <h2 className="yt3-section-title">Payment Details</h2>
-            <p className="yt3-section-subtitle">Kisi bhi method se PKR 1,999 transfer karein.</p>
+            <h2 className="yt3-section-title">Direct Payment Details</h2>
+            <p className="yt3-section-subtitle">Kisi bhi payment method se PKR 1,999 transfer karein.</p>
             
             {/* Bank */}
             <div style={{ marginBottom: "20px" }}>
@@ -536,45 +671,54 @@ export default function WorkshopYt3Client() {
               <div style={{ display: "flex", flexDirection: "column", gap: "6px" }}>
                 <div style={{ display: "flex", justifyContent: "space-between", alignItems: "center", background: "#F8FAFC", padding: "10px 14px", borderRadius: "8px" }}>
                   <div><p style={{ fontSize: "11px", color: "#94A3B8", margin: 0 }}>Account Title</p><p style={{ fontSize: "14px", fontWeight: 600, color: "#0F172A", margin: "2px 0 0" }}>Muhammad Abrar</p></div>
+                  <button onClick={() => copyToClipboard("Muhammad Abrar", "title")} className={`yt3-copy-btn ${copiedKey === "title" ? "copied" : ""}`}>{copiedKey === "title" ? "Copied ✓" : "Copy"}</button>
                 </div>
                 <div style={{ display: "flex", justifyContent: "space-between", alignItems: "center", background: "#F8FAFC", padding: "10px 14px", borderRadius: "8px" }}>
                   <div><p style={{ fontSize: "11px", color: "#94A3B8", margin: 0 }}>Account Number</p><p style={{ fontSize: "14px", fontWeight: 600, color: "#0F172A", margin: "2px 0 0" }}>02370103321036</p></div>
+                  <button onClick={() => copyToClipboard("02370103321036", "acc")} className={`yt3-copy-btn ${copiedKey === "acc" ? "copied" : ""}`}>{copiedKey === "acc" ? "Copied ✓" : "Copy"}</button>
                 </div>
                 <div style={{ display: "flex", justifyContent: "space-between", alignItems: "center", background: "#F8FAFC", padding: "10px 14px", borderRadius: "8px" }}>
                   <div><p style={{ fontSize: "11px", color: "#94A3B8", margin: 0 }}>IBAN</p><p style={{ fontSize: "14px", fontWeight: 600, color: "#0F172A", margin: "2px 0 0" }}>PK39MEZN0002370103321036</p></div>
+                  <button onClick={() => copyToClipboard("PK39MEZN0002370103321036", "iban")} className={`yt3-copy-btn ${copiedKey === "iban" ? "copied" : ""}`}>{copiedKey === "iban" ? "Copied ✓" : "Copy"}</button>
                 </div>
               </div>
             </div>
 
-            {/* EasyPaisa & JazzCash */}
+            {/* EasyPaisa & Binance */}
             <div style={{ display: "grid", gridTemplateColumns: "1fr 1fr", gap: "12px" }}>
               <div>
                 <h3 style={{ fontSize: "15px", fontWeight: 700, color: "#0F172A", marginBottom: "10px", display: "flex", alignItems: "center", gap: "6px" }}>
                   📱 EasyPaisa
                 </h3>
                 <div style={{ display: "flex", flexDirection: "column", gap: "6px" }}>
-                  <div style={{ background: "#F8FAFC", padding: "10px 14px", borderRadius: "8px" }}>
-                    <p style={{ fontSize: "11px", color: "#94A3B8", margin: 0 }}>Number</p>
-                    <p style={{ fontSize: "14px", fontWeight: 600, color: "#0F172A", margin: "2px 0 0" }}>03296158206</p>
+                  <div style={{ display: "flex", justifyContent: "space-between", alignItems: "center", background: "#F8FAFC", padding: "10px 14px", borderRadius: "8px" }}>
+                    <div>
+                      <p style={{ fontSize: "11px", color: "#94A3B8", margin: 0 }}>Number</p>
+                      <p style={{ fontSize: "14px", fontWeight: 600, color: "#0F172A", margin: "2px 0 0" }}>03274532186</p>
+                    </div>
+                    <button onClick={() => copyToClipboard("03274532186", "ep_num")} className={`yt3-copy-btn ${copiedKey === "ep_num" ? "copied" : ""}`}>{copiedKey === "ep_num" ? "Copied ✓" : "Copy"}</button>
                   </div>
                   <div style={{ background: "#F8FAFC", padding: "10px 14px", borderRadius: "8px" }}>
                     <p style={{ fontSize: "11px", color: "#94A3B8", margin: 0 }}>Name</p>
-                    <p style={{ fontSize: "14px", fontWeight: 600, color: "#0F172A", margin: "2px 0 0" }}>Abrar Nadir Support</p>
+                    <p style={{ fontSize: "14px", fontWeight: 600, color: "#0F172A", margin: "2px 0 0" }}>Muhammad Abrar Ghauri</p>
                   </div>
                 </div>
               </div>
               <div>
                 <h3 style={{ fontSize: "15px", fontWeight: 700, color: "#0F172A", marginBottom: "10px", display: "flex", alignItems: "center", gap: "6px" }}>
-                  📱 JazzCash
+                  🟡 Binance (Crypto / USDT)
                 </h3>
                 <div style={{ display: "flex", flexDirection: "column", gap: "6px" }}>
-                  <div style={{ background: "#F8FAFC", padding: "10px 14px", borderRadius: "8px" }}>
-                    <p style={{ fontSize: "11px", color: "#94A3B8", margin: 0 }}>Number</p>
-                    <p style={{ fontSize: "14px", fontWeight: 600, color: "#0F172A", margin: "2px 0 0" }}>03296158206</p>
+                  <div style={{ display: "flex", justifyContent: "space-between", alignItems: "center", background: "#F8FAFC", padding: "10px 14px", borderRadius: "8px" }}>
+                    <div>
+                      <p style={{ fontSize: "11px", color: "#94A3B8", margin: 0 }}>Binance ID / UID</p>
+                      <p style={{ fontSize: "14px", fontWeight: 600, color: "#0F172A", margin: "2px 0 0" }}>117971802</p>
+                    </div>
+                    <button onClick={() => copyToClipboard("117971802", "binance_id")} className={`yt3-copy-btn ${copiedKey === "binance_id" ? "copied" : ""}`}>{copiedKey === "binance_id" ? "Copied ✓" : "Copy"}</button>
                   </div>
                   <div style={{ background: "#F8FAFC", padding: "10px 14px", borderRadius: "8px" }}>
                     <p style={{ fontSize: "11px", color: "#94A3B8", margin: 0 }}>Name</p>
-                    <p style={{ fontSize: "14px", fontWeight: 600, color: "#0F172A", margin: "2px 0 0" }}>Abrar Nadir Support</p>
+                    <p style={{ fontSize: "14px", fontWeight: 600, color: "#0F172A", margin: "2px 0 0" }}>abrarnadircb</p>
                   </div>
                 </div>
               </div>
@@ -620,7 +764,7 @@ export default function WorkshopYt3Client() {
             <div className="yt3-final-price">
               <span className="currency">PKR</span> 1,999
             </div>
-            <button className="yt3-cta-btn" onClick={openGHLModal}>
+            <button className="yt3-cta-btn" onClick={openPayModal}>
               Aaj Raat Ki Seat Lock Karein
               <span className="arrow">&rarr;</span>
             </button>
@@ -659,29 +803,244 @@ export default function WorkshopYt3Client() {
           <span className="amount">PKR 1,999</span>
           Limited Seats
         </div>
-        <button className="sticky-btn" onClick={openGHLModal}>
+        <button className="sticky-btn" onClick={openPayModal}>
           Seat Lock Karein &rarr;
         </button>
       </div>
 
-      {/* GHL FORM MODAL */}
-      {ghlModalOpen && (
-        <div className="yt3-ghl-modal-overlay" onClick={closeGHLModal} role="dialog" aria-modal="true" aria-label="Registration Form">
-          <div className="yt3-ghl-modal" onClick={(e) => e.stopPropagation()}>
-            <button className="yt3-ghl-modal-close" onClick={closeGHLModal} aria-label="Close form">
-              &times;
-            </button>
-            {ghlIframeLoading && (
-              <div className="yt3-ghl-modal-loading">
-                <div className="yt3-spinner"></div>
-                <span>Form load ho raha hai...</span>
+      {/* BEAUTIFUL ALL-IN-ONE REGISTRATION & PAYMENT POPUP */}
+      {payModalOpen && (
+        <div className="yt3-paymodal-overlay" onClick={closePayModal} role="dialog" aria-modal="true">
+          <div className="yt3-paybox" onClick={(e) => e.stopPropagation()}>
+            
+            {/* Header */}
+            <div className="yt3-paybox-header">
+              <div>
+                <div className="yt3-paybox-header-title">Live Workshop Registration</div>
+                <h3>{modalStep === 1 ? "Complete Your Registration & Payment" : "Verification in Progress"}</h3>
               </div>
-            )}
-            <iframe
-              src={GHL_URL}
-              title="Registration Form"
-              onLoad={() => setGhlIframeLoading(false)}
-            />
+              <button className="yt3-paybox-close" onClick={closePayModal} aria-label="Close modal">
+                &times;
+              </button>
+            </div>
+
+            {/* Body */}
+            <div className="yt3-paybox-body">
+              {modalStep === 1 ? (
+                <form onSubmit={handleSubmitProof}>
+                  
+                  {/* Step 1: User details */}
+                  <div className="yt3-form-group">
+                    <label>Full Name *</label>
+                    <input
+                      type="text"
+                      className="yt3-form-input"
+                      placeholder="Apna mukammal naam likhein"
+                      value={fullName}
+                      onChange={(e) => setFullName(e.target.value)}
+                      required
+                    />
+                  </div>
+
+                  <div className="yt3-form-group">
+                    <label>WhatsApp Number *</label>
+                    <input
+                      type="tel"
+                      className="yt3-form-input"
+                      placeholder="03xx-xxxxxxx"
+                      value={whatsappNumber}
+                      onChange={(e) => setWhatsappNumber(e.target.value)}
+                      required
+                    />
+                  </div>
+
+                  {/* Payment Method Selector */}
+                  <div className="yt3-form-group">
+                    <label>Select Payment Method (Fee: PKR 1,999)</label>
+                    <div className="yt3-pay-tabs">
+                      <button
+                        type="button"
+                        className={`yt3-pay-tab-btn ${paymentMethod === "Meezan Bank" ? "active" : ""}`}
+                        onClick={() => setPaymentMethod("Meezan Bank")}
+                      >
+                        🏦 Meezan Bank
+                      </button>
+                      <button
+                        type="button"
+                        className={`yt3-pay-tab-btn ${paymentMethod === "Easypaisa" ? "active" : ""}`}
+                        onClick={() => setPaymentMethod("Easypaisa")}
+                      >
+                        📱 Easypaisa
+                      </button>
+                      <button
+                        type="button"
+                        className={`yt3-pay-tab-btn ${paymentMethod === "Binance" ? "active" : ""}`}
+                        onClick={() => setPaymentMethod("Binance")}
+                      >
+                        🟡 Binance UID
+                      </button>
+                    </div>
+
+                    {/* Payment Details Card */}
+                    <div className="yt3-pay-details-card">
+                      {paymentMethod === "Meezan Bank" && (
+                        <div>
+                          <div className="yt3-pay-row">
+                            <span className="yt3-pay-row-label">Bank Name:</span>
+                            <span className="yt3-pay-row-val">Meezan Bank Limited</span>
+                          </div>
+                          <div className="yt3-pay-row">
+                            <span className="yt3-pay-row-label">Account Title:</span>
+                            <span className="yt3-pay-row-val">
+                              Muhammad Abrar
+                              <button type="button" onClick={() => copyToClipboard("Muhammad Abrar", "m_title")} className={`yt3-copy-btn ${copiedKey === "m_title" ? "copied" : ""}`}>
+                                {copiedKey === "m_title" ? "Copied ✓" : "Copy"}
+                              </button>
+                            </span>
+                          </div>
+                          <div className="yt3-pay-row">
+                            <span className="yt3-pay-row-label">Account Number:</span>
+                            <span className="yt3-pay-row-val">
+                              02370103321036
+                              <button type="button" onClick={() => copyToClipboard("02370103321036", "m_acc")} className={`yt3-copy-btn ${copiedKey === "m_acc" ? "copied" : ""}`}>
+                                {copiedKey === "m_acc" ? "Copied ✓" : "Copy"}
+                              </button>
+                            </span>
+                          </div>
+                          <div className="yt3-pay-row">
+                            <span className="yt3-pay-row-label">IBAN:</span>
+                            <span className="yt3-pay-row-val">
+                              PK39MEZN0002370103321036
+                              <button type="button" onClick={() => copyToClipboard("PK39MEZN0002370103321036", "m_iban")} className={`yt3-copy-btn ${copiedKey === "m_iban" ? "copied" : ""}`}>
+                                {copiedKey === "m_iban" ? "Copied ✓" : "Copy"}
+                              </button>
+                            </span>
+                          </div>
+                        </div>
+                      )}
+
+                      {paymentMethod === "Easypaisa" && (
+                        <div>
+                          <div className="yt3-pay-row">
+                            <span className="yt3-pay-row-label">Easypaisa Number:</span>
+                            <span className="yt3-pay-row-val">
+                              03274532186
+                              <button type="button" onClick={() => copyToClipboard("03274532186", "ep_num")} className={`yt3-copy-btn ${copiedKey === "ep_num" ? "copied" : ""}`}>
+                                {copiedKey === "ep_num" ? "Copied ✓" : "Copy"}
+                              </button>
+                            </span>
+                          </div>
+                          <div className="yt3-pay-row">
+                            <span className="yt3-pay-row-label">Account Title:</span>
+                            <span className="yt3-pay-row-val">Muhammad Abrar Ghauri</span>
+                          </div>
+                        </div>
+                      )}
+
+                      {paymentMethod === "Binance" && (
+                        <div>
+                          <div className="yt3-pay-row">
+                            <span className="yt3-pay-row-label">Binance ID / UID:</span>
+                            <span className="yt3-pay-row-val">
+                              117971802
+                              <button type="button" onClick={() => copyToClipboard("117971802", "b_uid")} className={`yt3-copy-btn ${copiedKey === "b_uid" ? "copied" : ""}`}>
+                                {copiedKey === "b_uid" ? "Copied ✓" : "Copy"}
+                              </button>
+                            </span>
+                          </div>
+                          <div className="yt3-pay-row">
+                            <span className="yt3-pay-row-label">Binance Nickname:</span>
+                            <span className="yt3-pay-row-val">abrarnadircb</span>
+                          </div>
+                        </div>
+                      )}
+                    </div>
+                  </div>
+
+                  {/* Transaction ID optional */}
+                  <div className="yt3-form-group">
+                    <label>Transaction ID / TID <span style={{ color: "#94A3B8", fontWeight: "normal", fontSize: "12px" }}>(Optional)</span></label>
+                    <input
+                      type="text"
+                      className="yt3-form-input"
+                      placeholder="Agar available ho toh likhein"
+                      value={transactionId}
+                      onChange={(e) => setTransactionId(e.target.value)}
+                    />
+                  </div>
+
+                  {/* Upload Screenshot */}
+                  <div className="yt3-form-group">
+                    <label>Attach Payment Screenshot *</label>
+                    <div className="yt3-upload-zone" onClick={() => fileInputRef.current?.click()}>
+                      <input
+                        type="file"
+                        ref={fileInputRef}
+                        onChange={handleFileChange}
+                        accept="image/jpeg,image/png,image/webp,application/pdf"
+                        style={{ display: "none" }}
+                      />
+                      {screenshotBase64 ? (
+                        <div>
+                          <span style={{ display: "inline-block", background: "#DCFCE7", color: "#166534", fontSize: "12px", fontWeight: 700, padding: "3px 10px", borderRadius: "9999px" }}>
+                            Screenshot Uploaded ✓
+                          </span>
+                          <p style={{ fontSize: "12px", color: "#475569", marginTop: "4px", fontWeight: 600 }}>{screenshotFilename}</p>
+                        </div>
+                      ) : (
+                        <div>
+                          <span style={{ fontSize: "24px", display: "block", marginBottom: "4px" }}>📸</span>
+                          <p style={{ fontSize: "13px", fontWeight: 700, color: "#1E293B" }}>Click to upload payment screenshot</p>
+                          <p style={{ fontSize: "11px", color: "#64748B" }}>JPG, PNG, WEBP ya PDF (Max: 10MB)</p>
+                        </div>
+                      )}
+                    </div>
+                  </div>
+
+                  {formError && (
+                    <div style={{ background: "#FEF2F2", border: "1px solid #FECACA", color: "#DC2626", padding: "10px 14px", borderRadius: "10px", fontSize: "13px", fontWeight: 600, marginBottom: "14px" }}>
+                      {formError}
+                    </div>
+                  )}
+
+                  {/* CTA Button */}
+                  <button type="submit" className="yt3-verify-btn" disabled={isSubmitting}>
+                    {isSubmitting ? "Submitting..." : "Verify Payment on WhatsApp →"}
+                  </button>
+                </form>
+              ) : (
+                /* STEP 2: 10-SECOND COUNTDOWN & POLITE WAITING MESSAGE */
+                <div className="yt3-redirect-screen">
+                  <div className="yt3-redirect-badge">
+                    <span>⏳ Verification Desk</span>
+                  </div>
+
+                  <h3 className="yt3-redirect-title">
+                    Thank You, {fullName.trim()}!
+                  </h3>
+
+                  <p className="yt3-redirect-msg">
+                    Aap ki details aur payment receipt receive ho chuki hain. Hamari senior verification team aapki payment verify karke direct confirmed Zoom link aur WhatsApp group access provide karegi.
+                  </p>
+
+                  <div className="yt3-countdown-circle">
+                    {countdown}s
+                  </div>
+
+                  <p style={{ fontSize: "12px", color: "#64748B", marginBottom: "16px", fontWeight: 600 }}>
+                    Opening WhatsApp automatically in {countdown} seconds...
+                  </p>
+
+                  <button
+                    type="button"
+                    className="yt3-manual-wa-btn"
+                    onClick={triggerWhatsAppOpen}
+                  >
+                    <span>💬 Open WhatsApp Immediately (+92 329 6158206)</span>
+                  </button>
+                </div>
+              )}
+            </div>
           </div>
         </div>
       )}
@@ -699,14 +1058,8 @@ export default function WorkshopYt3Client() {
               <p><strong>Refund Eligibility:</strong></p>
               <ul>
                 <li>Full 100% refund request must be submitted within <strong>72 hours</strong> of the workshop&apos;s scheduled end time.</li>
-                <li>Requests must be sent via WhatsApp to the support number.</li>
+                <li>Requests must be sent via WhatsApp to our support number: <strong>+92 329 6158206</strong>.</li>
                 <li>No explanation or justification is required — simply state your request.</li>
-              </ul>
-              <p><strong>Refund Process:</strong></p>
-              <ul>
-                <li>Refunds are processed within 3–5 business days via the original payment method.</li>
-                <li>You will receive confirmation once the 100% refund has been initiated.</li>
-                <li>No questions will be asked — we honor every valid request.</li>
               </ul>
             </div>
           </div>
@@ -724,10 +1077,10 @@ export default function WorkshopYt3Client() {
               <p>If you are unable to attend the workshop, you may transfer your seat to another person under the following conditions:</p>
               <ul>
                 <li>Transfer requests must be submitted at least <strong>2 hours before</strong> the workshop starts.</li>
-                <li>The transferee must register via the provided form with their own details.</li>
+                <li>The transferee must register via WhatsApp with their own details.</li>
                 <li>Only one transfer per registration is allowed.</li>
               </ul>
-              <p>To request a transfer, contact us via WhatsApp with your registration details.</p>
+              <p>To request a transfer, contact us via WhatsApp (+92 329 6158206) with your registration details.</p>
             </div>
           </div>
         </div>
@@ -742,11 +1095,11 @@ export default function WorkshopYt3Client() {
             </div>
             <div className="yt3-policy-modal-body">
               <p><strong>General Disclaimer</strong></p>
-              <p>This workshop is designed for educational and informational purposes only. The content, strategies, and techniques shared during the workshop are based on the presenter&apos;s personal experience and research. Individual results may vary significantly depending on factors including but not limited to: effort, market conditions, prior experience, niche selection, and consistency of execution.</p>
+              <p>This workshop is designed for educational and informational purposes only. The content, strategies, and techniques shared during the workshop are based on the presenter&apos;s personal experience and research.</p>
               <p><strong>No Guaranteed Income:</strong></p>
               <ul>
                 <li>This workshop does not guarantee any specific income level, subscriber count, or business outcome.</li>
-                <li>Success in YouTube content creation requires consistent effort, quality content, and market understanding beyond what any single workshop can provide.</li>
+                <li>Success in YouTube content creation requires consistent effort, quality content, and market understanding.</li>
               </ul>
             </div>
           </div>
@@ -762,14 +1115,8 @@ export default function WorkshopYt3Client() {
             </div>
             <div className="yt3-policy-modal-body">
               <p><strong>Privacy Policy — How We Handle Your Data</strong></p>
-              <p>Your privacy is important to us. This policy explains how we collect, use, and protect your personal information when you register for our workshop.</p>
-              <p><strong>Information We Collect:</strong></p>
-              <ul>
-                <li><strong>Full Name</strong> — To identify your registration and personalize communication.</li>
-                <li><strong>WhatsApp Number</strong> — To send workshop updates, confirmation, and support.</li>
-                <li><strong>Email Address</strong> — For backup communication and delivery of digital materials.</li>
-              </ul>
-              <p><strong>Contact:</strong> For any privacy-related questions, reach out via WhatsApp at +92 329 6158206.</p>
+              <p>Your privacy is important to us. We collect your Full Name and WhatsApp Number solely for workshop communication, registration verification, and 7-day community access.</p>
+              <p><strong>Contact:</strong> For any privacy-related questions, reach out via WhatsApp at <strong>+92 329 6158206</strong>.</p>
             </div>
           </div>
         </div>
