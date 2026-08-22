@@ -195,6 +195,24 @@ export const yt6DashOffer = {
   status: "active",
 } satisfies OfferConfig;
 
+export const yt7Offer = {
+  ...youtubeEmpireBuildersOffer,
+  id: "workshop-yt7",
+  slug: "yt7",
+  title: "YouTube Workshop 7",
+  leadTag: "workshop-yt7",
+  status: "active",
+} satisfies OfferConfig;
+
+export const yt7DashOffer = {
+  ...youtubeEmpireBuildersOffer,
+  id: "workshop-yt-7",
+  slug: "yt-7",
+  title: "YouTube Workshop 7",
+  leadTag: "workshop-yt-7",
+  status: "active",
+} satisfies OfferConfig;
+
 export const offers: readonly OfferConfig[] = [
   youtubeEmpireBuildersOffer,
   weeklyYoutubeWorkshopOffer,
@@ -204,6 +222,8 @@ export const offers: readonly OfferConfig[] = [
   yt5Offer,
   yt6Offer,
   yt6DashOffer,
+  yt7Offer,
+  yt7DashOffer,
 ];
 
 export function getOfferById(id: string) {
