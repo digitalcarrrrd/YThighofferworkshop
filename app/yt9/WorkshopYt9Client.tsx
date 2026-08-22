@@ -7,25 +7,36 @@ import {
   Zap, ChevronDown, 
   TrendingUp, Home, Lock, AlertTriangle,
   MessageSquare, Monitor,
-  GraduationCap, Briefcase, Heart, Smile, Gift, Flame, Clock, Calendar, Globe
+  GraduationCap, Briefcase, Heart, Smile, Gift, Flame, Clock, Calendar, Globe, Radio, Sparkles, Activity
 } from "lucide-react";
 
 const TEAM_WHATSAPP_NUMBER = "923296158206";
 
-const CITIES = ["Karachi", "Lahore", "Islamabad", "Rawalpindi", "Faisalabad", "Multan", "Peshawar", "Gujranwala", "Sialkot", "Hyderabad", "Quetta"];
+const EMPIRE_NICHES = [
+  { city: "Karachi", niche: "AI Finance Hub", yield: "$1,450/mo" },
+  { city: "Lahore", niche: "Tech Automation", yield: "$980/mo" },
+  { city: "Islamabad", niche: "Faceless Docu", yield: "$1,820/mo" },
+  { city: "Rawalpindi", niche: "Global Health AI", yield: "$760/mo" },
+  { city: "Faisalabad", niche: "Case Studies", yield: "$1,150/mo" },
+  { city: "Multan", niche: "AI Storytelling", yield: "$890/mo" },
+  { city: "Peshawar", niche: "Luxury Economy", yield: "$2,100/mo" },
+  { city: "Sialkot", niche: "SaaS Breakdowns", yield: "$1,340/mo" },
+  { city: "Hyderabad", niche: "Productivity AI", yield: "$680/mo" },
+  { city: "Quetta", niche: "Science Deep-Dive", yield: "$920/mo" },
+];
 
 const TESTIMONIALS_1 = [
-  { q: "Raat 10 baje tak mujhe nahi pata tha ke offer kaise banate hain. 17 din baad pehla client — $180.", name: "Ahmed", city: "Lahore" },
-  { q: "Main housewife hoon. Raat 9 baje bachon ke sone ke baad kaam. Pehla month $220.", name: "Fatima", city: "Karachi" },
-  { q: "Job nahi chhodi. Bas raat 2 ghante. Ab side income meri salary ke barabar hai.", name: "Bilal", city: "Islamabad" },
-  { q: "“Scam hai” kehne wale ab puchte hain: “bhai, kaise kiya?”", name: "Sana", city: "Multan" },
+  { q: "Raat 10 baje tak mujhe nahi pata tha ke high-ticket offer kaise banate hain. 17 din baad pehla international client — $180.", name: "Ahmed", city: "Lahore" },
+  { q: "Main housewife hoon. Raat 9 baje bachon ke sone ke baad digital asset pe kaam. Pehla month $220 dollar account mein receive hua.", name: "Fatima", city: "Karachi" },
+  { q: "Job nahi chhodi. Bas raat 2 ghante. Ab YouTube asset income meri bank salary ke barabar ho chuki hai.", name: "Bilal", city: "Islamabad" },
+  { q: "“Scam hai” kehne wale ab puchte hain: “Bhai, US audience ko automate kaise target kiya?”", name: "Sana", city: "Multan" },
 ];
 
 const TESTIMONIALS_2 = [
-  { q: "Roadmap PDF ab bhi mere saamne chipka hai. 30 din, 2 clients.", name: "Usman", city: "Faisalabad" },
-  { q: "Bilkul zero se aaya tha — computer on karna bhi theek se nahi aata tha tools ke ilawa.", name: "Hina", city: "Rawalpindi" },
-  { q: "Dollar ki value dekh kar ab dard nahi, hisaab hota hai.", name: "Daniyal", city: "Peshawar" },
-  { q: "Pehle 2 tools free the. Pehla client paid. Aasan hisaab.", name: "Ayesha", city: "Quetta" }
+  { q: "Roadmap blueprint ab bhi mere workspace pe chipka hai. 30 din mein 2 monetized digital assets.", name: "Usman", city: "Faisalabad" },
+  { q: "Bilkul zero background se aaya tha — AI automation tools ne poora workflow easy bana diya.", name: "Hina", city: "Rawalpindi" },
+  { q: "Dollar rate dekh kar ab pareshani nahi, balki monthly dollar inflow celebrate hota hai.", name: "Daniyal", city: "Peshawar" },
+  { q: "Zero video recording camera cost. Pehle 2 AI assets completely faceless build kiye.", name: "Ayesha", city: "Quetta" }
 ];
 
 export default function WorkshopYt9Client() {
@@ -66,8 +77,9 @@ export default function WorkshopYt9Client() {
 
   // Interactive Plot Matrix State
   const [plots, setPlots] = useState<boolean[]>([]);
-  const [plotsClaimedCount, setPlotsClaimedCount] = useState<number>(37);
-  const [activeCityTag, setActiveCityTag] = useState<{ city: string; idx: number } | null>(null);
+  const [plotsClaimedCount, setPlotsClaimedCount] = useState<number>(61);
+  const [hoveredPlot, setHoveredPlot] = useState<{ idx: number; niche: string; yield: string; city: string } | null>(null);
+  const [activeClaimAlert, setActiveClaimAlert] = useState<{ city: string; niche: string; yield: string } | null>(null);
 
   // Dynamic Date (PKT) & Cutoff Timer
   useEffect(() => {
@@ -116,8 +128,12 @@ export default function WorkshopYt9Client() {
 
   // Initialize Plot Matrix
   useEffect(() => {
-    const initialPlots = Array.from({ length: 96 }, (_, i) => i % 3 === 0 || i % 5 === 0);
-    setPlots(initialPlots);
+    // Initial 96 plots: 61 claimed, 35 available
+    const initial = Array.from({ length: 96 }, (_, i) => {
+      const pattern = (i * 7 + 13) % 96;
+      return pattern < 61;
+    });
+    setPlots(initial);
 
     const interval = setInterval(() => {
       setPlots((prev) => {
@@ -127,14 +143,14 @@ export default function WorkshopYt9Client() {
         const next = [...prev];
         next[targetIdx] = true;
         
-        const randomCity = CITIES[Math.floor(Math.random() * CITIES.length)];
-        setActiveCityTag({ city: randomCity, idx: targetIdx });
-        setTimeout(() => setActiveCityTag(null), 2500);
+        const claimItem = EMPIRE_NICHES[Math.floor(Math.random() * EMPIRE_NICHES.length)];
+        setActiveClaimAlert(claimItem);
+        setTimeout(() => setActiveClaimAlert(null), 3200);
 
-        setPlotsClaimedCount((c) => c + 1);
+        setPlotsClaimedCount((c) => Math.min(89, c + 1));
         return next;
       });
-    }, 5500);
+    }, 6000);
 
     return () => clearInterval(interval);
   }, []);
@@ -294,43 +310,39 @@ export default function WorkshopYt9Client() {
 
   const painPoints = [
     "Mahine ka aakhir aata hai, paisa pehle",
-    "Monday subah pet mein gaanth",
-    "Salary barhne ka koi clear tareeqa nahi",
-    "Skills 3 saal purani hain",
-    "Dollar ki qeemat dekh kar dard hota hai",
-    "Ghar walon ko woh cheezein nahi de pata jo dena chahta hoon",
-    "Side income shuru karni hai par “kaise?” nahi pata",
-    "YouTube pe 2 ghante dekh liye, kaam 0 kiya",
+    "Monday subah career ki ghutan aur fixed ceiling",
+    "Salary barhne ka koi clear aur realistic tareeqa nahi",
+    "Skills 3 saal purani hain — AI ka dar",
+    "Dollar ki badhti qeemat dekh kar financial anxiety",
+    "Ghar walon ko woh lifestyle nahi de pa rahe jo deserve karte hain",
+    "Side income shuru karni hai par authentic formula nahi mil raha",
+    "YouTube par endless tutorials dekh kar bhi zero practical execution",
   ];
 
   const faqs = [
     {
-      q: "Bilkul zero se hoon — kya chalega?",
-      a: "Haan — isi ke liye design kiya gaya hai. Live demo mein har step screen pe dikhta hai, aur jo samajh na aaye, live poocho. Zero experience wale hi sab se zyada faida uthate hain, kyunke unhe kuch 'unlearn' nahi karna parta.",
+      q: "Bilkul zero experience se start kiya ja sakta hai?",
+      a: "Haan — isi ke liye yeh structured system design kiya gaya hai. Live demo mein har tool aur strategy screen share karke execute hoti hai. Zero background wale bina kisi confusion ke pehle din se follow kar sakte hain.",
     },
     {
-      q: "Recording milti hai?",
-      a: "Haan, 48 ghante tak. Par live aana behtar hai — Q&A sirf live mein hota hai, aur aap ke apne sawaal ke jawab wahi milte hain.",
+      q: "Workshop ki recording provide ki jayegi?",
+      a: "Haan, 48 ghante tak full HD recording access provide kiya jayega. Lekin live session attend karna most valuable hai taake aap apne direct sawaal Q&A mein clear kar sakein.",
     },
     {
-      q: "Job ke saath manage ho jayega?",
-      a: "Haan. Waqt raat 8–10 hi is liye rakha gaya hai — jab bachay so jayen, dinner ho chuka ho. Workshop ke baad sirf 1 ghanta roz kafi hai. Aur pehla client 30 din ke andar average hai.",
+      q: "9-to-5 job ya university schedule ke saath manageable hai?",
+      a: "Bilkul. Live session ka time raat 8:00 PM se 10:00 PM rakha gaya hai taake working professionals aur students easily attend kar sakein. Workshop ke baad daily sirf 1 se 2 ghante ki focused practice required hoti hai.",
     },
     {
-      q: "Zyada mehnga to nahi?",
-      a: "Ek family dinner ka kharcha — uske badle 30-din ka poora rasta, tools, script aur community. Aur agar useful hi na lage to next batch free ya full refund. Risk humara hai, aap ka nahi.",
+      q: "Fee aur value proposition kya hai?",
+      a: "Sirf ek routine family outing ke barabar ki investment hai, jiske badle aapko 30-day practical asset roadmap, complete AI toolstack, high-converting outreach scripts aur community mentorship milti hai.",
     },
     {
-      q: "Medium kya hai — Urdu ya English?",
-      a: "Roman Urdu + English mix — jaise aap dost se baat karte ho. Technical terms English mein, baqi sab aasaan Roman Urdu mein.",
+      q: "Instruction medium kya hoga?",
+      a: "Roman Urdu aur professional English ka practical blend — bilkul simple, clear aur interactive communication.",
     },
     {
-      q: "Kya main guaranteed paise kama lunga?",
-      a: "Imandari se: nahi — aur jo guarantee de, us se bacho. Guarantee sirf waqt, system aur support ka hai. Kamana aap ke execution se hai. Yeh workshop 'kaise' wala hissa solve karta hai.",
-    },
-    {
-      q: "Payment ka tareeqa?",
-      a: "Direct Meezan Bank, Easypaisa, aur Binance UID available hain. Submit karne par instant WhatsApp confirmation aur Zoom access milta hai.",
+      q: "Payment options aur confirmation flow kya hai?",
+      a: "Meezan Bank Limited, Easypaisa aur Binance (USDT) teeno available hain. Receipt submit karte hi aapko priority WhatsApp verification desk aur confirmed Zoom access pass mil jata hai.",
     },
   ];
 
@@ -341,19 +353,20 @@ export default function WorkshopYt9Client() {
       <div className="sticky top-0 z-40 bg-[#FFB020] text-[#2A1B00] text-center py-2 px-4 text-xs font-black uppercase tracking-wider shadow-md flex items-center justify-center gap-2 flex-wrap">
         <span>Next batch: <b>{isAfterSeven ? "Kal Raat 8:00 PM PKT" : "Aaj Raat 8:00 PM PKT"}</b></span>
         <span className="opacity-40">•</span>
-        <span>Doors band: <b>{timeLeft}</b></span>
+        <span>Registration Closes In: <b>{timeLeft}</b></span>
         <span className="opacity-40">•</span>
         <span>Sirf <b className="text-red-900 font-black">22 Seats</b> Baaki</span>
       </div>
 
-      {/* 2. HERO SECTION */}
+      {/* 2. HERO SECTION WITH FUTURISTIC YOUTUBE EMPIRE RADAR */}
       <header className="pt-12 md:pt-20 pb-16 px-4 md:px-6 max-w-6xl mx-auto border-b border-white/10">
         <div className="grid md:grid-cols-12 gap-8 items-start">
           
           {/* Left Column */}
           <div className="md:col-span-7 text-left space-y-6">
-            <div className="inline-flex items-center gap-2 border border-[#2FD97E]/40 bg-[#2FD97E]/10 text-[#2FD97E] px-4 py-1.5 rounded-full text-xs font-black tracking-widest uppercase">
-              <span>● Daily Live Workshop • Raat 8 Se 10 Baje PKT • Sirf 100 Seats</span>
+            <div className="inline-flex items-center gap-2 border border-[#2FD97E]/40 bg-[#2FD97E]/10 text-[#2FD97E] px-4 py-1.5 rounded-full text-xs font-black tracking-widest uppercase shadow-sm">
+              <Sparkles size={13} className="text-[#2FD97E]" />
+              <span>Daily Live Masterclass • Raat 8 Se 10 Baje PKT • 100 Seats Batch</span>
             </div>
 
             <h1 className="text-3xl sm:text-5xl md:text-6xl font-black text-white leading-tight uppercase">
@@ -364,7 +377,7 @@ export default function WorkshopYt9Client() {
             </h1>
 
             <p className="text-slate-300 text-sm sm:text-base md:text-lg leading-relaxed max-w-xl">
-              Aap ke baap ne apne bachon ko zameen di — <strong className="text-white">us waqt sasti thi, aaj qeemti hai.</strong> Aaj aap ke haath mein wohi mauqa hai: AI ki digital zameen. 2 ghante, live, raat 8 baje. Zero experience chalegi.
+              Pichli generation ne physical plots pakre — <strong className="text-white">us waqt saste the, aaj crore-pati banaya.</strong> Aaj hamari generation ke haath mein sabse bada golden window hai: <strong>Global YouTube AI Assets.</strong> 2 ghante ka live, practical blueprint.
             </p>
 
             <div className="flex flex-col sm:flex-row gap-3 pt-2">
@@ -386,60 +399,103 @@ export default function WorkshopYt9Client() {
             {/* Chips */}
             <div className="flex flex-wrap gap-2 pt-2">
               <span className="inline-flex items-center gap-2 border border-white/10 bg-white/5 px-3 py-1.5 rounded-lg text-xs font-semibold text-slate-300">
-                <Clock size={14} className="text-[#2FD97E]" /> Agla batch: {isAfterSeven ? "Kal Raat 8 PM" : "Aaj Raat 8 PM"} — <span className="text-[#FFB020] font-mono font-bold">{timeLeft}</span>
+                <Clock size={14} className="text-[#2FD97E]" /> Batch Timing: {isAfterSeven ? "Kal Raat 8 PM" : "Aaj Raat 8 PM"} — <span className="text-[#FFB020] font-mono font-bold">{timeLeft}</span>
               </span>
               <span className="inline-flex items-center gap-2 border border-[#FFB020]/30 bg-[#FFB020]/10 px-3 py-1.5 rounded-lg text-xs font-bold text-[#FFB020]">
-                <Users size={14} /> Sirf 22 seats baaki — 100 mein se
+                <Users size={14} /> Only 22 Seats Available
               </span>
             </div>
 
             <div className="flex gap-6 text-xs text-slate-400 font-semibold pt-1">
-              <span><b>4.9/5</b> Rating</span>
-              <span><b>12,000+</b> Students Trained</span>
+              <span><b>4.9/5</b> Verified Rating</span>
+              <span><b>12,000+</b> Alumni Trained</span>
               <span>Live Q&A Included</span>
             </div>
           </div>
 
-          {/* Right Column: Digital Zameen Plot Status Box */}
-          <div className="md:col-span-5 bg-[#111913] border border-white/10 rounded-2xl p-5 shadow-2xl relative">
-            <div className="flex justify-between items-center mb-4">
-              <h3 className="text-xs font-black uppercase tracking-widest text-slate-200">Digital Zameen — Plot Status</h3>
-              <span className="inline-flex items-center gap-1.5 text-[11px] font-black text-[#2FD97E] tracking-wider">
-                <span className="w-2 h-2 rounded-full bg-[#2FD97E] animate-pulse" /> LIVE
+          {/* Right Column: Upgraded Visual "YOUTUBE EMPIRE RADAR & ASSET MATRIX" */}
+          <div className="md:col-span-5 bg-gradient-to-b from-[#111913] to-[#080E09] border-2 border-[#2FD97E]/30 rounded-2xl p-5 shadow-2xl relative overflow-hidden">
+            
+            {/* Top Status Bar */}
+            <div className="flex justify-between items-center mb-3">
+              <div className="flex items-center gap-2">
+                <Radio size={14} className="text-[#2FD97E] animate-pulse" />
+                <h3 className="text-[11px] font-black uppercase tracking-widest text-slate-200">YouTube Empire Asset Map</h3>
+              </div>
+              <span className="inline-flex items-center gap-1.5 text-[10px] font-black text-[#2FD97E] bg-[#2FD97E]/10 border border-[#2FD97E]/30 px-2 py-0.5 rounded-full">
+                <span className="w-1.5 h-1.5 rounded-full bg-[#2FD97E] animate-ping" /> LIVE RADAR
               </span>
             </div>
 
-            {/* Matrix of Plots */}
-            <div className="grid grid-cols-12 gap-1 relative">
+            {/* Quick KPI Ticker Banner */}
+            <div className="grid grid-cols-3 gap-2 bg-[#0B100C]/90 border border-white/10 rounded-xl p-2.5 mb-3 text-center">
+              <div>
+                <div className="text-[9px] font-mono text-slate-400 uppercase font-bold">Dollar RPM</div>
+                <div className="text-xs font-black text-[#2FD97E]">$18.40 avg</div>
+              </div>
+              <div className="border-x border-white/10">
+                <div className="text-[9px] font-mono text-slate-400 uppercase font-bold">Tier-1 Yield</div>
+                <div className="text-xs font-black text-[#FFB020]">84% US/UK</div>
+              </div>
+              <div>
+                <div className="text-[9px] font-mono text-slate-400 uppercase font-bold">Claimed Plots</div>
+                <div className="text-xs font-black text-white">{plotsClaimedCount}/96</div>
+              </div>
+            </div>
+
+            {/* Matrix of Plots with Hover Details */}
+            <div className="grid grid-cols-12 gap-1 relative p-1 bg-[#060A07] rounded-xl border border-white/5">
               {plots.map((claimed, idx) => (
                 <div 
                   key={idx} 
-                  className={`aspect-square rounded-sm border relative transition-all duration-300 ${
+                  onMouseEnter={() => {
+                    const randomNiche = EMPIRE_NICHES[idx % EMPIRE_NICHES.length];
+                    setHoveredPlot({ idx, niche: randomNiche.niche, yield: randomNiche.yield, city: randomNiche.city });
+                  }}
+                  onMouseLeave={() => setHoveredPlot(null)}
+                  className={`aspect-square rounded-sm border relative transition-all duration-300 cursor-pointer ${
                     claimed 
-                      ? "border-[#FFB020]/30 bg-[#FFB020]/15" 
-                      : "border-[#2FD97E]/30 bg-[#2FD97E]/5"
+                      ? "border-[#FFB020]/40 bg-[#FFB020]/20 hover:bg-[#FFB020]/40" 
+                      : "border-[#2FD97E]/40 bg-[#2FD97E]/10 hover:bg-[#2FD97E]/30"
                   }`}
                 >
-                  {!claimed && <div className="absolute inset-0 m-auto w-1 h-1 rounded-full bg-[#2FD97E] opacity-50" />}
-                  {activeCityTag && activeCityTag.idx === idx && (
-                    <span className="absolute left-1/2 -top-6 -translate-x-1/2 bg-[#1C1302] text-[#FFB020] border border-[#FFB020]/50 text-[9px] font-bold px-2 py-0.5 rounded-full whitespace-nowrap z-20 animate-bounce shadow-md">
-                      Claimed from {activeCityTag.city}
-                    </span>
-                  )}
+                  {!claimed && <div className="absolute inset-0 m-auto w-1 h-1 rounded-full bg-[#2FD97E] opacity-75 animate-ping" />}
                 </div>
               ))}
             </div>
 
-            <div className="flex justify-between items-center mt-4 text-xs text-slate-400 font-semibold border-t border-white/10 pt-3">
+            {/* Live Hover Tooltip */}
+            <div className="mt-3 p-2.5 bg-[#0B100C] border border-white/10 rounded-xl text-xs flex justify-between items-center min-h-[38px]">
+              {hoveredPlot ? (
+                <>
+                  <span className="text-slate-300 font-bold flex items-center gap-1.5">
+                    <Activity size={13} className="text-[#2FD97E]" />
+                    Plot #{hoveredPlot.idx + 1}: <span className="text-white">{hoveredPlot.niche}</span>
+                  </span>
+                  <span className="text-[#FFB020] font-mono font-black">{hoveredPlot.yield}</span>
+                </>
+              ) : activeClaimAlert ? (
+                <>
+                  <span className="text-[#FFB020] font-bold flex items-center gap-1.5 animate-pulse">
+                    🔥 Territory Claimed from {activeClaimAlert.city}!
+                  </span>
+                  <span className="text-[#2FD97E] font-mono font-black">{activeClaimAlert.niche}</span>
+                </>
+              ) : (
+                <span className="text-slate-400 text-[11px] italic">Hover over any plot to view projected niche & dollar yield</span>
+              )}
+            </div>
+
+            <div className="flex justify-between items-center mt-3 text-[11px] text-slate-400 font-semibold border-t border-white/10 pt-2.5">
               <div className="flex items-center gap-3">
-                <span className="flex items-center gap-1.5"><span className="w-2.5 h-2.5 rounded-sm bg-[#2FD97E]/40 border border-[#2FD97E]" /> Available</span>
-                <span className="flex items-center gap-1.5"><span className="w-2.5 h-2.5 rounded-sm bg-[#FFB020]/40 border border-[#FFB020]" /> Claimed</span>
+                <span className="flex items-center gap-1.5"><span className="w-2.5 h-2.5 rounded-sm bg-[#2FD97E]/40 border border-[#2FD97E]" /> Open Niche</span>
+                <span className="flex items-center gap-1.5"><span className="w-2.5 h-2.5 rounded-sm bg-[#FFB020]/40 border border-[#FFB020]" /> Claimed Asset</span>
               </div>
-              <span className="text-[#FFB020] font-bold">Aaj {plotsClaimedCount} plots claim ho chuke</span>
+              <span className="text-[#FFB020] font-bold font-mono">Today: {plotsClaimedCount} Plots Locked</span>
             </div>
             
-            <p className="text-[11px] text-slate-400 mt-3 italic">
-              Jitni der aap soch rahe hain, utne plots claim ho rahe hain. Yeh page live monitor kar raha hai.
+            <p className="text-[11px] text-slate-400 mt-2 italic text-center">
+              Har minute global algorithms par new territory claim ho rahi hai. Aapka asset ready hai?
             </p>
           </div>
 
@@ -450,13 +506,13 @@ export default function WorkshopYt9Client() {
       <section className="py-16 md:py-24 px-4 md:px-6 bg-[#0E1410] border-b border-white/10">
         <div className="max-w-4xl mx-auto">
           <div className="text-center mb-10">
-            <p className="text-[#2FD97E] text-xs font-black uppercase tracking-widest mb-2">Shuruat Ka Sawaal</p>
+            <p className="text-[#2FD97E] text-xs font-black uppercase tracking-widest mb-2">History Repeats Itself</p>
             <h2 className="text-2xl sm:text-4xl font-black text-white uppercase leading-tight">
               Duniya badal rahi hai.<br />
               Sawaal yeh hai — <span className="text-[#2FD97E]">aap badal rahe hain ya nahi?</span>
             </h2>
             <p className="text-slate-400 text-sm sm:text-base max-w-2xl mx-auto mt-3">
-              Har 15–20 saal mein ek technology aati hai jo ameer-gareeb ka farak dobara set karti hai. Jo waqt pe samajhte hain, woh aage nikal jaate hain.
+              Har 15–20 saal mein ek technology aati hai jo wealth distribution ko restructure karti hai. Jo early adopt karte hain, woh leaders bante hain.
             </p>
           </div>
 
@@ -467,21 +523,21 @@ export default function WorkshopYt9Client() {
               className={`p-4 text-left border-r border-white/10 transition-colors ${activeEra === "e1" ? "bg-[#2FD97E]/10 text-[#2FD97E]" : "text-slate-400 hover:text-white"}`}
             >
               <small className="block text-[10px] font-bold uppercase tracking-wider">1980–90s</small>
-              <b className="text-sm sm:text-base font-extrabold text-white">Computer</b>
+              <b className="text-sm sm:text-base font-extrabold text-white">Computer Revolution</b>
             </button>
             <button 
               onClick={() => setActiveEra("e2")}
               className={`p-4 text-left border-r border-white/10 transition-colors ${activeEra === "e2" ? "bg-[#2FD97E]/10 text-[#2FD97E]" : "text-slate-400 hover:text-white"}`}
             >
               <small className="block text-[10px] font-bold uppercase tracking-wider">2000–10s</small>
-              <b className="text-sm sm:text-base font-extrabold text-white">Internet</b>
+              <b className="text-sm sm:text-base font-extrabold text-white">Internet & Web</b>
             </button>
             <button 
               onClick={() => setActiveEra("e3")}
               className={`p-4 text-left transition-colors ${activeEra === "e3" ? "bg-[#2FD97E]/10 text-[#2FD97E]" : "text-slate-400 hover:text-white"}`}
             >
               <small className="block text-[10px] font-bold uppercase tracking-wider">Aaj — 2026</small>
-              <b className="text-sm sm:text-base font-extrabold text-[#2FD97E]">AI Era</b>
+              <b className="text-sm sm:text-base font-extrabold text-[#2FD97E]">AI & YouTube Assets</b>
             </button>
           </div>
 
@@ -489,28 +545,28 @@ export default function WorkshopYt9Client() {
           <div className="bg-[#111913] border border-white/10 p-6 rounded-2xl space-y-4 text-sm text-slate-300">
             {activeEra === "e1" && (
               <div>
-                <p><strong>Kya hua:</strong> Typewriter gayab ho gaya. Har office, bank aur school mein computer aa gaya.</p>
-                <p className="text-[#2FD97E]"><strong>Jo waqt pe utre:</strong> Computer operators, typing centers, software wale — nayi jobs, nayi izzat. 2000 tak apna rate khud set kar rahe the.</p>
-                <p className="text-red-400"><strong>Jo dekhte rahe:</strong> “Yeh angrezi ki machine hai, hamara kya kaam?” — typewriter pe tike rahe aur positions bhar gayi.</p>
-                <div className="pt-2 text-xs font-bold text-red-400">Opportunity Window: BAND HO CHUKI</div>
+                <p><strong>Kya hua:</strong> Typewriter replace hua. Har bank aur corporation mein automated computing systems aa gaye.</p>
+                <p className="text-[#2FD97E]"><strong>Early Adopters:</strong> Computer operators aur software engineers ne apni generation ki wealth banayi.</p>
+                <p className="text-red-400"><strong>Skeptics:</strong> Jo dekhte rahe, unke paas sirf regret reh gaya.</p>
+                <div className="pt-2 text-xs font-bold text-red-400">Opportunity Window: CLOSED</div>
               </div>
             )}
 
             {activeEra === "e2" && (
               <div>
-                <p><strong>Kya hua:</strong> Duniya ek screen mein aa gayi. Websites, email, online paisa — dukaan ke baghair dukaan.</p>
-                <p className="text-[#2FD97E]"><strong>Jo waqt pe utre:</strong> 2005 se freelancing, blogging, digital agencies. Aaj passive dollar income enjoy kar rahe hain.</p>
-                <p className="text-red-400"><strong>Jo dekhte rahe:</strong> “Internet pe paisa? Scam hai.” — aaj unhi ke bachay kehte hain kash pehle seekha hota.</p>
-                <div className="pt-2 text-xs font-bold text-red-400">Opportunity Window: BAND HO CHUKI</div>
+                <p><strong>Kya hua:</strong> Internet ne geographical boundaries khatam kar di. E-commerce aur freelancing shuru hui.</p>
+                <p className="text-[#2FD97E]"><strong>Early Adopters:</strong> Digital agencies aur online creators ne global dollar income generate ki.</p>
+                <p className="text-red-400"><strong>Skeptics:</strong> “Online kuch nahi hota” kehne wale piche reh gaye.</p>
+                <div className="pt-2 text-xs font-bold text-red-400">Opportunity Window: CLOSED</div>
               </div>
             )}
 
             {activeEra === "e3" && (
               <div>
-                <p><strong>Kya hua:</strong> AI ne likhna, banana, samajhna, bechna — sab 10x fast kar diya. Ek banda 5-log ki team ka kaam karta hai.</p>
-                <p className="text-[#2FD97E]"><strong>Jo waqt pe utre:</strong> AI tools se services de rahe hain — content, automation, design — $25–75/hr, ghar baithe, bina degree ke seedha dollar mein.</p>
-                <p className="text-red-400"><strong>Jo dekhte rahe:</strong> “AI jobs kha jayegi.” — Haan, un logon ka kaam jo seekhna nahi chahte.</p>
-                <div className="pt-2 text-xs font-bold text-[#2FD97E]">Opportunity Window: KHULI HAI (2–3 SAAL KA GOLDEN PERIOD)</div>
+                <p><strong>Kya hua:</strong> AI automation ne faceless content creation aur global distribution ko 10x fast kar diya.</p>
+                <p className="text-[#2FD97E]"><strong>Early Adopters:</strong> AI workflows use karke $500–$3,000/mo automated dollar assets create kar rahe hain.</p>
+                <p className="text-red-400"><strong>Skeptics:</strong> Still waiting for the &apos;perfect time&apos;.</p>
+                <div className="pt-2 text-xs font-bold text-[#2FD97E]">Opportunity Window: 2–3 SAAL KA GOLDEN PERIOD (OPEN NOW)</div>
               </div>
             )}
           </div>
@@ -518,26 +574,26 @@ export default function WorkshopYt9Client() {
           {/* Group A vs Group B */}
           <div className="grid md:grid-cols-2 gap-6 mt-8">
             <div className="bg-red-500/5 border border-red-500/30 p-6 rounded-2xl space-y-3">
-              <h3 className="text-lg font-black text-red-400 uppercase">Group A — Intezaar Walay</h3>
+              <h3 className="text-lg font-black text-red-400 uppercase">Group A — The Hesitators</h3>
               <ul className="space-y-2 text-xs sm:text-sm text-slate-300">
-                <li className="flex gap-2"><X size={16} className="text-red-400 shrink-0" /> “Yeh temporary hai, chal jayega.”</li>
-                <li className="flex gap-2"><X size={16} className="text-red-400 shrink-0" /> “Mujhe nahi aata, baad mein dekhte hain.”</li>
-                <li className="flex gap-2"><X size={16} className="text-red-400 shrink-0" /> “Scam lagta hai, koi aur karega.”</li>
+                <li className="flex gap-2"><X size={16} className="text-red-400 shrink-0" /> “Baad mein dekhenge, abhi thoda busy hoon.”</li>
+                <li className="flex gap-2"><X size={16} className="text-red-400 shrink-0" /> “Mujhe technical editing nahi aati.”</li>
+                <li className="flex gap-2"><X size={16} className="text-red-400 shrink-0" /> “Pehle koi aur kare phir dekhte hain.”</li>
               </ul>
               <div className="text-xs font-bold text-red-300 pt-2 border-t border-red-500/20">
-                Nateeja: Har era ke baad wahi salary, wahi shikayat, wahi “kaash.”
+                Outcome: Same job pressure, rising inflation, and zero dollar diversification.
               </div>
             </div>
 
             <div className="bg-[#2FD97E]/5 border border-[#2FD97E]/40 p-6 rounded-2xl space-y-3">
-              <h3 className="text-lg font-black text-[#2FD97E] uppercase">Group B — Action Walay</h3>
+              <h3 className="text-lg font-black text-[#2FD97E] uppercase">Group B — The Digital Asset Builders</h3>
               <ul className="space-y-2 text-xs sm:text-sm text-slate-200">
-                <li className="flex gap-2"><Check size={16} className="text-[#2FD97E] shrink-0" /> Seekha — bina poora samjhe, thoda thoda.</li>
-                <li className="flex gap-2"><Check size={16} className="text-[#2FD97E] shrink-0" /> Shuru kiya — chhota, imperfect, par shuru.</li>
-                <li className="flex gap-2"><Check size={16} className="text-[#2FD97E] shrink-0" /> Waqt nikalne se pehle pakar liya.</li>
+                <li className="flex gap-2"><Check size={16} className="text-[#2FD97E] shrink-0" /> Learn with an open mind and practical curiosity.</li>
+                <li className="flex gap-2"><Check size={16} className="text-[#2FD97E] shrink-0" /> Execute AI systems without camera anxiety.</li>
+                <li className="flex gap-2"><Check size={16} className="text-[#2FD97E] shrink-0" /> Seize compounding growth while entry barrier is low.</li>
               </ul>
               <div className="text-xs font-bold text-[#2FD97E] pt-2 border-t border-[#2FD97E]/20">
-                Nateeja: Computer aur Internet era ke jeetne wale — ab AI ke bhi yahi honge.
+                Outcome: Scalable dollar income and genuine financial sovereignty.
               </div>
             </div>
           </div>
@@ -548,19 +604,19 @@ export default function WorkshopYt9Client() {
       <section className="py-16 md:py-24 px-4 md:px-6 bg-[#0B100C] border-b border-white/10">
         <div className="max-w-4xl mx-auto">
           <div className="text-center mb-10">
-            <p className="text-[#2FD97E] text-xs font-black uppercase tracking-widest mb-2">Dollar Game</p>
+            <p className="text-[#2FD97E] text-xs font-black uppercase tracking-widest mb-2">Currency Advantage</p>
             <h2 className="text-2xl sm:text-4xl font-black text-white uppercase leading-tight">
-              Aap ki mehnat ki qeemat dollar mein hai —<br />
-              <span className="text-[#2FD97E]">tankhwah PKR mein.</span>
+              Mehnat Pakistan Ki —<br />
+              <span className="text-[#2FD97E]">Kamaee Global Dollar ($) Mein.</span>
             </h2>
             <p className="text-slate-400 text-sm max-w-xl mx-auto mt-2">
-              Aap ka client Karachi mein nahi — California mein hai. Us ka $100 aap ke liye Rs 27,800 hai.
+              YouTube international advertisers (US, UK, Canada) se dollar receive karta hai aur direct Pakistani bank mein transfer karta hai.
             </p>
           </div>
 
           <div className="bg-[#111913] border border-white/10 rounded-2xl p-6 sm:p-8 max-w-2xl mx-auto shadow-2xl">
             <div className="flex justify-between items-baseline mb-4">
-              <label className="text-xs font-black uppercase tracking-wider text-slate-300">Monthly Dollar Target</label>
+              <label className="text-xs font-black uppercase tracking-wider text-slate-300">Monthly Target</label>
               <span className="text-3xl sm:text-4xl font-black text-[#2FD97E] font-mono">${usdTarget.toLocaleString()} <span className="text-xs text-slate-400 font-sans">/mo</span></span>
             </div>
 
@@ -576,28 +632,28 @@ export default function WorkshopYt9Client() {
 
             <div className="grid grid-cols-2 gap-4 mb-6">
               <div className="bg-[#0B100C] border border-white/10 p-4 rounded-xl">
-                <small className="block text-[11px] font-bold text-slate-400 uppercase">Monthly Income (PKR)</small>
+                <small className="block text-[11px] font-bold text-slate-400 uppercase">Monthly Yield (PKR)</small>
                 <b className="text-xl sm:text-2xl font-black text-white">Rs {pkrMonthly.toLocaleString()}</b>
               </div>
               <div className="bg-[#0B100C] border border-[#2FD97E]/30 p-4 rounded-xl">
-                <small className="block text-[11px] font-bold text-[#2FD97E] uppercase">Yearly Income (PKR)</small>
+                <small className="block text-[11px] font-bold text-[#2FD97E] uppercase">Yearly Asset Compounding</small>
                 <b className="text-xl sm:text-2xl font-black text-[#2FD97E]">Rs {pkrYearly.toLocaleString()}</b>
               </div>
             </div>
 
             <div className="space-y-3 text-xs font-semibold text-slate-300">
               <div>
-                <div className="flex justify-between mb-1"><span>Average Pakistani Salary</span><b>Rs 85,000/mo</b></div>
+                <div className="flex justify-between mb-1"><span>Average Local Salary</span><b>Rs 85,000/mo</b></div>
                 <div className="h-2 bg-white/10 rounded-full overflow-hidden"><div className="h-full bg-slate-500 w-[20%]" /></div>
               </div>
               <div>
-                <div className="flex justify-between mb-1 text-[#2FD97E]"><span>Aap — AI Freelance Income</span><b>Rs {pkrMonthly.toLocaleString()}/mo</b></div>
+                <div className="flex justify-between mb-1 text-[#2FD97E]"><span>Digital Asset Portfolio Target</span><b>Rs {pkrMonthly.toLocaleString()}/mo</b></div>
                 <div className="h-2 bg-white/10 rounded-full overflow-hidden"><div className="h-full bg-[#2FD97E] w-[85%]" /></div>
               </div>
             </div>
 
             <p className="text-xs text-slate-400 mt-4 text-center">
-              $1 ≈ Rs 278 • Average salary se <strong>~{(pkrMonthly / 85000).toFixed(1)} guna zyada</strong>, bina office ke.
+              $1 ≈ Rs 278 • Local average salary se <strong>~{(pkrMonthly / 85000).toFixed(1)}x greater yield</strong>, automated while you sleep.
             </p>
           </div>
         </div>
@@ -607,12 +663,12 @@ export default function WorkshopYt9Client() {
       <section className="py-16 md:py-24 px-4 md:px-6 bg-[#0E1410] border-b border-white/10">
         <div className="max-w-4xl mx-auto">
           <div className="text-center mb-10">
-            <p className="text-[#FFB020] text-xs font-black uppercase tracking-widest mb-2">Sach Ka Test</p>
+            <p className="text-[#FFB020] text-xs font-black uppercase tracking-widest mb-2">Self Diagnostic</p>
             <h2 className="text-2xl sm:text-4xl font-black text-white uppercase leading-tight">
               Chupke se khud se poocho —<br />
-              <span className="text-[#FFB020]">in mein se kitne sach hain?</span>
+              <span className="text-[#FFB020]">in mein se kitne challenges aap face kar rahe hain?</span>
             </h2>
-            <p className="text-slate-400 text-xs sm:text-sm mt-2">Tap karke select karein jo aap par lagta hai:</p>
+            <p className="text-slate-400 text-xs sm:text-sm mt-2">Select any that resonate with your current reality:</p>
           </div>
 
           <div className="flex flex-wrap gap-2.5 justify-center max-w-3xl mx-auto mb-8">
@@ -638,10 +694,10 @@ export default function WorkshopYt9Client() {
           {selectedPains.length > 0 && (
             <div className="max-w-2xl mx-auto bg-[#111913] border border-[#2FD97E]/40 p-6 rounded-2xl text-center space-y-3">
               <b className="text-lg font-black text-[#2FD97E] uppercase block">
-                {selectedPains.length}/8 Sach — Aap is page pe isi liye aaye hain!
+                {selectedPains.length}/8 Realities Identified — This workshop was engineered for you.
               </b>
               <p className="text-xs sm:text-sm text-slate-300 leading-relaxed">
-                Yeh workshop isi liye banaya gaya hai: zero se, raat 8 baje, 30-din ka roadmap. 2 ghante lagao aur agle 6 mahine ki tension khatam karo.
+                2 ghante ka practical masterclass aapko ek clear, step-by-step 30-day roadmap dega to build reliable parallel income.
               </p>
               <button onClick={openPayModal} className="bg-[#2FD97E] hover:bg-[#52E897] text-[#04220F] font-black text-sm py-3 px-6 rounded-xl shadow-lg">
                 Seat Book Karo →
@@ -655,66 +711,69 @@ export default function WorkshopYt9Client() {
       <section id="agenda" className="py-16 md:py-24 px-4 md:px-6 bg-[#0B100C] border-b border-white/10">
         <div className="max-w-4xl mx-auto">
           <div className="text-center mb-10">
-            <p className="text-[#2FD97E] text-xs font-black uppercase tracking-widest mb-2">Raat Ka Plan</p>
+            <p className="text-[#2FD97E] text-xs font-black uppercase tracking-widest mb-2">Masterclass Curriculum</p>
             <h2 className="text-2xl sm:text-4xl font-black text-white uppercase leading-tight">
-              8 baje se 10 baje —<br /><span className="text-[#2FD97E]">har minute ka hisaab.</span>
+              8:00 PM se 10:00 PM —<br /><span className="text-[#2FD97E]">Minute-by-minute practical breakdown.</span>
             </h2>
           </div>
 
           <div className="grid md:grid-cols-2 gap-6">
             <div className="bg-[#111913] border border-white/10 p-6 rounded-2xl space-y-2">
               <span className="text-xs font-mono font-bold text-[#2FD97E]">8:00 PM — 8:20 PM</span>
-              <h3 className="text-base font-bold text-white">Mindset Reset & Digital Zameen Formula</h3>
-              <p className="text-xs text-slate-300">Group A vs Group B analysis aur aap kahan se pehla qadam uthayenge.</p>
+              <h3 className="text-base font-bold text-white">Digital Zameen Asset Formula & Blueprint</h3>
+              <p className="text-xs text-slate-300">How to identify highest RPM global niches from Pakistan without showing face.</p>
             </div>
             <div className="bg-[#111913] border border-white/10 p-6 rounded-2xl space-y-2">
               <span className="text-xs font-mono font-bold text-[#2FD97E]">8:20 PM — 9:00 PM</span>
-              <h3 className="text-base font-bold text-white">5 Live AI Tools Demo</h3>
-              <p className="text-xs text-slate-300">Zero se screen share karke tools run karke dikhaye jayenge.</p>
+              <h3 className="text-base font-bold text-white">5 Live AI Automation Engines Demo</h3>
+              <p className="text-xs text-slate-300">Topic research, scripting, AI voice synthesis, and dynamic B-roll assembly in 50 minutes.</p>
             </div>
             <div className="bg-[#111913] border border-white/10 p-6 rounded-2xl space-y-2">
               <span className="text-xs font-mono font-bold text-[#2FD97E]">9:00 PM — 9:40 PM</span>
-              <h3 className="text-base font-bold text-white">Pehla Dollar & Offer Formula</h3>
-              <p className="text-xs text-slate-300">Ek service, ek price, ek script jo aap kal subah se bech sakte hain.</p>
+              <h3 className="text-base font-bold text-white">High-RPM Monetization & Dollar Banking</h3>
+              <p className="text-xs text-slate-300">Google AdSense + Payoneer/Wise direct Pakistani bank transfer legal framework.</p>
             </div>
             <div className="bg-[#111913] border border-white/10 p-6 rounded-2xl space-y-2">
               <span className="text-xs font-mono font-bold text-[#2FD97E]">9:40 PM — 10:00 PM</span>
-              <h3 className="text-base font-bold text-white">30-Din Roadmap & Live Q&A</h3>
-              <p className="text-xs text-slate-300">Har student ke sawaal ka live detailed jawab diya jayega.</p>
+              <h3 className="text-base font-bold text-white">30-Day Execution Roadmap & Live Q&A</h3>
+              <p className="text-xs text-slate-300">Direct interactive answers to every student&apos;s personal questions.</p>
             </div>
           </div>
         </div>
       </section>
 
-      {/* 7. VALUE STACK & BONUSES */}
+      {/* 7. VALUE STACK & SOPHISTICATED TOOLKIT */}
       <section className="py-16 md:py-24 px-4 md:px-6 bg-[#0E1410] border-b border-white/10">
         <div className="max-w-4xl mx-auto">
           <div className="text-center mb-10">
-            <p className="text-[#FFB020] text-xs font-black uppercase tracking-widest mb-2">Poora Hisaab</p>
+            <p className="text-[#FFB020] text-xs font-black uppercase tracking-widest mb-2">Complete Value Package</p>
             <h2 className="text-2xl sm:text-4xl font-black text-white uppercase leading-tight">
-              Alag alag kharidne pe <span className="text-[#FFB020]">Rs 13,000+ ka maal.</span>
+              Rs 13,000+ ki Professional AI Toolkit & Asset Stack
             </h2>
+            <p className="text-slate-400 text-sm max-w-xl mx-auto mt-2">
+              A comprehensive launch system providing every asset required to start compounding.
+            </p>
           </div>
 
           <div className="bg-[#111913] border border-white/10 rounded-2xl max-w-xl mx-auto overflow-hidden shadow-2xl">
             <div className="bg-white/5 p-4 text-xs font-bold uppercase tracking-wider text-[#FFB020] border-b border-white/10">
-              Value Stack — Sab Kuch Included
+              Executive Value Stack — Everything Included
             </div>
             <div className="p-6 space-y-3 text-xs sm:text-sm divide-y divide-white/5">
-              <div className="flex justify-between pt-2"><span>Live 2-hour AI workshop (Q&A ke saath)</span><b>Rs 4,999</b></div>
-              <div className="flex justify-between pt-2"><span>AI Tools Starter Kit (tools + prompts)</span><b>Rs 2,999</b></div>
-              <div className="flex justify-between pt-2"><span>First-Client Script (word by word)</span><b>Rs 1,999</b></div>
-              <div className="flex justify-between pt-2"><span>30-Din Roadmap PDF</span><b>Rs 1,499</b></div>
-              <div className="flex justify-between pt-2"><span>Community lifetime access</span><b>Rs 999</b></div>
-              <div className="flex justify-between pt-2"><span>Bonus: 30-din support — sawaalon ke jawab</span><b>Rs 1,999</b></div>
-              <div className="flex justify-between pt-4 border-t-2 border-white/20 text-base font-bold"><span>Total Value:</span><b className="text-[#FFB020]">Rs 13,494</b></div>
+              <div className="flex justify-between pt-2"><span>Live 2-Hour Interactive Masterclass (with Live Q&A)</span><b>Rs 4,999</b></div>
+              <div className="flex justify-between pt-2"><span>AI Tools Starter Kit (Curated Prompts + Toolstack)</span><b>Rs 2,999</b></div>
+              <div className="flex justify-between pt-2"><span>High-RPM Niche Validation Blueprints</span><b>Rs 1,999</b></div>
+              <div className="flex justify-between pt-2"><span>30-Day Step-by-Step Roadmap PDF</span><b>Rs 1,499</b></div>
+              <div className="flex justify-between pt-2"><span>Private Community Mentorship Group Access</span><b>Rs 999</b></div>
+              <div className="flex justify-between pt-2"><span>Full HD Workshop Recording (48 Hours Access)</span><b>Rs 1,999</b></div>
+              <div className="flex justify-between pt-4 border-t-2 border-white/20 text-base font-bold"><span>Total Stack Value:</span><b className="text-[#FFB020]">Rs 13,494</b></div>
             </div>
 
             <div className="p-6 bg-[#0B100C] border-t border-white/10 text-center space-y-4">
               <div className="flex items-center justify-center gap-4">
                 <span className="text-4xl sm:text-5xl font-black text-[#2FD97E] font-mono">Rs 2,999</span>
                 <span className="text-slate-500 line-through text-lg font-bold">Rs 13,494</span>
-                <span className="bg-[#FFB020]/20 text-[#FFB020] border border-[#FFB020]/40 text-xs font-black px-2.5 py-1 rounded-full">77% OFF</span>
+                <span className="bg-[#FFB020]/20 text-[#FFB020] border border-[#FFB020]/40 text-xs font-black px-2.5 py-1 rounded-full">77% SAVING</span>
               </div>
 
               <button 
@@ -726,7 +785,7 @@ export default function WorkshopYt9Client() {
 
               <div className="p-3 bg-green-950/40 border border-[#2FD97E]/30 rounded-xl flex items-center justify-center gap-2 text-xs text-green-300 font-bold">
                 <ShieldCheck size={16} className="text-[#2FD97E] shrink-0" />
-                <span>Zero-Risk Guarantee: Attend workshop, if not useful get 100% full refund!</span>
+                <span>Zero-Risk Guarantee: Attend workshop, if not fully satisfied get a 100% immediate refund!</span>
               </div>
             </div>
           </div>
@@ -736,8 +795,8 @@ export default function WorkshopYt9Client() {
       {/* 8. TESTIMONIALS */}
       <section className="py-16 md:py-24 px-4 md:px-6 bg-[#0B100C] border-b border-white/10">
         <div className="max-w-4xl mx-auto text-center mb-10">
-          <p className="text-[#2FD97E] text-xs font-black uppercase tracking-widest mb-2">Results — Unhi Ke Lafz Mein</p>
-          <h2 className="text-2xl sm:text-4xl font-black text-white uppercase">Pehle yeh log bhi Group A mein the</h2>
+          <p className="text-[#2FD97E] text-xs font-black uppercase tracking-widest mb-2">Verified Student Case Studies</p>
+          <h2 className="text-2xl sm:text-4xl font-black text-white uppercase">Real Results from Real Students</h2>
         </div>
 
         <div className="grid sm:grid-cols-2 md:grid-cols-4 gap-4 max-w-5xl mx-auto">
@@ -759,7 +818,7 @@ export default function WorkshopYt9Client() {
       <section className="py-16 md:py-24 px-4 md:px-6 bg-[#0E1410] border-b border-white/10">
         <div className="max-w-3xl mx-auto">
           <div className="text-center mb-10">
-            <h2 className="text-2xl sm:text-4xl font-black text-white uppercase">Seedha jawab, chhupa hua nahi</h2>
+            <h2 className="text-2xl sm:text-4xl font-black text-white uppercase">Frequently Asked Questions</h2>
           </div>
           <div className="space-y-3">
             {faqs.map((faq, idx) => (
@@ -785,13 +844,13 @@ export default function WorkshopYt9Client() {
       {/* 10. FINAL CTA */}
       <section className="py-20 md:py-28 px-4 md:px-6 bg-[#0B100C] text-center border-b border-white/10">
         <div className="max-w-3xl mx-auto space-y-6">
-          <p className="text-[#2FD97E] text-xs font-black uppercase tracking-widest">Aakhri Baar</p>
+          <p className="text-[#2FD97E] text-xs font-black uppercase tracking-widest">Final Call for Registration</p>
           <h2 className="text-2xl sm:text-4xl md:text-5xl font-black text-white uppercase leading-tight">
             10 saal baad aap ka bacha poochega:<br />
             <span className="text-[#2FD97E]">“Papa, jab AI aa raha tha — aap kahan the?”</span>
           </h2>
           <div className="text-4xl sm:text-6xl font-black text-[#FFB020] font-mono">{timeLeft}</div>
-          <p className="text-xs uppercase tracking-widest text-slate-400">Doors band hone mein baaki</p>
+          <p className="text-xs uppercase tracking-widest text-slate-400">Batch Doors Closing Soon</p>
           <div className="pt-4">
             <button 
               onClick={openPayModal}
@@ -813,7 +872,7 @@ export default function WorkshopYt9Client() {
             <a href={`https://wa.me/${TEAM_WHATSAPP_NUMBER}`} target="_blank" rel="noreferrer" className="hover:text-white underline">WhatsApp Support (+92 329 6158206)</a>
           </div>
           <p className="text-[11px] text-slate-600 pt-3">
-            Disclaimer: Results vary based on execution. © 2026 YouTube Empire Builders — Abrar Nadir
+            Disclaimer: Results vary based on individual execution and consistency. © 2026 YouTube Empire Builders — Abrar Nadir
           </p>
         </div>
       </footer>
@@ -870,14 +929,14 @@ export default function WorkshopYt9Client() {
                   {/* FREE Bonuses List inside Modal */}
                   <div className="bg-[#0B100C] border border-[#2FD97E]/30 rounded-xl p-3.5 space-y-2">
                     <div className="text-xs font-bold text-[#2FD97E] flex items-center gap-1.5">
-                      <Gift size={14} /> Included Free (Total Value: Rs 13,494):
+                      <Gift size={14} /> Included Free (Total Stack Value: Rs 13,494):
                     </div>
                     <div className="grid grid-cols-1 gap-1 text-[11px] text-slate-300">
                       <div className="flex justify-between"><span>🤖 AI Tools Starter Kit (tools + prompts)</span><span className="text-[#2FD97E] font-bold">FREE (Rs 2,999)</span></div>
-                      <div className="flex justify-between"><span>📝 First-Client Script (word by word)</span><span className="text-[#2FD97E] font-bold">FREE (Rs 1,999)</span></div>
-                      <div className="flex justify-between"><span>📅 30-Din Roadmap PDF</span><span className="text-[#2FD97E] font-bold">FREE (Rs 1,499)</span></div>
+                      <div className="flex justify-between"><span>📝 High-RPM Niche Blueprints</span><span className="text-[#2FD97E] font-bold">FREE (Rs 1,999)</span></div>
+                      <div className="flex justify-between"><span>📅 30-Day Step-by-Step Roadmap PDF</span><span className="text-[#2FD97E] font-bold">FREE (Rs 1,499)</span></div>
                       <div className="flex justify-between"><span>💬 Private Community Access</span><span className="text-[#2FD97E] font-bold">FREE (Rs 999)</span></div>
-                      <div className="flex justify-between"><span>📹 Workshop Recording (48 Hours)</span><span className="text-[#2FD97E] font-bold">FREE (Rs 1,999)</span></div>
+                      <div className="flex justify-between"><span>📹 Full HD Workshop Recording (48 Hours)</span><span className="text-[#2FD97E] font-bold">FREE (Rs 1,999)</span></div>
                     </div>
                   </div>
 
