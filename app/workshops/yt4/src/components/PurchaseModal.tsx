@@ -173,11 +173,6 @@ export default function PurchaseModal({ isOpen, onClose, lang = 'en' }: Purchase
     e.preventDefault();
     setFormError("");
 
-    if (!transactionId.trim()) {
-      setFormError("Transaction ID / Reference Number enter karna zaroori hai.");
-      return;
-    }
-
     if (!paymentScreenshotBase64) {
       setFormError("Payment screenshot attach karein.");
       return;
@@ -194,7 +189,7 @@ export default function PurchaseModal({ isOpen, onClose, lang = 'en' }: Purchase
       whatsappNumber: formattedWhatsapp,
       email,
       paymentMethod: activeTab === 'Bank' ? 'Bank Transfer' : activeTab,
-      transactionId,
+      transactionId: transactionId.trim() || "N/A (Screenshot Attached)",
       paymentScreenshot: paymentScreenshotBase64,
       consent,
       batchDate: status.batchDate,
@@ -240,7 +235,7 @@ export default function PurchaseModal({ isOpen, onClose, lang = 'en' }: Purchase
 
   // WhatsApp Redirect Helper for CRM flow
   const handleOpenWhatsAppCRM = () => {
-    const rawMsg = `Salam Abrar Nadir, main ne workshop ke liye payment proof submit kar diya hai.\n\n*Name:* ${fullName}\n*WhatsApp:* ${whatsappNumber}\n*Transaction ID:* ${transactionId}\n*Batch Date:* ${status.displayDate}\n\nJaldi verify karke live link bhej dein. Shukriya!`;
+    const rawMsg = `Salam Abrar Nadir & Team! Main ne YouTube workshop ke liye payment details submit kar di hain.\n\n*Name:* ${fullName}\n*WhatsApp:* ${whatsappNumber}${transactionId.trim() ? `\n*Transaction ID:* ${transactionId.trim()}` : ''}\n*Batch Date:* ${status.displayDate}\n\nKindly payment verify karke meri seat activate kar dein aur class link share karein. Shukriya! 😊`;
     const encodedMsg = encodeURIComponent(rawMsg);
     window.open(`https://wa.me/${workshopConfig.whatsappSupportNumber.replace(/\+/g, "")}?text=${encodedMsg}`, "_blank");
   };
@@ -589,15 +584,17 @@ export default function PurchaseModal({ isOpen, onClose, lang = 'en' }: Purchase
                 
                 {/* Transaction ID */}
                 <div>
-                  <label className="text-xs font-extrabold text-slate-700 block mb-1.5 flex items-center gap-1.5">
-                    <FileText className="w-4 h-4 text-amber-600" />
-                    Transaction ID / Reference Number <span className="text-red-500">*</span>
+                  <label className="text-xs font-extrabold text-slate-700 block mb-1.5 flex items-center justify-between">
+                    <span className="flex items-center gap-1.5">
+                      <FileText className="w-4 h-4 text-amber-600" />
+                      Transaction ID / Reference Number
+                    </span>
+                    <span className="text-slate-400 font-normal text-[11px]">(Optional)</span>
                   </label>
                   <input 
                     id="form-transaction-id"
                     type="text"
-                    required
-                    placeholder="EasyPaisa/JazzCash message ya Bank slip TID"
+                    placeholder="Agar available ho toh TID likhein (Optional)"
                     value={transactionId}
                     onChange={(e) => setTransactionId(e.target.value)}
                     className="w-full px-4 py-3.5 border-2 border-slate-300 rounded-xl focus:ring-2 focus:ring-amber-500 focus:border-amber-500 text-base font-mono font-bold text-slate-900 outline-none transition-all"
@@ -664,12 +661,12 @@ export default function PurchaseModal({ isOpen, onClose, lang = 'en' }: Purchase
                   {isSubmitting ? (
                     <>
                       <Loader2 className="w-5 h-5 animate-spin" />
-                      <span>Submitting Payment Proof...</span>
+                      <span>Verifying & Connecting...</span>
                     </>
                   ) : (
                     <>
                       <MessageCircle className="w-5 h-5 fill-slate-950/20" />
-                      <span>Payment Done — Land on WhatsApp</span>
+                      <span>Submit Proof & Connect on WhatsApp</span>
                       <ArrowRight className={`w-5 h-5 ${lang === 'ur' ? 'rotate-180' : ''}`} />
                     </>
                   )}
