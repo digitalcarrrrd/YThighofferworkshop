@@ -231,6 +231,24 @@ export const yt8DashOffer = {
   status: "active",
 } satisfies OfferConfig;
 
+export const yt9Offer = {
+  ...youtubeEmpireBuildersOffer,
+  id: "workshop-yt9",
+  slug: "yt9",
+  title: "Digital Zameen Workshop 9",
+  leadTag: "workshop-yt9",
+  status: "active",
+} satisfies OfferConfig;
+
+export const yt9DashOffer = {
+  ...youtubeEmpireBuildersOffer,
+  id: "workshop-yt-9",
+  slug: "yt-9",
+  title: "Digital Zameen Workshop 9",
+  leadTag: "workshop-yt-9",
+  status: "active",
+} satisfies OfferConfig;
+
 export const offers: readonly OfferConfig[] = [
   youtubeEmpireBuildersOffer,
   weeklyYoutubeWorkshopOffer,
@@ -244,6 +262,8 @@ export const offers: readonly OfferConfig[] = [
   yt7DashOffer,
   yt8Offer,
   yt8DashOffer,
+  yt9Offer,
+  yt9DashOffer,
 ];
 
 export function getOfferById(id: string) {
