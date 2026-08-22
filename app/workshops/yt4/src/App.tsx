@@ -1,3 +1,5 @@
+"use client";
+
 import React, { useState, useEffect } from "react";
 import AnnouncementBar from "./components/AnnouncementBar";
 import Navbar from "./components/Navbar";
@@ -44,7 +46,7 @@ export default function App() {
   // Initialize Analytics & Tracking if IDs are supplied
   useEffect(() => {
     // 1. Meta Pixel Setup
-    const pixelId = (import.meta as any).env.VITE_META_PIXEL_ID || "";
+    const pixelId = process.env.NEXT_PUBLIC_META_PIXEL_ID || "";
     if (pixelId && typeof window !== "undefined") {
       (function(f: any, b: any, e: any, v: any, n?: any, t?: any, s?: any) {
         if (f.fbq) return;
@@ -68,7 +70,7 @@ export default function App() {
     }
 
     // 2. Google Analytics Setup
-    const gaId = (import.meta as any).env.VITE_GA_ID || "";
+    const gaId = process.env.NEXT_PUBLIC_GA_ID || "";
     if (gaId && typeof window !== "undefined") {
       const script = document.createElement("script");
       script.async = true;

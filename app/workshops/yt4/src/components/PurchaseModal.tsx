@@ -193,7 +193,7 @@ export default function PurchaseModal({ isOpen, onClose, lang = 'en' }: Purchase
       fullName,
       whatsappNumber: formattedWhatsapp,
       email,
-      paymentMethod: activeTab,
+      paymentMethod: activeTab === 'Bank' ? 'Bank Transfer' : activeTab,
       transactionId,
       paymentScreenshot: paymentScreenshotBase64,
       consent,
