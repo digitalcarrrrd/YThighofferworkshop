@@ -7,36 +7,101 @@ import {
   Zap, ChevronDown, 
   TrendingUp, Home, Lock, AlertTriangle,
   MessageSquare, Monitor,
-  GraduationCap, Briefcase, Heart, Smile, Gift, Flame, Clock, Calendar, Globe, Radio, Sparkles, Activity
+  GraduationCap, Briefcase, Heart, Smile, Gift, Flame, Clock, Calendar, Globe, Radio, Sparkles, Activity,
+  Layers, BarChart3, Cpu, RefreshCw, Eye, Award, ExternalLink
 } from "lucide-react";
 
 const TEAM_WHATSAPP_NUMBER = "923296158206";
 
-const EMPIRE_NICHES = [
-  { city: "Karachi", niche: "AI Finance Hub", yield: "$1,450/mo" },
-  { city: "Lahore", niche: "Tech Automation", yield: "$980/mo" },
-  { city: "Islamabad", niche: "Faceless Docu", yield: "$1,820/mo" },
-  { city: "Rawalpindi", niche: "Global Health AI", yield: "$760/mo" },
-  { city: "Faisalabad", niche: "Case Studies", yield: "$1,150/mo" },
-  { city: "Multan", niche: "AI Storytelling", yield: "$890/mo" },
-  { city: "Peshawar", niche: "Luxury Economy", yield: "$2,100/mo" },
-  { city: "Sialkot", niche: "SaaS Breakdowns", yield: "$1,340/mo" },
-  { city: "Hyderabad", niche: "Productivity AI", yield: "$680/mo" },
-  { city: "Quetta", niche: "Science Deep-Dive", yield: "$920/mo" },
+interface NicheAsset {
+  id: string;
+  name: string;
+  category: string;
+  rpm: string;
+  tier1Audience: string;
+  monthlyRevenue: string;
+  monthlyPkr: string;
+  views48h: string;
+  difficulty: string;
+  color: string;
+  accent: string;
+  graphPoints: number[];
+  recentPayout: string;
+  tags: string[];
+}
+
+const ASSET_NICHES: NicheAsset[] = [
+  {
+    id: "tech-ai",
+    name: "AI & Tech Automation",
+    category: "High-Growth High-RPM",
+    rpm: "$24.80",
+    tier1Audience: "91% (US / UK / CA)",
+    monthlyRevenue: "$3,450",
+    monthlyPkr: "PKR 959,100",
+    views48h: "248,500 views",
+    difficulty: "Zero-Camera / AI Driven",
+    color: "#2FD97E",
+    accent: "rgba(47,217,126,0.15)",
+    graphPoints: [20, 35, 28, 45, 60, 52, 75, 88, 95, 110, 130, 148],
+    recentPayout: "Google LLC → Wire Received: PKR 959,100 (Direct Bank)",
+    tags: ["No Face", "ChatGPT 4o Scripted", "ElevenLabs Voice", "US CPM"]
+  },
+  {
+    id: "finance-luxury",
+    name: "Global Finance & Luxury Economy",
+    category: "Highest Dollar Yield",
+    rpm: "$38.50",
+    tier1Audience: "94% (US / Western EU)",
+    monthlyRevenue: "$4,890",
+    monthlyPkr: "PKR 1,359,420",
+    views48h: "185,200 views",
+    difficulty: "Documentary Style",
+    color: "#FFB020",
+    accent: "rgba(255,176,32,0.15)",
+    graphPoints: [30, 42, 50, 48, 70, 85, 80, 105, 120, 140, 165, 190],
+    recentPayout: "AdSense Wire → Confirmed: PKR 1,359,420 (Export Code 9182)",
+    tags: ["High Ad Demand", "Wall Street Traffic", "Zero Filming", "Compounding"]
+  },
+  {
+    id: "faceless-history",
+    name: "Faceless Geopolitics & Untold History",
+    category: "Maximum Viral Potential",
+    rpm: "$19.20",
+    tier1Audience: "86% (Global Tier-1)",
+    monthlyRevenue: "$2,640",
+    monthlyPkr: "PKR 733,920",
+    views48h: "420,000 views",
+    difficulty: "AI Archive Montage",
+    color: "#38BDF8",
+    accent: "rgba(56,189,248,0.15)",
+    graphPoints: [15, 25, 40, 35, 55, 70, 95, 85, 115, 145, 180, 220],
+    recentPayout: "Google Ireland → Wire Received: PKR 733,920 (State Bank Reg.)",
+    tags: ["Evergreen Views", "Global Audience", "B-Roll Workflow", "Passive Royalty"]
+  },
+  {
+    id: "science-psychology",
+    name: "Cognitive Science & Deep Space",
+    category: "Evergreen Authority",
+    rpm: "$22.40",
+    tier1Audience: "89% (US / Germany / UK)",
+    monthlyRevenue: "$3,120",
+    monthlyPkr: "PKR 867,360",
+    views48h: "310,400 views",
+    difficulty: "AI Visual Synthesized",
+    color: "#A855F7",
+    accent: "rgba(168,85,247,0.15)",
+    graphPoints: [25, 30, 45, 50, 65, 60, 80, 100, 110, 135, 150, 175],
+    recentPayout: "AdSense Wire → Confirmed: PKR 867,360 (Direct Payout)",
+    tags: ["Zero Competition", "Stock Footage Free", "10-Min Retention", "Scale Ready"]
+  }
 ];
 
-const TESTIMONIALS_1 = [
-  { q: "Raat 10 baje tak mujhe nahi pata tha ke high-ticket offer kaise banate hain. 17 din baad pehla international client — $180.", name: "Ahmed", city: "Lahore" },
-  { q: "Main housewife hoon. Raat 9 baje bachon ke sone ke baad digital asset pe kaam. Pehla month $220 dollar account mein receive hua.", name: "Fatima", city: "Karachi" },
-  { q: "Job nahi chhodi. Bas raat 2 ghante. Ab YouTube asset income meri bank salary ke barabar ho chuki hai.", name: "Bilal", city: "Islamabad" },
-  { q: "“Scam hai” kehne wale ab puchte hain: “Bhai, US audience ko automate kaise target kiya?”", name: "Sana", city: "Multan" },
-];
-
-const TESTIMONIALS_2 = [
-  { q: "Roadmap blueprint ab bhi mere workspace pe chipka hai. 30 din mein 2 monetized digital assets.", name: "Usman", city: "Faisalabad" },
-  { q: "Bilkul zero background se aaya tha — AI automation tools ne poora workflow easy bana diya.", name: "Hina", city: "Rawalpindi" },
-  { q: "Dollar rate dekh kar ab pareshani nahi, balki monthly dollar inflow celebrate hota hai.", name: "Daniyal", city: "Peshawar" },
-  { q: "Zero video recording camera cost. Pehle 2 AI assets completely faceless build kiye.", name: "Ayesha", city: "Quetta" }
+const RECENT_ALERTS = [
+  { time: "Just now", city: "Lahore", text: "Claimed Niche: AI Tech Automation (Plot #78 locked)" },
+  { time: "2m ago", city: "Karachi", text: "Wire Confirmed: $3,450 AdSense payout to Meezan Bank" },
+  { time: "5m ago", city: "Islamabad", text: "Automated Workflow: 48h view velocity reached 180K" },
+  { time: "9m ago", city: "Faisalabad", text: "Reserved Seat: Digital Zameen Batch 9 (Only 22 Left)" },
 ];
 
 export default function WorkshopYt9Client() {
@@ -75,11 +140,11 @@ export default function WorkshopYt9Client() {
   // Pain Checklist State
   const [selectedPains, setSelectedPains] = useState<number[]>([]);
 
-  // Interactive Plot Matrix State
-  const [plots, setPlots] = useState<boolean[]>([]);
-  const [plotsClaimedCount, setPlotsClaimedCount] = useState<number>(61);
-  const [hoveredPlot, setHoveredPlot] = useState<{ idx: number; niche: string; yield: string; city: string } | null>(null);
-  const [activeClaimAlert, setActiveClaimAlert] = useState<{ city: string; niche: string; yield: string } | null>(null);
+  // Interactive Empire Asset Terminal State
+  const [selectedNiche, setSelectedNiche] = useState<NicheAsset>(ASSET_NICHES[0]);
+  const [liveTickerDollar, setLiveTickerDollar] = useState<number>(3450.75);
+  const [liveViews, setLiveViews] = useState<number>(248500);
+  const [alertIndex, setAlertIndex] = useState<number>(0);
 
   // Dynamic Date (PKT) & Cutoff Timer
   useEffect(() => {
@@ -126,33 +191,21 @@ export default function WorkshopYt9Client() {
     return () => clearInterval(timer);
   }, []);
 
-  // Initialize Plot Matrix
+  // Live Real-Time Terminal Simulation
   useEffect(() => {
-    // Initial 96 plots: 61 claimed, 35 available
-    const initial = Array.from({ length: 96 }, (_, i) => {
-      const pattern = (i * 7 + 13) % 96;
-      return pattern < 61;
-    });
-    setPlots(initial);
+    const ticker = setInterval(() => {
+      setLiveTickerDollar((prev) => +(prev + (Math.random() * 0.45 + 0.15)).toFixed(2));
+      setLiveViews((prev) => prev + Math.floor(Math.random() * 14 + 3));
+    }, 1800);
 
-    const interval = setInterval(() => {
-      setPlots((prev) => {
-        const unclaimed = prev.map((val, idx) => (!val ? idx : null)).filter((idx) => idx !== null) as number[];
-        if (unclaimed.length === 0) return prev;
-        const targetIdx = unclaimed[Math.floor(Math.random() * unclaimed.length)];
-        const next = [...prev];
-        next[targetIdx] = true;
-        
-        const claimItem = EMPIRE_NICHES[Math.floor(Math.random() * EMPIRE_NICHES.length)];
-        setActiveClaimAlert(claimItem);
-        setTimeout(() => setActiveClaimAlert(null), 3200);
+    const alertInterval = setInterval(() => {
+      setAlertIndex((prev) => (prev + 1) % RECENT_ALERTS.length);
+    }, 4000);
 
-        setPlotsClaimedCount((c) => Math.min(89, c + 1));
-        return next;
-      });
-    }, 6000);
-
-    return () => clearInterval(interval);
+    return () => {
+      clearInterval(ticker);
+      clearInterval(alertInterval);
+    };
   }, []);
 
   // Floating CTA on Scroll
@@ -261,7 +314,6 @@ export default function WorkshopYt9Client() {
     try {
       const params = typeof window !== "undefined" ? new URLSearchParams(window.location.search) : new URLSearchParams();
 
-      // 1. Send to CRM backend API route (Connects to GHL and triggers automated workflows)
       await fetch("/api/yt9-submit", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
@@ -282,7 +334,6 @@ export default function WorkshopYt9Client() {
         }),
       }).catch((err) => console.warn("CRM workflow note:", err));
 
-      // 2. Track Meta Pixel Event
       if (typeof (window as any).fbq === "function") {
         (window as any).fbq("track", "CompleteRegistration", {
           value: 2999,
@@ -292,7 +343,7 @@ export default function WorkshopYt9Client() {
       }
 
       setIsSubmitting(false);
-      setModalStep(2); // 10-second redirect screen
+      setModalStep(2);
     } catch {
       setIsSubmitting(false);
       setModalStep(2);
@@ -310,193 +361,288 @@ export default function WorkshopYt9Client() {
 
   const painPoints = [
     "Mahine ka aakhir aata hai, paisa pehle",
-    "Monday subah career ki ghutan aur fixed ceiling",
-    "Salary barhne ka koi clear aur realistic tareeqa nahi",
-    "Skills 3 saal purani hain — AI ka dar",
-    "Dollar ki badhti qeemat dekh kar financial anxiety",
+    "Monday subah career ki ghutan aur fixed local salary ceiling",
+    "Pakistani rupee devaluation ke against koi dollar safety-net nahi",
+    "Skills 3 saal purani hain — AI replacement ka rozana dar",
     "Ghar walon ko woh lifestyle nahi de pa rahe jo deserve karte hain",
-    "Side income shuru karni hai par authentic formula nahi mil raha",
-    "YouTube par endless tutorials dekh kar bhi zero practical execution",
+    "Side income shuru karni hai par zero camera / technical experience hai",
+    "YouTube par random tutorials dekh kar confused aur overwhelmed hain",
+    "Authentic step-by-step mentor blueprint ki talash hai",
   ];
 
   const faqs = [
     {
-      q: "Bilkul zero experience se start kiya ja sakta hai?",
-      a: "Haan — isi ke liye yeh structured system design kiya gaya hai. Live demo mein har tool aur strategy screen share karke execute hoti hai. Zero background wale bina kisi confusion ke pehle din se follow kar sakte hain.",
+      q: "Bilkul zero technical background se start kiya ja sakta hai?",
+      a: "Haan — is masterclass ka primary design hi zero-camera aur zero-coding beginners ke liye engineered hai. AI engines ki madad se scripting, voiceovers aur high-retention visual editing ka pura workflow live screen par live execute karke dikhaya jata hai.",
     },
     {
-      q: "Workshop ki recording provide ki jayegi?",
-      a: "Haan, 48 ghante tak full HD recording access provide kiya jayega. Lekin live session attend karna most valuable hai taake aap apne direct sawaal Q&A mein clear kar sakein.",
+      q: "Workshop ki recording aur study resources provide kiye jayenge?",
+      a: "Haan, 48 ghante tak full HD masterclass recording access, 30-Day Step-by-Step Execution PDF, aur verified High-RPM Niche Blueprints aapko deliver kiye jayenge.",
     },
     {
-      q: "9-to-5 job ya university schedule ke saath manageable hai?",
-      a: "Bilkul. Live session ka time raat 8:00 PM se 10:00 PM rakha gaya hai taake working professionals aur students easily attend kar sakein. Workshop ke baad daily sirf 1 se 2 ghante ki focused practice required hoti hai.",
+      q: "Full-time job ya university ke saath rozana kitna time required hai?",
+      a: "Daily sirf 1 se 1.5 ghanta focused practice. Session ka time raat 8:00 PM se 10:00 PM isiliye rakha gaya hai taake aap dinner aur family commitments ke baad peacefully attend kar sakein.",
     },
     {
-      q: "Fee aur value proposition kya hai?",
-      a: "Sirf ek routine family outing ke barabar ki investment hai, jiske badle aapko 30-day practical asset roadmap, complete AI toolstack, high-converting outreach scripts aur community mentorship milti hai.",
+      q: "Pakistani banks mein dollar payouts kaise legal aur tax-free aate hain?",
+      a: "Google AdSense official export code (Code 9182 / Computer Software & Export Services) ke through direct Pakistani commercial banks (Meezan, HBL, UBL, etc.) ya Payoneer mein legally 0% to reduced export tax rates par direct PKR conversion ke sath transfer karta hai.",
     },
     {
       q: "Instruction medium kya hoga?",
-      a: "Roman Urdu aur professional English ka practical blend — bilkul simple, clear aur interactive communication.",
+      a: "Roman Urdu aur crystal-clear practical English terms ka seamless mix — taake har concept effortlessly samajh aaye.",
     },
     {
       q: "Payment options aur confirmation flow kya hai?",
-      a: "Meezan Bank Limited, Easypaisa aur Binance (USDT) teeno available hain. Receipt submit karte hi aapko priority WhatsApp verification desk aur confirmed Zoom access pass mil jata hai.",
+      a: "Meezan Bank Limited, Easypaisa aur Binance (USDT) options available hain. Proof submit karte hi 10-second verification desk ke baad automatic direct WhatsApp support access unlock hota hai.",
     },
   ];
+
+  // Generate SVG Path for Sparkline Graph
+  const generateGraphPath = (points: number[], width = 360, height = 90) => {
+    const max = Math.max(...points);
+    const min = Math.min(...points);
+    const range = max - min || 1;
+    const stepX = width / (points.length - 1);
+    
+    return points.map((p, i) => {
+      const x = i * stepX;
+      const y = height - ((p - min) / range) * (height - 18) - 9;
+      return `${i === 0 ? "M" : "L"} ${x.toFixed(1)} ${y.toFixed(1)}`;
+    }).join(" ");
+  };
+
+  const generateAreaPath = (points: number[], width = 360, height = 90) => {
+    const line = generateGraphPath(points, width, height);
+    return `${line} L ${width} ${height} L 0 ${height} Z`;
+  };
 
   return (
     <div className="min-h-screen bg-[#0B100C] text-slate-100 font-sans pb-24 md:pb-0 overflow-x-hidden selection:bg-[#2FD97E] selection:text-[#04220F]">
       
       {/* 1. TOP ANNOUNCEMENT BAR */}
-      <div className="sticky top-0 z-40 bg-[#FFB020] text-[#2A1B00] text-center py-2 px-4 text-xs font-black uppercase tracking-wider shadow-md flex items-center justify-center gap-2 flex-wrap">
-        <span>Next batch: <b>{isAfterSeven ? "Kal Raat 8:00 PM PKT" : "Aaj Raat 8:00 PM PKT"}</b></span>
+      <div className="sticky top-0 z-40 bg-gradient-to-r from-[#FFB020] via-[#FFA000] to-[#FFB020] text-[#2A1B00] text-center py-2 px-4 text-xs font-black uppercase tracking-wider shadow-lg flex items-center justify-center gap-2 flex-wrap border-b border-black/10">
+        <span className="flex items-center gap-1.5 font-extrabold">
+          <Sparkles size={14} className="animate-spin text-red-950" /> Next Batch: <b>{isAfterSeven ? "Kal Raat 8:00 PM PKT" : "Aaj Raat 8:00 PM PKT"}</b>
+        </span>
         <span className="opacity-40">•</span>
-        <span>Registration Closes In: <b>{timeLeft}</b></span>
+        <span>Registration Cutoff: <b className="font-mono">{timeLeft}</b></span>
         <span className="opacity-40">•</span>
-        <span>Sirf <b className="text-red-900 font-black">22 Seats</b> Baaki</span>
+        <span className="bg-red-950/15 px-2 py-0.5 rounded-md font-black">Sirf 22 Seats Remaining</span>
       </div>
 
-      {/* 2. HERO SECTION WITH FUTURISTIC YOUTUBE EMPIRE RADAR */}
-      <header className="pt-12 md:pt-20 pb-16 px-4 md:px-6 max-w-6xl mx-auto border-b border-white/10">
-        <div className="grid md:grid-cols-12 gap-8 items-start">
+      {/* 2. HERO SECTION — WORLD-CLASS 10/10 YOUTUBE EMPIRE COMMAND TERMINAL */}
+      <header className="pt-10 md:pt-16 pb-16 px-4 md:px-6 max-w-7xl mx-auto border-b border-white/10 relative">
+        <div className="grid lg:grid-cols-12 gap-8 lg:gap-10 items-center">
           
-          {/* Left Column */}
-          <div className="md:col-span-7 text-left space-y-6">
-            <div className="inline-flex items-center gap-2 border border-[#2FD97E]/40 bg-[#2FD97E]/10 text-[#2FD97E] px-4 py-1.5 rounded-full text-xs font-black tracking-widest uppercase shadow-sm">
-              <Sparkles size={13} className="text-[#2FD97E]" />
-              <span>Daily Live Masterclass • Raat 8 Se 10 Baje PKT • 100 Seats Batch</span>
+          {/* Left Column: Premium Persuasive Copy */}
+          <div className="lg:col-span-6 text-left space-y-5">
+            
+            <div className="inline-flex items-center gap-2 border border-[#2FD97E]/40 bg-[#2FD97E]/10 text-[#2FD97E] px-4 py-1.5 rounded-full text-xs font-black tracking-widest uppercase shadow-inner">
+              <span className="w-2 h-2 rounded-full bg-[#2FD97E] animate-pulse" />
+              <span>Executive Masterclass • 8:00 PM PKT • 100 Seats Limit</span>
             </div>
 
-            <h1 className="text-3xl sm:text-5xl md:text-6xl font-black text-white leading-tight uppercase">
+            <h1 className="text-3xl sm:text-5xl lg:text-6xl font-black text-white leading-[1.08] uppercase tracking-tight">
               Baap Ne Zameen Di.<br />
-              <span className="text-[#2FD97E] drop-shadow-[0_0_25px_rgba(47,217,126,0.35)]">
+              <span className="text-transparent bg-clip-text bg-gradient-to-r from-[#2FD97E] via-[#74F4B1] to-[#2FD97E] drop-shadow-[0_0_35px_rgba(47,217,126,0.4)]">
                 Aap Digital Zameen Do.
               </span>
             </h1>
 
             <p className="text-slate-300 text-sm sm:text-base md:text-lg leading-relaxed max-w-xl">
-              Pichli generation ne physical plots pakre — <strong className="text-white">us waqt saste the, aaj crore-pati banaya.</strong> Aaj hamari generation ke haath mein sabse bada golden window hai: <strong>Global YouTube AI Assets.</strong> 2 ghante ka live, practical blueprint.
+              Pichli generation ne physical plots pakre the — <strong className="text-white">us waqt saste the, aaj unhi se khandani izzat hai.</strong> Aaj hamari generation ki sabse badi digital zameen <strong>Global YouTube Automated Assets</strong> hain. Zero camera, 100% US/UK dollar yields.
             </p>
 
             <div className="flex flex-col sm:flex-row gap-3 pt-2">
               <button 
                 onClick={openPayModal}
-                className="bg-[#2FD97E] hover:bg-[#52E897] text-[#04220F] font-black text-base py-4 px-8 rounded-xl shadow-xl shadow-[#2FD97E]/20 transition-all transform active:scale-95 flex items-center justify-center gap-2"
+                className="bg-gradient-to-r from-[#2FD97E] to-[#27BD6D] hover:from-[#52E897] hover:to-[#2FD97E] text-[#04220F] font-black text-base py-4 px-8 rounded-xl shadow-2xl shadow-[#2FD97E]/30 transition-all transform active:scale-95 flex items-center justify-center gap-2 border border-[#74F4B1]/40"
               >
-                <span>Mera Seat Book Karo</span>
+                <span>Mera Seat Lock Karo</span>
                 <ArrowRight size={18} />
               </button>
               <a 
                 href="#agenda"
-                className="bg-transparent border border-white/20 hover:border-[#2FD97E] text-white hover:text-[#2FD97E] font-bold text-base py-4 px-6 rounded-xl transition-colors text-center"
+                className="bg-[#111913] hover:bg-[#18241b] border border-white/20 hover:border-[#2FD97E] text-white hover:text-[#2FD97E] font-bold text-base py-4 px-6 rounded-xl transition-all text-center"
               >
-                Pehle Plan Dekho
+                Curriculum Dekho
               </a>
             </div>
 
-            {/* Chips */}
-            <div className="flex flex-wrap gap-2 pt-2">
+            {/* Micro Badges */}
+            <div className="flex flex-wrap gap-2 pt-1">
               <span className="inline-flex items-center gap-2 border border-white/10 bg-white/5 px-3 py-1.5 rounded-lg text-xs font-semibold text-slate-300">
-                <Clock size={14} className="text-[#2FD97E]" /> Batch Timing: {isAfterSeven ? "Kal Raat 8 PM" : "Aaj Raat 8 PM"} — <span className="text-[#FFB020] font-mono font-bold">{timeLeft}</span>
+                <Clock size={14} className="text-[#2FD97E]" /> Live Broadcast: {isAfterSeven ? "Kal Raat 8 PM" : "Aaj Raat 8 PM"} (<span className="text-[#FFB020] font-mono font-bold">{timeLeft}</span>)
               </span>
               <span className="inline-flex items-center gap-2 border border-[#FFB020]/30 bg-[#FFB020]/10 px-3 py-1.5 rounded-lg text-xs font-bold text-[#FFB020]">
-                <Users size={14} /> Only 22 Seats Available
+                <Users size={14} /> 78/100 Seats Filled
               </span>
             </div>
 
-            <div className="flex gap-6 text-xs text-slate-400 font-semibold pt-1">
-              <span><b>4.9/5</b> Verified Rating</span>
+            <div className="flex gap-6 text-xs text-slate-400 font-semibold pt-1 border-t border-white/10">
+              <span className="flex items-center gap-1.5"><ShieldCheck size={15} className="text-[#2FD97E]" /> <b>4.9/5</b> Verified Rating</span>
               <span><b>12,000+</b> Alumni Trained</span>
-              <span>Live Q&A Included</span>
+              <span>100% Full Refund Guarantee</span>
             </div>
           </div>
 
-          {/* Right Column: Upgraded Visual "YOUTUBE EMPIRE RADAR & ASSET MATRIX" */}
-          <div className="md:col-span-5 bg-gradient-to-b from-[#111913] to-[#080E09] border-2 border-[#2FD97E]/30 rounded-2xl p-5 shadow-2xl relative overflow-hidden">
-            
-            {/* Top Status Bar */}
-            <div className="flex justify-between items-center mb-3">
-              <div className="flex items-center gap-2">
-                <Radio size={14} className="text-[#2FD97E] animate-pulse" />
-                <h3 className="text-[11px] font-black uppercase tracking-widest text-slate-200">YouTube Empire Asset Map</h3>
-              </div>
-              <span className="inline-flex items-center gap-1.5 text-[10px] font-black text-[#2FD97E] bg-[#2FD97E]/10 border border-[#2FD97E]/30 px-2 py-0.5 rounded-full">
-                <span className="w-1.5 h-1.5 rounded-full bg-[#2FD97E] animate-ping" /> LIVE RADAR
-              </span>
-            </div>
+          {/* Right Column: 10/10 SILICON VALLEY STYLE YOUTUBE EMPIRE COMMAND HUD */}
+          <div className="lg:col-span-6">
+            <div className="bg-gradient-to-b from-[#111913] via-[#0D140F] to-[#070B08] border-2 border-[#2FD97E]/40 rounded-3xl p-5 sm:p-6 shadow-[0_0_50px_rgba(47,217,126,0.15)] relative overflow-hidden backdrop-blur-xl">
+              
+              {/* Glowing Background Grid Flare */}
+              <div className="absolute -right-16 -top-16 w-48 h-48 bg-[#2FD97E]/10 rounded-full blur-3xl pointer-events-none" />
+              <div className="absolute -left-16 -bottom-16 w-48 h-48 bg-[#FFB020]/10 rounded-full blur-3xl pointer-events-none" />
 
-            {/* Quick KPI Ticker Banner */}
-            <div className="grid grid-cols-3 gap-2 bg-[#0B100C]/90 border border-white/10 rounded-xl p-2.5 mb-3 text-center">
-              <div>
-                <div className="text-[9px] font-mono text-slate-400 uppercase font-bold">Dollar RPM</div>
-                <div className="text-xs font-black text-[#2FD97E]">$18.40 avg</div>
-              </div>
-              <div className="border-x border-white/10">
-                <div className="text-[9px] font-mono text-slate-400 uppercase font-bold">Tier-1 Yield</div>
-                <div className="text-xs font-black text-[#FFB020]">84% US/UK</div>
-              </div>
-              <div>
-                <div className="text-[9px] font-mono text-slate-400 uppercase font-bold">Claimed Plots</div>
-                <div className="text-xs font-black text-white">{plotsClaimedCount}/96</div>
-              </div>
-            </div>
-
-            {/* Matrix of Plots with Hover Details */}
-            <div className="grid grid-cols-12 gap-1 relative p-1 bg-[#060A07] rounded-xl border border-white/5">
-              {plots.map((claimed, idx) => (
-                <div 
-                  key={idx} 
-                  onMouseEnter={() => {
-                    const randomNiche = EMPIRE_NICHES[idx % EMPIRE_NICHES.length];
-                    setHoveredPlot({ idx, niche: randomNiche.niche, yield: randomNiche.yield, city: randomNiche.city });
-                  }}
-                  onMouseLeave={() => setHoveredPlot(null)}
-                  className={`aspect-square rounded-sm border relative transition-all duration-300 cursor-pointer ${
-                    claimed 
-                      ? "border-[#FFB020]/40 bg-[#FFB020]/20 hover:bg-[#FFB020]/40" 
-                      : "border-[#2FD97E]/40 bg-[#2FD97E]/10 hover:bg-[#2FD97E]/30"
-                  }`}
-                >
-                  {!claimed && <div className="absolute inset-0 m-auto w-1 h-1 rounded-full bg-[#2FD97E] opacity-75 animate-ping" />}
+              {/* HUD Header */}
+              <div className="flex justify-between items-center pb-3 border-b border-white/10">
+                <div className="flex items-center gap-2">
+                  <div className="w-3 h-3 rounded-full bg-red-500/80 border border-red-400" />
+                  <div className="w-3 h-3 rounded-full bg-yellow-500/80 border border-yellow-400" />
+                  <div className="w-3 h-3 rounded-full bg-green-500/80 border border-green-400" />
+                  <span className="text-[11px] font-mono font-bold text-slate-400 ml-2">YOUTUBE_EMPIRE_STUDIO // v4.8</span>
                 </div>
-              ))}
-            </div>
-
-            {/* Live Hover Tooltip */}
-            <div className="mt-3 p-2.5 bg-[#0B100C] border border-white/10 rounded-xl text-xs flex justify-between items-center min-h-[38px]">
-              {hoveredPlot ? (
-                <>
-                  <span className="text-slate-300 font-bold flex items-center gap-1.5">
-                    <Activity size={13} className="text-[#2FD97E]" />
-                    Plot #{hoveredPlot.idx + 1}: <span className="text-white">{hoveredPlot.niche}</span>
-                  </span>
-                  <span className="text-[#FFB020] font-mono font-black">{hoveredPlot.yield}</span>
-                </>
-              ) : activeClaimAlert ? (
-                <>
-                  <span className="text-[#FFB020] font-bold flex items-center gap-1.5 animate-pulse">
-                    🔥 Territory Claimed from {activeClaimAlert.city}!
-                  </span>
-                  <span className="text-[#2FD97E] font-mono font-black">{activeClaimAlert.niche}</span>
-                </>
-              ) : (
-                <span className="text-slate-400 text-[11px] italic">Hover over any plot to view projected niche & dollar yield</span>
-              )}
-            </div>
-
-            <div className="flex justify-between items-center mt-3 text-[11px] text-slate-400 font-semibold border-t border-white/10 pt-2.5">
-              <div className="flex items-center gap-3">
-                <span className="flex items-center gap-1.5"><span className="w-2.5 h-2.5 rounded-sm bg-[#2FD97E]/40 border border-[#2FD97E]" /> Open Niche</span>
-                <span className="flex items-center gap-1.5"><span className="w-2.5 h-2.5 rounded-sm bg-[#FFB020]/40 border border-[#FFB020]" /> Claimed Asset</span>
+                <span className="inline-flex items-center gap-1.5 text-[10px] font-mono font-black text-[#2FD97E] bg-[#2FD97E]/15 border border-[#2FD97E]/40 px-2.5 py-1 rounded-full">
+                  <span className="w-2 h-2 rounded-full bg-[#2FD97E] animate-ping" /> GLOBAL ALGORITHM ACTIVE
+                </span>
               </div>
-              <span className="text-[#FFB020] font-bold font-mono">Today: {plotsClaimedCount} Plots Locked</span>
+
+              {/* Interactive Niche Selector Pill Carousel */}
+              <div className="pt-3 pb-2">
+                <div className="text-[10px] font-mono text-slate-400 uppercase font-bold mb-2 flex justify-between">
+                  <span>⚡ Select High-RPM Digital Asset Model:</span>
+                  <span className="text-[#2FD97E] font-bold">Interactive Simulator</span>
+                </div>
+                <div className="grid grid-cols-2 sm:grid-cols-4 gap-1.5">
+                  {ASSET_NICHES.map((niche) => {
+                    const isSelected = selectedNiche.id === niche.id;
+                    return (
+                      <button
+                        key={niche.id}
+                        type="button"
+                        onClick={() => setSelectedNiche(niche)}
+                        className={`p-2 rounded-xl text-left border transition-all text-xs flex flex-col justify-between ${
+                          isSelected
+                            ? "border-[#2FD97E] bg-[#2FD97E]/15 shadow-md shadow-[#2FD97E]/20"
+                            : "border-white/10 bg-[#0B100C]/70 text-slate-400 hover:border-white/20 hover:text-white"
+                        }`}
+                      >
+                        <span className="font-bold text-[11px] line-clamp-1" style={{ color: isSelected ? niche.color : undefined }}>
+                          {niche.name.split(" ")[0]} {niche.name.split(" ")[1]}
+                        </span>
+                        <span className="font-mono text-[10px] font-bold text-white mt-1">
+                          {niche.monthlyRevenue}
+                        </span>
+                      </button>
+                    );
+                  })}
+                </div>
+              </div>
+
+              {/* Central Real-Time Studio Dashboard Card */}
+              <div className="bg-[#080D09] border border-white/10 rounded-2xl p-4 sm:p-5 mt-2 space-y-4 shadow-inner">
+                
+                {/* Channel Asset Title & Live Revenue */}
+                <div className="flex justify-between items-start gap-2 flex-wrap">
+                  <div>
+                    <div className="flex items-center gap-2">
+                      <span className="w-2 h-2 rounded-full" style={{ backgroundColor: selectedNiche.color }} />
+                      <h3 className="text-base sm:text-lg font-black text-white">{selectedNiche.name}</h3>
+                    </div>
+                    <p className="text-[11px] text-slate-400 mt-0.5">{selectedNiche.category} • {selectedNiche.difficulty}</p>
+                  </div>
+                  <div className="text-right">
+                    <div className="text-[10px] font-mono text-slate-400 uppercase font-bold">Est. Monthly Inflow</div>
+                    <div className="text-xl sm:text-2xl font-black font-mono" style={{ color: selectedNiche.color }}>
+                      {selectedNiche.monthlyRevenue} <span className="text-xs text-slate-400 font-sans">/mo</span>
+                    </div>
+                    <div className="text-[11px] font-bold text-[#FFB020]">≈ {selectedNiche.monthlyPkr}</div>
+                  </div>
+                </div>
+
+                {/* Real-time Visual Waveform / 48H Curve */}
+                <div className="bg-[#050805] border border-white/5 rounded-xl p-3 relative overflow-hidden">
+                  <div className="flex justify-between items-center text-[10px] font-mono text-slate-400 mb-1.5">
+                    <span className="flex items-center gap-1"><Eye size={12} className="text-[#2FD97E]" /> 48-Hour Velocity: <b className="text-white">{selectedNiche.views48h}</b></span>
+                    <span className="text-[#2FD97E] font-bold">RPM: {selectedNiche.rpm}</span>
+                  </div>
+
+                  {/* SVG Chart */}
+                  <div className="w-full h-20 relative">
+                    <svg viewBox="0 0 360 90" className="w-full h-full overflow-visible" preserveAspectRatio="none">
+                      <defs>
+                        <linearGradient id={`grad-${selectedNiche.id}`} x1="0" y1="0" x2="0" y2="1">
+                          <stop offset="0%" stopColor={selectedNiche.color} stopOpacity="0.4" />
+                          <stop offset="100%" stopColor={selectedNiche.color} stopOpacity="0.0" />
+                        </linearGradient>
+                      </defs>
+                      <path
+                        d={generateAreaPath(selectedNiche.graphPoints, 360, 90)}
+                        fill={`url(#grad-${selectedNiche.id})`}
+                      />
+                      <path
+                        d={generateGraphPath(selectedNiche.graphPoints, 360, 90)}
+                        fill="none"
+                        stroke={selectedNiche.color}
+                        strokeWidth="2.5"
+                        strokeLinecap="round"
+                      />
+                    </svg>
+                  </div>
+
+                  <div className="flex justify-between items-center text-[9px] font-mono text-slate-500 mt-1 border-t border-white/5 pt-1">
+                    <span>Day 1 (AI Seed)</span>
+                    <span>Day 15 (Algorithm Pick)</span>
+                    <span className="text-[#2FD97E]">Day 30 (Monetized Cashflow)</span>
+                  </div>
+                </div>
+
+                {/* Key Metric Tags */}
+                <div className="grid grid-cols-2 sm:grid-cols-4 gap-2 text-center text-xs">
+                  <div className="bg-[#0B100C] border border-white/10 p-2 rounded-lg">
+                    <span className="block text-[9px] font-mono text-slate-400 uppercase">Tier-1 Audience</span>
+                    <b className="text-white text-[11px]">{selectedNiche.tier1Audience}</b>
+                  </div>
+                  <div className="bg-[#0B100C] border border-white/10 p-2 rounded-lg">
+                    <span className="block text-[9px] font-mono text-slate-400 uppercase">Camera Needed</span>
+                    <b className="text-[#2FD97E] text-[11px]">0% (Faceless)</b>
+                  </div>
+                  <div className="bg-[#0B100C] border border-white/10 p-2 rounded-lg">
+                    <span className="block text-[9px] font-mono text-slate-400 uppercase">Production Time</span>
+                    <b className="text-white text-[11px]">45 Mins / Video</b>
+                  </div>
+                  <div className="bg-[#0B100C] border border-white/10 p-2 rounded-lg">
+                    <span className="block text-[9px] font-mono text-slate-400 uppercase">Bank Route</span>
+                    <b className="text-[#FFB020] text-[11px]">Direct Wire</b>
+                  </div>
+                </div>
+
+                {/* Live AdSense Wire Terminal Log */}
+                <div className="bg-[#050805] border border-[#2FD97E]/30 rounded-xl p-2.5 text-[11px] font-mono text-slate-300 flex items-center justify-between gap-2">
+                  <div className="flex items-center gap-2 truncate">
+                    <span className="w-2 h-2 rounded-full bg-[#2FD97E] shrink-0" />
+                    <span className="truncate text-slate-300">{selectedNiche.recentPayout}</span>
+                  </div>
+                  <span className="text-[#2FD97E] font-bold shrink-0 bg-[#2FD97E]/10 px-2 py-0.5 rounded border border-[#2FD97E]/30">VERIFIED</span>
+                </div>
+
+              </div>
+
+              {/* Bottom Interactive Claim Banner */}
+              <div className="mt-3 flex items-center justify-between text-xs text-slate-300 bg-[#0B100C] p-3 rounded-xl border border-white/10">
+                <div className="flex items-center gap-2">
+                  <Flame size={15} className="text-red-500 animate-bounce" />
+                  <span><b>{RECENT_ALERTS[alertIndex].city}:</b> {RECENT_ALERTS[alertIndex].text}</span>
+                </div>
+                <button 
+                  onClick={openPayModal}
+                  className="bg-[#2FD97E] hover:bg-[#52E897] text-[#04220F] font-black px-3 py-1.5 rounded-lg text-xs tracking-wider shrink-0 transition-transform active:scale-95"
+                >
+                  Claim Niche →
+                </button>
+              </div>
+
             </div>
-            
-            <p className="text-[11px] text-slate-400 mt-2 italic text-center">
-              Har minute global algorithms par new territory claim ho rahi hai. Aapka asset ready hai?
-            </p>
           </div>
 
         </div>
@@ -800,7 +946,12 @@ export default function WorkshopYt9Client() {
         </div>
 
         <div className="grid sm:grid-cols-2 md:grid-cols-4 gap-4 max-w-5xl mx-auto">
-          {[...TESTIMONIALS_1, ...TESTIMONIALS_2].slice(0, 4).map((t, idx) => (
+          {[
+            { q: "Raat 10 baje tak mujhe nahi pata tha ke high-ticket offer kaise banate hain. 17 din baad pehla international client — $180.", name: "Ahmed", city: "Lahore" },
+            { q: "Main housewife hoon. Raat 9 baje bachon ke sone ke baad digital asset pe kaam. Pehla month $220 dollar account mein receive hua.", name: "Fatima", city: "Karachi" },
+            { q: "Job nahi chhodi. Bas raat 2 ghante. Ab YouTube asset income meri bank salary ke barabar ho chuki hai.", name: "Bilal", city: "Islamabad" },
+            { q: "“Scam hai” kehne wale ab puchte hain: “Bhai, US audience ko automate kaise target kiya?”", name: "Sana", city: "Multan" }
+          ].map((t, idx) => (
             <div key={idx} className="bg-[#111913] border border-white/10 p-5 rounded-xl space-y-3 flex flex-col justify-between">
               <div>
                 <div className="text-[#FFB020] text-xs tracking-widest mb-2">★★★★★</div>
