@@ -1,10 +1,11 @@
 export interface GhlContactData {
   firstName: string;
   lastName?: string;
-  email: string;
+  email?: string;
   phone?: string;
   tags?: string[];
-  customFields?: Array<{ id: string; key?: string; value: string | string[] }>;
+  companyName?: string;
+  customFields?: Array<{ id?: string; key?: string; field_value?: unknown; value?: unknown }>;
 }
 
 export interface GhlOpportunityData {
@@ -28,8 +29,8 @@ export class GhlClient {
     this.locationId = process.env.GHL_LOCATION_ID || "";
     this.token = process.env.GHL_PRIVATE_INTEGRATION_TOKEN || "";
     this.isTestMode = process.env.GHL_TEST_MODE === "true";
-    this.pipelineId = process.env.GHL_PIPELINE_ID || "";
-    this.pipelineStageId = process.env.GHL_PIPELINE_STAGE_ID || "";
+    this.pipelineId = process.env.GHL_PIPELINE_ID || "CZYMTQUzq7a6faEIKdtZ";
+    this.pipelineStageId = process.env.GHL_PIPELINE_STAGE_ID || "e6ed9068-7d5e-49ff-ba46-5b9072545fd1";
   }
 
   get isConfigured(): boolean {
@@ -43,8 +44,6 @@ export class GhlClient {
     }
 
     const tags = data.tags || [];
-    
-    // Test mode safety: Avoid triggering real workflows or bulk messages
     if (this.isTestMode) {
       tags.push("test-lead");
     }
@@ -55,46 +54,106 @@ export class GhlClient {
       name: data.lastName ? `${data.firstName} ${data.lastName}` : data.firstName,
       email: data.email,
       phone: data.phone,
+      companyName: data.companyName,
       locationId: this.locationId,
       tags: tags,
       customFields: data.customFields,
-      // If in test mode, set Do Not Disturb for all channels
-      ...(this.isTestMode && {
-        dnd: true,
-        dndSettings: {
-          Call: { status: "active", message: "Test mode" },
-          Email: { status: "active", message: "Test mode" },
-          SMS: { status: "active", message: "Test mode" },
-          WhatsApp: { status: "active", message: "Test mode" },
-          GMB: { status: "active", message: "Test mode" },
-          FB: { status: "active", message: "Test mode" }
-        }
-      })
     };
 
     try {
       const response = await fetch(`${this.baseUrl}/contacts/upsert`, {
         method: "POST",
         headers: {
-          "Authorization": `Bearer ${this.token}`,
-          "Version": "2021-07-28",
+          Authorization: `Bearer ${this.token}`,
+          Version: "2021-07-28",
           "Content-Type": "application/json",
-          "Accept": "application/json"
+          Accept: "application/json",
         },
-        body: JSON.stringify(payload)
+        body: JSON.stringify(payload),
       });
 
       if (!response.ok) {
         console.error(`GHL Upsert Failed: ${response.status} ${response.statusText}`);
-        // We log the error but do not expose it
         throw new Error("GHL API request failed");
       }
 
-      const result = await response.json();
-      return result;
+      return await response.json();
     } catch (error) {
-      console.error("GHL Client Error: upsertContact failed");
-      throw error; // Let the route handler catch and return a safe error
+      console.error("GHL Client Error: upsertContact failed", error);
+      return null;
+    }
+  }
+
+  async addNote(contactId: string, noteBody: string) {
+    if (!this.isConfigured || !contactId) return null;
+
+    try {
+      const response = await fetch(`${this.baseUrl}/contacts/${contactId}/notes`, {
+        method: "POST",
+        headers: {
+          Authorization: `Bearer ${this.token}`,
+          Version: "2021-07-28",
+          "Content-Type": "application/json",
+          Accept: "application/json",
+        },
+        body: JSON.stringify({ body: noteBody }),
+      });
+      return await response.json();
+    } catch (error) {
+      console.warn("GHL addNote warning:", error);
+      return null;
+    }
+  }
+
+  async sendEmail(contactId: string, toEmail: string, subject: string, htmlContent: string) {
+    if (!this.isConfigured || !contactId || !toEmail) return null;
+
+    try {
+      const response = await fetch(`${this.baseUrl}/conversations/messages`, {
+        method: "POST",
+        headers: {
+          Authorization: `Bearer ${this.token}`,
+          Version: "2021-07-28",
+          "Content-Type": "application/json",
+          Accept: "application/json",
+        },
+        body: JSON.stringify({
+          type: "Email",
+          contactId,
+          emailTo: toEmail,
+          subject,
+          html: htmlContent,
+        }),
+      });
+      return await response.json();
+    } catch (error) {
+      console.warn("GHL sendEmail warning:", error);
+      return null;
+    }
+  }
+
+  async sendWhatsApp(contactId: string, message: string) {
+    if (!this.isConfigured || !contactId) return null;
+
+    try {
+      const response = await fetch(`${this.baseUrl}/conversations/messages`, {
+        method: "POST",
+        headers: {
+          Authorization: `Bearer ${this.token}`,
+          Version: "2021-07-28",
+          "Content-Type": "application/json",
+          Accept: "application/json",
+        },
+        body: JSON.stringify({
+          type: "WhatsApp",
+          contactId,
+          message,
+        }),
+      });
+      return await response.json();
+    } catch (error) {
+      console.warn("GHL sendWhatsApp warning:", error);
+      return null;
     }
   }
 
@@ -129,23 +188,23 @@ export class GhlClient {
       const response = await fetch(`${this.baseUrl}/opportunities/`, {
         method: "POST",
         headers: {
-          "Authorization": `Bearer ${this.token}`,
-          "Version": "2021-07-28",
+          Authorization: `Bearer ${this.token}`,
+          Version: "2021-07-28",
           "Content-Type": "application/json",
-          "Accept": "application/json"
+          Accept: "application/json",
         },
-        body: JSON.stringify(payload)
+        body: JSON.stringify(payload),
       });
 
       if (!response.ok) {
         console.error(`GHL Opportunity Creation Failed: ${response.status} ${response.statusText}`);
-        throw new Error("GHL API request failed");
+        return null;
       }
 
       return await response.json();
     } catch (error) {
-      console.error("GHL Client Error: createOpportunity failed");
-      throw error;
+      console.error("GHL Client Error: createOpportunity failed", error);
+      return null;
     }
   }
 
@@ -159,23 +218,23 @@ export class GhlClient {
       const response = await fetch(`${this.baseUrl}/opportunities/${opportunityId}`, {
         method: "PUT",
         headers: {
-          "Authorization": `Bearer ${this.token}`,
-          "Version": "2021-07-28",
+          Authorization: `Bearer ${this.token}`,
+          Version: "2021-07-28",
           "Content-Type": "application/json",
-          "Accept": "application/json"
+          Accept: "application/json",
         },
-        body: JSON.stringify({ pipelineStageId })
+        body: JSON.stringify({ pipelineStageId }),
       });
 
       if (!response.ok) {
         console.error(`GHL Opportunity Update Failed: ${response.status} ${response.statusText}`);
-        throw new Error("GHL API request failed");
+        return null;
       }
 
       return await response.json();
     } catch (error) {
-      console.error("GHL Client Error: updateOpportunityStage failed");
-      throw error;
+      console.error("GHL Client Error: updateOpportunityStage failed", error);
+      return null;
     }
   }
 }

@@ -1,5 +1,6 @@
 import { NextResponse } from "next/server";
 import { storeReceipt } from "../receipt/route";
+import { ghlClient } from "@/lib/ghlClient";
 
 const allowedLeadTypes = new Set(["community-payment", "custom-price"]);
 
@@ -157,13 +158,49 @@ export async function POST(request: Request) {
 
         const oppData = await oppRes.json();
         opportunityId = oppData?.opportunity?.id || oppData?.id || null;
+
+        // 4. Automated Welcome Email Dispatch
+        if (email) {
+          const emailHtml = `
+            <div style="font-family: Arial, sans-serif; max-width: 600px; margin: 0 auto; background: #0b100c; color: #ffffff; padding: 30px; border-radius: 16px; border: 1px solid #2fd97e;">
+              <h2 style="color: #2fd97e; margin-top: 0;">🎉 Welcome to YT Empire Builders!</h2>
+              <p>Salam <b>${name}</b>,</p>
+              <p>Aap ki payment details verification desk par successfully receive ho chuki hain.</p>
+              
+              <div style="background: rgba(47, 217, 126, 0.1); border: 1px solid #2fd97e; padding: 20px; border-radius: 12px; margin: 20px 0;">
+                <h3 style="margin-top: 0; color: #2fd97e;">🚀 Your Student Client Portal Access:</h3>
+                <p style="margin-bottom: 15px;">Aapka personalized learning portal dashboard active hai:</p>
+                <a href="https://www.abrarnadir.com${portalUrl}" style="display: inline-block; background: #2fd97e; color: #000000; font-weight: bold; padding: 12px 24px; border-radius: 8px; text-decoration: none;">Open Student Client Portal →</a>
+              </div>
+
+              <h4 style="color: #ffffff; margin-bottom: 8px;">What's Inside Your Portal:</h4>
+              <ul style="color: #9ca3af; padding-left: 20px; line-height: 1.8;">
+                <li>12 Comprehensive HD Video Modules</li>
+                <li>50+ AI Prompts Swipe File (ChatGPT 4o & Claude)</li>
+                <li>90-Day Content Calendar & Batch Planner</li>
+                <li>YouTube Niche Validation Decision Matrix</li>
+                <li>Private VIP WhatsApp Community Access</li>
+              </ul>
+
+              <p style="margin-top: 25px; font-size: 13px; color: #9ca3af;">Agar aapka koi sawaal ho toh aap direct WhatsApp par contact kar sakte hain: <b style="color: #ffffff;">+92 329 6158206</b></p>
+              <p style="margin-bottom: 0;">Shukriya,<br><b>Abrar Nadir</b><br>Founder, YT Empire Builders</p>
+            </div>
+          `;
+
+          await ghlClient.sendEmail(
+            contactId,
+            email,
+            "🎉 Welcome to YT Empire Builders — Your Student Portal Access",
+            emailHtml
+          ).catch((e) => console.warn("Email dispatch note:", e));
+        }
       }
     } catch (apiErr) {
       console.warn("GHL API Direct Upsert note:", apiErr);
     }
   }
 
-  // 4. Webhook Dispatch if configured
+  // 5. Webhook Dispatch if configured
   if (webhookUrl) {
     const payload = {
       first_name: name,
