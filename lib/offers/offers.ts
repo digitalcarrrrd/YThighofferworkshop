@@ -186,6 +186,15 @@ export const yt5Offer = {
   status: "active",
 } satisfies OfferConfig;
 
+export const yt5DashOffer = {
+  ...youtubeEmpireBuildersOffer,
+  id: "workshop-yt-5",
+  slug: "yt-5",
+  title: "YouTube Workshop 5",
+  leadTag: "workshop-yt-5",
+  status: "active",
+} satisfies OfferConfig;
+
 export const yt6Offer = {
   ...youtubeEmpireBuildersOffer,
   id: "workshop-yt6",
@@ -266,6 +275,7 @@ export const offers: readonly OfferConfig[] = [
   yt3DashOffer,
   yt4Offer,
   yt5Offer,
+  yt5DashOffer,
   yt6Offer,
   yt6DashOffer,
   yt7Offer,
