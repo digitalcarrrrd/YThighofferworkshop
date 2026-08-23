@@ -37,6 +37,7 @@ export async function POST(request: Request) {
   const paymentMethod = clean(input.paymentMethod, 80);
   const payableAmount = clean(input.payableAmount, 50);
   const coupon = clean(input.coupon, 50);
+  const screenshotStatus = clean(input.screenshot, 100) || "Attached via Portal / WhatsApp";
 
   if (
     name.length < 2 ||
@@ -63,6 +64,8 @@ export async function POST(request: Request) {
     "whatsapp-consent",
   ];
 
+  let contactId = null;
+
   // 1. Direct GHL Contact Upsert via API
   if (token && locationId) {
     try {
@@ -77,6 +80,8 @@ export async function POST(request: Request) {
         body: JSON.stringify({
           locationId,
           name: name,
+          firstName: name.split(" ")[0] || name,
+          lastName: name.split(" ").slice(1).join(" ") || "",
           phone: normalizedPhone,
           ...(email ? { email } : {}),
           ...(city ? { city } : {}),
@@ -92,14 +97,13 @@ export async function POST(request: Request) {
       });
 
       const contactData = await ghlRes.json();
-      const contactId = contactData?.contact?.id;
+      contactId = contactData?.contact?.id;
 
-      // 2. Create Opportunity in GHL
-      const pipelineId = process.env.GHL_PIPELINE_ID;
-      const stageId = process.env.GHL_PIPELINE_STAGE_ID;
+      // 2. Add Detailed Note to Contact
+      if (contactId) {
+        const noteBody = `📝 YT EMPIRE BUILDERS PAYMENT ENROLLMENT:\n• Name: ${name}\n• Phone: ${normalizedPhone}\n• Email: ${email || "Not entered"}\n• City: ${city || "N/A"} | Age: ${age || "N/A"}\n• Plan Selected: ${requestedOffer || "Pay in Full"}\n• Amount: PKR ${payableAmount || "30,000"}\n• Payment Method: ${paymentMethod || "Meezan Bank"}\n• Payment Proof Status: ${screenshotStatus}\n• Portal Dashboard Link: https://www.abrarnadir.com${portalUrl}`;
 
-      if (contactId && pipelineId && stageId) {
-        await fetch("https://services.leadconnectorhq.com/opportunities", {
+        await fetch(`https://services.leadconnectorhq.com/contacts/${contactId}/notes`, {
           method: "POST",
           headers: {
             Authorization: `Bearer ${token}`,
@@ -108,22 +112,41 @@ export async function POST(request: Request) {
             Accept: "application/json",
           },
           body: JSON.stringify({
-            pipelineId,
-            locationId,
-            contactId,
-            name: `${name} – YT Empire Builders (${payableAmount ? `PKR ${payableAmount}` : "Full Program"})`,
-            stageId,
-            status: "open",
-            monetaryValue: payableAmount ? Number(payableAmount) : 30000,
+            body: noteBody,
           }),
-        }).catch((err) => console.warn("YTEB Opportunity creation note:", err));
+        }).catch((err) => console.warn("Contact note creation note:", err));
+
+        // 3. Create Opportunity in Academy LMS Pipeline
+        const pipelineId = process.env.GHL_ACADEMY_PIPELINE_ID || process.env.GHL_PIPELINE_ID;
+        const stageId = process.env.GHL_ACADEMY_STAGE_ID || process.env.GHL_PIPELINE_STAGE_ID;
+
+        if (pipelineId && stageId) {
+          await fetch("https://services.leadconnectorhq.com/opportunities", {
+            method: "POST",
+            headers: {
+              Authorization: `Bearer ${token}`,
+              Version: "2021-07-28",
+              "Content-Type": "application/json",
+              Accept: "application/json",
+            },
+            body: JSON.stringify({
+              pipelineId,
+              locationId,
+              contactId,
+              name: `${name} — ${requestedOffer ? requestedOffer.split("(")[0].trim() : "YTEB VIP"} (PKR ${payableAmount || "30,000"})`,
+              stageId,
+              status: "open",
+              monetaryValue: payableAmount ? Number(payableAmount.replace(/\D/g, "")) : 30000,
+            }),
+          }).catch((err) => console.warn("YTEB Opportunity creation note:", err));
+        }
       }
     } catch (apiErr) {
       console.warn("GHL API Direct Upsert note:", apiErr);
     }
   }
 
-  // 3. Webhook Dispatch if configured
+  // 4. Webhook Dispatch if configured
   if (webhookUrl) {
     const payload = {
       first_name: name,
@@ -136,7 +159,7 @@ export async function POST(request: Request) {
       lead_type: leadType,
       requested_offer: requestedOffer,
       payment_method: paymentMethod,
-      payment_screenshot_status: clean(input.screenshot, 100) || "Uploaded via Portal / WhatsApp",
+      payment_screenshot_status: screenshotStatus,
       payable_amount: payableAmount,
       coupon,
       portal_access_url: `https://www.abrarnadir.com${portalUrl}`,
@@ -164,5 +187,5 @@ export async function POST(request: Request) {
     }
   }
 
-  return NextResponse.json({ ok: true, portalUrl });
+  return NextResponse.json({ ok: true, portalUrl, contactId });
 }
