@@ -1431,7 +1431,9 @@
     const button=document.getElementById('whatsappVerify');button.disabled=true;button.textContent='Saving your details…';
     
     let screenshotBase64='';
+    let screenshotFilename='';
     if(fileInput && fileInput.files && fileInput.files[0]){
+      screenshotFilename=fileInput.files[0].name;
       try{
         screenshotBase64=await new Promise((resolve)=>{
           const reader=new FileReader();
@@ -1453,7 +1455,8 @@
         requestedOffer:planDetail,
         coupon:appliedCoupon||'None',
         payableAmount:calc.total,
-        screenshot:screenshotBase64 ? 'Attached in Portal' : 'To attach on WhatsApp'
+        screenshot:screenshotBase64 || '',
+        screenshotFilename:screenshotFilename || ''
       });
 
       const portalUrl='/portal?name='+encodeURIComponent(name)+'&email='+encodeURIComponent(email)+'&phone='+encodeURIComponent(phone)+'&plan='+encodeURIComponent(planDetail);
@@ -1465,7 +1468,7 @@
       const portalConfirm=document.getElementById('portalConfirmStep');
       if(portalConfirm) portalConfirm.style.display='block';
 
-      const message=`Hi YT Empire Builders Team! I have completed my community payment and want verification.\n\nName: ${name}\nWhatsApp: ${phone}\nEmail: ${email}\nAge: ${age}\nCity: ${city}\nSelected Plan: ${planDetail}\nPayable Amount: PKR ${calc.total.toLocaleString()}\nPayment Method: ${selectedPayment}\n\nI will attach my payment screenshot below. Please verify my payment and activate my LMS access.`;
+      const message=`Hi YT Empire Builders Team & Verification Manager! I have completed my community payment for YT Empire Builders.\n\n• Name: ${name}\n• WhatsApp: ${phone}\n• Email: ${email}\n• City: ${city}\n• Enrolled Plan: ${planDetail}\n• Payable Amount: PKR ${calc.total.toLocaleString()}\n• Payment Method: ${selectedPayment}\n\nI have attached my payment receipt screenshot below. Please verify my payment, confirm my enrollment in the LMS, and share the VIP Community Group link. Shukriya! 😊`;
       
       const waUrl='https://wa.me/'+TEAM_WHATSAPP_NUMBER+'?text='+encodeURIComponent(message);
       window.open(waUrl,'_blank');

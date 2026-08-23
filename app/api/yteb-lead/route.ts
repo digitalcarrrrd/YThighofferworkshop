@@ -37,7 +37,8 @@ export async function POST(request: Request) {
   const paymentMethod = clean(input.paymentMethod, 80);
   const payableAmount = clean(input.payableAmount, 50);
   const coupon = clean(input.coupon, 50);
-  const screenshotStatus = clean(input.screenshot, 100) || "Attached via Portal / WhatsApp";
+  const screenshotRaw = typeof input.screenshot === "string" ? input.screenshot : "";
+  const screenshotFilename = clean(input.screenshotFilename, 100) || "receipt.png";
 
   if (
     name.length < 2 ||
@@ -49,6 +50,24 @@ export async function POST(request: Request) {
 
   const normalizedPhone = normalizePakPhone(phone);
   const portalUrl = `/portal?name=${encodeURIComponent(name)}&email=${encodeURIComponent(email)}&phone=${encodeURIComponent(phone)}&plan=${encodeURIComponent(requestedOffer)}`;
+
+  // Process screenshot if provided
+  let receiptUrl = "";
+  if (screenshotRaw && screenshotRaw.startsWith("data:")) {
+    try {
+      const receiptRes = await fetch("https://www.abrarnadir.com/api/receipt", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ base64: screenshotRaw, filename: screenshotFilename }),
+      });
+      const receiptData = await receiptRes.json();
+      if (receiptData?.receiptUrl) {
+        receiptUrl = receiptData.receiptUrl;
+      }
+    } catch (e) {
+      console.warn("Receipt save note:", e);
+    }
+  }
 
   const token = process.env.GHL_PRIVATE_INTEGRATION_TOKEN;
   const locationId = process.env.GHL_LOCATION_ID;
@@ -91,6 +110,7 @@ export async function POST(request: Request) {
             ...(requestedOffer ? [{ key: "requested_offer", field_value: requestedOffer }] : []),
             ...(paymentMethod ? [{ key: "payment_method", field_value: paymentMethod }] : []),
             ...(age ? [{ key: "age", field_value: age }] : []),
+            ...(receiptUrl ? [{ key: "payment_receipt_url", field_value: receiptUrl }] : []),
             { key: "portal_access_url", field_value: `https://www.abrarnadir.com${portalUrl}` },
           ],
         }),
@@ -99,9 +119,9 @@ export async function POST(request: Request) {
       const contactData = await ghlRes.json();
       contactId = contactData?.contact?.id;
 
-      // 2. Add Detailed Note to Contact
+      // 2. Add Detailed Note with Screenshot Link to Contact
       if (contactId) {
-        const noteBody = `📝 YT EMPIRE BUILDERS PAYMENT ENROLLMENT:\n• Name: ${name}\n• Phone: ${normalizedPhone}\n• Email: ${email || "Not entered"}\n• City: ${city || "N/A"} | Age: ${age || "N/A"}\n• Plan Selected: ${requestedOffer || "Pay in Full"}\n• Amount: PKR ${payableAmount || "30,000"}\n• Payment Method: ${paymentMethod || "Meezan Bank"}\n• Payment Proof Status: ${screenshotStatus}\n• Portal Dashboard Link: https://www.abrarnadir.com${portalUrl}`;
+        const noteBody = `📝 YT EMPIRE BUILDERS ENROLLMENT & PAYMENT PROOF:\n• Student Name: ${name}\n• WhatsApp: ${normalizedPhone}\n• Email: ${email || "Not entered"}\n• City: ${city || "N/A"} | Age: ${age || "N/A"}\n• Enrolled Plan: ${requestedOffer || "Pay in Full"}\n• Amount Payable: PKR ${payableAmount || "30,000"}\n• Payment Method: ${paymentMethod || "Meezan Bank"}\n• Payment Screenshot Link: ${receiptUrl || "Sent via WhatsApp (+92 329 6158206)"}\n• Student Portal Dashboard: https://www.abrarnadir.com${portalUrl}`;
 
         await fetch(`https://services.leadconnectorhq.com/contacts/${contactId}/notes`, {
           method: "POST",
@@ -116,7 +136,7 @@ export async function POST(request: Request) {
           }),
         }).catch((err) => console.warn("Contact note creation note:", err));
 
-        // 3. Create Opportunity in Academy LMS Pipeline
+        // 3. Create Opportunity in Academy LMS / YT Empire Builders Pipeline
         const pipelineId = process.env.GHL_ACADEMY_PIPELINE_ID || process.env.GHL_PIPELINE_ID;
         const stageId = process.env.GHL_ACADEMY_STAGE_ID || process.env.GHL_PIPELINE_STAGE_ID;
 
@@ -133,7 +153,7 @@ export async function POST(request: Request) {
               pipelineId,
               locationId,
               contactId,
-              name: `${name} — ${requestedOffer ? requestedOffer.split("(")[0].trim() : "YTEB VIP"} (PKR ${payableAmount || "30,000"})`,
+              name: `${name} — YT Empire Builders (${payableAmount ? `PKR ${payableAmount}` : "PKR 30,000"})`,
               stageId,
               status: "open",
               monetaryValue: payableAmount ? Number(payableAmount.replace(/\D/g, "")) : 30000,
@@ -159,7 +179,7 @@ export async function POST(request: Request) {
       lead_type: leadType,
       requested_offer: requestedOffer,
       payment_method: paymentMethod,
-      payment_screenshot_status: screenshotStatus,
+      payment_screenshot_url: receiptUrl || "Attached in Portal / WhatsApp",
       payable_amount: payableAmount,
       coupon,
       portal_access_url: `https://www.abrarnadir.com${portalUrl}`,
@@ -187,5 +207,5 @@ export async function POST(request: Request) {
     }
   }
 
-  return NextResponse.json({ ok: true, portalUrl, contactId });
+  return NextResponse.json({ ok: true, portalUrl, receiptUrl, contactId });
 }
