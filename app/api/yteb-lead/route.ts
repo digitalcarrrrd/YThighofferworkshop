@@ -1,4 +1,5 @@
 import { NextResponse } from "next/server";
+import { storeReceipt } from "../receipt/route";
 
 const allowedLeadTypes = new Set(["community-payment", "custom-price"]);
 
@@ -51,21 +52,13 @@ export async function POST(request: Request) {
   const normalizedPhone = normalizePakPhone(phone);
   const portalUrl = `/portal?name=${encodeURIComponent(name)}&email=${encodeURIComponent(email)}&phone=${encodeURIComponent(phone)}&plan=${encodeURIComponent(requestedOffer)}`;
 
-  // Process screenshot if provided
+  // Process screenshot directly via storeReceipt
   let receiptUrl = "";
   if (screenshotRaw && screenshotRaw.startsWith("data:")) {
     try {
-      const receiptRes = await fetch("https://www.abrarnadir.com/api/receipt", {
-        method: "POST",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({ base64: screenshotRaw, filename: screenshotFilename }),
-      });
-      const receiptData = await receiptRes.json();
-      if (receiptData?.receiptUrl) {
-        receiptUrl = receiptData.receiptUrl;
-      }
+      receiptUrl = storeReceipt(screenshotRaw, screenshotFilename);
     } catch (e) {
-      console.warn("Receipt save note:", e);
+      console.warn("Receipt store note:", e);
     }
   }
 
@@ -121,7 +114,7 @@ export async function POST(request: Request) {
       const contactData = await ghlRes.json();
       contactId = contactData?.contact?.id;
 
-      // 2. Add Detailed Note with Screenshot Link to Contact
+      // 2. Add Detailed Note with Clickable Screenshot Link to Contact
       if (contactId) {
         const noteBody = `📝 YT EMPIRE BUILDERS ENROLLMENT & PAYMENT PROOF:\n• Student Name: ${name}\n• WhatsApp: ${normalizedPhone}\n• Email: ${email || "Not entered"}\n• City: ${city || "N/A"} | Age: ${age || "N/A"}\n• Enrolled Plan: ${requestedOffer || "Pay in Full"}\n• Amount Payable: PKR ${payableAmount || "30,000"}\n• Payment Method: ${paymentMethod || "Meezan Bank"}\n• Payment Screenshot Link: ${receiptUrl || "Sent via WhatsApp (+92 329 6158206)"}\n• Student Portal Dashboard: https://www.abrarnadir.com${portalUrl}`;
 
@@ -138,7 +131,7 @@ export async function POST(request: Request) {
           }),
         }).catch((err) => console.warn("Contact note creation note:", err));
 
-        // 3. Create Opportunity in YT Empire Builders Pipeline (Guaranteed IDs)
+        // 3. Create Opportunity in YT Empire Builders Pipeline
         const pipelineId = process.env.GHL_ACADEMY_PIPELINE_ID || "CZYMTQUzq7a6faEIKdtZ";
         const stageId = process.env.GHL_ACADEMY_STAGE_FORM_FILL || process.env.GHL_ACADEMY_STAGE_ID || "e6ed9068-7d5e-49ff-ba46-5b9072545fd1";
         const numericValue = payableAmount ? Number(String(payableAmount).replace(/[^\d]/g, "")) || 30000 : 30000;
