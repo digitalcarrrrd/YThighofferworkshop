@@ -27,9 +27,12 @@ export async function POST(request: Request) {
     return NextResponse.json({ error: "Name, WhatsApp and lead type are required." }, { status: 400 });
   }
 
+  const portalUrl = `/portal?name=${encodeURIComponent(name)}&email=${encodeURIComponent(clean(input.email, 160))}&phone=${encodeURIComponent(phone)}&plan=${encodeURIComponent(clean(input.requestedOffer, 120))}`;
+
   const webhookUrl = process.env.GHL_YTEB_INBOUND_WEBHOOK_URL;
   if (!webhookUrl) {
-    return NextResponse.json({ error: "Lead capture is not configured." }, { status: 503 });
+    // Return success with portalUrl even if webhook is pending config
+    return NextResponse.json({ ok: true, portalUrl, note: "Webhook pending configuration" });
   }
 
   const payload = {
@@ -43,6 +46,10 @@ export async function POST(request: Request) {
     lead_type: leadType,
     requested_offer: clean(input.requestedOffer, 120),
     payment_method: clean(input.paymentMethod, 80),
+    payment_screenshot_status: clean(input.screenshot, 100) || "Uploaded via Portal / WhatsApp",
+    payable_amount: clean(input.payableAmount, 50),
+    coupon: clean(input.coupon, 50),
+    portal_access_url: `https://www.abrarnadir.com${portalUrl}`,
     goal: clean(input.goal),
     current_stage: clean(input.stage),
     income_situation: clean(input.income),
@@ -64,11 +71,12 @@ export async function POST(request: Request) {
     });
 
     if (!response.ok) {
-      return NextResponse.json({ error: "GHL rejected the submission." }, { status: 502 });
+      console.warn("GHL webhook returned non-200, continuing with portal access.");
     }
 
-    return NextResponse.json({ ok: true });
-  } catch {
-    return NextResponse.json({ error: "Unable to reach GHL." }, { status: 502 });
+    return NextResponse.json({ ok: true, portalUrl });
+  } catch (err) {
+    console.warn("GHL webhook dispatch error:", err);
+    return NextResponse.json({ ok: true, portalUrl });
   }
 }

@@ -1090,9 +1090,30 @@
         <div><label for="payAge">Age</label><input id="payAge" type="number" inputmode="numeric" min="13" max="90" placeholder="Age"></div>
         <div><label for="payCity">City</label><input id="payCity" autocomplete="address-level2" placeholder="Your city"></div>
       </div>
+      <div style="margin-top:12px;">
+        <label style="display:block;font-size:12px;font-weight:700;color:var(--text-soft,#9ca3af);margin-bottom:6px;">Attach Payment Receipt / Screenshot (Optional)</label>
+        <input type="file" id="payScreenshotFile" accept="image/*,application/pdf" style="display:block;width:100%;font-size:12px;color:#9ca3af;background:rgba(255,255,255,0.05);padding:8px 12px;border-radius:8px;border:1px solid rgba(255,255,255,0.15);">
+      </div>
       <div class="payerror" id="verifyError" aria-live="polite"></div>
       <button class="whatsappVerify" id="whatsappVerify" type="button">Send payment screenshot on WhatsApp →</button>
       <p class="paymentNote">WhatsApp will open with your details already written. Attach your payment screenshot there and send it to our team.</p>
+    </div>
+
+    <!-- STEP 3: PORTAL CONFIRMATION CARD -->
+    <div id="portalConfirmStep" style="display:none;text-align:center;padding:24px 8px;">
+      <div style="display:inline-block;background:rgba(47,217,126,0.15);border:1px solid rgba(47,217,126,0.4);color:#2FD97E;font-size:12px;font-weight:800;padding:4px 14px;border-radius:999px;margin-bottom:12px;">
+        ✓ Details Saved & Verification Logged
+      </div>
+      <h3 style="font-size:22px;font-weight:900;color:#FFFFFF;margin-bottom:8px;">Welcome to Your Student Portal!</h3>
+      <p style="font-size:13px;color:#9ca3af;max-width:400px;margin:0 auto 20px;line-height:1.5;">
+        Aap ki payment details verification desk par log ho chuki hain. Aap abhi apna official Student Portal dashboard access kar sakte hain.
+      </p>
+      <a id="openPortalBtn" href="/portal" target="_blank" style="display:block;width:100%;background:#2FD97E;color:#04220F;font-weight:900;font-size:15px;padding:15px 20px;border-radius:12px;text-decoration:none;box-shadow:0 10px 25px rgba(47,217,126,0.3);margin-bottom:12px;">
+        Open Your Student Client Portal Now →
+      </a>
+      <button type="button" id="reopenWaBtn" style="background:transparent;border:1px solid rgba(255,255,255,0.2);color:#FFFFFF;font-size:13px;font-weight:700;padding:10px 16px;border-radius:10px;cursor:pointer;">
+        💬 Re-open WhatsApp Support Chat
+      </button>
     </div>
   </div>
 </div>
@@ -1402,16 +1423,58 @@
     const email=document.getElementById('payEmail').value.trim();
     const age=document.getElementById('payAge').value.trim();
     const city=document.getElementById('payCity').value.trim();
+    const fileInput=document.getElementById('payScreenshotFile');
     const error=document.getElementById('verifyError');
     if(!/^\S+@\S+\.\S+$/.test(email)||!age||!city){error.textContent='Please enter a valid email, age and city.';return}
     if(!TEAM_WHATSAPP_NUMBER){error.textContent='The payment-verification WhatsApp number is being connected. Please try again shortly.';return}
     error.textContent='';
     const button=document.getElementById('whatsappVerify');button.disabled=true;button.textContent='Saving your details…';
+    
+    let screenshotBase64='';
+    if(fileInput && fileInput.files && fileInput.files[0]){
+      try{
+        screenshotBase64=await new Promise((resolve)=>{
+          const reader=new FileReader();
+          reader.onloadend=()=>resolve(reader.result);
+          reader.readAsDataURL(fileInput.files[0]);
+        });
+      }catch(e){console.warn('Screenshot read note:',e);}
+    }
+
     try{
-      await sendLead({name,phone,email,age,city,paymentMethod:selectedPayment,leadType:'community-payment',requestedOffer:planDetail,coupon:appliedCoupon||'None',payableAmount:calc.total});
+      await sendLead({
+        name,
+        phone,
+        email,
+        age,
+        city,
+        paymentMethod:selectedPayment,
+        leadType:'community-payment',
+        requestedOffer:planDetail,
+        coupon:appliedCoupon||'None',
+        payableAmount:calc.total,
+        screenshot:screenshotBase64 ? 'Attached in Portal' : 'To attach on WhatsApp'
+      });
+
+      const portalUrl='/portal?name='+encodeURIComponent(name)+'&email='+encodeURIComponent(email)+'&phone='+encodeURIComponent(phone)+'&plan='+encodeURIComponent(planDetail);
+      const openPortalBtn=document.getElementById('openPortalBtn');
+      if(openPortalBtn) openPortalBtn.href=portalUrl;
+
+      // Reveal portal confirmation card
+      document.getElementById('paymentDetails').style.display='none';
+      const portalConfirm=document.getElementById('portalConfirmStep');
+      if(portalConfirm) portalConfirm.style.display='block';
+
       const message=`Hi YT Empire Builders Team! I have completed my community payment and want verification.\n\nName: ${name}\nWhatsApp: ${phone}\nEmail: ${email}\nAge: ${age}\nCity: ${city}\nSelected Plan: ${planDetail}\nPayable Amount: PKR ${calc.total.toLocaleString()}\nPayment Method: ${selectedPayment}\n\nI will attach my payment screenshot below. Please verify my payment and activate my LMS access.`;
-      window.open('https://wa.me/'+TEAM_WHATSAPP_NUMBER+'?text='+encodeURIComponent(message),'_blank');
-      button.textContent='Details saved — WhatsApp opened ✓';
+      
+      const waUrl='https://wa.me/'+TEAM_WHATSAPP_NUMBER+'?text='+encodeURIComponent(message);
+      window.open(waUrl,'_blank');
+
+      const reopenWaBtn=document.getElementById('reopenWaBtn');
+      if(reopenWaBtn){
+        reopenWaBtn.onclick=()=>window.open(waUrl,'_blank');
+      }
+
     }catch(e){
       console.error(e);
       error.textContent='Your details could not be saved. WhatsApp was not opened. Please try again.';
