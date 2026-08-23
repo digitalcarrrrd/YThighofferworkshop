@@ -84,6 +84,7 @@ export async function POST(request: Request) {
   ];
 
   let contactId = null;
+  let opportunityId = null;
 
   // 1. Direct GHL Contact Upsert via API
   if (token && locationId) {
@@ -104,6 +105,7 @@ export async function POST(request: Request) {
           phone: normalizedPhone,
           ...(email ? { email } : {}),
           ...(city ? { city } : {}),
+          companyName: "YT Empire Builders",
           source: "Landing Page: /ytempirebuilder",
           tags,
           customFields: [
@@ -136,30 +138,32 @@ export async function POST(request: Request) {
           }),
         }).catch((err) => console.warn("Contact note creation note:", err));
 
-        // 3. Create Opportunity in Academy LMS / YT Empire Builders Pipeline
-        const pipelineId = process.env.GHL_ACADEMY_PIPELINE_ID || process.env.GHL_PIPELINE_ID;
-        const stageId = process.env.GHL_ACADEMY_STAGE_ID || process.env.GHL_PIPELINE_STAGE_ID;
+        // 3. Create Opportunity in YT Empire Builders Pipeline (Guaranteed IDs)
+        const pipelineId = process.env.GHL_ACADEMY_PIPELINE_ID || "CZYMTQUzq7a6faEIKdtZ";
+        const stageId = process.env.GHL_ACADEMY_STAGE_FORM_FILL || process.env.GHL_ACADEMY_STAGE_ID || "e6ed9068-7d5e-49ff-ba46-5b9072545fd1";
+        const numericValue = payableAmount ? Number(String(payableAmount).replace(/[^\d]/g, "")) || 30000 : 30000;
 
-        if (pipelineId && stageId) {
-          await fetch("https://services.leadconnectorhq.com/opportunities", {
-            method: "POST",
-            headers: {
-              Authorization: `Bearer ${token}`,
-              Version: "2021-07-28",
-              "Content-Type": "application/json",
-              Accept: "application/json",
-            },
-            body: JSON.stringify({
-              pipelineId,
-              locationId,
-              contactId,
-              name: `${name} — YT Empire Builders (${payableAmount ? `PKR ${payableAmount}` : "PKR 30,000"})`,
-              stageId,
-              status: "open",
-              monetaryValue: payableAmount ? Number(payableAmount.replace(/\D/g, "")) : 30000,
-            }),
-          }).catch((err) => console.warn("YTEB Opportunity creation note:", err));
-        }
+        const oppRes = await fetch("https://services.leadconnectorhq.com/opportunities", {
+          method: "POST",
+          headers: {
+            Authorization: `Bearer ${token}`,
+            Version: "2021-07-28",
+            "Content-Type": "application/json",
+            Accept: "application/json",
+          },
+          body: JSON.stringify({
+            pipelineId,
+            locationId,
+            contactId,
+            name: `${name} — YT Empire Builders (PKR ${numericValue.toLocaleString()})`,
+            stageId,
+            status: "open",
+            monetaryValue: numericValue,
+          }),
+        });
+
+        const oppData = await oppRes.json();
+        opportunityId = oppData?.opportunity?.id || oppData?.id || null;
       }
     } catch (apiErr) {
       console.warn("GHL API Direct Upsert note:", apiErr);
@@ -207,5 +211,5 @@ export async function POST(request: Request) {
     }
   }
 
-  return NextResponse.json({ ok: true, portalUrl, receiptUrl, contactId });
+  return NextResponse.json({ ok: true, portalUrl, receiptUrl, contactId, opportunityId });
 }

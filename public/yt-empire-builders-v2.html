@@ -1468,7 +1468,7 @@
       const portalConfirm=document.getElementById('portalConfirmStep');
       if(portalConfirm) portalConfirm.style.display='block';
 
-      const message=`Hi YT Empire Builders Team & Verification Manager! I have completed my community payment for YT Empire Builders.\n\n• Name: ${name}\n• WhatsApp: ${phone}\n• Email: ${email}\n• City: ${city}\n• Enrolled Plan: ${planDetail}\n• Payable Amount: PKR ${calc.total.toLocaleString()}\n• Payment Method: ${selectedPayment}\n\nI have attached my payment receipt screenshot below. Please verify my payment, confirm my enrollment in the LMS, and share the VIP Community Group link. Shukriya! 😊`;
+      const message=`Salam Abrar Bhai! Main ne YT Empire Builders ke liye payment transfer kar di hai.\n\n• Name: ${name}\n• WhatsApp: ${phone}\n• Email: ${email}\n• City: ${city}\n• Enrolled Plan: ${planDetail}\n• Amount Paid: PKR ${calc.total.toLocaleString()}\n• Payment Method: ${selectedPayment}\n\nMain ne payment receipt ka screenshot neechay attach kar diya hai. Please verify karke mera LMS access aur private VIP community group activate kar dein. Shukriya! 😊`;
       
       const waUrl='https://wa.me/'+TEAM_WHATSAPP_NUMBER+'?text='+encodeURIComponent(message);
       window.open(waUrl,'_blank');
