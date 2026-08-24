@@ -61,7 +61,7 @@ export function WorkshopRegistrationForm({
 
   const whatsappUrl = useMemo(() => {
     const attribution = getStoredUtmAttribution();
-    const number = process.env.NEXT_PUBLIC_WHATSAPP_NUMBER || "923213823702";
+    const number = process.env.NEXT_PUBLIC_WHATSAPP_NUMBER || "15553693691";
     const campaign = attribution.utm_campaign || "direct";
     const message = `Assalamualaikum. I registered for ${offerName}.\nName: ${fullName}\nWhatsApp: ${phone}\nCampaign: ${campaign}\nReference: ${eventId || "pending"}`;
     return `https://wa.me/${number.replace(/\D/g, "")}?text=${encodeURIComponent(message)}`;
