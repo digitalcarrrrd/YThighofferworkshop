@@ -12,11 +12,9 @@ export default function FinalUrgency() {
   };
 
   const handleWhatsApp = () => {
-    const message = encodeURIComponent(
-      `Assalam o Alaikum! 🙏\nMujhe YouTube AI Workshop ki seat abhi book karni hai! ✅\nPayment ready hai.`
-    );
-    const number = process.env.NEXT_PUBLIC_WHATSAPP_NUMBER || '923213823702';
-    window.open(`https://wa.me/${number.replace(/\D/g, '')}?text=${message}`, '_blank');
+    const number = '15553693691';
+    const message = encodeURIComponent('Salam Abrar Bhai! Main YouTube Empire Builders Live Workshop mein register hona chahta hoon.');
+    window.open(`https://wa.me/${number}?text=${message}`, '_blank');
   };
 
   return (
