@@ -1,5 +1,5 @@
 import { NextResponse } from "next/server";
-import { storeReceipt } from "../receipt/route";
+import { storeReceiptAsync } from "../receipt/route";
 import { ghlClient } from "@/lib/ghlClient";
 
 const allowedLeadTypes = new Set(["community-payment", "custom-price"]);
@@ -49,11 +49,11 @@ export async function POST(request: Request) {
   const normalizedPhone = normalizePakPhone(phone);
   const lmsUrl = "https://lms.abrarnadir.com";
 
-  // Process screenshot directly via storeReceipt
+  // Process screenshot directly via storeReceiptAsync (Permanent CDN Image)
   let receiptUrl = "";
   if (screenshotRaw && screenshotRaw.startsWith("data:")) {
     try {
-      receiptUrl = storeReceipt(screenshotRaw, screenshotFilename);
+      receiptUrl = await storeReceiptAsync(screenshotRaw, screenshotFilename);
     } catch (e) {
       console.warn("Receipt store note:", e);
     }

@@ -15,16 +15,56 @@ function ensureDir() {
   }
 }
 
-// Global in-memory map as supplementary buffer
 const memoryStore = new Map<string, { base64: string; mimeType: string; filename: string }>();
+
+export async function storeReceiptAsync(base64: string, filename?: string): Promise<string> {
+  ensureDir();
+  const cleanId = `rec_${Date.now()}_${Math.random().toString(36).slice(2, 7)}`;
+  const mimeMatch = base64.match(/^data:(image\/[a-zA-Z+]+|application\/pdf);base64,/);
+  const mimeType = mimeMatch ? mimeMatch[1] : "image/jpeg";
+  const ext = mimeType.includes("pdf") ? "pdf" : mimeType.includes("png") ? "png" : "jpg";
+
+  const rawData = base64.replace(/^data:[^;]+;base64,/, "");
+
+  // 1. Save to local temp buffer
+  try {
+    const filePath = path.join(TEMP_DIR, `${cleanId}.${ext}`);
+    fs.writeFileSync(filePath, Buffer.from(rawData, "base64"));
+  } catch (e) {
+    console.warn("File write note:", e);
+  }
+
+  memoryStore.set(cleanId, {
+    base64: rawData,
+    mimeType,
+    filename: filename || `receipt_${cleanId}.${ext}`,
+  });
+
+  // 2. Try upload to Free Permanent Image CDN (ImgBB)
+  try {
+    const formData = new FormData();
+    formData.append("image", rawData);
+    const imgbbRes = await fetch("https://api.imgbb.com/1/upload?key=8e68407f1543be8e5616f73315a6bfa9", {
+      method: "POST",
+      body: formData,
+    });
+    const imgbbData = await imgbbRes.json();
+    if (imgbbData?.data?.url) {
+      return imgbbData.data.url;
+    }
+  } catch (cdnErr) {
+    console.warn("CDN upload fallback:", cdnErr);
+  }
+
+  return `https://www.abrarnadir.com/api/receipt?id=${cleanId}&ext=${ext}`;
+}
 
 export function storeReceipt(base64: string, filename?: string): string {
   ensureDir();
   const cleanId = `rec_${Date.now()}_${Math.random().toString(36).slice(2, 7)}`;
   const mimeMatch = base64.match(/^data:(image\/[a-zA-Z+]+|application\/pdf);base64,/);
-  const mimeType = mimeMatch ? mimeMatch[1] : "image/png";
-  const ext = mimeType.includes("pdf") ? "pdf" : mimeType.includes("jpeg") || mimeType.includes("jpg") ? "jpg" : "png";
-
+  const mimeType = mimeMatch ? mimeMatch[1] : "image/jpeg";
+  const ext = mimeType.includes("pdf") ? "pdf" : mimeType.includes("png") ? "png" : "jpg";
   const rawData = base64.replace(/^data:[^;]+;base64,/, "");
 
   try {
@@ -37,7 +77,7 @@ export function storeReceipt(base64: string, filename?: string): string {
   memoryStore.set(cleanId, {
     base64: rawData,
     mimeType,
-    filename: filename || `payment_screenshot.${ext}`,
+    filename: filename || `receipt_${cleanId}.${ext}`,
   });
 
   return `https://www.abrarnadir.com/api/receipt?id=${cleanId}&ext=${ext}`;
@@ -52,12 +92,10 @@ export async function POST(req: NextRequest) {
       return NextResponse.json({ success: false, error: "Missing image data" }, { status: 400 });
     }
 
-    const receiptUrl = storeReceipt(base64, filename);
-    const id = new URL(receiptUrl).searchParams.get("id");
+    const receiptUrl = await storeReceiptAsync(base64, filename);
 
     return NextResponse.json({
       success: true,
-      id,
       receiptUrl,
     });
   } catch (err) {
@@ -68,7 +106,7 @@ export async function POST(req: NextRequest) {
 export async function GET(req: NextRequest) {
   const { searchParams } = new URL(req.url);
   const id = searchParams.get("id");
-  const ext = searchParams.get("ext") || "png";
+  const ext = searchParams.get("ext") || "jpg";
 
   if (!id) {
     return new NextResponse("Receipt ID is required.", { status: 400 });
@@ -76,7 +114,7 @@ export async function GET(req: NextRequest) {
 
   ensureDir();
   const filePath = path.join(TEMP_DIR, `${id}.${ext}`);
-  const mimeType = ext === "pdf" ? "application/pdf" : ext === "jpg" || ext === "jpeg" ? "image/jpeg" : "image/png";
+  const mimeType = ext === "pdf" ? "application/pdf" : ext === "png" ? "image/png" : "image/jpeg";
 
   // Check file on disk
   if (fs.existsSync(filePath)) {
@@ -121,7 +159,7 @@ export async function GET(req: NextRequest) {
         .badge { display: inline-block; background: rgba(47,217,126,0.15); color: #2FD97E; font-size: 11px; font-weight: 800; padding: 4px 12px; border-radius: 999px; text-transform: uppercase; margin-bottom: 16px; border: 1px solid rgba(47,217,126,0.3); }
         h2 { font-size: 20px; font-weight: 900; margin: 0 0 10px; color: #FFFFFF; }
         p { font-size: 13px; color: #94A3B8; line-height: 1.6; margin: 0 0 24px; }
-        .btn { display: inline-block; background: #25D366; color: #FFFFFF; font-weight: 800; font-size: 14px; padding: 12px 24px; border-radius: 12px; text-decoration: none; transition: transform 0.2s; }
+        .btn { display: inline-block; background: #25D366; color: #FFFFFF; font-weight: 800; font-size: 14px; padding: 12px 24px; border-radius: 12px; text-decoration: none; }
       </style>
     </head>
     <body>
