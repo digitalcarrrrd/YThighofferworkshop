@@ -16,7 +16,7 @@ export const metadata: Metadata = {
 export default function RootLayout({ children }: Readonly<{ children: React.ReactNode }>) {
   const ga = process.env.NEXT_PUBLIC_GA4_ID;
   const gtm = process.env.NEXT_PUBLIC_GTM_ID;
-  const pixel = process.env.NEXT_PUBLIC_META_PIXEL_ID;
+  const pixel = process.env.NEXT_PUBLIC_META_PIXEL_ID || "2119671455279740";
   return (
     <html lang="en">
       <head>
