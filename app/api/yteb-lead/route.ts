@@ -32,8 +32,8 @@ export async function POST(request: Request) {
   const name = clean(input.name, 100);
   const phone = clean(input.phone, 40);
   const email = clean(input.email, 160);
-  const leadType = clean(input.leadType, 40);
-  const age = clean(input.age, 3);
+  const leadType = clean(input.leadType, 40) || "community-payment";
+  const age = clean(input.age, 10);
   const city = clean(input.city, 100);
   const requestedOffer = clean(input.requestedOffer, 120);
   const paymentMethod = clean(input.paymentMethod, 80);
@@ -42,12 +42,8 @@ export async function POST(request: Request) {
   const screenshotRaw = typeof input.screenshot === "string" ? input.screenshot : "";
   const screenshotFilename = clean(input.screenshotFilename, 100) || "receipt.png";
 
-  if (
-    name.length < 2 ||
-    phone.replace(/\D/g, "").length < 10 ||
-    !allowedLeadTypes.has(leadType)
-  ) {
-    return NextResponse.json({ error: "Name, WhatsApp and lead type are required." }, { status: 400 });
+  if (name.length < 2 || phone.replace(/\D/g, "").length < 10) {
+    return NextResponse.json({ error: "Name and WhatsApp number are required." }, { status: 400 });
   }
 
   const normalizedPhone = normalizePakPhone(phone);
@@ -68,10 +64,12 @@ export async function POST(request: Request) {
     "yteb-academy",
     "lead:yt-empire-builders",
     "community-payment",
-    "portal-active",
     "payment-verification-pending",
     "whatsapp-consent",
   ];
+
+  if (city) tags.push(`city:${city.toLowerCase().replace(/[^a-z0-9]/g, "-")}`);
+  if (paymentMethod) tags.push(`pay:${paymentMethod.toLowerCase().replace(/[^a-z0-9]/g, "-")}`);
 
   let contactId = null;
   let opportunityId = null;
@@ -86,16 +84,9 @@ export async function POST(request: Request) {
         email: email || `${normalizedPhone.replace(/[^\d]/g, "")}@whatsapp.user`,
         companyName: "YT Empire Builders",
         tags,
-        customFields: [
-          ...(requestedOffer ? [{ key: "requested_offer", field_value: requestedOffer }] : []),
-          ...(paymentMethod ? [{ key: "payment_method", field_value: paymentMethod }] : []),
-          ...(age ? [{ key: "age", field_value: age }] : []),
-          ...(receiptUrl ? [{ key: "payment_receipt_url", field_value: receiptUrl }] : []),
-          { key: "portal_access_url", field_value: lmsUrl },
-        ],
       });
 
-      contactId = contactResult?.contact?.id || null;
+      contactId = contactResult?.contact?.id || contactResult?.id || null;
 
       // 2. Add Detailed Note with Clickable Screenshot Link to Contact
       if (contactId) {
@@ -152,7 +143,7 @@ export async function POST(request: Request) {
             email,
             "🎉 Welcome to YT Empire Builders — Your LMS Access",
             emailHtml
-          );
+          ).catch((e) => console.warn("Email dispatch note:", e));
         }
       }
     } catch (apiErr) {
