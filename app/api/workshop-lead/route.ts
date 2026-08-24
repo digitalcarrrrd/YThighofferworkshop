@@ -1,39 +1,24 @@
 import { NextRequest, NextResponse } from "next/server";
 import { getOfferById } from "@/lib/offers/offers";
+import { ghlClient } from "@/lib/ghlClient";
 
 const emailPattern = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
-const pakistanPhonePattern = /^\+923\d{9}$/;
-const ageRanges = new Set(["Under 18", "18–24", "25–34", "35–44", "45+"]);
-const attributionKeys = ["utm_source", "utm_medium", "utm_campaign", "utm_content", "utm_term", "fbclid"] as const;
 const attempts = new Map<string, { count: number; resetAt: number }>();
 
 function clean(value: unknown, max = 200) {
   return typeof value === "string" ? value.trim().slice(0, max) : "";
 }
 
-function field(environmentName: string, value: string) {
-  const id = process.env[environmentName];
-  return id && value ? [{ id, field_value: value }] : [];
-}
-
-async function ghl(path: string, init: RequestInit = {}) {
-  const token = process.env.GHL_PRIVATE_INTEGRATION_TOKEN;
-  const response = await fetch(`https://services.leadconnectorhq.com${path}`, {
-    ...init,
-    headers: {
-      Authorization: `Bearer ${token}`,
-      Version: "2021-07-28",
-      Accept: "application/json",
-      ...(init.body ? { "Content-Type": "application/json" } : {}),
-      ...init.headers,
-    },
-    cache: "no-store",
-  });
-  if (!response.ok) {
-    console.error("GHL request failed", { path, status: response.status });
-    throw new Error("CRM request failed");
+function normalizePakistanPhone(phone: string) {
+  let cleaned = phone.replace(/[^\d+]/g, "");
+  if (cleaned.startsWith("03")) {
+    cleaned = "+92" + cleaned.slice(1);
+  } else if (cleaned.startsWith("3") && cleaned.length === 10) {
+    cleaned = "+92" + cleaned;
+  } else if (cleaned.startsWith("923")) {
+    cleaned = "+" + cleaned;
   }
-  return response.json();
+  return cleaned;
 }
 
 export async function POST(request: NextRequest) {
@@ -41,71 +26,85 @@ export async function POST(request: NextRequest) {
     const ip = request.headers.get("x-forwarded-for")?.split(",")[0]?.trim() || "local";
     const now = Date.now();
     const hit = attempts.get(ip);
-    if (hit && hit.resetAt > now && hit.count >= 8) return NextResponse.json({ error: "Too many attempts. Please try again later." }, { status: 429 });
+    if (hit && hit.resetAt > now && hit.count >= 15) {
+      return NextResponse.json({ error: "Too many attempts. Please try again later." }, { status: 429 });
+    }
     attempts.set(ip, { count: hit && hit.resetAt > now ? hit.count + 1 : 1, resetAt: now + 900_000 });
 
     const input = (await request.json()) as Record<string, unknown>;
-    const offer = getOfferById(clean(input.offerId, 80));
+    const offerIdOrSlug = clean(input.offerId, 80);
+    const offer = getOfferById(offerIdOrSlug);
+
     const fullName = clean(input.fullName, 120);
-    const phone = clean(input.phone, 20);
+    const phone = clean(input.phone, 30);
     const city = clean(input.city, 80);
     const ageRange = clean(input.ageRange, 20);
     const email = clean(input.email, 160);
-    const landingPage = clean(input.landingPage, 120);
-    const consent = input.consent === true;
+    const landingPage = clean(input.landingPage, 120) || "/workshops/yt1";
+    const utmSource = clean(input.utm_source, 100);
+    const utmCampaign = clean(input.utm_campaign, 100);
 
-    if (!offer || fullName.length < 2 || !pakistanPhonePattern.test(phone) || city.length < 2 || !ageRanges.has(ageRange) || (email && !emailPattern.test(email)) || !consent || landingPage !== `/workshops/${offer.slug}`) {
-      return NextResponse.json({ error: "Please check your registration details." }, { status: 400 });
+    const normalizedPhone = normalizePakistanPhone(phone);
+
+    if (fullName.length < 2 || normalizedPhone.replace(/\D/g, "").length < 10) {
+      return NextResponse.json({ error: "Please enter your valid name and WhatsApp number." }, { status: 400 });
     }
 
-    const locationId = process.env.GHL_LOCATION_ID;
-    const pipelineId = process.env.GHL_LIVE_WORKSHOP_PIPELINE_ID;
-    const stageId = process.env.GHL_LIVE_WORKSHOP_PAYMENT_PENDING_STAGE_ID;
-    if (!locationId || !process.env.GHL_PRIVATE_INTEGRATION_TOKEN || !pipelineId || !stageId) {
-      return NextResponse.json({ error: "Registration service is not fully configured." }, { status: 503 });
-    }
+    const offerSlug = offer?.slug || "youtube-empire-builders-workshop";
+    const offerTitle = offer?.title || "YouTube Empire Builders Live Workshop";
+    const offerPrice = offer?.price || 1999;
 
-    const attribution = Object.fromEntries(attributionKeys.map((key) => [key, clean(input[key], 200)]));
-    const customFields = [
-      ...field("GHL_WORKSHOP_SLUG_FIELD_ID", offer.slug),
-      ...field("GHL_CITY_FIELD_ID", city),
-      ...field("GHL_AGE_RANGE_FIELD_ID", ageRange),
-      ...field("GHL_LANDING_PAGE_FIELD_ID", landingPage),
-      ...field("GHL_UTM_SOURCE_FIELD_ID", attribution.utm_source),
-      ...field("GHL_UTM_MEDIUM_FIELD_ID", attribution.utm_medium),
-      ...field("GHL_UTM_CAMPAIGN_FIELD_ID", attribution.utm_campaign),
-      ...field("GHL_UTM_CONTENT_FIELD_ID", attribution.utm_content),
-      ...field("GHL_UTM_TERM_FIELD_ID", attribution.utm_term),
-      ...field("GHL_FBCLID_FIELD_ID", attribution.fbclid),
+    const tags = [
+      "lead:workshop-registration",
+      `workshop:${offerSlug}`,
+      "whatsapp-consent",
+      "yt-workshop-lead",
     ];
+    if (city) tags.push(`city:${city.toLowerCase().replace(/[^a-z0-9]/g, "-")}`);
+    if (utmCampaign) tags.push(`ad:${utmCampaign.toLowerCase().replace(/[^a-z0-9]/g, "-")}`);
 
-    const contactData = await ghl("/contacts/upsert", {
-      method: "POST",
-      body: JSON.stringify({
-        locationId,
-        name: fullName,
-        phone,
-        ...(email ? { email } : {}),
-        source: `Landing Page: ${offer.slug}`,
-        tags: [offer.leadTag, "workshop-registration", "whatsapp-consent"],
-        customFields,
-      }),
-    });
-    const contactId = contactData?.contact?.id as string | undefined;
-    if (!contactId) throw new Error("CRM contact missing");
+    let contactId = null;
+    let opportunityId = null;
 
-    const search = await ghl(`/opportunities/search?location_id=${encodeURIComponent(locationId)}&contact_id=${encodeURIComponent(contactId)}&status=open`);
-    const opportunityName = `${fullName} – ${offer.slug}`;
-    const duplicate = search?.opportunities?.some((opportunity: { pipelineId?: string; name?: string; status?: string }) => opportunity.pipelineId === pipelineId && opportunity.status === "open" && opportunity.name?.toLowerCase() === opportunityName.toLowerCase());
+    if (ghlClient.isConfigured) {
+      try {
+        const contactResult = await ghlClient.upsertContact({
+          firstName: fullName.split(" ")[0] || fullName,
+          lastName: fullName.split(" ").slice(1).join(" ") || "",
+          phone: normalizedPhone,
+          email: email || `${normalizedPhone.replace(/[^\d]/g, "")}@whatsapp.user`,
+          companyName: "YT Empire Builders Workshop",
+          tags,
+        });
 
-    if (!duplicate) {
-      await ghl("/opportunities/", {
-        method: "POST",
-        body: JSON.stringify({ locationId, pipelineId, pipelineStageId: stageId, contactId, name: opportunityName, status: "open", source: offer.slug }),
-      });
+        contactId = contactResult?.contact?.id || contactResult?.id || null;
+
+        if (contactId) {
+          const noteBody = `📝 LIVE WORKSHOP REGISTRATION:\n• Attendee: ${fullName}\n• WhatsApp: ${normalizedPhone}\n• Email: ${email || "N/A"}\n• City: ${city || "N/A"} | Age: ${ageRange || "N/A"}\n• Workshop: ${offerTitle}\n• Fee: PKR ${offerPrice.toLocaleString()}\n• Landing Page: ${landingPage}\n• Ad Campaign: ${utmCampaign || utmSource || "Direct"}`;
+
+          await ghlClient.addNote(contactId, noteBody);
+
+          const pipelineId = process.env.GHL_LIVE_WORKSHOP_PIPELINE_ID || process.env.GHL_ACADEMY_PIPELINE_ID || "CZYMTQUzq7a6faEIKdtZ";
+          const stageId = process.env.GHL_LIVE_WORKSHOP_PAYMENT_PENDING_STAGE_ID || process.env.GHL_ACADEMY_STAGE_FORM_FILL || "e6ed9068-7d5e-49ff-ba46-5b9072545fd1";
+
+          const oppResult = await ghlClient.createOpportunity({
+            contactId,
+            name: `${fullName} — ${offerTitle} (PKR ${offerPrice.toLocaleString()})`,
+            pipelineId,
+            pipelineStageId: stageId,
+            status: "open",
+            monetaryValue: offerPrice,
+          });
+
+          opportunityId = oppResult?.opportunity?.id || oppResult?.id || null;
+        }
+      } catch (ghlErr) {
+        console.warn("GHL Workshop Lead submission warning:", ghlErr);
+      }
     }
 
-    return NextResponse.json({ ok: true, eventId: crypto.randomUUID(), duplicate: Boolean(duplicate) });
+    const eventId = crypto.randomUUID();
+    return NextResponse.json({ ok: true, eventId, contactId, opportunityId });
   } catch (error) {
     console.error("Workshop lead submission failed", error instanceof Error ? error.message : "unknown");
     return NextResponse.json({ error: "We could not save your registration. Please try again." }, { status: 502 });
