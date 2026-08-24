@@ -1414,6 +1414,7 @@
     
     let screenshotBase64='';
     let screenshotFilename='';
+    let directImageUrl='';
     if(fileInput && fileInput.files && fileInput.files[0]){
       const file = fileInput.files[0];
       screenshotFilename = file.name;
@@ -1442,6 +1443,21 @@
           reader.onerror = () => resolve('');
           reader.readAsDataURL(file);
         });
+
+        // Direct browser CDN upload
+        if (screenshotBase64) {
+          const rawB64 = screenshotBase64.replace(/^data:[^;]+;base64,/, '');
+          const fd = new FormData();
+          fd.append('image', rawB64);
+          const cdnRes = await fetch('https://api.imgbb.com/1/upload?key=8e68407f1543be8e5616f73315a6bfa9', {
+            method: 'POST',
+            body: fd
+          });
+          const cdnJson = await cdnRes.json();
+          if (cdnJson && cdnJson.data && cdnJson.data.url) {
+            directImageUrl = cdnJson.data.url;
+          }
+        }
       }catch(e){console.warn('Screenshot read note:',e);}
     }
 
@@ -1457,8 +1473,9 @@
         requestedOffer:planDetail,
         coupon:appliedCoupon||'None',
         payableAmount:calc.total,
-        screenshot:screenshotBase64 || '',
-        screenshotFilename:screenshotFilename || ''
+        screenshot:directImageUrl || screenshotBase64 || '',
+        screenshotFilename:screenshotFilename || '',
+        screenshotUrl:directImageUrl || ''
       });
 
       button.textContent='Details saved — Opening WhatsApp... ✓';

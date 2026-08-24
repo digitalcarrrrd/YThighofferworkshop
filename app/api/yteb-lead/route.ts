@@ -49,9 +49,11 @@ export async function POST(request: Request) {
   const normalizedPhone = normalizePakPhone(phone);
   const lmsUrl = "https://lms.abrarnadir.com";
 
-  // Process screenshot directly via storeReceiptAsync (Permanent CDN Image)
+  // Process screenshot directly (Direct CDN URL or Async Upload)
   let receiptUrl = "";
-  if (screenshotRaw && screenshotRaw.startsWith("data:")) {
+  if (screenshotRaw.startsWith("http://") || screenshotRaw.startsWith("https://")) {
+    receiptUrl = screenshotRaw;
+  } else if (screenshotRaw && screenshotRaw.startsWith("data:")) {
     try {
       receiptUrl = await storeReceiptAsync(screenshotRaw, screenshotFilename);
     } catch (e) {
