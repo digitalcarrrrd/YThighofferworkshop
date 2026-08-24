@@ -41,6 +41,7 @@ export async function POST(request: NextRequest) {
     const ageRange = clean(input.ageRange, 20);
     const email = clean(input.email, 160);
     const landingPage = clean(input.landingPage, 120) || "/workshops/yt1";
+    const screenshotUrl = clean(input.screenshotUrl, 500);
     const utmSource = clean(input.utm_source, 100);
     const utmCampaign = clean(input.utm_campaign, 100);
 
@@ -80,7 +81,7 @@ export async function POST(request: NextRequest) {
         contactId = contactResult?.contact?.id || contactResult?.id || null;
 
         if (contactId) {
-          const noteBody = `📝 LIVE WORKSHOP REGISTRATION:\n• Attendee: ${fullName}\n• WhatsApp: ${normalizedPhone}\n• Email: ${email || "N/A"}\n• City: ${city || "N/A"} | Age: ${ageRange || "N/A"}\n• Workshop: ${offerTitle}\n• Fee: PKR ${offerPrice.toLocaleString()}\n• Landing Page: ${landingPage}\n• Ad Campaign: ${utmCampaign || utmSource || "Direct"}`;
+          const noteBody = `📝 LIVE WORKSHOP REGISTRATION & PAYMENT PROOF:\n• Attendee: ${fullName}\n• WhatsApp: ${normalizedPhone}\n• Email: ${email || "N/A"}\n• City: ${city || "N/A"} | Age: ${ageRange || "N/A"}\n• Workshop: ${offerTitle}\n• Fee: PKR ${offerPrice.toLocaleString()}\n• Payment Screenshot Link: ${screenshotUrl || "Attached on WhatsApp"}\n• Landing Page: ${landingPage}\n• Ad Campaign: ${utmCampaign || utmSource || "Direct"}`;
 
           await ghlClient.addNote(contactId, noteBody);
 
