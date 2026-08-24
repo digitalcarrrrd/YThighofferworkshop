@@ -1,8 +1,8 @@
 import { NextRequest, NextResponse } from "next/server";
 import { getOfferById } from "@/lib/offers/offers";
 import { ghlClient } from "@/lib/ghlClient";
+import { storeReceiptAsync } from "@/app/api/receipt/route";
 
-const emailPattern = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
 const attempts = new Map<string, { count: number; resetAt: number }>();
 
 function clean(value: unknown, max = 200) {
@@ -41,7 +41,8 @@ export async function POST(request: NextRequest) {
     const ageRange = clean(input.ageRange, 20);
     const email = clean(input.email, 160);
     const landingPage = clean(input.landingPage, 120) || "/workshops/yt1";
-    const screenshotUrl = clean(input.screenshotUrl, 500);
+    let screenshotUrl = clean(input.screenshotUrl, 500);
+    const screenshotBase64 = typeof input.screenshot === "string" ? input.screenshot : "";
     const utmSource = clean(input.utm_source, 100);
     const utmCampaign = clean(input.utm_campaign, 100);
 
@@ -54,6 +55,14 @@ export async function POST(request: NextRequest) {
     const offerSlug = offer?.slug || "youtube-empire-builders-workshop";
     const offerTitle = offer?.title || "YouTube Empire Builders Live Workshop";
     const offerPrice = offer?.price || 1999;
+
+    if (!screenshotUrl && screenshotBase64) {
+      try {
+        screenshotUrl = await storeReceiptAsync(screenshotBase64, `workshop_${offerSlug}_${Date.now()}.jpg`);
+      } catch (err) {
+        console.warn("Server screenshot storage note:", err);
+      }
+    }
 
     const tags = [
       "lead:workshop-registration",
@@ -105,7 +114,7 @@ export async function POST(request: NextRequest) {
     }
 
     const eventId = crypto.randomUUID();
-    return NextResponse.json({ ok: true, eventId, contactId, opportunityId });
+    return NextResponse.json({ ok: true, eventId, contactId, opportunityId, screenshotUrl });
   } catch (error) {
     console.error("Workshop lead submission failed", error instanceof Error ? error.message : "unknown");
     return NextResponse.json({ error: "We could not save your registration. Please try again." }, { status: 502 });
