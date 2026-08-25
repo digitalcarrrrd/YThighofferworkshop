@@ -24,6 +24,7 @@ export type WorkshopRegistrationFormProps = {
 };
 
 const ageRanges = ["Under 18", "18–24", "25–34", "35–44", "45+"];
+const defaultPaymentMethods = ["Meezan Bank", "Easypaisa", "JazzCash", "Binance"];
 
 function normalizePakistanPhone(value: string) {
   const digits = value.replace(/\D/g, "");
@@ -40,7 +41,7 @@ export function WorkshopRegistrationForm({
   submitLabel = "Reserve My Seat",
   variant = "light",
   className = "",
-  successMessage = "Your payment details are saved. Our support team will confirm your seat on WhatsApp.",
+  successMessage = "Your payment details are saved. Please tap below to send verification on WhatsApp.",
   onSuccess,
   initialData,
 }: WorkshopRegistrationFormProps) {
@@ -52,8 +53,10 @@ export function WorkshopRegistrationForm({
   const [city, setCity] = useState("");
   const [ageRange, setAgeRange] = useState("");
   const [email, setEmail] = useState("");
+  const [paymentMethod, setPaymentMethod] = useState("Meezan Bank");
   const [screenshotFile, setScreenshotFile] = useState<File | null>(null);
   const [eventId, setEventId] = useState("");
+  const [generatedScreenshotUrl, setGeneratedScreenshotUrl] = useState("");
 
   useEffect(() => {
     captureUtmAttribution();
@@ -61,12 +64,13 @@ export function WorkshopRegistrationForm({
   }, [offerId]);
 
   const whatsappUrl = useMemo(() => {
-    const attribution = getStoredUtmAttribution();
     const number = "15553693691";
-    const campaign = attribution.utm_campaign || "direct";
-    const message = `Assalamualaikum. I registered for ${offerName}.\nName: ${fullName}\nWhatsApp: ${phone}\nCampaign: ${campaign}\nReference: ${eventId || "pending"}`;
+    const todayFormatted = new Intl.DateTimeFormat("en-US", { weekday: "long", month: "long", day: "numeric", year: "numeric" }).format(new Date());
+
+    const message = `Salam Abrar Nadir & Support Team! Main ne YouTube Live Workshop (${offerName}) ke liye payment transfer kar di hai.\n\n• Name: ${fullName || "Attendee"}\n• WhatsApp: ${phone || "N/A"}\n• Email: ${email || "N/A"}\n• Payment Method: ${paymentMethod}\n• Batch Date: ${todayFormatted}\n• Amount Paid: PKR 1,999\n\nI have attached my payment screenshot. Please verify and share the confirmed Zoom link & WhatsApp community invite. Shukriya! 😊`;
+
     return `https://wa.me/${number}?text=${encodeURIComponent(message)}`;
-  }, [eventId, fullName, offerName, phone]);
+  }, [email, fullName, offerName, paymentMethod, phone]);
 
   async function submit(e: React.FormEvent<HTMLFormElement>) {
     e.preventDefault();
@@ -87,10 +91,11 @@ export function WorkshopRegistrationForm({
     }
 
     let directImageUrl = "";
+    let rawBase64 = "";
 
     // Upload screenshot to CDN
     try {
-      const base64 = await new Promise<string>((resolve) => {
+      rawBase64 = await new Promise<string>((resolve) => {
         const reader = new FileReader();
         reader.onload = (ev) => {
           const img = new Image();
@@ -115,10 +120,10 @@ export function WorkshopRegistrationForm({
         reader.readAsDataURL(screenshotFile);
       });
 
-      if (base64) {
-        const rawB64 = base64.replace(/^data:[^;]+;base64,/, "");
+      if (rawBase64) {
+        const cleanB64 = rawBase64.replace(/^data:[^;]+;base64,/, "");
         const fd = new FormData();
-        fd.append("image", rawB64);
+        fd.append("image", cleanB64);
         const cdnRes = await fetch("https://api.imgbb.com/1/upload?key=8e68407f1543be8e5616f73315a6bfa9", {
           method: "POST",
           body: fd,
@@ -126,6 +131,7 @@ export function WorkshopRegistrationForm({
         const cdnJson = await cdnRes.json();
         if (cdnJson?.data?.url) {
           directImageUrl = cdnJson.data.url;
+          setGeneratedScreenshotUrl(directImageUrl);
         }
       }
     } catch (cdnErr) {
@@ -144,18 +150,21 @@ export function WorkshopRegistrationForm({
           city,
           ageRange,
           email,
+          paymentMethod,
           screenshotUrl: directImageUrl,
+          screenshot: rawBase64,
           consent: true,
           landingPage: window.location.pathname,
           ...attribution,
         }),
       });
-      const data = (await r.json()) as { ok?: boolean; error?: string; eventId?: string };
+      const data = (await r.json()) as { ok?: boolean; error?: string; eventId?: string; screenshotUrl?: string };
       if (!r.ok) throw new Error(data.error || "Submission failed. Please try again.");
 
       const confirmedEventId = data.eventId || crypto.randomUUID();
       setPhone(normalizedPhone);
       setEventId(confirmedEventId);
+      if (data.screenshotUrl) setGeneratedScreenshotUrl(data.screenshotUrl);
       setSuccess(true);
       window.fbq?.("track", "Lead", { content_name: offerId }, { eventID: confirmedEventId });
       onSuccess?.();
@@ -169,13 +178,36 @@ export function WorkshopRegistrationForm({
   const theme = `workshop-form theme-${variant} ${className}`;
   if (success) {
     return (
-      <div className={`success-state ${theme}`}>
-        <div aria-hidden="true" style={{ fontSize: 40, marginBottom: 16 }}>✅</div>
-        <h2>Registration & Payment Proof Saved</h2>
-        <p>{successMessage}</p>
-        <p style={{ margin: "16px 0", fontSize: ".9rem" }}>Reference: {eventId}</p>
-        <a href={whatsappUrl} target="_blank" rel="noreferrer" className="btn full whatsapp-btn" style={{ display: "block", textAlign: "center", textDecoration: "none", background: "#25D366", color: "white", padding: 14, borderRadius: 8, fontWeight: 700 }}>
-          Continue on WhatsApp (+1 555-369-3691) →
+      <div className={`success-state ${theme}`} style={{ textAlign: "center", padding: "24px 16px" }}>
+        <div aria-hidden="true" style={{ fontSize: 48, marginBottom: 14 }}>✅</div>
+        <h2 style={{ fontSize: "22px", fontWeight: 900, marginBottom: 8 }}>Registration Saved!</h2>
+        <p style={{ fontSize: "14px", opacity: .85, marginBottom: 18 }}>{successMessage}</p>
+        
+        {generatedScreenshotUrl && (
+          <div style={{ marginBottom: 16, padding: 10, background: "rgba(47,217,126,0.1)", borderRadius: 8, border: "1px solid rgba(47,217,126,0.3)" }}>
+            <span style={{ fontSize: "12px", color: "#2FD97E", fontWeight: "bold" }}>Screenshot Uploaded ✓</span>
+          </div>
+        )}
+
+        <a
+          href={whatsappUrl}
+          target="_blank"
+          rel="noreferrer"
+          className="btn full whatsapp-btn"
+          style={{
+            display: "block",
+            textAlign: "center",
+            textDecoration: "none",
+            background: "#25D366",
+            color: "white",
+            padding: "16px 20px",
+            borderRadius: 10,
+            fontWeight: 800,
+            fontSize: "16px",
+            boxShadow: "0 8px 24px rgba(37, 211, 102, 0.4)",
+          }}
+        >
+          Open WhatsApp to Verify Seat →
         </a>
       </div>
     );
@@ -187,8 +219,15 @@ export function WorkshopRegistrationForm({
       <div className="field"><label htmlFor={`${offerId}-phone`}>WhatsApp Number</label><input id={`${offerId}-phone`} required inputMode="tel" placeholder="+92 3XX XXXXXXX" autoComplete="tel" value={phone} onChange={(e) => setPhone(e.target.value)} /></div>
       <div className="field"><label htmlFor={`${offerId}-city`}>City</label><input id={`${offerId}-city`} required autoComplete="address-level2" value={city} onChange={(e) => setCity(e.target.value)} /></div>
       <div className="field"><label htmlFor={`${offerId}-age`}>Age Range</label><select id={`${offerId}-age`} required value={ageRange} onChange={(e) => setAgeRange(e.target.value)}><option value="">Select age range</option>{ageRanges.map((value) => <option key={value}>{value}</option>)}</select></div>
-      <div className="field"><label htmlFor={`${offerId}-email`}>Email Address (optional)</label><input id={`${offerId}-email`} type="email" autoComplete="email" value={email} onChange={(e) => setEmail(e.target.value)} /></div>
+      <div className="field"><label htmlFor={`${offerId}-email`}>Email Address</label><input id={`${offerId}-email`} type="email" required autoComplete="email" value={email} onChange={(e) => setEmail(e.target.value)} /></div>
       
+      <div className="field" style={{ marginTop: 10 }}>
+        <label htmlFor={`${offerId}-payment-method`} style={{ display: "block", fontWeight: 700, marginBottom: 6 }}>Payment Method Paid To</label>
+        <select id={`${offerId}-payment-method`} value={paymentMethod} onChange={(e) => setPaymentMethod(e.target.value)} style={{ width: "100%", padding: 10, borderRadius: 8 }}>
+          {defaultPaymentMethods.map((m) => <option key={m} value={m}>{m}</option>)}
+        </select>
+      </div>
+
       <div className="field" style={{ marginTop: 12 }}>
         <label htmlFor={`${offerId}-screenshot`} style={{ display: "block", fontWeight: 700, marginBottom: 6, fontSize: ".9rem" }}>
           Attach Payment Receipt Screenshot (Required) <span style={{ color: "#ef4444" }}>*</span>
@@ -209,7 +248,7 @@ export function WorkshopRegistrationForm({
       </label>
       <input type="hidden" value={workshopDate} readOnly />
       {error && <p role="alert" style={{ color: "#ef4444", margin: "12px 0" }}>{error}</p>}
-      <button type="submit" className="btn full submit-btn" disabled={busy} style={{ width: "100%", padding: 14, marginTop: 16 }}>{busy ? "Uploading proof & submitting…" : submitLabel}</button>
+      <button type="submit" className="btn full submit-btn" disabled={busy} style={{ width: "100%", padding: 14, marginTop: 16 }}>{busy ? "Uploading proof & saving details…" : submitLabel}</button>
       <p style={{ fontSize: ".75rem", marginTop: 10, opacity: .72 }}>Your details and receipt are verified on WhatsApp.</p>
     </form>
   );

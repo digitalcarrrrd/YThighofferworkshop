@@ -40,6 +40,7 @@ export async function POST(request: NextRequest) {
     const city = clean(input.city, 80);
     const ageRange = clean(input.ageRange, 20);
     const email = clean(input.email, 160);
+    const paymentMethod = clean(input.paymentMethod, 60) || "Meezan Bank";
     const landingPage = clean(input.landingPage, 120) || "/workshops/yt1";
     let screenshotUrl = clean(input.screenshotUrl, 500);
     const screenshotBase64 = typeof input.screenshot === "string" ? input.screenshot : "";
@@ -90,7 +91,7 @@ export async function POST(request: NextRequest) {
         contactId = contactResult?.contact?.id || contactResult?.id || null;
 
         if (contactId) {
-          const noteBody = `📝 LIVE WORKSHOP REGISTRATION & PAYMENT PROOF:\n• Attendee: ${fullName}\n• WhatsApp: ${normalizedPhone}\n• Email: ${email || "N/A"}\n• City: ${city || "N/A"} | Age: ${ageRange || "N/A"}\n• Workshop: ${offerTitle}\n• Fee: PKR ${offerPrice.toLocaleString()}\n• Payment Screenshot Link: ${screenshotUrl || "Attached on WhatsApp"}\n• Landing Page: ${landingPage}\n• Ad Campaign: ${utmCampaign || utmSource || "Direct"}`;
+          const noteBody = `📝 LIVE WORKSHOP REGISTRATION & PAYMENT PROOF:\n• Attendee: ${fullName}\n• WhatsApp: ${normalizedPhone}\n• Email: ${email || "N/A"}\n• City: ${city || "N/A"} | Age: ${ageRange || "N/A"}\n• Payment Method: ${paymentMethod}\n• Workshop: ${offerTitle}\n• Fee: PKR ${offerPrice.toLocaleString()}\n• Landing Page: ${landingPage}\n• Ad Campaign: ${utmCampaign || utmSource || "Direct"}\n\n🖼️ VERIFY PAYMENT SCREENSHOT (CLICK BELOW):\n${screenshotUrl || "Screenshot attached on WhatsApp"}`;
 
           await ghlClient.addNote(contactId, noteBody);
 
