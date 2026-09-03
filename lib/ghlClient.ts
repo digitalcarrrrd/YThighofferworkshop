@@ -217,6 +217,40 @@ export class GhlClient {
     }
   }
 
+  async uploadMedia(base64Data: string, filename: string): Promise<string | null> {
+    if (!this.isConfigured || !base64Data) return null;
+
+    try {
+      const cleanB64 = base64Data.replace(/^data:[^;]+;base64,/, "");
+      const mimeMatch = base64Data.match(/^data:(image\/[a-zA-Z+]+|application\/pdf);base64,/);
+      const mimeType = mimeMatch ? mimeMatch[1] : "image/jpeg";
+      const buffer = Buffer.from(cleanB64, "base64");
+      
+      const formData = new FormData();
+      formData.append("file", new Blob([buffer], { type: mimeType }), filename);
+
+      const response = await fetch(`${this.baseUrl}/medias/upload-file`, {
+        method: "POST",
+        headers: {
+          Authorization: `Bearer ${this.token}`,
+          Version: "2021-07-28",
+        },
+        body: formData,
+      });
+
+      if (!response.ok) {
+        console.warn(`GHL Media Upload failed: ${response.status} ${response.statusText}`);
+        return null;
+      }
+
+      const data = await response.json();
+      return data?.url || null;
+    } catch (err) {
+      console.warn("GHL uploadMedia error:", err);
+      return null;
+    }
+  }
+
   async updateOpportunityStage(opportunityId: string, pipelineStageId: string) {
     if (!this.isConfigured || !opportunityId) {
       console.warn("GHL client not configured or missing opportunityId.");

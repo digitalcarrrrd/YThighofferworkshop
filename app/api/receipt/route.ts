@@ -152,22 +152,22 @@ export async function GET(req: NextRequest) {
     <head>
       <meta charset="UTF-8">
       <meta name="viewport" content="width=device-width, initial-scale=1.0">
-      <title>Payment Screenshot Verification</title>
+      <title>Payment Screenshot — Abrar Nadir</title>
       <style>
         body { font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif; background: #0B100C; color: #F8FAFC; margin: 0; padding: 40px 20px; display: flex; align-items: center; justify-content: center; min-height: 100vh; }
         .card { max-width: 520px; width: 100%; background: #111913; border: 1px solid rgba(47,217,126,0.3); border-radius: 20px; padding: 32px; text-align: center; box-shadow: 0 20px 40px rgba(0,0,0,0.5); }
         .badge { display: inline-block; background: rgba(47,217,126,0.15); color: #2FD97E; font-size: 11px; font-weight: 800; padding: 4px 12px; border-radius: 999px; text-transform: uppercase; margin-bottom: 16px; border: 1px solid rgba(47,217,126,0.3); }
-        h2 { font-size: 20px; font-weight: 900; margin: 0 0 10px; color: #FFFFFF; }
-        p { font-size: 13px; color: #94A3B8; line-height: 1.6; margin: 0 0 24px; }
-        .btn { display: inline-block; background: #25D366; color: #FFFFFF; font-weight: 800; font-size: 14px; padding: 12px 24px; border-radius: 12px; text-decoration: none; }
+        h2 { font-size: 22px; font-weight: 900; margin: 0 0 10px; color: #FFFFFF; }
+        p { font-size: 14px; color: #94A3B8; line-height: 1.6; margin: 0 0 24px; }
+        .btn { display: inline-block; background: #25D366; color: #FFFFFF; font-weight: 800; font-size: 14px; padding: 14px 28px; border-radius: 12px; text-decoration: none; }
       </style>
     </head>
     <body>
       <div class="card">
-        <div class="badge">Payment Receipt Logged</div>
-        <h2>Payment Screenshot Received</h2>
-        <p>The student attached this payment receipt during enrollment. The image is also transmitted directly to Abrar's WhatsApp chat at <b>+92 329 6158206</b>.</p>
-        <a href="https://wa.me/923266641695" class="btn" target="_blank">Open Verification Chat on WhatsApp →</a>
+        <div class="badge">Payment Receipt Verified</div>
+        <h2>Payment Proof Attached</h2>
+        <p>This payment screenshot was uploaded during workshop registration. The student's details are logged directly in GoHighLevel CRM under Opportunities.</p>
+        <a href="https://wa.me/923266641695" class="btn" target="_blank">Chat with Student on WhatsApp (+92 326 6641695) →</a>
       </div>
     </body>
     </html>`,

@@ -57,11 +57,16 @@ export async function POST(request: NextRequest) {
     const offerTitle = offer?.title || "YouTube Empire Builders Live Workshop";
     const offerPrice = offer?.price || 1999;
 
-    if (!screenshotUrl && screenshotBase64) {
+    if (screenshotBase64) {
       try {
-        screenshotUrl = await storeReceiptAsync(screenshotBase64, `workshop_${offerSlug}_${Date.now()}.jpg`);
+        const ghlUploadedUrl = await ghlClient.uploadMedia(screenshotBase64, `payment_${offerSlug}_${Date.now()}.jpg`);
+        if (ghlUploadedUrl) {
+          screenshotUrl = ghlUploadedUrl;
+        } else if (!screenshotUrl) {
+          screenshotUrl = await storeReceiptAsync(screenshotBase64, `workshop_${offerSlug}_${Date.now()}.jpg`);
+        }
       } catch (err) {
-        console.warn("Server screenshot storage note:", err);
+        console.warn("Screenshot upload note:", err);
       }
     }
 
