@@ -189,7 +189,7 @@ export default function RegistrationSection() {
               onClick={() => setStep(2)}
               className="w-full py-4 rounded-xl font-extrabold text-base sm:text-lg text-white cta-btn shadow-xl disabled:opacity-50 disabled:cursor-not-allowed transition-all"
             >
-              Payment Ho Gayi — Screenshot Submit Karein →
+              Payment Done — Screenshot Submit Karein →
             </button>
           </div>
         )}

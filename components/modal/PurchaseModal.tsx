@@ -146,7 +146,7 @@ export function PurchaseModal({ offer, schedule, onClose, lang = "en" }: { offer
               disabled={!fullName || !phone}
               onClick={() => { setStep(2); }}
             >
-              Payment Ho Gayi — Screenshot Submit Karein →
+              Payment Done — Screenshot Submit Karein →
             </button>
           </>
         )}
