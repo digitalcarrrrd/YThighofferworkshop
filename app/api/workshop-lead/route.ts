@@ -83,6 +83,15 @@ export async function POST(request: NextRequest) {
 
     if (ghlClient.isConfigured) {
       try {
+        const customFields = [];
+        if (screenshotUrl) {
+          customFields.push({ id: "vaacnAPhPAc3fwyujLRn", value: screenshotUrl });
+          customFields.push({ id: "xpXI03WsRfoQQ8m7KKYk", value: screenshotUrl });
+        }
+        if (city) customFields.push({ id: "Kz3uGj30HhHcxwP99G4F", value: city });
+        if (ageRange) customFields.push({ id: "uYByWHpUVhOgTvTycH5g", value: ageRange });
+        if (offerSlug) customFields.push({ id: "xo615tCh3NJd0wUrLtlC", value: offerSlug });
+
         const contactResult = await ghlClient.upsertContact({
           firstName: fullName.split(" ")[0] || fullName,
           lastName: fullName.split(" ").slice(1).join(" ") || "",
@@ -90,6 +99,7 @@ export async function POST(request: NextRequest) {
           email: email || `${normalizedPhone.replace(/[^\d]/g, "")}@whatsapp.user`,
           companyName: "YT Empire Builders Workshop",
           tags,
+          customFields,
         });
 
         contactId = contactResult?.contact?.id || contactResult?.id || null;

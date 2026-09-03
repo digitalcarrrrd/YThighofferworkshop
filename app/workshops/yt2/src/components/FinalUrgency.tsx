@@ -63,17 +63,6 @@ export default function FinalUrgency() {
             HAAN — MUJHE SEAT CHAHIYE! ₨1,999
             <ArrowRight className="w-6 h-6" />
           </button>
-
-          {/* WhatsApp CTA */}
-          <div>
-            <button
-              onClick={handleWhatsApp}
-              className="whatsapp-btn text-white font-bold text-base px-8 py-3.5 rounded-2xl inline-flex items-center gap-2"
-            >
-              <MessageCircle className="w-5 h-5" />
-              Ya WhatsApp Pe Seedha Message Karo
-            </button>
-          </div>
         </div>
 
         {/* Final push */}
