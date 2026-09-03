@@ -132,10 +132,23 @@ export class GhlClient {
     }
   }
 
-  async sendWhatsApp(contactId: string, message: string) {
+  async sendWhatsApp(contactId: string, message: string, templateName?: string) {
     if (!this.isConfigured || !contactId) return null;
 
     try {
+      const payload: Record<string, unknown> = {
+        type: "WhatsApp",
+        contactId,
+        message,
+      };
+
+      if (templateName) {
+        payload.template = {
+          name: templateName,
+          language: { code: "en_US" },
+        };
+      }
+
       const response = await fetch(`${this.baseUrl}/conversations/messages`, {
         method: "POST",
         headers: {
@@ -144,11 +157,7 @@ export class GhlClient {
           "Content-Type": "application/json",
           Accept: "application/json",
         },
-        body: JSON.stringify({
-          type: "WhatsApp",
-          contactId,
-          message,
-        }),
+        body: JSON.stringify(payload),
       });
       return await response.json();
     } catch (error) {

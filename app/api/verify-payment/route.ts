@@ -44,10 +44,10 @@ export async function POST(req: NextRequest) {
       );
     }
 
-    // 2. Send Verified WhatsApp via GHL
+    // 2. Send Verified WhatsApp via GHL using approved template
     if (contactId) {
-      const waMsg = `Salam ${studentName}! Abrar here.\n\nAap ki payment verify ho chuki hai and welcome to YT Empire Builders! 🎉\n\nAapka student portal dashboard 100% unlocked hai:\n👉 ${portalUrl}\n\nYahan se aap 12 video modules, 50+ AI prompts aur 90-day calendar download kar sakte hain.\n\nLet's build your YouTube empire! 🚀`;
-      await ghlClient.sendWhatsApp(contactId, waMsg);
+      const waMsg = `Hello ${studentName}, your payment has been verified! Welcome to YouTube Empire Builders Live Workshop.`;
+      await ghlClient.sendWhatsApp(contactId, waMsg, "yt_payment_verified_details");
     }
 
     return NextResponse.json({

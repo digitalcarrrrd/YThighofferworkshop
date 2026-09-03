@@ -57,10 +57,10 @@ export async function POST(req: NextRequest) {
       ).catch((err) => console.warn("Webhook sendEmail note:", err));
     }
 
-    // 2. Send Automated WhatsApp Message via GHL
+    // 2. Send Automated WhatsApp Message via GHL using approved template
     if (contactId) {
-      const waMsg = `Salam ${name}! Abrar here.\n\nAap ki payment verify ho chuki hai and welcome to YT Empire Builders! 🎉\n\nAapka official LMS portal active hai:\n👉 ${lmsUrl}\n\nYahan se aap 12 video modules, 50+ AI prompts swipe file aur 90-day calendar access kar sakte hain.\n\nLet's build your YouTube empire! 🚀`;
-      await ghlClient.sendWhatsApp(contactId, waMsg).catch((err) => console.warn("Webhook sendWhatsApp note:", err));
+      const waMsg = `Hello ${name}, your payment has been verified! Welcome to YouTube Empire Builders Live Workshop.`;
+      await ghlClient.sendWhatsApp(contactId, waMsg, "yt_payment_verified_details").catch((err) => console.warn("Webhook sendWhatsApp note:", err));
     }
 
     // 3. Add Note in GHL
