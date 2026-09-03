@@ -11,6 +11,7 @@ export async function POST(req: NextRequest) {
     const email = body.email || body.contact?.email || body.contact_email;
     const name = body.first_name || body.name || body.contact?.first_name || body.contact?.name || body.full_name || "Student";
     const phone = body.phone || body.contact?.phone;
+    const stageName = (body.stage_name || body.stage || body.pipeline_stage || body.status || "").toLowerCase();
     const step = (body.step || body.action || body.template || stageName || "").toLowerCase();
     const lmsUrl = "https://lms.abrarnadir.com";
     const workshopName = body.workshop_name || body.workshop || "YouTube Empire Builders Live Workshop";
