@@ -112,7 +112,14 @@ export async function POST(req: NextRequest) {
         email,
         phone,
         source: "YouTube Workshop Landing Page",
-        tags: ["yt-workshop", "payment-pending"],
+        tags: [
+          "workshop:registered",
+          "workshop:new-registration",
+          "status:pending-verification",
+          `workshop:${offer.slug || "youtube-empire-builders"}`,
+          "payment-pending",
+          "whatsapp-consent"
+        ],
         customFields,
       }),
     });

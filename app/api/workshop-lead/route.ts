@@ -66,11 +66,15 @@ export async function POST(request: NextRequest) {
     }
 
     const tags = [
-      "lead:workshop-registration",
+      "workshop:registered",
+      "workshop:new-registration",
+      "status:pending-verification",
       `workshop:${offerSlug}`,
+      "lead:workshop-registration",
       "whatsapp-consent",
-      "yt-workshop-lead",
     ];
+    if (screenshotUrl) tags.push("proof:screenshot-attached");
+    if (paymentMethod) tags.push(`payment:${paymentMethod.toLowerCase().replace(/[^a-z0-9]/g, "-")}`);
     if (city) tags.push(`city:${city.toLowerCase().replace(/[^a-z0-9]/g, "-")}`);
     if (utmCampaign) tags.push(`ad:${utmCampaign.toLowerCase().replace(/[^a-z0-9]/g, "-")}`);
 

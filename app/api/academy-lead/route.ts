@@ -29,7 +29,7 @@ export async function POST(req: Request) {
     const targetStage = stages[stage] || stages['new-lead'];
 
     // Build tags based on plan
-    const tags = ['academy-lead', 'yt-empire-builder'];
+    const tags = ['yteb:academy-lead', 'yteb:enrolled-pending', 'academy-lead', 'yt-empire-builder'];
     if (plan) tags.push(`plan:${plan}`);
 
     // 1. Create or Update Contact in GHL
