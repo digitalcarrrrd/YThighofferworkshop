@@ -10,7 +10,7 @@ import {
   GraduationCap, Briefcase, Heart, Smile, Gift, Flame
 } from "lucide-react";
 
-const TEAM_WHATSAPP_NUMBER = "15553693691";
+const TEAM_WHATSAPP_NUMBER = "923266641695";
 
 export default function WorkshopYt7Client() {
   const [dynamicDate, setDynamicDate] = useState<string>("");

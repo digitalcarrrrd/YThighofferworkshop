@@ -44,6 +44,8 @@ export function WorkshopRegistrationForm({
   successMessage = "Your payment details are saved. Please tap below to send verification on WhatsApp.",
   onSuccess,
   initialData,
+  paymentMethods,
+  hideContactFields = false,
 }: WorkshopRegistrationFormProps) {
   const [busy, setBusy] = useState(false);
   const [error, setError] = useState("");
@@ -53,7 +55,7 @@ export function WorkshopRegistrationForm({
   const [city, setCity] = useState("");
   const [ageRange, setAgeRange] = useState("");
   const [email, setEmail] = useState("");
-  const [paymentMethod, setPaymentMethod] = useState("Meezan Bank");
+  const [paymentMethod, setPaymentMethod] = useState(paymentMethods?.[0] || "Meezan Bank");
   const [screenshotFile, setScreenshotFile] = useState<File | null>(null);
   const [eventId, setEventId] = useState("");
   const [generatedScreenshotUrl, setGeneratedScreenshotUrl] = useState("");
@@ -64,7 +66,7 @@ export function WorkshopRegistrationForm({
   }, [offerId]);
 
   const whatsappUrl = useMemo(() => {
-    const number = "15553693691";
+    const number = "923266641695";
     const todayFormatted = new Intl.DateTimeFormat("en-US", { weekday: "long", month: "long", day: "numeric", year: "numeric" }).format(new Date());
 
     const message = `Salam Abrar Nadir & Support Team! Main ne YouTube Live Workshop (${offerName}) ke liye payment transfer kar di hai.\n\n• Name: ${fullName || "Attendee"}\n• WhatsApp: ${phone || "N/A"}\n• Email: ${email || "N/A"}\n• Payment Method: ${paymentMethod}\n• Batch Date: ${todayFormatted}\n• Amount Paid: PKR 1,999\n\nI have attached my payment screenshot. Please verify and share the confirmed Zoom link & WhatsApp community invite. Shukriya! 😊`;
@@ -215,8 +217,12 @@ export function WorkshopRegistrationForm({
 
   return (
     <form onSubmit={submit} className={theme}>
-      <div className="field"><label htmlFor={`${offerId}-name`}>Full Name</label><input id={`${offerId}-name`} required minLength={2} autoComplete="name" value={fullName} onChange={(e) => setFullName(e.target.value)} /></div>
-      <div className="field"><label htmlFor={`${offerId}-phone`}>WhatsApp Number</label><input id={`${offerId}-phone`} required inputMode="tel" placeholder="+92 3XX XXXXXXX" autoComplete="tel" value={phone} onChange={(e) => setPhone(e.target.value)} /></div>
+      {!hideContactFields && (
+        <>
+          <div className="field"><label htmlFor={`${offerId}-name`}>Full Name</label><input id={`${offerId}-name`} required minLength={2} autoComplete="name" value={fullName} onChange={(e) => setFullName(e.target.value)} /></div>
+          <div className="field"><label htmlFor={`${offerId}-phone`}>WhatsApp Number</label><input id={`${offerId}-phone`} required inputMode="tel" placeholder="+92 3XX XXXXXXX" autoComplete="tel" value={phone} onChange={(e) => setPhone(e.target.value)} /></div>
+        </>
+      )}
       <div className="field"><label htmlFor={`${offerId}-city`}>City</label><input id={`${offerId}-city`} required autoComplete="address-level2" value={city} onChange={(e) => setCity(e.target.value)} /></div>
       <div className="field"><label htmlFor={`${offerId}-age`}>Age Range</label><select id={`${offerId}-age`} required value={ageRange} onChange={(e) => setAgeRange(e.target.value)}><option value="">Select age range</option>{ageRanges.map((value) => <option key={value}>{value}</option>)}</select></div>
       <div className="field"><label htmlFor={`${offerId}-email`}>Email Address</label><input id={`${offerId}-email`} type="email" required autoComplete="email" value={email} onChange={(e) => setEmail(e.target.value)} /></div>
@@ -224,7 +230,7 @@ export function WorkshopRegistrationForm({
       <div className="field" style={{ marginTop: 10 }}>
         <label htmlFor={`${offerId}-payment-method`} style={{ display: "block", fontWeight: 700, marginBottom: 6 }}>Payment Method Paid To</label>
         <select id={`${offerId}-payment-method`} value={paymentMethod} onChange={(e) => setPaymentMethod(e.target.value)} style={{ width: "100%", padding: 10, borderRadius: 8 }}>
-          {defaultPaymentMethods.map((m) => <option key={m} value={m}>{m}</option>)}
+          {(paymentMethods && paymentMethods.length > 0 ? paymentMethods : defaultPaymentMethods).map((m) => <option key={m} value={m}>{m}</option>)}
         </select>
       </div>
 

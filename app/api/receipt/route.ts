@@ -167,7 +167,7 @@ export async function GET(req: NextRequest) {
         <div class="badge">Payment Receipt Logged</div>
         <h2>Payment Screenshot Received</h2>
         <p>The student attached this payment receipt during enrollment. The image is also transmitted directly to Abrar's WhatsApp chat at <b>+92 329 6158206</b>.</p>
-        <a href="https://wa.me/15553693691" class="btn" target="_blank">Open Verification Chat on WhatsApp →</a>
+        <a href="https://wa.me/923266641695" class="btn" target="_blank">Open Verification Chat on WhatsApp →</a>
       </div>
     </body>
     </html>`,

@@ -30,7 +30,7 @@ export async function POST(req: NextRequest) {
           </div>
 
           <p><b>Join Private VIP Community:</b><br>
-          <a href="https://wa.me/15553693691?text=Salam%20Abrar%20Bhai!%20Mera%20payment%20verify%20ho%20gaya%20hai,%20please%20add%20me%20to%20the%20VIP%20WhatsApp%20group" style="color: #22c55e; font-weight: bold;">Click Here to Connect with Abrar on WhatsApp →</a></p>
+          <a href="https://wa.me/923266641695?text=Salam%20Abrar%20Bhai!%20Mera%20payment%20verify%20ho%20gaya%20hai,%20please%20add%20me%20to%20the%20VIP%20WhatsApp%20group" style="color: #22c55e; font-weight: bold;">Click Here to Connect with Abrar on WhatsApp →</a></p>
 
           <p style="margin-top: 25px; font-size: 13px; color: #9ca3af;">Shukriya,<br><b>Abrar Nadir</b><br>Founder, YT Empire Builders</p>
         </div>

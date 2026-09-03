@@ -48,7 +48,7 @@ export const workshopConfig: WorkshopConfig = {
   currency: "PKR",
   totalValue: 15499,
   foundingRegistrationLimit: 500,
-  whatsappSupportNumber: "+15553693691",
+  whatsappSupportNumber: "+923266641695",
   whatsappGroupUrl: "https://chat.whatsapp.com/GzYEB100Example",
   refundPolicy: "Workshop ki seat non-refundable hai. Lekin agar aap kisi wajah se join nahi kar paate, toh aap apni seat ko agle batch mein shift karwa sakte hain.",
   transferPolicy: "Seat shift karne ke liye workshop shuru hone se kam se kam 2 ghante pehle (6:00 PM tak) humare WhatsApp par batana zaroori hai.",

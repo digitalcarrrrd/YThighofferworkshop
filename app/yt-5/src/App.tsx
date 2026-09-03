@@ -12,7 +12,7 @@ import {
 import { cn } from "./utils/cn";
 import "./index.css";
 
-const TEAM_WHATSAPP_NUMBER = "15553693691";
+const TEAM_WHATSAPP_NUMBER = "923266641695";
 
 export default function Yt5App() {
   const [dynamicDate, setDynamicDate] = useState<string>("");

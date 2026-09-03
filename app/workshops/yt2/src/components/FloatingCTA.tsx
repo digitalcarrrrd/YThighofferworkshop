@@ -26,7 +26,7 @@ export default function FloatingCTA() {
     const message = encodeURIComponent(
       `Assalam o Alaikum! 🙏\nMujhe YouTube AI Workshop ki seat book karni hai! ✅`
     );
-    const number = process.env.NEXT_PUBLIC_WHATSAPP_NUMBER || '15553693691';
+    const number = process.env.NEXT_PUBLIC_WHATSAPP_NUMBER || '923266641695';
     window.open(`https://wa.me/${number.replace(/\D/g, '')}?text=${message}`, '_blank');
   };
 

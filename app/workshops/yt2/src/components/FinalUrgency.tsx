@@ -12,7 +12,7 @@ export default function FinalUrgency() {
   };
 
   const handleWhatsApp = () => {
-    const number = '15553693691';
+    const number = '923266641695';
     const message = encodeURIComponent('Salam Abrar Bhai! Main YouTube Empire Builders Live Workshop mein register hona chahta hoon.');
     window.open(`https://wa.me/${number}?text=${message}`, '_blank');
   };

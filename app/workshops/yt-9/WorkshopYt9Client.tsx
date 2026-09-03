@@ -11,7 +11,7 @@ import {
   Layers, BarChart3, Cpu, RefreshCw, Eye, Award, ExternalLink
 } from "lucide-react";
 
-const TEAM_WHATSAPP_NUMBER = "15553693691";
+const TEAM_WHATSAPP_NUMBER = "923266641695";
 
 interface NicheAsset {
   id: string;

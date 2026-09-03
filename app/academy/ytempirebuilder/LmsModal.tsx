@@ -30,7 +30,7 @@ export default function LmsModal({ isOpen, onClose }: LmsModalProps) {
   // Handle Step 3 Redirection Timer
   useEffect(() => {
     if (step === 3) {
-      const waNumber = '15553693691';
+      const waNumber = '923266641695';
       const message = `Hi, I have just submitted my payment for YT Empire Builder.\nName: ${formData.name}\nEmail: ${formData.email}\nPhone: ${formData.phone}${transactionId ? `\nTransaction ID: ${transactionId}` : ''}\nHere is my payment screenshot.`;
       const encodedMessage = encodeURIComponent(message);
       const waLink = `https://wa.me/${waNumber}?text=${encodedMessage}`;
