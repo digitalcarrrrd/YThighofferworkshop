@@ -121,23 +121,8 @@ export function WorkshopRegistrationForm({
         reader.onerror = () => resolve("");
         reader.readAsDataURL(screenshotFile);
       });
-
-      if (rawBase64) {
-        const cleanB64 = rawBase64.replace(/^data:[^;]+;base64,/, "");
-        const fd = new FormData();
-        fd.append("image", cleanB64);
-        const cdnRes = await fetch("https://api.imgbb.com/1/upload?key=8e68407f1543be8e5616f73315a6bfa9", {
-          method: "POST",
-          body: fd,
-        });
-        const cdnJson = await cdnRes.json();
-        if (cdnJson?.data?.url) {
-          directImageUrl = cdnJson.data.url;
-          setGeneratedScreenshotUrl(directImageUrl);
-        }
-      }
     } catch (cdnErr) {
-      console.warn("Workshop screenshot CDN upload note:", cdnErr);
+      console.warn("Workshop screenshot process note:", cdnErr);
     }
 
     try {
