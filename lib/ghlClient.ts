@@ -206,7 +206,45 @@ export class GhlClient {
       });
 
       if (!response.ok) {
-        console.error(`GHL Opportunity Creation Failed: ${response.status} ${response.statusText}`);
+        const errorData = await response.json().catch(() => null);
+        
+        // Handle duplicate opportunity — update the existing one instead
+        if (errorData?.code === "OPPORTUNITY_NO_DUPLICATE" && errorData?.meta?.existingId) {
+          const existingId = errorData.meta.existingId;
+          console.log(`Duplicate opportunity detected. Updating existing: ${existingId}`);
+          
+          try {
+            const updateRes = await fetch(`${this.baseUrl}/opportunities/${existingId}`, {
+              method: "PUT",
+              headers: {
+                Authorization: `Bearer ${this.token}`,
+                Version: "2021-07-28",
+                "Content-Type": "application/json",
+                Accept: "application/json",
+              },
+              body: JSON.stringify({
+                name: data.name,
+                pipelineStageId: pipelineStageId,
+                status: data.status || "open",
+                monetaryValue: data.monetaryValue,
+              }),
+            });
+            
+            if (updateRes.ok) {
+              const updateData = await updateRes.json();
+              return updateData;
+            } else {
+              console.error(`Failed to update existing opportunity: ${updateRes.status}`);
+              // Still return the existing ID so the caller knows it exists
+              return { opportunity: { id: existingId } };
+            }
+          } catch (updateErr) {
+            console.error("Error updating existing opportunity:", updateErr);
+            return { opportunity: { id: existingId } };
+          }
+        }
+        
+        console.error(`GHL Opportunity Creation Failed: ${response.status} ${response.statusText}`, errorData);
         return null;
       }
 
