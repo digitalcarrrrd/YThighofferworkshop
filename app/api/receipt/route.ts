@@ -145,6 +145,43 @@ export async function GET(req: NextRequest) {
     });
   }
 
+  // Try GHL document proxy — search for document by receipt ID
+  const ghlToken = process.env.GHL_PRIVATE_INTEGRATION_TOKEN;
+  if (ghlToken) {
+    try {
+      // Try common document IDs from GHL custom fields
+      // The receipt ID pattern contains a timestamp we can match
+      const docSearchUrls = [
+        `https://services.leadconnectorhq.com/documents/download/${id}`,
+      ];
+      
+      for (const docUrl of docSearchUrls) {
+        const docRes = await fetch(docUrl, {
+          headers: {
+            Authorization: `Bearer ${ghlToken}`,
+            Version: "2021-07-28",
+          },
+        });
+        
+        if (docRes.ok) {
+          const contentType = docRes.headers.get("content-type") || mimeType;
+          const buffer = Buffer.from(await docRes.arrayBuffer());
+          if (buffer.length > 100) {
+            return new NextResponse(buffer, {
+              headers: {
+                "Content-Type": contentType,
+                "Content-Disposition": `inline; filename="receipt_${id}.${ext}"`,
+                "Cache-Control": "public, max-age=86400",
+              },
+            });
+          }
+        }
+      }
+    } catch (proxyErr) {
+      console.warn("GHL document proxy error:", proxyErr);
+    }
+  }
+
   // Visual Fallback Display
   return new NextResponse(
     `<!DOCTYPE html>
@@ -164,10 +201,10 @@ export async function GET(req: NextRequest) {
     </head>
     <body>
       <div class="card">
-        <div class="badge">Payment Receipt Verified</div>
-        <h2>Payment Proof Attached</h2>
-        <p>This payment screenshot was uploaded during workshop registration. The student's details are logged directly in GoHighLevel CRM under Opportunities.</p>
-        <a href="https://wa.me/923266641695" class="btn" target="_blank">Chat with Student on WhatsApp (+92 326 6641695) →</a>
+        <div class="badge">Payment Receipt</div>
+        <h2>Receipt Expired or Not Found</h2>
+        <p>This payment screenshot was uploaded during workshop registration but the temporary link has expired. The original screenshot is stored in GoHighLevel CRM under the contact's custom fields and notes.</p>
+        <a href="https://wa.me/923266641695" class="btn" target="_blank">Contact Support on WhatsApp →</a>
       </div>
     </body>
     </html>`,

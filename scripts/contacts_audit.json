@@ -1,0 +1,246 @@
+{
+  "summary": {
+    "totalContacts": 1688,
+    "paidStudentsCount": 20,
+    "unpaidWorkshopLeadsCount": 15,
+    "customPackageLeadsCount": 9,
+    "testOrSpamCount": 14,
+    "otherLeadsCount": 1630
+  },
+  "samplePaid": [
+    {
+      "id": "uwB9aLKBrIDywiliglq0",
+      "name": "hataf",
+      "phone": "+923361181999",
+      "tags": [
+        "custom-price-application",
+        "lead:custom-package",
+        "plan:tier-2-accelerator",
+        "goal:full-time-freedom",
+        "stage:complete-beginner",
+        "budget:not-sure-yet",
+        "time:part-time",
+        "blocker:money",
+        "academy-paid"
+      ]
+    },
+    {
+      "id": "nTIH0NG9ZyomVQANaMD4",
+      "name": "ehsan",
+      "phone": "+923231451616",
+      "tags": [
+        "custom-price-application",
+        "lead:custom-package",
+        "plan:tier-5-audit-rescue",
+        "goal:full-time-freedom",
+        "stage:tried-before--failed",
+        "budget:5k-15k",
+        "time:full-time",
+        "blocker:failed-before",
+        "academy-paid"
+      ]
+    },
+    {
+      "id": "HvIRkUWhPENllQ1OvQJ2",
+      "name": "nadir nawaz",
+      "phone": "+923117112461",
+      "tags": [
+        "custom-price-application",
+        "lead:custom-package",
+        "plan:tier-4-dfy-executive",
+        "goal:scale-a-business",
+        "stage:complete-beginner",
+        "budget:not-sure-yet",
+        "time:full-time",
+        "blocker:money",
+        "academy-paid"
+      ]
+    },
+    {
+      "id": "7A51Bcj00dqxYTzDVlIQ",
+      "name": "hasnain ali",
+      "phone": "+923406678889",
+      "tags": [
+        "custom-price-application",
+        "lead:custom-package",
+        "plan:tier-1-starter",
+        "goal:full-time-freedom",
+        "stage:have-a-channel",
+        "budget:under-5k",
+        "time:part-time",
+        "blocker:money",
+        "academy-paid"
+      ]
+    },
+    {
+      "id": "XfhjKwpXY9tXdSrNfuYK",
+      "name": "zulqarnain",
+      "phone": "+923046121146",
+      "tags": [
+        "custom-price-application",
+        "lead:custom-package",
+        "plan:tier-4-dfy-executive",
+        "goal:build-a-100-channel-portfolio",
+        "stage:working-creator",
+        "budget:under-5k",
+        "time:a-few-hours",
+        "blocker:money",
+        "academy-paid"
+      ]
+    },
+    {
+      "id": "BYAKXoHrFFYAQoSP3D0h",
+      "name": "umer aslam",
+      "phone": "+923710719841",
+      "tags": [
+        "full payment"
+      ]
+    },
+    {
+      "id": "0ktgbi2zKhgNojrK2eKk",
+      "name": "ali asghar",
+      "phone": "+923460894599",
+      "tags": [
+        "custom-price-application",
+        "lead:custom-package",
+        "plan:tier-4-dfy-executive",
+        "goal:scale-a-business",
+        "stage:working-creator",
+        "budget:40k-",
+        "time:a-few-hours",
+        "blocker:money",
+        "academy-paid"
+      ]
+    },
+    {
+      "id": "9qAGsGlvkWVQOaAFyHNc",
+      "name": "muhammad mujahid",
+      "phone": "+923424668648",
+      "tags": [
+        "custom-price-application",
+        "lead:custom-package",
+        "plan:tier-4-dfy-executive",
+        "goal:scale-a-business",
+        "stage:tried-before--failed",
+        "budget:under-5k",
+        "time:a-few-hours",
+        "blocker:money",
+        "academy-paid"
+      ]
+    },
+    {
+      "id": "x0hsOdTarhcdshnhbB33",
+      "name": "abrar",
+      "phone": "+923104596708",
+      "tags": [
+        "custom-price-application",
+        "lead:custom-package",
+        "plan:tier-1-starter",
+        "goal:full-time-freedom",
+        "stage:complete-beginner",
+        "budget:5k-15k",
+        "time:a-few-hours",
+        "blocker:no-tools",
+        "academy-paid"
+      ]
+    },
+    {
+      "id": "vZsUcHUd4ZiUIOCHB9iZ",
+      "name": "adi khan",
+      "phone": "+923259626472",
+      "tags": [
+        "custom-price-application",
+        "lead:custom-package",
+        "plan:tier-3-colony",
+        "goal:full-time-freedom",
+        "stage:have-a-channel",
+        "budget:40k-",
+        "time:full-time",
+        "blocker:money",
+        "academy-paid"
+      ]
+    }
+  ],
+  "sampleUnpaid": [
+    {
+      "id": "QWywcTNp2y1e1YXD4ePK",
+      "name": "syeds",
+      "phone": "+923102496456",
+      "tags": [
+        "workshop-registration"
+      ]
+    },
+    {
+      "id": "WjwuSwEFPQofPsc9pC4b",
+      "name": "nida asif",
+      "phone": "+923003539281",
+      "tags": [
+        "workshop-registration"
+      ]
+    },
+    {
+      "id": "kEVwvz52AacbmRQy3Tgn",
+      "name": "rana amien iqbal",
+      "phone": "+923338205003",
+      "tags": [
+        "workshop-registration"
+      ]
+    },
+    {
+      "id": "QPG6zCbNrOO23q7aIdnh",
+      "name": "abdul rehman rajput",
+      "phone": "+923401555440",
+      "tags": [
+        "workshop-registration"
+      ]
+    },
+    {
+      "id": "ifOFhxw6f3eZxmkXW3hm",
+      "name": "hamza lakhani",
+      "phone": "+923442666985",
+      "tags": [
+        "workshop-registration"
+      ]
+    },
+    {
+      "id": "pHOyR6lmdQ7xqLACvsi0",
+      "name": ".",
+      "phone": "+923000854210",
+      "tags": [
+        "workshop-registration"
+      ]
+    },
+    {
+      "id": "vCy1lFpgPXarh9yEbBNl",
+      "name": "sidrah qureshi",
+      "phone": "+923452176390",
+      "tags": [
+        "workshop-registration"
+      ]
+    },
+    {
+      "id": "3McFhL1VbmF9zxdonwhg",
+      "name": "aa",
+      "phone": "+923002407510",
+      "tags": [
+        "workshop-registration"
+      ]
+    },
+    {
+      "id": "63dNNxZtpSAwDpVMTlQ4",
+      "name": "usama saleem",
+      "phone": "+923052110126",
+      "tags": [
+        "workshop-registration"
+      ]
+    },
+    {
+      "id": "Dq1Q29HItqxQ6lydoaen",
+      "name": "mudasiryaseenkhan130676",
+      "phone": "+923451373053",
+      "tags": [
+        "workshop-registration"
+      ]
+    }
+  ]
+}

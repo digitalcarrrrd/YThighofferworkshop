@@ -11,8 +11,18 @@ export async function POST(req: NextRequest) {
     const email = body.email || body.contact?.email || body.contact_email;
     const name = body.first_name || body.name || body.contact?.first_name || body.contact?.name || body.full_name || "Student";
     const phone = body.phone || body.contact?.phone;
-    const stageName = (body.stage_name || body.stage || body.pipeline_stage || body.status || "").toLowerCase();
-    const step = (body.step || body.action || body.template || stageName || "").toLowerCase();
+    const stageName = (body.stage_name || body.stage || body.pipeline_stage || body.pipelineStageName || body.status || "").toLowerCase();
+    const pipelineStageId = body.pipelineStageId || body.pipeline_stage_id || "";
+    const step = (body.step || body.action || body.template || "").toLowerCase();
+    
+    // If stage name or ID indicates "Payment Confirmed", force step to confirmed
+    const isPaymentConfirmed = 
+      stageName.includes("confirmed") || 
+      stageName.includes("verified") || 
+      pipelineStageId === "0ad7cb14-6f9c-4a9c-ba9a-2b3a015cfeee" ||
+      step.includes("confirmed") || 
+      step.includes("verified");
+    const effectiveStep = isPaymentConfirmed ? "confirmed" : (step || stageName);
     const lmsUrl = "https://lms.abrarnadir.com";
     const workshopName = body.workshop_name || body.workshop || "YouTube Empire Builders Live Workshop";
     const zoomLink = body.zoom_link || "https://lms.abrarnadir.com";
@@ -24,7 +34,7 @@ export async function POST(req: NextRequest) {
     // ----------------------------------------------------
     // TEMPLATE 1: PAYMENT PENDING (Lead captured, payment missing)
     // ----------------------------------------------------
-    if (step.includes("pending") || step.includes("interest") || step.includes("reserve")) {
+    if (effectiveStep.includes("pending") || effectiveStep.includes("interest") || effectiveStep.includes("reserve")) {
       const waMsg = `Hi ${name}, thank you for your interest in the ${workshopName}! Your seat is reserved. Please complete your fee of PKR 1,999 via Meezan Bank or Easypaisa and reply with your screenshot here to confirm your seat.`;
       if (contactId) {
         await ghlClient.sendWhatsApp(contactId, waMsg, "yt_interest_payment_pending").catch(console.warn);
@@ -53,7 +63,7 @@ export async function POST(req: NextRequest) {
     // ----------------------------------------------------
     // TEMPLATE 3: 15-MINUTE REMINDER (Before event)
     // ----------------------------------------------------
-    if (step.includes("15min") || step.includes("reminder") || step.includes("class")) {
+    if (effectiveStep.includes("15min") || effectiveStep.includes("reminder") || effectiveStep.includes("class")) {
       const waMsg = `Hello ${name}, your live class starts in 15 minutes! Please click the link to join the live room now: ${zoomLink}`;
       if (contactId) {
         await ghlClient.sendWhatsApp(contactId, waMsg, "yt_15min_class_reminder").catch(console.warn);
@@ -79,7 +89,7 @@ export async function POST(req: NextRequest) {
     // ----------------------------------------------------
     // TEMPLATE 4: VIP UPSELL (After event)
     // ----------------------------------------------------
-    if (step.includes("upsell") || step.includes("vip") || step.includes("accelerator")) {
+    if (effectiveStep.includes("upsell") || effectiveStep.includes("vip") || effectiveStep.includes("accelerator")) {
       const waMsg = `Hi ${name}, congratulations on attending the live workshop! Ready to build a 100-channel automation empire with 1-on-1 mentorship? Check our VIP Executive Accelerator: https://www.abrarnadir.com/ytempirebuilder`;
       if (contactId) {
         await ghlClient.sendWhatsApp(contactId, waMsg, "yt_workshop_vip_upsell").catch(console.warn);
