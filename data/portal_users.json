@@ -1,0 +1,26 @@
+[
+  {
+    "id": "usr_1789091833023_4r1nk",
+    "email": "shahid.zaki07@gmail.com",
+    "name": "shahid",
+    "passwordHash": null,
+    "passwordSalt": null,
+    "setupToken": "73aa7433026c36e8b47ef41ca1195f752fe1277428616fa2",
+    "setupTokenExpires": 1789778616409,
+    "createdAt": "2026-09-11T01:57:13.023Z",
+    "updatedAt": "2026-09-12T00:43:36.409Z",
+    "hasSetPassword": false
+  },
+  {
+    "id": "usr_1789092734225_603gw",
+    "email": "shahidzaki9979@gmail.com",
+    "name": "shahid",
+    "passwordHash": null,
+    "passwordSalt": null,
+    "setupToken": "0df18c63f97b1df81f0995fb358f822b93ba1502058bea0b",
+    "setupTokenExpires": 1789704143821,
+    "createdAt": "2026-09-11T02:12:14.225Z",
+    "updatedAt": "2026-09-11T04:02:23.821Z",
+    "hasSetPassword": false
+  }
+]
