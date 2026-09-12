@@ -63,13 +63,18 @@ export async function POST(req: NextRequest) {
       return NextResponse.json({ success: true, action: "human_handoff", reason: handoff.reason });
     }
 
-    // 4. CHECK ENTRY TRIGGER: ABRAR-PREFILL-B (Phase 4)
-    if (upperText.includes(VARIANT_B_CONFIG.SOURCE_KEYWORD) || oppResult.isNew) {
+    // 4. CHECK ENTRY TRIGGER: CLAIM VIP MASTERCLASS SEAT (or legacy ABRAR-PREFILL-B)
+    const isEntryKeyword = upperText.includes("CLAIM VIP MASTERCLASS SEAT") || 
+                           upperText.includes("VIP MASTERCLASS") || 
+                           upperText.includes("CLAIM VIP SEAT") ||
+                           upperText.includes(VARIANT_B_CONFIG.LEGACY_SOURCE_KEYWORD);
+
+    if (isEntryKeyword || oppResult.isNew) {
       // Apply initial tag & metadata
       await addContactTag(contactId, VARIANT_B_CONFIG.TAGS.ENTRY_B);
       await updateContactCustomFields(contactId, [
         { id: VARIANT_B_CONFIG.CUSTOM_FIELDS.EXPERIMENT_VARIANT, field_value: VARIANT_B_CONFIG.VARIANT_NAME },
-        { id: VARIANT_B_CONFIG.CUSTOM_FIELDS.AD_KEYWORD, field_value: VARIANT_B_CONFIG.SOURCE_KEYWORD }
+        { id: VARIANT_B_CONFIG.CUSTOM_FIELDS.AD_KEYWORD, field_value: "CLAIM VIP MASTERCLASS SEAT" }
       ]);
 
       // If prefill payload contains submitted profile answers, save them
