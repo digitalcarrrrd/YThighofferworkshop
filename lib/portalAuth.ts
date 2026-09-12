@@ -2,7 +2,12 @@ import fs from 'fs';
 import path from 'path';
 import crypto from 'crypto';
 
-const DATA_DIR = path.join(process.cwd(), 'data');
+// Vercel serverless environment has a read-only root filesystem (/var/task).
+// Only /tmp is writable. We check if process.env.VERCEL is set or if running in serverless.
+const IS_VERCEL = Boolean(process.env.VERCEL);
+const DATA_DIR = IS_VERCEL ? '/tmp' : path.join(process.cwd(), 'data');
+const SEED_DATA_DIR = path.join(process.cwd(), 'data');
+
 const USERS_FILE = path.join(DATA_DIR, 'portal_users.json');
 const CONFIG_FILE = path.join(DATA_DIR, 'portal_config.json');
 
@@ -10,13 +15,35 @@ function ensureFiles() {
   if (!fs.existsSync(DATA_DIR)) {
     fs.mkdirSync(DATA_DIR, { recursive: true });
   }
-  if (!fs.existsSync(USERS_FILE)) {
-    fs.writeFileSync(USERS_FILE, JSON.stringify([], null, 2));
+
+  // If on Vercel and /tmp files don't exist yet, seed them from project repo data/
+  if (IS_VERCEL) {
+    const seedUsersFile = path.join(SEED_DATA_DIR, 'portal_users.json');
+    const seedConfigFile = path.join(SEED_DATA_DIR, 'portal_config.json');
+
+    if (!fs.existsSync(USERS_FILE)) {
+      if (fs.existsSync(seedUsersFile)) {
+        fs.copyFileSync(seedUsersFile, USERS_FILE);
+      } else {
+        fs.writeFileSync(USERS_FILE, JSON.stringify([], null, 2));
+      }
+    }
+
+    if (!fs.existsSync(CONFIG_FILE)) {
+      if (fs.existsSync(seedConfigFile)) {
+        fs.copyFileSync(seedConfigFile, CONFIG_FILE);
+      }
+    }
+  } else {
+    if (!fs.existsSync(USERS_FILE)) {
+      fs.writeFileSync(USERS_FILE, JSON.stringify([], null, 2));
+    }
   }
+
   if (!fs.existsSync(CONFIG_FILE)) {
     const defaultConfig = {
       recordingTitle: 'Session 1: US/UK Faceless YouTube Automation & AI Systems',
-      recordingVideoUrl: 'https://www.youtube.com/embed/dQw4w9WgXcQ', // default placeholder or unlisted embed
+      recordingVideoUrl: 'https://www.youtube.com/watch?v=ELxrjyvyiUc',
       recordingDuration: '2 Hours 14 Minutes',
       sessionDate: 'Daily Live Batch (8:00 PM - 10:00 PM PKT)',
       nextSessionDate: 'Tomorrow at 8:00 PM PKT',
@@ -46,7 +73,11 @@ function ensureFiles() {
         }
       ]
     };
-    fs.writeFileSync(CONFIG_FILE, JSON.stringify(defaultConfig, null, 2));
+    try {
+      fs.writeFileSync(CONFIG_FILE, JSON.stringify(defaultConfig, null, 2));
+    } catch (e) {
+      console.warn('Could not write CONFIG_FILE:', e);
+    }
   }
 }
 
