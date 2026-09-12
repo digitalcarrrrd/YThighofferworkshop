@@ -181,50 +181,49 @@ export async function getOrCreateVariantBOpportunity(contactId: string, contactN
 }
 
 // ---------------------------------------------------------------------------
-// MESSAGE CONTENT BUILDERS (PHASE 5 SPECIFICATION)
+// MESSAGE CONTENT BUILDERS (YOUTUBE & AI EARNING CENTRIC SPECIFICATION)
 // ---------------------------------------------------------------------------
 
 export function buildFirstInteractiveMessage(firstName: string) {
   return (
     `Assalam-o-Alaikum ${firstName || 'there'} 👋\n\n` +
-    `Abrar Nadir Workshop mein aapka welcome hai.\n\n` +
-    `Aap workshop se sab se pehle kya hasil karna chahte hain?\n\n` +
-    `Neeche diye gaye number ya text reply karein:\n\n` +
-    `1️⃣ *Digital Skill Seekhna*\n` +
-    `2️⃣ *Freelancing Start Karna*\n` +
-    `3️⃣ *Business Grow Karna*\n` +
-    `4️⃣ *Career Build Karna*\n` +
-    `5️⃣ *Pehle Details Dekhna*\n\n` +
-    `_Bas number (1 se 5) ya apna goal reply karein._\n\n` +
+    `Abrar Nadir YouTube & AI Masterclass mein aapka welcome hai!\n\n` +
+    `Aapka main goal kya hai?\n\n` +
+    `1️⃣ *Faceless Channel se Dollars ($) kamana*\n` +
+    `2️⃣ *Full Automation & AI Systems seekhna (No Editing)*\n` +
+    `3️⃣ *US/UK High-CPM Niches par Channel Monetize karna*\n` +
+    `4️⃣ *Monthly Passive Income ($500-$1,500/mo) Build karna*\n` +
+    `5️⃣ *Pehle Complete Workshop Details Dekhna*\n\n` +
+    `_Bas number (1 se 5) reply karein._\n\n` +
     `— Team Abrar Nadir`
   );
 }
 
-export function buildPersonalizedInterestResponse(interestType: 'digital_skill' | 'freelancing' | 'business_growth' | 'career' | 'details_first') {
+export function buildPersonalizedInterestResponse(interestType: 'faceless_dollars' | 'ai_automation' | 'high_cpm_niches' | 'monthly_income' | 'details_first') {
   let acknowledgement = '';
 
   switch (interestType) {
-    case 'digital_skill':
-      acknowledgement = `Perfect 👍 Workshop mein aap practical digital aur AI skills ka roadmap dekhenge, jise beginners bhi step by step follow kar sakte hain.`;
+    case 'faceless_dollars':
+      acknowledgement = `Zabardast 👍 Workshop mein hum dekhenge ke bina face aur camera ke AI tools se US/UK audience ke liye videos bana kar YouTube AdSense aur sponsorships se dollars kaise generate hote hain.`;
       break;
-    case 'freelancing':
-      acknowledgement = `Excellent 👍 Workshop mein aapko skill selection, portfolio aur first client tak pahunchne ka practical direction milega.`;
+    case 'ai_automation':
+      acknowledgement = `Perfect 👍 Workshop mein Abrar Nadir LIVE demo denge ke ChatGPT script, ElevenLabs voiceover aur automated b-roll se 45 minutes mein complete video bina manual video editing ke kaise banti hai.`;
       break;
-    case 'business_growth':
-      acknowledgement = `Great 👍 Workshop mein aap dekhenge ke AI aur digital systems se content, marketing aur business growth ko kaise improve kiya ja sakta hai.`;
+    case 'high_cpm_niches':
+      acknowledgement = `Excellent 👍 High-CPM niche selection sab se critical step hai. Hum top 10 niches ($15-$35 RPM) aur unka validation scorecard live share karenge.`;
       break;
-    case 'career':
-      acknowledgement = `Excellent 👍 Workshop aapko digital career options aur un skills ka clear roadmap dega jin par aap abhi kaam shuru kar sakte hain.`;
+    case 'monthly_income':
+      acknowledgement = `Great goal 👍 1 single channel se $500/month tak ka realistic roadmap, timeline aur consistency system workshop mein step-by-step deliver hoga.`;
       break;
     case 'details_first':
-      acknowledgement = `Bilkul 👍 Main pehle aapko complete workshop details share karta hoon, phir aap araam se decide kar sakte hain.`;
+      acknowledgement = `Bilkul 👍 Main pehle aapko complete 2-hour masterclass outline share karta hoon, phir aap araam se decide kar sakte hain.`;
       break;
   }
 
   const nextMenu = (
     `\n\nAap agla step kya lena chahte hain?\n\n` +
-    `*A* — 📋 Workshop Details & Outline\n` +
-    `*B* — 💳 Fee & Payment Details\n` +
+    `*A* — 📋 Workshop Outline & Topics\n` +
+    `*B* — 💳 Pass Fee & Payment Details\n` +
     `*C* — ❓ Ask a Question\n\n` +
     `_Reply A, B ya C karein._`
   );

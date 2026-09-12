@@ -95,28 +95,28 @@ export async function POST(req: NextRequest) {
       return NextResponse.json({ success: true, action: "entry_message_sent" });
     }
 
-    // 5. INTEREST SELECTION BRANCHING (Phase 5)
-    let selectedInterest: 'digital_skill' | 'freelancing' | 'business_growth' | 'career' | 'details_first' | null = null;
+    // 5. INTEREST SELECTION BRANCHING (YOUTUBE & AI EARNING CENTRIC)
+    let selectedInterest: 'faceless_dollars' | 'ai_automation' | 'high_cpm_niches' | 'monthly_income' | 'details_first' | null = null;
     let interestTag = '';
     let interestLabel = '';
 
-    if (upperText === "1" || upperText.includes("DIGITAL SKILL")) {
-      selectedInterest = 'digital_skill';
-      interestTag = VARIANT_B_CONFIG.TAGS.DIGITAL_SKILL;
-      interestLabel = 'Learn a Digital Skill';
-    } else if (upperText === "2" || upperText.includes("FREELANCING")) {
-      selectedInterest = 'freelancing';
-      interestTag = VARIANT_B_CONFIG.TAGS.FREELANCING;
-      interestLabel = 'Start Freelancing';
-    } else if (upperText === "3" || upperText.includes("BUSINESS") || upperText.includes("GROWTH")) {
-      selectedInterest = 'business_growth';
-      interestTag = VARIANT_B_CONFIG.TAGS.BUSINESS_GROWTH;
-      interestLabel = 'Grow My Business';
-    } else if (upperText === "4" || upperText.includes("CAREER")) {
-      selectedInterest = 'career';
-      interestTag = VARIANT_B_CONFIG.TAGS.CAREER;
-      interestLabel = 'Build a Career';
-    } else if (upperText === "5" || upperText.includes("PEHLE DETAILS") || upperText.includes("DETAILS DEKHNA")) {
+    if (upperText === "1" || upperText.includes("FACELESS") || upperText.includes("DOLLAR") || upperText.includes("DOLLARS")) {
+      selectedInterest = 'faceless_dollars';
+      interestTag = 'interest_faceless_dollars';
+      interestLabel = 'Faceless Channel se Dollars kamana';
+    } else if (upperText === "2" || upperText.includes("AUTOMATION") || upperText.includes("AI SYSTEMS") || upperText.includes("EDITING")) {
+      selectedInterest = 'ai_automation';
+      interestTag = 'interest_ai_automation';
+      interestLabel = 'Full Automation & AI Systems seekhna';
+    } else if (upperText === "3" || upperText.includes("CPM") || upperText.includes("NICHE") || upperText.includes("US/UK") || upperText.includes("MONETIZE")) {
+      selectedInterest = 'high_cpm_niches';
+      interestTag = 'interest_high_cpm_niches';
+      interestLabel = 'US/UK High-CPM Niches par Channel Monetize';
+    } else if (upperText === "4" || upperText.includes("PASSIVE") || upperText.includes("MONTHLY") || upperText.includes("500") || upperText.includes("INCOME")) {
+      selectedInterest = 'monthly_income';
+      interestTag = 'interest_monthly_income';
+      interestLabel = 'Monthly Passive Income ($500-$1,500/mo)';
+    } else if (upperText === "5" || upperText.includes("PEHLE DETAILS") || upperText.includes("DETAILS DEKHNA") || upperText.includes("OUTLINE")) {
       selectedInterest = 'details_first';
       interestTag = VARIANT_B_CONFIG.TAGS.DETAILS_FIRST;
       interestLabel = 'Pehle Details Dekhna';
