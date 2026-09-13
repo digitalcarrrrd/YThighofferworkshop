@@ -160,7 +160,7 @@ export default function WorkshopYt6Client() {
   const buildWhatsAppMessage = (directUrl?: string) => {
     const proofUrl = directUrl || uploadedReceiptUrl;
     const proofLine = proofUrl ? `\n*Payment Proof Screenshot:* ${proofUrl}` : "\n*(Payment slip / screenshot is chat me attach kar raha hoon 👇)*";
-    return `Salam Abrar Nadir & Support Team! Main ne YouTube Empire Builders (Workshop 6 - 2026 University & Degree Edition) ke liye payment transfer kar di hai.\n\n*Name:* ${fullName.trim()}\n*WhatsApp:* ${whatsappNumber.trim()}\n*Payment Method:* ${paymentMethod}${transactionId.trim() ? `\n*Transaction ID:* ${transactionId.trim()}` : ""}\n*Batch Date:* ${dynamicDate}\n*Amount Paid:* PKR 1,999${proofLine}\n\nPlease payment verify karke mera confirmed Google Meet link & WhatsApp community invite share karein. Shukriya! 😊`;
+    return `Salam Abrar Nadir & Support Team! Main ne Youtube Automation ki live zoom/google meet class k liye registor kia hai.\n\n*Name:* ${fullName.trim()}\n*WhatsApp:* ${whatsappNumber.trim()}\n*Payment Method:* ${paymentMethod}${transactionId.trim() ? `\n*Transaction ID:* ${transactionId.trim()}` : ""}\n*Batch Date:* ${dynamicDate}\n*Amount Paid:* PKR 1,999${proofLine}\n\nPlease payment verify karke mera confirmed Google Meet link & WhatsApp community invite share karein. Shukriya! 😊`;
   };
 
   const triggerWhatsAppOpen = (directUrl?: string | React.MouseEvent) => {
