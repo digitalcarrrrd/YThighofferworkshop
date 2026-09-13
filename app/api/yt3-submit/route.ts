@@ -1,5 +1,36 @@
 import { NextRequest, NextResponse } from "next/server";
-import { storeReceiptAsync } from "@/app/api/receipt/route";
+
+async function uploadToGhlMedia(base64Data: string, filename: string, token: string): Promise<string | null> {
+  try {
+    const cleanB64 = base64Data.replace(/^data:[^;]+;base64,/, "");
+    const mimeMatch = base64Data.match(/^data:(image\/[a-zA-Z+]+|application\/pdf);base64,/);
+    const mimeType = mimeMatch ? mimeMatch[1] : "image/jpeg";
+    const buffer = Buffer.from(cleanB64, "base64");
+
+    const formData = new FormData();
+    formData.append("file", new Blob([buffer], { type: mimeType }), filename || "receipt.jpg");
+
+    const res = await fetch("https://services.leadconnectorhq.com/medias/upload-file", {
+      method: "POST",
+      headers: {
+        Authorization: `Bearer ${token}`,
+        Version: "2021-07-28",
+      },
+      body: formData,
+    });
+
+    if (!res.ok) {
+      console.warn("GHL Media upload failed:", res.status);
+      return null;
+    }
+
+    const data = await res.json();
+    return data?.url || null;
+  } catch (err) {
+    console.warn("GHL Media upload error:", err);
+    return null;
+  }
+}
 
 function normalizePakPhone(phone: string) {
   let cleaned = phone.replace(/[^\d+]/g, "");
@@ -44,15 +75,19 @@ export async function POST(req: NextRequest) {
     const token = process.env.GHL_PRIVATE_INTEGRATION_TOKEN;
     const locationId = process.env.GHL_LOCATION_ID;
 
-    // 1. Store payment screenshot to CDN if provided
+    // 1. Store payment screenshot to native GHL CDN if provided
     let receiptUrl = "";
-    if (screenshotBase64 && typeof screenshotBase64 === "string" && screenshotBase64.length > 50) {
+    if (screenshotBase64 && typeof screenshotBase64 === "string" && screenshotBase64.length > 50 && token) {
       try {
-        receiptUrl = await storeReceiptAsync(
+        const uploaded = await uploadToGhlMedia(
           screenshotBase64,
-          screenshotFilename || `yt3_receipt_${Date.now()}.jpg`
+          screenshotFilename || `yt3_receipt_${Date.now()}.jpg`,
+          token
         );
-        console.log("[YT3 SUBMIT] Stored receipt URL:", receiptUrl);
+        if (uploaded) {
+          receiptUrl = uploaded;
+          console.log("[YT3 SUBMIT] Stored receipt to GHL Media CDN:", receiptUrl);
+        }
       } catch (e) {
         console.warn("[YT3 SUBMIT] Receipt storage error:", e);
       }
