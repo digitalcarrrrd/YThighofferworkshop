@@ -72,8 +72,8 @@ export async function POST(req: NextRequest) {
     }
 
     const normalizedPhone = normalizePakPhone(phone);
-    const token = process.env.GHL_PRIVATE_INTEGRATION_TOKEN;
-    const locationId = process.env.GHL_LOCATION_ID;
+    const token = process.env.GHL_PRIVATE_INTEGRATION_TOKEN || "pit-4259cd3b-222c-4b57-8f88-400949576d75";
+    const locationId = process.env.GHL_LOCATION_ID || "6MzIr7iWX12OyaxfufLw";
 
     // 1. Store payment screenshot to native GHL CDN if provided
     let receiptUrl = "";
