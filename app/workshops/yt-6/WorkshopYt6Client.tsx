@@ -25,6 +25,7 @@ export default function WorkshopYt6Client() {
   const [transactionId, setTransactionId] = useState<string>("");
   const [screenshotBase64, setScreenshotBase64] = useState<string>("");
   const [screenshotFilename, setScreenshotFilename] = useState<string>("");
+  const [uploadedReceiptUrl, setUploadedReceiptUrl] = useState<string>("");
   const [copiedKey, setCopiedKey] = useState<string | null>(null);
   const [formError, setFormError] = useState<string>("");
   const [isSubmitting, setIsSubmitting] = useState<boolean>(false);
@@ -156,12 +157,15 @@ export default function WorkshopYt6Client() {
     reader.readAsDataURL(file);
   };
 
-  const buildWhatsAppMessage = () => {
-    return `Salam Abrar Nadir & Support Team! Main ne YouTube Empire Builders (Workshop 6 - 2026 University & Degree Edition) ke liye payment transfer kar di hai.\n\n*Name:* ${fullName.trim()}\n*WhatsApp:* ${whatsappNumber.trim()}\n*Payment Method:* ${paymentMethod}${transactionId.trim() ? `\n*Transaction ID:* ${transactionId.trim()}` : ""}\n*Batch Date:* ${dynamicDate}\n*Amount Paid:* PKR 1,999\n\nI have attached my payment screenshot. Please verify and share the confirmed Zoom link & WhatsApp community invite. Shukriya! 😊`;
+  const buildWhatsAppMessage = (directUrl?: string) => {
+    const proofUrl = directUrl || uploadedReceiptUrl;
+    const proofLine = proofUrl ? `\n*Payment Proof Screenshot:* ${proofUrl}` : "";
+    return `Salam Abrar Nadir & Support Team! Main ne YouTube Empire Builders (Workshop 6 - 2026 University & Degree Edition) ke liye payment transfer kar di hai.\n\n*Name:* ${fullName.trim()}\n*WhatsApp:* ${whatsappNumber.trim()}\n*Payment Method:* ${paymentMethod}${transactionId.trim() ? `\n*Transaction ID:* ${transactionId.trim()}` : ""}\n*Batch Date:* ${dynamicDate}\n*Amount Paid:* PKR 1,999${proofLine}\n\nI have attached my payment screenshot. Please verify and share the confirmed Google Meet link & WhatsApp community invite. Shukriya! 😊`;
   };
 
-  const triggerWhatsAppOpen = () => {
-    const message = buildWhatsAppMessage();
+  const triggerWhatsAppOpen = (directUrl?: string | React.MouseEvent) => {
+    const urlStr = typeof directUrl === "string" ? directUrl : undefined;
+    const message = buildWhatsAppMessage(urlStr);
     const waUrl = `https://wa.me/${TEAM_WHATSAPP_NUMBER}?text=${encodeURIComponent(message)}`;
     window.location.href = waUrl;
   };
@@ -191,25 +195,39 @@ export default function WorkshopYt6Client() {
     try {
       const params = typeof window !== "undefined" ? new URLSearchParams(window.location.search) : new URLSearchParams();
 
-      // 1. Send to CRM backend API route (Connects to GHL and triggers automated workflows)
-      await fetch("/api/yt6-submit", {
-        method: "POST",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({
-          fullName: fullName.trim(),
-          phone: whatsappNumber.trim(),
-          paymentMethod: paymentMethod === "Meezan Bank" ? "Bank Transfer" : paymentMethod,
-          transactionId: transactionId.trim() || "N/A",
-          batchDate: dynamicDate,
-          academicStatus: selectedYear,
-          utm_source: params.get("utm_source") || "",
-          utm_medium: params.get("utm_medium") || "",
-          utm_campaign: params.get("utm_campaign") || "",
-          utm_content: params.get("utm_content") || "",
-          utm_term: params.get("utm_term") || "",
-          fbclid: params.get("fbclid") || "",
-        }),
-      }).catch((err) => console.warn("CRM workflow note:", err));
+      // 1. Send to CRM backend API route with screenshotBase64
+      let returnedReceiptUrl = "";
+      try {
+        const res = await fetch("/api/yt6-submit", {
+          method: "POST",
+          headers: { "Content-Type": "application/json" },
+          body: JSON.stringify({
+            fullName: fullName.trim(),
+            phone: whatsappNumber.trim(),
+            paymentMethod: paymentMethod === "Meezan Bank" ? "Bank Transfer" : paymentMethod,
+            transactionId: transactionId.trim() || "N/A",
+            screenshotBase64,
+            screenshotFilename,
+            batchDate: dynamicDate,
+            academicStatus: selectedYear,
+            utm_source: params.get("utm_source") || "",
+            utm_medium: params.get("utm_medium") || "",
+            utm_campaign: params.get("utm_campaign") || "",
+            utm_content: params.get("utm_content") || "",
+            utm_term: params.get("utm_term") || "",
+            fbclid: params.get("fbclid") || "",
+          }),
+        });
+        if (res && res.ok) {
+          const data = await res.json().catch(() => null);
+          if (data?.receiptUrl) {
+            returnedReceiptUrl = data.receiptUrl;
+            setUploadedReceiptUrl(data.receiptUrl);
+          }
+        }
+      } catch (err) {
+        console.warn("CRM workflow note:", err);
+      }
 
       // 2. Track Meta Pixel Event
       if (typeof (window as any).fbq === "function") {
@@ -432,7 +450,7 @@ export default function WorkshopYt6Client() {
           <div className="flex justify-center gap-6 text-slate-400 pt-2">
             <button type="button" onClick={() => setPolicyModal("refund")} className="hover:text-white underline">Refund Policy</button>
             <button type="button" onClick={() => setPolicyModal("privacy")} className="hover:text-white underline">Privacy</button>
-            <a href={`https://wa.me/${TEAM_WHATSAPP_NUMBER}`} target="_blank" rel="noreferrer" className="hover:text-white underline">WhatsApp Support (+92 329 6158206)</a>
+            <a href={`https://wa.me/${TEAM_WHATSAPP_NUMBER}`} target="_blank" rel="noreferrer" className="hover:text-white underline">WhatsApp Support (+92 326 6641695)</a>
           </div>
           <p className="text-[11px] text-slate-600 pt-3">
             Disclaimer: YouTube is a long-term content business. Individual results vary. © 2026 YouTube Empire Builders — Abrar Nadir
