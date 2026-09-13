@@ -666,8 +666,6 @@ export default function WorkshopYt6Client() {
                     />
                   </div>
 
-                  {/* Screenshot Upload */}
-                  <div>
                   {/* Screenshot Upload (Optional) */}
                   <div>
                     <label className="block text-xs font-bold text-slate-200 mb-1.5">
