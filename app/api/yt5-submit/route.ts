@@ -161,7 +161,7 @@ export async function POST(req: NextRequest) {
             `• Transaction ID: ${transactionId || "N/A"}`,
             `• Batch: ${batchDate || "Today"}`,
             `• Amount: PKR 1,999`,
-            receiptUrl ? `\n👉 View Payment Screenshot:\n${receiptUrl}` : "\n⚠️ Screenshot upload failed or not provided",
+            receiptUrl ? `\n👉 View Payment Screenshot:\n${receiptUrl}` : "\n💬 Slip Delivery: Student sending payment receipt via WhatsApp chat.",
           ].filter(Boolean).join("\n");
 
           await fetch(`https://services.leadconnectorhq.com/contacts/${contactId}/notes`, {

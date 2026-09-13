@@ -148,8 +148,8 @@ export default function WorkshopYt3Client() {
 
   const buildWhatsAppMessage = (directUrl?: string) => {
     const proofUrl = directUrl || uploadedReceiptUrl;
-    const proofLine = proofUrl ? `\n*Payment Proof Screenshot:* ${proofUrl}` : "";
-    return `Salam Abrar Nadir & Support Team! Main ne YouTube Live Workshop (Workshop 3) ke liye payment transfer kar di hai.\n\n*Name:* ${fullName.trim()}\n*WhatsApp:* ${whatsappNumber.trim()}${email.trim() ? `\n*Email:* ${email.trim()}` : ""}\n*Payment Method:* ${paymentMethod}${transactionId.trim() ? `\n*Transaction ID:* ${transactionId.trim()}` : ""}\n*Batch Date:* ${dynamicDate}\n*Amount Paid:* PKR 1,999${proofLine}\n\nI have attached my payment screenshot. Please verify and share the confirmed Google Meet link & WhatsApp community invite. Shukriya! 😊`;
+    const proofLine = proofUrl ? `\n*Payment Proof Screenshot:* ${proofUrl}` : "\n*(Payment slip / screenshot is chat me attach kar raha hoon 👇)*";
+    return `Salam Abrar Nadir & Support Team! Main ne YouTube Live Workshop (Workshop 3) ke liye payment transfer kar di hai.\n\n*Name:* ${fullName.trim()}\n*WhatsApp:* ${whatsappNumber.trim()}${email.trim() ? `\n*Email:* ${email.trim()}` : ""}\n*Payment Method:* ${paymentMethod}${transactionId.trim() ? `\n*Transaction ID:* ${transactionId.trim()}` : ""}\n*Batch Date:* ${dynamicDate}\n*Amount Paid:* PKR 1,999${proofLine}\n\nPlease payment verify karke mera confirmed Google Meet link & WhatsApp community invite share karein. Shukriya! 😊`;
   };
 
   const triggerWhatsAppOpen = (directUrl?: string | React.MouseEvent) => {
@@ -174,11 +174,7 @@ export default function WorkshopYt3Client() {
       return;
     }
 
-    if (!screenshotBase64) {
-      setFormError("Payment receipt ya screenshot attach karna zaroori hai.");
-      return;
-    }
-
+    // Note: Screenshot is optional on web - student can attach here OR send via WhatsApp
     setIsSubmitting(true);
 
     try {
@@ -879,8 +875,9 @@ export default function WorkshopYt3Client() {
                   </div>
 
                   {/* Upload Screenshot */}
+                  {/* Upload Screenshot (Optional) */}
                   <div className="yt3-form-group">
-                    <label>Payment Screenshot / Receipt *</label>
+                    <label>Payment Screenshot / Receipt <span style={{ color: "#94A3B8", fontWeight: "normal", fontSize: "11.5px" }}>(Optional — ya WhatsApp par bhej dein)</span></label>
                     <div className="yt3-upload-zone" onClick={() => fileInputRef.current?.click()}>
                       <input
                         type="file"
@@ -899,8 +896,8 @@ export default function WorkshopYt3Client() {
                       ) : (
                         <div>
                           <span style={{ fontSize: "24px", display: "block", marginBottom: "2px" }}>📸</span>
-                          <p style={{ fontSize: "13px", fontWeight: 800, color: "#1E293B" }}>Attach Payment Screenshot</p>
-                          <p style={{ fontSize: "11px", color: "#64748B" }}>Tap to upload from mobile or gallery</p>
+                          <p style={{ fontSize: "13px", fontWeight: 800, color: "#1E293B" }}>Attach Payment Screenshot (Optional)</p>
+                          <p style={{ fontSize: "11px", color: "#64748B" }}>Yahan attach karein ya direct WhatsApp chat me send karein</p>
                         </div>
                       )}
                     </div>
@@ -914,7 +911,7 @@ export default function WorkshopYt3Client() {
 
                   {/* CTA Button */}
                   <button type="submit" className="yt3-verify-btn" disabled={isSubmitting}>
-                    {isSubmitting ? "Processing Verification..." : "Verify Payment on WhatsApp →"}
+                    {isSubmitting ? "Processing..." : "🟢 Confirm Seat & Send Slip on WhatsApp →"}
                   </button>
 
                   <div style={{ background: "#F0FDF4", border: "1px solid #BBF7D0", color: "#166534", padding: "10px", borderRadius: "10px", fontSize: "12px", fontWeight: 700, textAlign: "center", marginTop: "10px" }}>
@@ -933,7 +930,7 @@ export default function WorkshopYt3Client() {
                   </h3>
 
                   <p className="yt3-redirect-msg">
-                    Aap ki details aur payment receipt receive ho chuki hain. Hamari senior verification team aapki payment verify karke direct confirmed Zoom link aur WhatsApp group access provide karegi.
+                    Aap ki details receive ho chuki hain. Payment verify karke hamari team aapko confirmed Google Meet link aur WhatsApp community access provide karegi.
                   </p>
 
                   <div className="yt3-countdown-circle">
@@ -949,7 +946,7 @@ export default function WorkshopYt3Client() {
                     className="yt3-manual-wa-btn"
                     onClick={triggerWhatsAppOpen}
                   >
-                    <span>💬 Open WhatsApp Immediately (+92 329 6158206)</span>
+                    <span>💬 Open WhatsApp Immediately (+92 326 6641695)</span>
                   </button>
                 </div>
               )}

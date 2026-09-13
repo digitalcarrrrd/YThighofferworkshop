@@ -159,8 +159,8 @@ export default function WorkshopYt6Client() {
 
   const buildWhatsAppMessage = (directUrl?: string) => {
     const proofUrl = directUrl || uploadedReceiptUrl;
-    const proofLine = proofUrl ? `\n*Payment Proof Screenshot:* ${proofUrl}` : "";
-    return `Salam Abrar Nadir & Support Team! Main ne YouTube Empire Builders (Workshop 6 - 2026 University & Degree Edition) ke liye payment transfer kar di hai.\n\n*Name:* ${fullName.trim()}\n*WhatsApp:* ${whatsappNumber.trim()}\n*Payment Method:* ${paymentMethod}${transactionId.trim() ? `\n*Transaction ID:* ${transactionId.trim()}` : ""}\n*Batch Date:* ${dynamicDate}\n*Amount Paid:* PKR 1,999${proofLine}\n\nI have attached my payment screenshot. Please verify and share the confirmed Google Meet link & WhatsApp community invite. Shukriya! 😊`;
+    const proofLine = proofUrl ? `\n*Payment Proof Screenshot:* ${proofUrl}` : "\n*(Payment slip / screenshot is chat me attach kar raha hoon 👇)*";
+    return `Salam Abrar Nadir & Support Team! Main ne YouTube Empire Builders (Workshop 6 - 2026 University & Degree Edition) ke liye payment transfer kar di hai.\n\n*Name:* ${fullName.trim()}\n*WhatsApp:* ${whatsappNumber.trim()}\n*Payment Method:* ${paymentMethod}${transactionId.trim() ? `\n*Transaction ID:* ${transactionId.trim()}` : ""}\n*Batch Date:* ${dynamicDate}\n*Amount Paid:* PKR 1,999${proofLine}\n\nPlease payment verify karke mera confirmed Google Meet link & WhatsApp community invite share karein. Shukriya! 😊`;
   };
 
   const triggerWhatsAppOpen = (directUrl?: string | React.MouseEvent) => {
@@ -185,11 +185,7 @@ export default function WorkshopYt6Client() {
       return;
     }
 
-    if (!screenshotBase64) {
-      setFormError("Payment receipt ya screenshot attach karna zaroori hai.");
-      return;
-    }
-
+    // Note: Screenshot is optional on web - student can attach here OR send via WhatsApp
     setIsSubmitting(true);
 
     try {
@@ -672,10 +668,14 @@ export default function WorkshopYt6Client() {
 
                   {/* Screenshot Upload */}
                   <div>
-                    <label className="block text-xs font-bold text-slate-200 mb-1.5">Attach Payment Screenshot *</label>
+                  {/* Screenshot Upload (Optional) */}
+                  <div>
+                    <label className="block text-xs font-bold text-slate-200 mb-1.5">
+                      Attach Payment Screenshot <span className="text-slate-400 font-normal">(Optional — ya WhatsApp par bhej dein)</span>
+                    </label>
                     <div 
                       onClick={() => fileInputRef.current?.click()}
-                      className="border-2 border-dashed border-slate-600 hover:border-green-500 bg-[#07111F] p-4 rounded-xl text-center cursor-pointer transition-colors"
+                      className="border-2 border-dashed border-slate-600 hover:border-green-500 bg-[#07111F] p-3.5 rounded-xl text-center cursor-pointer transition-colors"
                     >
                       <input 
                         type="file" 
@@ -693,9 +693,9 @@ export default function WorkshopYt6Client() {
                         </div>
                       ) : (
                         <div>
-                          <span className="text-2xl block mb-1">📸</span>
-                          <p className="text-xs font-bold text-white">Tap to upload receipt image / PDF</p>
-                          <p className="text-[11px] text-slate-400">JPG, PNG, WEBP (Max: 10MB)</p>
+                          <span className="text-xl block mb-0.5">📸</span>
+                          <p className="text-xs font-bold text-white">Tap to upload receipt (Optional)</p>
+                          <p className="text-[10px] text-slate-400">Yahan attach karein ya direct WhatsApp chat me send karein</p>
                         </div>
                       )}
                     </div>
@@ -710,9 +710,9 @@ export default function WorkshopYt6Client() {
                   <button 
                     type="submit" 
                     disabled={isSubmitting}
-                    className="w-full bg-gradient-to-r from-green-600 to-green-700 hover:from-green-500 hover:to-green-600 text-white font-black text-base py-4 rounded-xl shadow-xl transition-all active:scale-98 disabled:opacity-70"
+                    className="w-full bg-gradient-to-r from-green-600 to-green-700 hover:from-green-500 hover:to-green-600 text-white font-black text-base py-4 rounded-xl shadow-xl transition-all active:scale-98 disabled:opacity-70 flex items-center justify-center gap-2"
                   >
-                    {isSubmitting ? "Processing..." : "Verify Payment on WhatsApp →"}
+                    {isSubmitting ? "Processing..." : "🟢 Confirm Seat & Send Slip on WhatsApp →"}
                   </button>
 
                   {/* Trust Badge under button */}
@@ -733,7 +733,7 @@ export default function WorkshopYt6Client() {
                   </h3>
 
                   <p className="text-xs sm:text-sm text-slate-300 max-w-md mx-auto leading-relaxed">
-                    Aap ki details aur payment receipt receive ho chuki hain. Hamari senior verification team aapki payment verify karke direct confirmed Zoom link aur WhatsApp group access provide karegi.
+                    Aap ki details receive ho chuki hain. Payment verify karke hamari team aapko confirmed Google Meet link aur WhatsApp group access provide karegi.
                   </p>
 
                   <div className="w-16 h-16 rounded-full bg-green-500/10 border-4 border-green-500 text-green-400 text-2xl font-black flex items-center justify-center mx-auto shadow-lg animate-pulse">
@@ -749,7 +749,7 @@ export default function WorkshopYt6Client() {
                     onClick={triggerWhatsAppOpen}
                     className="w-full bg-[#25D366] hover:bg-[#20BA56] text-white py-3.5 px-6 rounded-xl font-bold text-sm shadow-xl transition-all"
                   >
-                    💬 Open WhatsApp Immediately (+92 329 6158206)
+                    💬 Open WhatsApp Immediately (+92 326 6641695)
                   </button>
                 </div>
               )}
