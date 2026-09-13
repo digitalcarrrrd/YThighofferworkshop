@@ -89,8 +89,8 @@ export async function POST(req: NextRequest) {
         const contactId = contactData?.contact?.id;
 
         // 2. Create Opportunity in GHL pipeline to trigger backend workflows
-        const pipelineId = process.env.GHL_LIVE_WORKSHOP_PIPELINE_ID || process.env.GHL_PIPELINE_ID;
-        const stageId = process.env.GHL_LIVE_WORKSHOP_PAYMENT_PENDING_STAGE_ID || process.env.GHL_PIPELINE_STAGE_ID;
+        const pipelineId = process.env.GHL_LIVE_WORKSHOP_PIPELINE_ID || "SLf8kzZ9MhXAyQYFeAm2";
+        const stageId = process.env.GHL_LIVE_WORKSHOP_PAYMENT_PENDING_STAGE_ID || "1519847d-e659-4ec8-8177-8c5c63b880f0";
 
         if (contactId && pipelineId && stageId) {
           await fetch("https://services.leadconnectorhq.com/opportunities", {

@@ -157,7 +157,7 @@ export default function WorkshopYt6Client() {
   };
 
   const buildWhatsAppMessage = () => {
-    return `Salam Abrar Nadir & Support Team! Main ne YouTube Empire Builders (Workshop 6 - 2026 University & Degree Edition) ke liye payment transfer kar di hai.\n\n*Name:* ${fullName.trim()}\n*WhatsApp:* ${whatsappNumber.trim()}\n*Payment Method:* ${paymentMethod}${transactionId.trim() ? `\n*Transaction ID:* ${transactionId.trim()}` : ""}\n*Batch Date:* ${dynamicDate}\n*Amount Paid:* PKR 1,999\n\nI have attached my payment screenshot. Please verify and share the confirmed Zoom link & WhatsApp community invite. Shukriya! 😊`;
+    return `Salam Abrar Nadir & Support Team! Main ne YouTube Empire Builders (Workshop 6 - 2026 University & Degree Edition) ke liye payment transfer kar di hai.\n\n*Name:* ${fullName.trim()}\n*WhatsApp:* ${whatsappNumber.trim()}\n*Payment Method:* ${paymentMethod}${transactionId.trim() ? `\n*Transaction ID:* ${transactionId.trim()}` : ""}\n*Batch Date:* ${dynamicDate}\n*Amount Paid:* PKR 1,999\n\nI have attached my payment screenshot. Please verify and share the confirmed Google Meet link & WhatsApp community invite. Shukriya! 😊`;
   };
 
   const triggerWhatsAppOpen = () => {
@@ -432,7 +432,7 @@ export default function WorkshopYt6Client() {
           <div className="flex justify-center gap-6 text-slate-400 pt-2">
             <button type="button" onClick={() => setPolicyModal("refund")} className="hover:text-white underline">Refund Policy</button>
             <button type="button" onClick={() => setPolicyModal("privacy")} className="hover:text-white underline">Privacy</button>
-            <a href={`https://wa.me/${TEAM_WHATSAPP_NUMBER}`} target="_blank" rel="noreferrer" className="hover:text-white underline">WhatsApp Support (+92 329 6158206)</a>
+            <a href={`https://wa.me/${TEAM_WHATSAPP_NUMBER}`} target="_blank" rel="noreferrer" className="hover:text-white underline">WhatsApp Support (+92 326 6641695)</a>
           </div>
           <p className="text-[11px] text-slate-600 pt-3">
             Disclaimer: YouTube is a long-term content business. Individual results vary. © 2026 YouTube Empire Builders — Abrar Nadir
