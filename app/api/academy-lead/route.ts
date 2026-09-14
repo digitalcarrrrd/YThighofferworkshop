@@ -1,5 +1,9 @@
 import { NextResponse } from 'next/server';
 import { ghlClient } from '@/lib/ghlClient';
+import {
+  dispatchCourseEmailAutomation,
+  dispatchWhatsAppAutomation,
+} from '@/lib/courseAutomation';
 
 export async function POST(req: Request) {
   try {
@@ -80,6 +84,29 @@ export async function POST(req: Request) {
     });
 
     const opportunityId = oppResult?.opportunity?.id || oppResult?.id || null;
+
+    // 4. Trigger WhatsApp & Course Email Automations based on Stage
+    const recipient = {
+      contactId,
+      email,
+      phone: phone || "",
+      name,
+      workshopName: "YouTube Empire Builders Academy",
+      customFee: monetaryValue ? `PKR ${monetaryValue.toLocaleString()}` : "PKR 1,999",
+    };
+
+    if (stage === "payment-sent") {
+      // Payment sent / confirmed: Dispatch verified WhatsApp & Welcome LMS Onboarding Email
+      dispatchWhatsAppAutomation(recipient, "payment_confirmed").catch((e) => console.warn("WA confirmed error:", e));
+      dispatchCourseEmailAutomation(recipient, "welcome_onboarding").catch((e) => console.warn("Email welcome error:", e));
+
+      // Enroll in Academy LMS GHL Workflow
+      const academyWorkflowId = process.env.GHL_ACADEMY_WORKFLOW_ID || "037af938-b83f-4aac-b1b3-61cdfdf5b9a5";
+      ghlClient.addContactToWorkflow(contactId, academyWorkflowId).catch((e) => console.warn("Academy workflow enrollment error:", e));
+    } else {
+      // Lead created / form filled: Dispatch payment instructions via WhatsApp
+      dispatchWhatsAppAutomation(recipient, "payment_pending").catch((e) => console.warn("WA pending error:", e));
+    }
 
     return NextResponse.json({
       success: true,

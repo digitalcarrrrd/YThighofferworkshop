@@ -318,6 +318,91 @@ export class GhlClient {
       return null;
     }
   }
+
+  async listWorkflows() {
+    if (!this.isConfigured) return [];
+
+    try {
+      const response = await fetch(`${this.baseUrl}/workflows/?locationId=${this.locationId}`, {
+        headers: {
+          Authorization: `Bearer ${this.token}`,
+          Version: "2021-07-28",
+          Accept: "application/json",
+        },
+      });
+
+      if (!response.ok) {
+        console.error(`GHL listWorkflows Failed: ${response.status} ${response.statusText}`);
+        return [];
+      }
+
+      const data = await response.json();
+      return data.workflows || [];
+    } catch (error) {
+      console.error("GHL Client Error: listWorkflows failed", error);
+      return [];
+    }
+  }
+
+  async addContactToWorkflow(contactId: string, workflowId: string) {
+    if (!this.isConfigured || !contactId || !workflowId) {
+      console.warn("GHL addContactToWorkflow: missing credentials, contactId, or workflowId");
+      return null;
+    }
+
+    try {
+      const response = await fetch(`${this.baseUrl}/contacts/${contactId}/workflow/${workflowId}`, {
+        method: "POST",
+        headers: {
+          Authorization: `Bearer ${this.token}`,
+          Version: "2021-07-28",
+          "Content-Type": "application/json",
+          Accept: "application/json",
+        },
+      });
+
+      if (!response.ok) {
+        const err = await response.text();
+        console.error(`GHL addContactToWorkflow Failed: ${response.status}`, err);
+        return { success: false, status: response.status, error: err };
+      }
+
+      const data = await response.json().catch(() => ({ success: true }));
+      return { success: true, data };
+    } catch (error) {
+      console.error("GHL Client Error: addContactToWorkflow failed", error);
+      return { success: false, error };
+    }
+  }
+
+  async removeContactFromWorkflow(contactId: string, workflowId: string) {
+    if (!this.isConfigured || !contactId || !workflowId) {
+      return null;
+    }
+
+    try {
+      const response = await fetch(`${this.baseUrl}/contacts/${contactId}/workflow/${workflowId}`, {
+        method: "DELETE",
+        headers: {
+          Authorization: `Bearer ${this.token}`,
+          Version: "2021-07-28",
+          Accept: "application/json",
+        },
+      });
+
+      if (!response.ok) {
+        const err = await response.text();
+        console.error(`GHL removeContactFromWorkflow Failed: ${response.status}`, err);
+        return { success: false, status: response.status, error: err };
+      }
+
+      return { success: true };
+    } catch (error) {
+      console.error("GHL Client Error: removeContactFromWorkflow failed", error);
+      return { success: false, error };
+    }
+  }
 }
 
 export const ghlClient = new GhlClient();
+

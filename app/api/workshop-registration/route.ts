@@ -1,6 +1,8 @@
 import { NextRequest, NextResponse } from "next/server";
 import { utmKeys } from "@/lib/analytics";
 import { getOfferById } from "@/lib/offers/offers";
+import { ghlClient } from "@/lib/ghlClient";
+import { dispatchWhatsAppAutomation } from "@/lib/courseAutomation";
 
 const attempts = new Map<string, { count: number; reset: number }>();
 const emailPattern = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
@@ -216,6 +218,23 @@ export async function POST(req: NextRequest) {
           });
         }
       }
+    }
+
+    // 5. Automation: Dispatch Instant WhatsApp & Enroll in GHL Workshop Workflow
+    if (contactId && !testMode) {
+      // Dispatch Instant WhatsApp payment instructions
+      dispatchWhatsAppAutomation({
+        contactId,
+        name: fullName,
+        phone,
+        email,
+        workshopName: offer.title || "YouTube Empire Builders Live Workshop",
+        customFee: String(offer.price || "PKR 1,999"),
+      }, "payment_pending").catch((err) => console.warn("Auto WhatsApp dispatch failed:", err));
+
+      // Auto-enroll in GHL Workflow (YouTube Workshop WhatsApp Confirmation)
+      const ghlWorkflowId = process.env.GHL_WORKSHOP_WORKFLOW_ID || "8c73d915-30dc-4f5f-9fbe-0db027ca6f32";
+      ghlClient.addContactToWorkflow(contactId, ghlWorkflowId).catch((err) => console.warn("Workflow enrollment failed:", err));
     }
 
     return NextResponse.json({ 

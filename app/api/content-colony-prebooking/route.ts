@@ -1,6 +1,13 @@
 import { NextRequest, NextResponse } from "next/server";
 
-const packages = new Set(["10-Day Builder — PKR 85,000", "15-Day Pro — PKR 120,000", "Private 30-Day — PKR 220,000"]);
+const packages = new Set([
+  "7-Day Sprint — PKR 100,000",
+  "14-Day Build Sprint — PKR 180,000",
+  "30-Day Creator Residency — PKR 300,000",
+  "10-Day Builder — PKR 85,000",
+  "15-Day Pro — PKR 120,000",
+  "Private 30-Day — PKR 220,000",
+]);
 const attempts = new Map<string, { count: number; resetAt: number }>();
 
 function clean(value: unknown, max = 1000) { return typeof value === "string" ? value.trim().slice(0, max) : ""; }

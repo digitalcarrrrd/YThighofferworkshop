@@ -374,9 +374,7 @@ export default function HomePage() {
         {/* Door 02: Content Colony (Co-Live & Co-Work) */}
         <a
           className="door reveal"
-          href="https://www.abrarnadir.com/cc/prebooking"
-          target="_blank"
-          rel="noopener noreferrer"
+          href="/cc"
           onMouseEnter={handleHoverSound}
         >
           <div>
@@ -495,9 +493,7 @@ export default function HomePage() {
                 YT Empire Builders
               </a>
               <a
-                href="https://www.abrarnadir.com/cc/prebooking"
-                target="_blank"
-                rel="noopener noreferrer"
+                href="/cc"
                 onMouseEnter={handleHoverSound}
               >
                 Content Colony

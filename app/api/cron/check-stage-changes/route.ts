@@ -1,5 +1,9 @@
 import { NextRequest, NextResponse } from "next/server";
 import { ghlClient } from "@/lib/ghlClient";
+import {
+  dispatchCourseEmailAutomation,
+  dispatchWhatsAppAutomation,
+} from "@/lib/courseAutomation";
 
 /**
  * Vercel Cron Job — runs every minute.
@@ -91,42 +95,31 @@ export async function GET(req: NextRequest) {
       const workshopName = "YouTube Empire Builders Live Workshop";
       const lmsUrl = "https://lms.abrarnadir.com";
 
+      const recipient = {
+        contactId,
+        name: contactName,
+        email: contactEmail,
+        phone: contactPhone,
+        workshopName,
+      };
+
       // --- Send WhatsApp confirmation ---
-      try {
-        const waMsg = `Hello ${contactName}, your payment of PKR 1,999 has been verified! Welcome to ${workshopName}. Your live session access link and community invite have been activated.`;
-        await ghlClient.sendWhatsApp(contactId, waMsg, "yt_payment_verified_details");
-      } catch (e) {
-        console.warn("WhatsApp send failed for", contactId, e);
-      }
+      await dispatchWhatsAppAutomation(recipient, "payment_confirmed").catch((e) =>
+        console.warn("WhatsApp send failed for", contactId, e)
+      );
 
       // --- Send Email confirmation ---
       if (contactEmail && !contactEmail.includes("@whatsapp.user")) {
-        try {
-          const emailHtml = `
-            <div style="font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif; max-width: 600px; margin: 0 auto; background: #0B100C; color: #FFFFFF; padding: 32px; border-radius: 16px; border: 1px solid #2FD97E;">
-              <div style="display: inline-block; background: rgba(47,217,126,0.15); border: 1px solid #2FD97E; color: #2FD97E; font-size: 11px; font-weight: 800; padding: 4px 12px; border-radius: 999px; text-transform: uppercase; margin-bottom: 16px;">
-                ✓ Payment Verified & Enrolled
-              </div>
-              <h2 style="color: #2FD97E; margin-top: 0; font-size: 24px;">Welcome to ${workshopName}, ${contactName}!</h2>
-              <p style="color: #E2E8F0; font-size: 14px; line-height: 1.6;">Aap ki payment verify ho chuki hai and your official access is unlocked.</p>
-              <div style="background: rgba(47, 217, 126, 0.08); border: 1px solid rgba(47,217,126,0.3); padding: 20px; border-radius: 12px; margin: 24px 0; text-align: center;">
-                <h3 style="margin-top: 0; color: #2FD97E; font-size: 16px;">🚀 Access Learning Portal (LMS):</h3>
-                <p style="margin-bottom: 16px; color: #94A3B8; font-size: 13px;">Login with your registered email to start your 12 core modules:</p>
-                <a href="${lmsUrl}" style="display: inline-block; background: #2FD97E; color: #04220F; font-weight: 900; font-size: 14px; padding: 12px 28px; border-radius: 10px; text-decoration: none;">Open LMS Portal (lms.abrarnadir.com) →</a>
-              </div>
-              <p style="font-size: 13px; color: #94A3B8;">Direct WhatsApp Support: <b style="color: #FFFFFF;">+92 326 6641695</b></p>
-            </div>
-          `;
-          await ghlClient.sendEmail(
-            contactId,
-            contactEmail,
-            `🎉 Payment Verified & Seat Confirmed! — ${workshopName}`,
-            emailHtml
-          );
-        } catch (e) {
-          console.warn("Email send failed for", contactId, e);
-        }
+        await dispatchCourseEmailAutomation(recipient, "welcome_onboarding").catch((e) =>
+          console.warn("Email send failed for", contactId, e)
+        );
       }
+
+      // --- Enroll in GHL Workflow ---
+      const workflowId = process.env.GHL_WORKSHOP_WORKFLOW_ID || "8c73d915-30dc-4f5f-9fbe-0db027ca6f32";
+      ghlClient.addContactToWorkflow(contactId, workflowId).catch((e) =>
+        console.warn("Workflow enrollment failed for", contactId, e)
+      );
 
       // --- Update tags ---
       try {

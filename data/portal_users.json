@@ -22,5 +22,17 @@
     "createdAt": "2026-09-11T02:12:14.225Z",
     "updatedAt": "2026-09-11T04:02:23.821Z",
     "hasSetPassword": false
+  },
+  {
+    "id": "usr_1789204543734_on2oa",
+    "email": "syedkhalidnaseem@gmail.com",
+    "name": "Khalid Naseem",
+    "passwordHash": null,
+    "passwordSalt": null,
+    "setupToken": "349d3330542387caf23a9a45f232d0ac8348f8bd5f8998dd",
+    "setupTokenExpires": 1789809343734,
+    "createdAt": "2026-09-12T09:15:43.735Z",
+    "updatedAt": "2026-09-12T09:15:43.735Z",
+    "hasSetPassword": false
   }
 ]
