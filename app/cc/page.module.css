@@ -144,21 +144,25 @@
   color: var(--white);
 }
 
+a.navCta,
 .navCta {
-  border: 1px solid var(--white);
-  background: transparent;
-  color: var(--white);
+  border: 1px solid var(--white) !important;
+  background: transparent !important;
+  color: var(--white) !important;
   padding: 9px 20px;
   font-size: 0.82rem;
   font-weight: 700;
   letter-spacing: 0.04em;
   transition: all 0.18s ease;
   cursor: pointer;
+  text-decoration: none;
 }
 
+a.navCta:hover,
 .navCta:hover {
-  background: var(--white);
-  color: var(--black);
+  background: var(--white) !important;
+  color: #000000 !important;
+  border-color: var(--white) !important;
 }
 
 /* HERO SECTION */
@@ -225,43 +229,52 @@
   margin-bottom: 50px;
 }
 
+a.btnPrimary,
 .btnPrimary {
-  background: var(--white);
-  color: var(--black);
-  border: 1px solid var(--white);
+  background: #ffffff !important;
+  color: #000000 !important;
+  border: 1px solid #ffffff !important;
   padding: 14px 28px;
-  font-size: 0.88rem;
-  font-weight: 700;
+  font-size: 0.9rem;
+  font-weight: 800;
   letter-spacing: 0.04em;
   transition: all 0.18s ease;
   display: inline-flex;
   align-items: center;
+  justify-content: center;
   gap: 10px;
   cursor: pointer;
+  text-decoration: none;
 }
 
+a.btnPrimary:hover,
 .btnPrimary:hover {
-  background: transparent;
-  color: var(--white);
+  background: #000000 !important;
+  color: #ffffff !important;
+  border-color: #ffffff !important;
 }
 
+a.btnSecondary,
 .btnSecondary {
-  border: 1px solid var(--line2);
-  background: transparent;
-  color: var(--soft);
+  border: 1px solid var(--line2) !important;
+  background: transparent !important;
+  color: #ffffff !important;
   padding: 14px 26px;
-  font-size: 0.88rem;
+  font-size: 0.9rem;
   font-weight: 700;
   transition: all 0.18s ease;
   display: inline-flex;
   align-items: center;
   gap: 8px;
   cursor: pointer;
+  text-decoration: none;
 }
 
+a.btnSecondary:hover,
 .btnSecondary:hover {
-  border-color: var(--white);
-  color: var(--white);
+  border-color: #ffffff !important;
+  background: #ffffff !important;
+  color: #000000 !important;
 }
 
 /* 3 Quick Preview Doors */
@@ -638,10 +651,11 @@
   line-height: 1.5;
 }
 
+a.pDoorBtn,
 .pDoorBtn {
-  border: 1px solid var(--white);
-  background: transparent;
-  color: var(--white);
+  border: 1px solid var(--white) !important;
+  background: transparent !important;
+  color: var(--white) !important;
   padding: 14px 24px;
   font-size: 0.85rem;
   font-weight: 700;
@@ -653,6 +667,16 @@
   justify-content: center;
   gap: 8px;
   cursor: pointer;
+  text-decoration: none;
+}
+
+a.pDoorBtn:hover,
+.pDoorBtn:hover,
+.pricingDoor:hover a.pDoorBtn,
+.pricingDoor:hover .pDoorBtn {
+  background: var(--white) !important;
+  color: #000000 !important;
+  border-color: var(--white) !important;
 }
 
 /* PSYCHOLOGY & MATH COMPARISON (WHITE INVERTED WALL) */

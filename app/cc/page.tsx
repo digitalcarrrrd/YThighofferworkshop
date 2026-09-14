@@ -649,10 +649,6 @@ export default function ContentColonyPage() {
                   <span className={styles.locBadge}>25 Mins</span>
                   <span>Allama Iqbal International Airport (LHE)</span>
                 </li>
-                <li>
-                  <span className={styles.locBadge}>24/7 Gate</span>
-                  <span>Biometric perimeter, CCTV surveillance, gated compound</span>
-                </li>
               </ul>
             </div>
 
