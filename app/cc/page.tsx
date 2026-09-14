@@ -7,7 +7,7 @@ import { TourSection } from "./TourSection";
 export const metadata: Metadata = {
   title: "Content Colony V3 — Creator Execution Residency | Abrar Nadir",
   description:
-    "A residential execution environment in Johar Town, Lahore for serious YouTube operators and AI builders. 7-Day Sprint, 14-Day Build Sprint, and 30-Day Residency.",
+    "A residential execution compound in Johar Town, Lahore for serious YouTube operators and AI builders. 7-Day Sprint, 14-Day Build Sprint, and 30-Day Residency.",
   openGraph: {
     title: "Content Colony V3 — Creator Execution Residency",
     description:
@@ -20,44 +20,28 @@ export default function ContentColonyPage() {
   return (
     <main className={styles.page}>
       {/* Top Bar Announcement */}
-      <div className={styles.cohortBanner}>
-        <span className={styles.cohortPill}>FOUNDING COHORT V3</span>
+      <div className={styles.topBanner}>
+        <span className={styles.topBannerBadge}>FOUNDING COHORT V3</span>
         <span>FIRST 10 RESIDENTS RECEIVE FOUNDING-COHORT PRICING &amp; PERMANENT ALUMNI STATUS</span>
       </div>
 
       {/* Navigation */}
-      <nav className={styles.navbar}>
+      <nav className={styles.nav}>
         <div className={styles.navInner}>
-          <Link href="/" className={styles.brandLink}>
-            <span className={styles.brandSymbol}>CC</span>
-            <div className={styles.brandText}>
-              <span className={styles.brandName}>CONTENT COLONY</span>
-              <span className={styles.brandTagline}>Execution Residency</span>
+          <Link href="/" className={styles.brand}>
+            <div className={styles.brandLogo}>
+              CONTENT COLONY
+              <span>RESIDENCY</span>
             </div>
           </Link>
 
           <div className={styles.navLinks}>
-            <a href="#philosophy" className={styles.navLink}>
-              Residency Model
-            </a>
-            <a href="#value-pillars" className={styles.navLink}>
-              5 Value Areas
-            </a>
-            <a href="#tour" className={styles.navLink}>
-              Compound Tour
-            </a>
-            <a href="#packages" className={styles.navLink}>
-              Packages &amp; Pricing
-            </a>
-            <a href="#savings" className={styles.navLink}>
-              Pricing Math
-            </a>
-            <a href="#outcomes" className={styles.navLink}>
-              Deliverables
-            </a>
-            <a href="#location" className={styles.navLink}>
-              Location
-            </a>
+            <a href="#value-pillars">5 Value Areas</a>
+            <a href="#tour">Compound Tour</a>
+            <a href="#packages">Packages &amp; Pricing</a>
+            <a href="#savings">Pricing Math</a>
+            <a href="#outcomes">Deliverables</a>
+            <a href="#location">Location</a>
           </div>
 
           <a href="#apply" className={styles.navCta}>
@@ -67,91 +51,99 @@ export default function ContentColonyPage() {
       </nav>
 
       {/* Hero Section */}
-      <section className={styles.heroSection}>
+      <section className={styles.hero}>
         <div className={styles.container}>
           <div className={styles.heroContent}>
-            <div className={styles.locationEyebrow}>
-              <span className={styles.locationDot} />
-              <span>CONTENT COLONY • JOHAR TOWN, LAHORE • NEAR EXPO &amp; EMPORIUM</span>
+            <div className={styles.heroTag}>
+              <span className={styles.heroTagDot} />
+              <span>DOOR 02 — IRL EXECUTION COMPOUND · JOHAR TOWN, LAHORE</span>
             </div>
 
-            <h1 className={styles.heroTitle}>
+            <h1>
               Arrive With a Goal. <br />
-              <span className={styles.heroTitleHighlight}>Leave With Completed Work.</span>
+              <span>Leave With Completed Work.</span>
             </h1>
 
-            <p className={styles.heroSubtitle}>
-              You are not buying a bed, a desk, food, or another passive video course.
+            <p className={styles.heroSub}>
+              You are not buying a bed, a desk, food, or another video course.
               <br />
               Content Colony is a <strong>Creator Execution Residency</strong>: a fixed period of
-              accommodation, focused work, direct expert access, rigorous content review, and
+              accommodation, focused work, direct expert access, content review, and
               completed digital output.
             </p>
 
             <div className={styles.heroActions}>
               <a href="#apply" className={styles.btnPrimary}>
-                <span>Apply for Residency</span>
-                <span>→</span>
+                Apply for Residency →
               </a>
               <a href="#packages" className={styles.btnSecondary}>
                 Inspect Packages &amp; Pricing
               </a>
             </div>
 
-            {/* Quick 3-Tier Overview */}
-            <div className={styles.heroQuickTiers}>
-              <div className={styles.quickTierItem}>
-                <div className={styles.quickTierTop}>
-                  <span className={styles.quickTierName}>7-Day Sprint</span>
-                  <span className={styles.quickTierBadge}>Breakthrough</span>
+            {/* 3 Quick Preview Doors (Hover Invert) */}
+            <div className={styles.heroDoors}>
+              <a href="#packages" className={styles.heroDoorItem}>
+                <div>
+                  <div className={styles.heroDoorTop}>
+                    <span className={styles.heroDoorNum}>SPRINT 01</span>
+                    <span className={styles.heroDoorBadge}>Breakthrough</span>
+                  </div>
+                  <div className={styles.heroDoorTitle}>7-Day Sprint</div>
+                  <div className={styles.heroDoorPrice}>PKR 100,000</div>
+                  <div className={styles.heroDoorRate}>PKR 14,286 / day</div>
                 </div>
-                <div className={styles.quickTierPrice}>PKR 100,000</div>
-                <div className={styles.quickTierRate}>PKR 14,286/day</div>
-                <div className={styles.quickTierFocus}>
-                  Arrive with one problem. Leave with one completed outcome. Up to 7 hrs Abrar 1:1 + 1 Zahid review.
+                <div className={styles.heroDoorDesc}>
+                  One problem solved. One finished outcome. Up to 7 hrs Abrar 1:1 + 1 Zahid review.
                 </div>
-              </div>
+              </a>
 
-              <div className={`${styles.quickTierItem} ${styles.tierFeatured}`}>
-                <div className={styles.quickTierTop}>
-                  <span className={styles.quickTierName}>14-Day Build Sprint</span>
-                  <span className={styles.quickTierBadge}>MOST POPULAR</span>
+              <a href="#packages" className={styles.heroDoorItem}>
+                <div>
+                  <div className={styles.heroDoorTop}>
+                    <span className={styles.heroDoorNum}>SPRINT 02</span>
+                    <span className={styles.heroDoorBadge}>MOST POPULAR</span>
+                  </div>
+                  <div className={styles.heroDoorTitle}>14-Day Build Sprint</div>
+                  <div className={styles.heroDoorPrice}>PKR 180,000</div>
+                  <div className={styles.heroDoorRate}>PKR 12,857 / day (Save 20K)</div>
                 </div>
-                <div className={styles.quickTierPrice}>PKR 180,000</div>
-                <div className={styles.quickTierRate}>PKR 12,857/day (Save 20K)</div>
-                <div className={styles.quickTierFocus}>
-                  Build it, test it, receive feedback, and improve it. 2 full execution cycles + 2 Zahid reviews.
+                <div className={styles.heroDoorDesc}>
+                  Build it, test it, receive feedback, and improve it. 2 execution cycles + 2 Zahid reviews.
                 </div>
-              </div>
+              </a>
 
-              <div className={styles.quickTierItem}>
-                <div className={styles.quickTierTop}>
-                  <span className={styles.quickTierName}>30-Day Residency</span>
-                  <span className={styles.quickTierBadge}>BEST VALUE</span>
+              <a href="#packages" className={styles.heroDoorItem}>
+                <div>
+                  <div className={styles.heroDoorTop}>
+                    <span className={styles.heroDoorNum}>SPRINT 03</span>
+                    <span className={styles.heroDoorBadge}>BEST VALUE</span>
+                  </div>
+                  <div className={styles.heroDoorTitle}>30-Day Residency</div>
+                  <div className={styles.heroDoorPrice}>PKR 300,000</div>
+                  <div className={styles.heroDoorRate}>PKR 10,000 / day (Save 100K)</div>
                 </div>
-                <div className={styles.quickTierPrice}>PKR 300,000</div>
-                <div className={styles.quickTierRate}>PKR 10,000/day (Save 100K)</div>
-                <div className={styles.quickTierFocus}>
-                  Full operating transformation. Up to 10 hrs Abrar 1:1, 3 Zahid reviews &amp; 90-day growth plan.
+                <div className={styles.heroDoorDesc}>
+                  Full operating transformation. Up to 10 hrs Abrar, 3 Zahid reviews &amp; 90-day growth plan.
                 </div>
-              </div>
+              </a>
             </div>
 
-            {/* Hardware & Infrastructure Proof Bar */}
-            <div className={styles.statProofBar}>
-              <div className={styles.statItem}>
+            {/* Hardware & Compound Stat Bar */}
+            <div className={styles.statBar}>
+              <div className={styles.statCell}>
                 <div className={styles.statValue}>1,000 Mbps</div>
                 <div className={styles.statLabel}>Dual-Redundant Fiber</div>
               </div>
-              <div className={styles.statItem}>
+              <div className={styles.statCell}>
                 <div className={styles.statValue}>100% 24/7</div>
                 <div className={styles.statLabel}>Solar + Gen Backup</div>
               </div>
-              <div className={styles.statItem}>
+              <div className={styles.statCell}>
                 <div className={styles.statValue}>Studio Alpha</div>
                 <div className={styles.statLabel}>Sony 4K &amp; Shure SM7B</div>
               </div>
-              <div className={styles.statItem}>
+              <div className={styles.statCell}>
                 <div className={styles.statValue}>Direct Access</div>
                 <div className={styles.statLabel}>Abrar 1:1 &amp; Zahid Reviews</div>
               </div>
@@ -163,81 +155,79 @@ export default function ContentColonyPage() {
       {/* The 5 Value Categories Section */}
       <section id="value-pillars" className={styles.section}>
         <div className={styles.container}>
-          <div className={styles.sectionHeader}>
-            <span className={styles.sectionEyebrow}>THE V3 VALUE EQUATION</span>
-            <h2 className={styles.sectionTitle}>
-              Why Should You Invest in Content Colony?
-            </h2>
-            <p className={styles.sectionLead}>
+          <div className={styles.sectionHeading}>
+            <span className={styles.eyebrow}>THE V3 VALUE EQUATION</span>
+            <h2>Why Should You Invest in Content Colony?</h2>
+            <p>
               &ldquo;Why should I pay PKR 100,000, 180,000, or 300,000—and exactly what will I receive?&rdquo;
               <br />
-              The answer is simple: your investment is distributed across five measurable value categories
-              designed to remove all friction from high-output creative execution.
+              Your investment is divided into five clear value categories designed to eliminate every
+              friction point from creative execution.
             </p>
           </div>
 
           <div className={styles.pillarsGrid}>
             <div className={styles.pillarCard}>
-              <div className={styles.pillarNumber}>VALUE CATEGORY 01</div>
+              <div className={styles.pillarNum}>01</div>
               <h3 className={styles.pillarTitle}>Living Value</h3>
               <p className={styles.pillarDesc}>
-                Frictionless daily life so your mental energy goes 100% into execution. No grocery runs, no cooking, no maintenance headaches.
+                Frictionless daily life so your mental energy goes 100% into execution. No grocery runs, cooking, or household maintenance.
               </p>
               <ul className={styles.pillarList}>
-                <li>Hotel-grade private or shared residency suites</li>
-                <li>Chef-curated healthy daily meals &amp; unlimited refreshments</li>
-                <li>Daily housekeeping &amp; biometric 24/7 secure access</li>
-                <li>Community creator lounge &amp; outdoor terrace</li>
+                <li>Private or shared hotel-grade suites</li>
+                <li>Chef-curated daily meals &amp; refreshments</li>
+                <li>Daily housekeeping &amp; biometric 24/7 access</li>
+                <li>Communal lounge &amp; quiet outdoor patio</li>
               </ul>
             </div>
 
             <div className={styles.pillarCard}>
-              <div className={styles.pillarNumber}>VALUE CATEGORY 02</div>
+              <div className={styles.pillarNum}>02</div>
               <h3 className={styles.pillarTitle}>Workspace Value</h3>
               <p className={styles.pillarDesc}>
-                A military-grade creative production compound built specifically for video editors, AI operators, and YouTube builders.
+                A military-grade creative compound built for video editors, AI operators, and serious channel owners.
               </p>
               <ul className={styles.pillarList}>
                 <li>1 Gbps dual-redundant fiber optic connection</li>
                 <li>100% uninterrupted power (Solar + automated generator)</li>
-                <li>Studio Bay Alpha &amp; Beta (4K Sony cinema, Shure SM7B, prompters)</li>
+                <li>Studio Bay Alpha &amp; Beta (4K Sony cinema, Shure SM7B, teleprompter)</li>
                 <li>Shared RTX 4090 batch rendering compute node</li>
               </ul>
             </div>
 
             <div className={styles.pillarCard}>
-              <div className={styles.pillarNumber}>VALUE CATEGORY 03</div>
+              <div className={styles.pillarNum}>03</div>
               <h3 className={styles.pillarTitle}>Expert Access</h3>
               <p className={styles.pillarDesc}>
-                Direct, structured access to operators who have generated hundreds of millions of views and 7-figure media businesses.
+                Direct, structured strategy access to operators who manage 7-figure digital properties and hundreds of millions of views.
               </p>
               <ul className={styles.pillarList}>
                 <li>Up to 7 to 10 hours structured 1:1 strategy with Abrar Nadir</li>
-                <li>Daily morning execution briefings &amp; bottleneck elimination</li>
+                <li>Daily morning execution briefings &amp; bottleneck correction</li>
                 <li>Mastermind war room sessions with peer builders</li>
-                <li>No generic classroom lectures—only live problem solving</li>
+                <li>No generic lectures—only live systems and problem solving</li>
               </ul>
             </div>
 
             <div className={styles.pillarCard}>
-              <div className={styles.pillarNumber}>VALUE CATEGORY 04</div>
+              <div className={styles.pillarNum}>04</div>
               <h3 className={styles.pillarTitle}>Content &amp; Channel Improvement</h3>
               <p className={styles.pillarDesc}>
-                Rigorous, data-backed teardowns of your concepts, scripts, visual packaging, and algorithm retention curves.
+                Data-backed teardowns of your concepts, scripts, visual packaging, and algorithmic retention curves.
               </p>
               <ul className={styles.pillarList}>
                 <li>1 to 3 dedicated channel &amp; content review checkpoints with Zahid</li>
-                <li>CTR packaging teardowns: titles, hooks &amp; thumbnail wireframes</li>
+                <li>CTR packaging audits: titles, hooks &amp; thumbnail wireframes</li>
                 <li>Retention graph audits on your past and current uploads</li>
                 <li>Scripting rhythm, voice-over direction, and pacing edits</li>
               </ul>
             </div>
 
             <div className={styles.pillarCard}>
-              <div className={styles.pillarNumber}>VALUE CATEGORY 05</div>
+              <div className={styles.pillarNum}>05</div>
               <h3 className={styles.pillarTitle}>Completed Execution Output</h3>
               <p className={styles.pillarDesc}>
-                The ultimate reason you are here: tangible digital assets built, recorded, tested, and ready to generate compounding returns.
+                The ultimate metric: tangible digital assets built, recorded, tested, and ready to compound.
               </p>
               <ul className={styles.pillarList}>
                 <li>Documented Content DNA &amp; repeatable production pipeline</li>
@@ -248,29 +238,30 @@ export default function ContentColonyPage() {
             </div>
 
             <div className={styles.pillarCard}>
-              <div className={styles.pillarNumber}>PEER ADVANTAGE</div>
+              <div className={styles.pillarNum}>06</div>
               <h3 className={styles.pillarTitle}>The High-Output Room</h3>
               <p className={styles.pillarDesc}>
-                Environment dictates performance. When everyone around you is building, editing, testing prompts, and shipping at elite speed, procrastination becomes impossible.
+                Environment dictates speed. When everyone around you is building, editing, and shipping daily, hesitation disappears.
               </p>
               <ul className={styles.pillarList}>
-                <li>Strictly vetted peer creators and channel owners</li>
-                <li>Shared contacts: editors, voice artists, scriptwriters</li>
+                <li>Strictly vetted peer creators and channel operators</li>
+                <li>Shared network: top editors, voice artists, scriptwriters</li>
                 <li>Permanent access to the Content Colony Alumni network</li>
+                <li>Collaborative mastermind feedback loops</li>
               </ul>
             </div>
           </div>
         </div>
       </section>
 
-      {/* Interactive Tour Section */}
+      {/* Interactive Compound Tour */}
       <section id="tour" className={styles.section}>
         <div className={styles.container}>
-          <div className={styles.sectionHeader}>
-            <span className={styles.sectionEyebrow}>INTERACTIVE COMPOUND INSPECTION</span>
-            <h2 className={styles.sectionTitle}>Take a Look Inside Content Colony</h2>
-            <p className={styles.sectionLead}>
-              Inspect the production studio bays, creator co-working floor, co-living suites,
+          <div className={styles.sectionHeading}>
+            <span className={styles.eyebrow}>INTERACTIVE INSPECTION</span>
+            <h2>Take a Look Inside the Compound</h2>
+            <p>
+              Explore the production studio bays, creator co-working floor, co-living suites,
               and mastermind war room located in Johar Town, Lahore.
             </p>
           </div>
@@ -282,300 +273,223 @@ export default function ContentColonyPage() {
       {/* Packages & Pricing Section */}
       <section id="packages" className={styles.section}>
         <div className={styles.container}>
-          <div className={styles.sectionHeader}>
-            <span className={styles.sectionEyebrow}>RESIDENCY COMMITMENTS</span>
-            <h2 className={styles.sectionTitle}>Choose Your Execution Depth</h2>
-            <p className={styles.sectionLead}>
-              Every package provides full accommodation, meals, workspace, and expert review.
-              Choose the time frame that matches your current business mission.
+          <div className={styles.sectionHeading}>
+            <span className={styles.eyebrow}>COMMITMENTS &amp; PACKAGES</span>
+            <h2>Choose Your Execution Depth</h2>
+            <p>
+              Every package includes accommodation, meals, workspace, and expert review.
+              Select the duration that matches your current business mission.
             </p>
           </div>
 
-          <div className={styles.pricingGrid}>
+          <div className={styles.pricingDoors}>
             {/* 7-Day Sprint */}
-            <article className={styles.pricingCard}>
-              <div className={styles.cardHeader}>
-                <h3 className={styles.cardPackageName}>7-Day Sprint</h3>
-                <p className={styles.cardPromise}>
+            <article className={styles.pricingDoor}>
+              <div>
+                <div className={styles.pDoorNum}>DOOR 01 — 7 DAYS</div>
+                <h3 className={styles.pDoorName}>7-Day Sprint</h3>
+                <p className={styles.pDoorPromise}>
                   &ldquo;Arrive with one problem. Leave with one completed outcome.&rdquo;
                 </p>
+
+                <div className={styles.pDoorPriceBlock}>
+                  <div className={styles.pDoorPrice}>PKR 100,000</div>
+                  <div className={styles.pDoorRate}>Effective Daily Price: PKR 14,286 / day</div>
+                  <div className={styles.pDoorRef}>Total Reference Value: PKR 134,000</div>
+                </div>
+
+                <ul className={styles.pDoorList}>
+                  <li><strong>7 nights</strong> shared accommodation &amp; housekeeping</li>
+                  <li><strong>Shared meals</strong> &amp; chef-prepared refreshments</li>
+                  <li><strong>7 days</strong> 24/7 coworking &amp; studio bay access</li>
+                  <li><strong>Up to 7 hours</strong> structured 1:1 access with Abrar Nadir</li>
+                  <li><strong>1 deep channel &amp; content review</strong> with Zahid</li>
+                  <li><strong>1 defined execution mission</strong> &amp; daily accountability</li>
+                  <li>Final review and <strong>30-day action plan</strong></li>
+                </ul>
+
+                <div className={styles.pDoorQuote}>
+                  &ldquo;You are not paying PKR 100,000 to attend a class. You are investing PKR 100,000 in seven days of living, working, reviewing, and executing around one important outcome.&rdquo;
+                </div>
               </div>
 
-              <div className={styles.cardPriceBlock}>
-                <div className={styles.cardPrice}>PKR 100,000</div>
-                <div className={styles.cardDailyRate}>Effective Daily Price: PKR 14,286/day</div>
-                <div className={styles.cardRefValue}>Total Reference Value: PKR 134,000</div>
-              </div>
-
-              <ul className={styles.cardIncludesList}>
-                <li>
-                  <span className={styles.checkIcon}>✔</span>
-                  <span><strong>7 nights</strong> shared accommodation &amp; housekeeping</span>
-                </li>
-                <li>
-                  <span className={styles.checkIcon}>✔</span>
-                  <span><strong>Shared meals</strong> &amp; chef-prepared refreshments</span>
-                </li>
-                <li>
-                  <span className={styles.checkIcon}>✔</span>
-                  <span><strong>7 days</strong> 24/7 coworking &amp; studio bay access</span>
-                </li>
-                <li>
-                  <span className={styles.checkIcon}>✔</span>
-                  <span><strong>Up to 7 hours</strong> structured 1:1 access with Abrar Nadir</span>
-                </li>
-                <li>
-                  <span className={styles.checkIcon}>✔</span>
-                  <span><strong>1 deep channel &amp; content review</strong> with Zahid</span>
-                </li>
-                <li>
-                  <span className={styles.checkIcon}>✔</span>
-                  <span><strong>1 defined execution mission</strong> &amp; daily accountability</span>
-                </li>
-                <li>
-                  <span className={styles.checkIcon}>✔</span>
-                  <span>Final review and <strong>30-day action plan</strong></span>
-                </li>
-              </ul>
-
-              <div className={styles.cardQuote}>
-                &ldquo;You are not paying PKR 100,000 to attend a class. You are investing PKR 100,000 in seven days of living, working, reviewing, and executing around one important outcome.&rdquo;
-              </div>
-
-              <a href="#apply" className={styles.cardCtaBtn}>
-                Apply for 7-Day Sprint
+              <a href="#apply" className={styles.pDoorBtn}>
+                Apply for 7-Day Sprint →
               </a>
             </article>
 
             {/* 14-Day Build Sprint (MOST POPULAR) */}
-            <article className={`${styles.pricingCard} ${styles.pricingCardFeatured}`}>
-              <div className={styles.cardFloatingBadge}>
-                MOST POPULAR — BUILD, TEST, IMPROVE
-              </div>
-
-              <div className={styles.cardHeader}>
-                <h3 className={styles.cardPackageName}>14-Day Build Sprint</h3>
-                <p className={styles.cardPromise}>
+            <article className={`${styles.pricingDoor} ${styles.pricingDoorFeatured}`}>
+              <span className={styles.pDoorBadge}>MOST POPULAR</span>
+              <div>
+                <div className={styles.pDoorNum}>DOOR 02 — 14 DAYS</div>
+                <h3 className={styles.pDoorName}>14-Day Build Sprint</h3>
+                <p className={styles.pDoorPromise}>
                   &ldquo;Build it, test it, receive feedback, and improve it.&rdquo;
                 </p>
+
+                <div className={styles.pDoorPriceBlock}>
+                  <div className={styles.pDoorPrice}>PKR 180,000</div>
+                  <div className={styles.pDoorRate}>Effective Daily Price: PKR 12,857 / day</div>
+                  <div className={styles.pDoorSavings}>⚡ Saves PKR 20,000 vs two 7-day bookings</div>
+                  <div className={styles.pDoorRef}>Total Reference Value: PKR 238,000</div>
+                </div>
+
+                <ul className={styles.pDoorList}>
+                  <li><strong>Everything in the 7-day sprint</strong>, plus:</li>
+                  <li><strong>14 nights</strong> accommodation &amp; 14 days coworking</li>
+                  <li><strong>Two full execution cycles</strong> (build → test → iterate)</li>
+                  <li><strong>2 Zahid content &amp; channel reviews</strong></li>
+                  <li><strong>Up to 7 hours</strong> structured 1:1 strategy with Abrar Nadir</li>
+                  <li>Workflow testing &amp; publishing/production correction</li>
+                  <li>Midpoint performance review &amp; revised roadmap</li>
+                </ul>
+
+                <div className={styles.pDoorQuote}>
+                  &ldquo;The 14-day sprint is for people who do not only want to start. They want enough time to build, test, correct, and operate.&rdquo;
+                </div>
               </div>
 
-              <div className={styles.cardPriceBlock}>
-                <div className={styles.cardPrice}>PKR 180,000</div>
-                <div className={styles.cardDailyRate}>Effective Daily Price: PKR 12,857/day</div>
-                <div className={styles.cardSavings}>⚡ Saves PKR 20,000 vs two 7-day bookings</div>
-                <div className={styles.cardRefValue}>Total Reference Value: PKR 238,000</div>
-              </div>
-
-              <ul className={styles.cardIncludesList}>
-                <li>
-                  <span className={styles.checkIcon}>✔</span>
-                  <span><strong>Everything in the 7-day sprint</strong>, plus:</span>
-                </li>
-                <li>
-                  <span className={styles.checkIcon}>✔</span>
-                  <span><strong>14 nights</strong> accommodation &amp; 14 days coworking</span>
-                </li>
-                <li>
-                  <span className={styles.checkIcon}>✔</span>
-                  <span><strong>Two full execution cycles</strong> (build → feedback → re-build)</span>
-                </li>
-                <li>
-                  <span className={styles.checkIcon}>✔</span>
-                  <span><strong>2 Zahid content &amp; channel reviews</strong> (concept + post-edit)</span>
-                </li>
-                <li>
-                  <span className={styles.checkIcon}>✔</span>
-                  <span><strong>Up to 7 hours</strong> structured 1:1 strategy with Abrar Nadir</span>
-                </li>
-                <li>
-                  <span className={styles.checkIcon}>✔</span>
-                  <span>Workflow testing &amp; publishing/production correction</span>
-                </li>
-                <li>
-                  <span className={styles.checkIcon}>✔</span>
-                  <span>Midpoint performance audit &amp; revised roadmap</span>
-                </li>
-              </ul>
-
-              <div className={styles.cardQuote}>
-                &ldquo;The 14-day sprint is for people who do not only want to start. They want enough time to build, test, correct, and operate.&rdquo;
-              </div>
-
-              <a href="#apply" className={`${styles.cardCtaBtn} ${styles.cardCtaBtnFeatured}`}>
-                Apply for 14-Day Build Sprint
+              <a href="#apply" className={styles.pDoorBtn}>
+                Apply for 14-Day Build Sprint →
               </a>
             </article>
 
             {/* 30-Day Creator Residency */}
-            <article className={`${styles.pricingCard} ${styles.pricingCardBestValue}`}>
-              <div className={`${styles.cardFloatingBadge} ${styles.badgeGold}`}>
-                BEST VALUE — FULL TRANSFORMATION
-              </div>
-
-              <div className={styles.cardHeader}>
-                <h3 className={styles.cardPackageName}>30-Day Residency</h3>
-                <p className={styles.cardPromise}>
+            <article className={styles.pricingDoor}>
+              <span className={styles.pDoorBadge}>BEST VALUE</span>
+              <div>
+                <div className={styles.pDoorNum}>DOOR 03 — 30 DAYS</div>
+                <h3 className={styles.pDoorName}>30-Day Residency</h3>
+                <p className={styles.pDoorPromise}>
                   &ldquo;Replace scattered effort with a complete operating rhythm.&rdquo;
                 </p>
+
+                <div className={styles.pDoorPriceBlock}>
+                  <div className={styles.pDoorPrice}>PKR 300,000</div>
+                  <div className={styles.pDoorRate}>Effective Daily Price: PKR 10,000 / day</div>
+                  <div className={styles.pDoorSavings}>⚡ Saves ~PKR 100,000 vs four 7-day bookings</div>
+                  <div className={styles.pDoorRef}>Total Reference Value: PKR 415,000</div>
+                </div>
+
+                <ul className={styles.pDoorList}>
+                  <li><strong>Everything in the 14-day sprint</strong>, plus:</li>
+                  <li><strong>30 nights</strong> accommodation &amp; 30 days coworking</li>
+                  <li><strong>Full-month operating immersion</strong> &amp; systems building</li>
+                  <li><strong>Up to 10 hours</strong> structured 1:1 strategy with Abrar Nadir</li>
+                  <li><strong>3 Zahid channel/content review checkpoints</strong></li>
+                  <li>Three progress reviews &amp; production repetition</li>
+                  <li>Automation &amp; delegation system planning</li>
+                  <li><strong>90-day post-residency growth operating plan</strong></li>
+                </ul>
+
+                <div className={styles.pDoorQuote}>
+                  &ldquo;At PKR 10,000 per day, the 30-day residency gives you a place to live, a place to work, expert access, channel feedback, meals, and one month to build a real operating system.&rdquo;
+                </div>
               </div>
 
-              <div className={styles.cardPriceBlock}>
-                <div className={styles.cardPrice}>PKR 300,000</div>
-                <div className={styles.cardDailyRate}>Effective Daily Price: PKR 10,000/day</div>
-                <div className={styles.cardSavings}>⚡ Saves ~PKR 100,000 vs four 7-day bookings</div>
-                <div className={styles.cardRefValue}>Total Reference Value: PKR 415,000</div>
-              </div>
-
-              <ul className={styles.cardIncludesList}>
-                <li>
-                  <span className={styles.checkIcon}>✔</span>
-                  <span><strong>Everything in the 14-day sprint</strong>, plus:</span>
-                </li>
-                <li>
-                  <span className={styles.checkIcon}>✔</span>
-                  <span><strong>30 nights</strong> accommodation &amp; 30 days coworking</span>
-                </li>
-                <li>
-                  <span className={styles.checkIcon}>✔</span>
-                  <span><strong>Full-month operating immersion</strong> &amp; team workflows</span>
-                </li>
-                <li>
-                  <span className={styles.checkIcon}>✔</span>
-                  <span><strong>Up to 10 hours</strong> structured 1:1 strategy with Abrar Nadir</span>
-                </li>
-                <li>
-                  <span className={styles.checkIcon}>✔</span>
-                  <span><strong>3 Zahid channel/content review checkpoints</strong></span>
-                </li>
-                <li>
-                  <span className={styles.checkIcon}>✔</span>
-                  <span>Three progress reviews &amp; production repetition</span>
-                </li>
-                <li>
-                  <span className={styles.checkIcon}>✔</span>
-                  <span>Automation &amp; delegation system planning</span>
-                </li>
-                <li>
-                  <span className={styles.checkIcon}>✔</span>
-                  <span><strong>90-day post-residency growth operating plan</strong></span>
-                </li>
-              </ul>
-
-              <div className={styles.cardQuote}>
-                &ldquo;At PKR 10,000 per day, the 30-day residency gives you a place to live, a place to work, expert access, channel feedback, meals, and one month to build a real operating system.&rdquo;
-              </div>
-
-              <a href="#apply" className={styles.cardCtaBtn}>
-                Apply for 30-Day Residency
+              <a href="#apply" className={styles.pDoorBtn}>
+                Apply for 30-Day Residency →
               </a>
             </article>
           </div>
         </div>
       </section>
 
-      {/* Pricing Psychology & Savings Comparison Table */}
-      <section id="savings" className={styles.section}>
+      {/* Psychology & Pricing Math (INVERTED WHITE WALL SECTION) */}
+      <section id="savings" className={styles.wallSection}>
         <div className={styles.container}>
-          <div className={styles.sectionHeader}>
-            <span className={styles.sectionEyebrow}>PRICING TRANSPARENCY</span>
-            <h2 className={styles.sectionTitle}>The Longer You Stay, The More You Save</h2>
-            <p className={styles.sectionLead}>
-              The longer package becomes psychologically and financially attractive because your effective
-              daily cost drops from PKR 14,286/day to just PKR 10,000/day.
+          <div className={styles.wallHeading}>
+            <span className={styles.wallEyebrow}>PRICING PSYCHOLOGY</span>
+            <h2>The Longer You Stay, The Lower Your Daily Cost</h2>
+            <p>
+              Booking longer commitments gives you compounding execution depth with steep direct savings:
             </p>
           </div>
 
-          <div className={styles.comparisonWrap}>
-            <h3 className={styles.comparisonTitle}>If You Booked at the 7-Day Sprint Rate</h3>
-            <p className={styles.comparisonLead}>
-              Booking longer sprints gives you compounding execution depth with steep direct savings:
-            </p>
-
-            <div className={styles.tableContainer}>
-              <table className={styles.compareTable}>
-                <thead>
-                  <tr>
-                    <th>Duration</th>
-                    <th>Effective Daily Rate</th>
-                    <th>At 7-Day Rate Equivalent</th>
-                    <th>Residency Investment</th>
-                    <th>You Save</th>
-                  </tr>
-                </thead>
-                <tbody>
-                  <tr>
-                    <td><strong>7-Day Sprint</strong></td>
-                    <td>PKR 14,286 / day</td>
-                    <td>PKR 100,000</td>
-                    <td className={styles.tableHighlight}>PKR 100,000</td>
-                    <td>—</td>
-                  </tr>
-                  <tr>
-                    <td><strong>14-Day Build Sprint</strong></td>
-                    <td>PKR 12,857 / day</td>
-                    <td>PKR 200,000</td>
-                    <td className={styles.tableHighlight}>PKR 180,000</td>
-                    <td className={styles.tableSavings}>Save PKR 20,000</td>
-                  </tr>
-                  <tr>
-                    <td><strong>30-Day Creator Residency</strong></td>
-                    <td>PKR 10,000 / day</td>
-                    <td>Approximately PKR 400,000</td>
-                    <td className={styles.tableHighlight}>PKR 300,000</td>
-                    <td className={styles.tableSavings}>Save ~PKR 100,000</td>
-                  </tr>
-                </tbody>
-              </table>
-            </div>
+          <div className={styles.tableWrap}>
+            <table className={styles.mathTable}>
+              <thead>
+                <tr>
+                  <th>Duration</th>
+                  <th>Effective Daily Rate</th>
+                  <th>At 7-Day Rate Equivalent</th>
+                  <th>Residency Investment</th>
+                  <th>You Save</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr>
+                  <td><strong>7-Day Sprint</strong></td>
+                  <td>PKR 14,286 / day</td>
+                  <td>PKR 100,000</td>
+                  <td className={styles.mathPriceBold}>PKR 100,000</td>
+                  <td>—</td>
+                </tr>
+                <tr>
+                  <td><strong>14-Day Build Sprint</strong></td>
+                  <td>PKR 12,857 / day</td>
+                  <td>PKR 200,000</td>
+                  <td className={styles.mathPriceBold}>PKR 180,000</td>
+                  <td className={styles.mathSavings}>Save PKR 20,000</td>
+                </tr>
+                <tr>
+                  <td><strong>30-Day Creator Residency</strong></td>
+                  <td>PKR 10,000 / day</td>
+                  <td>Approximately PKR 400,000</td>
+                  <td className={styles.mathPriceBold}>PKR 300,000</td>
+                  <td className={styles.mathSavings}>Save ~PKR 100,000</td>
+                </tr>
+              </tbody>
+            </table>
           </div>
 
-          {/* Reference Value Itemized Breakdown */}
+          {/* Reference Value Itemized Breakdown Cards */}
           <div className={styles.refBreakdownGrid}>
-            <div className={styles.refBreakdownCard}>
-              <h4>7-Day Sprint Itemized Reference Value</h4>
+            <div className={styles.refCard}>
+              <h4>7-Day Sprint Reference Value</h4>
               <ul className={styles.refList}>
                 <li><span>Accommodation for 7 nights</span> <strong>PKR 35,000</strong></li>
-                <li><span>Shared chef-prepared meals</span> <strong>PKR 14,000</strong></li>
+                <li><span>Shared meals</span> <strong>PKR 14,000</strong></li>
                 <li><span>Coworking compound &amp; 1 Gbps fiber</span> <strong>PKR 10,000</strong></li>
                 <li><span>Execution workshop &amp; SOPs</span> <strong>PKR 15,000</strong></li>
                 <li><span>Abrar 1:1 execution access (up to 7 hrs)</span> <strong>PKR 35,000</strong></li>
                 <li><span>Zahid content and channel review (1x)</span> <strong>PKR 15,000</strong></li>
                 <li><span>Planning, reviews, and accountability</span> <strong>PKR 10,000</strong></li>
               </ul>
-              <div className={styles.refTotalLine}>
+              <div className={styles.refTotalRow}>
                 <span>Total Reference Value:</span>
-                <b>PKR 134,000 (You pay PKR 100,000)</b>
+                <span>PKR 134,000 (You pay PKR 100,000)</span>
               </div>
             </div>
 
-            <div className={styles.refBreakdownCard}>
-              <h4>14-Day Build Sprint Itemized Reference Value</h4>
+            <div className={styles.refCard}>
+              <h4>14-Day Build Sprint Reference Value</h4>
               <ul className={styles.refList}>
                 <li><span>Accommodation for 14 nights</span> <strong>PKR 70,000</strong></li>
-                <li><span>Shared chef-prepared meals</span> <strong>PKR 28,000</strong></li>
+                <li><span>Shared meals</span> <strong>PKR 28,000</strong></li>
                 <li><span>Coworking compound &amp; 1 Gbps fiber</span> <strong>PKR 20,000</strong></li>
                 <li><span>Execution workshop &amp; SOPs</span> <strong>PKR 20,000</strong></li>
                 <li><span>Abrar 1:1 execution access (up to 7 hrs)</span> <strong>PKR 45,000</strong></li>
                 <li><span>Two Zahid content &amp; channel reviews (2x)</span> <strong>PKR 30,000</strong></li>
                 <li><span>Testing, reviews, and accountability</span> <strong>PKR 25,000</strong></li>
               </ul>
-              <div className={styles.refTotalLine}>
+              <div className={styles.refTotalRow}>
                 <span>Total Reference Value:</span>
-                <b>PKR 238,000 (You pay PKR 180,000)</b>
+                <span>PKR 238,000 (You pay PKR 180,000)</span>
               </div>
             </div>
           </div>
 
-          <div className={styles.refBreakdownGrid} style={{ marginTop: "24px" }}>
-            <div className={styles.refBreakdownCard} style={{ gridColumn: "1 / -1", background: "rgba(245, 158, 11, 0.03)", borderColor: "rgba(245, 158, 11, 0.3)" }}>
-              <h4>30-Day Creator Residency Itemized Reference Value</h4>
-              <div style={{ display: "grid", gridTemplateColumns: "repeat(auto-fit, minmax(280px, 1fr))", gap: "20px" }}>
+          <div style={{ marginTop: "24px" }}>
+            <div className={styles.refCard} style={{ background: "#f5f5f7" }}>
+              <h4>30-Day Creator Residency Reference Value</h4>
+              <div style={{ display: "grid", gridTemplateColumns: "repeat(auto-fit, minmax(260px, 1fr))", gap: "20px" }}>
                 <ul className={styles.refList}>
                   <li><span>Accommodation for 30 nights</span> <strong>PKR 120,000</strong></li>
-                  <li><span>Shared chef-prepared meals</span> <strong>PKR 60,000</strong></li>
+                  <li><span>Shared meals</span> <strong>PKR 60,000</strong></li>
                   <li><span>Coworking compound &amp; 1 Gbps fiber</span> <strong>PKR 35,000</strong></li>
-                  <li><span>Execution workshop &amp; complete SOP library</span> <strong>PKR 25,000</strong></li>
+                  <li><span>Execution workshop &amp; complete SOPs</span> <strong>PKR 25,000</strong></li>
                 </ul>
                 <ul className={styles.refList}>
                   <li><span>Abrar strategic execution access (up to 10 hrs)</span> <strong>PKR 60,000</strong></li>
@@ -584,147 +498,137 @@ export default function ContentColonyPage() {
                   <li><span>Workflow and team automation planning</span> <strong>PKR 30,000</strong></li>
                 </ul>
               </div>
-              <div className={styles.refTotalLine}>
+              <div className={styles.refTotalRow}>
                 <span>Total Reference Value:</span>
-                <b style={{ color: "var(--gold)" }}>PKR 415,000 (You pay PKR 300,000 — Save PKR 115,000)</b>
+                <span>PKR 415,000 (You pay PKR 300,000 — Save PKR 115,000)</span>
               </div>
             </div>
           </div>
         </div>
       </section>
 
-      {/* "What You Leave With" Section */}
+      {/* Deliverables Section ("What You Leave With") */}
       <section id="outcomes" className={styles.section}>
         <div className={styles.container}>
-          <div className={styles.sectionHeader}>
-            <span className={styles.sectionEyebrow}>CONCRETE DELIVERABLES</span>
-            <h2 className={styles.sectionTitle}>What You Leave With</h2>
-            <p className={styles.sectionLead}>
-              People do not buy time. They buy an outcome. You are coming here to complete work that would
-              ordinarily take months of scattered, isolated effort.
+          <div className={styles.sectionHeading}>
+            <span className={styles.eyebrow}>TANGIBLE ASSETS</span>
+            <h2>What You Leave With</h2>
+            <p>
+              People do not buy time. They buy an outcome. Depending on your goal, you may leave with:
             </p>
           </div>
 
-          <div style={{ marginBottom: "24px", textAlign: "center", color: "var(--text-dim)", fontSize: "14px" }}>
-            <em>Depending on your specific goals and chosen sprint duration, you may leave with:</em>
-          </div>
-
-          <div className={styles.outcomesGrid}>
-            <div className={styles.outcomeCard}>
-              <div className={styles.outcomeNumber}>DELIVERABLE 01</div>
-              <h4 className={styles.outcomeTitle}>Clear Channel Positioning</h4>
-              <p className={styles.outcomeDesc}>
-                A validated niche thesis, audience avatar, and unique angle that prevents you from competing in commoditized red oceans.
+          <div className={styles.deliverablesGrid}>
+            <div className={styles.delivCard}>
+              <div className={styles.delivNum}>01 — POSITIONING</div>
+              <h4 className={styles.delivTitle}>Clear Channel Positioning</h4>
+              <p className={styles.delivDesc}>
+                A validated niche thesis, audience avatar, and unique angle that avoids competing in crowded red oceans.
               </p>
             </div>
 
-            <div className={styles.outcomeCard}>
-              <div className={styles.outcomeNumber}>DELIVERABLE 02</div>
-              <h4 className={styles.outcomeTitle}>Documented Content DNA</h4>
-              <p className={styles.outcomeDesc}>
-                Your core content rules, storytelling frameworks, tone guidelines, and repeatable topic ideation engine.
+            <div className={styles.delivCard}>
+              <div className={styles.delivNum}>02 — SYSTEMS</div>
+              <h4 className={styles.delivTitle}>Documented Content DNA</h4>
+              <p className={styles.delivDesc}>
+                Core storytelling frameworks, brand voice guidelines, and a repeatable topic ideation engine.
               </p>
             </div>
 
-            <div className={styles.outcomeCard}>
-              <div className={styles.outcomeNumber}>DELIVERABLE 03</div>
-              <h4 className={styles.outcomeTitle}>First Production Workflow</h4>
-              <p className={styles.outcomeDesc}>
-                A battle-tested step-by-step pipeline from research to scripting, voiceover, visual assembly, and thumbnail QA.
+            <div className={styles.delivCard}>
+              <div className={styles.delivNum}>03 — PIPELINE</div>
+              <h4 className={styles.delivTitle}>First Production Workflow</h4>
+              <p className={styles.delivDesc}>
+                A step-by-step pipeline from research to scripting, voiceover, visual assembly, and thumbnail QA.
               </p>
             </div>
 
-            <div className={styles.outcomeCard}>
-              <div className={styles.outcomeNumber}>DELIVERABLE 04</div>
-              <h4 className={styles.outcomeTitle}>Initial Video Batch Produced</h4>
-              <p className={styles.outcomeDesc}>
-                Fully shot or animated high-retention video assets produced directly using the Colony&apos;s 4K rigs and RTX rendering setups.
+            <div className={styles.delivCard}>
+              <div className={styles.delivNum}>04 — OUTPUT</div>
+              <h4 className={styles.delivTitle}>Initial Video Batch Produced</h4>
+              <p className={styles.delivDesc}>
+                High-retention video assets recorded or animated on-site using the Colony&apos;s 4K rigs and RTX rendering setups.
               </p>
             </div>
 
-            <div className={styles.outcomeCard}>
-              <div className={styles.outcomeNumber}>DELIVERABLE 05</div>
-              <h4 className={styles.outcomeTitle}>Tested AI Tool Stack</h4>
-              <p className={styles.outcomeDesc}>
-                Fine-tuned AI prompt architectures, voice synthesis models, automation scripts, and workflow templates ready for your team.
+            <div className={styles.delivCard}>
+              <div className={styles.delivNum}>05 — AUTOMATION</div>
+              <h4 className={styles.delivTitle}>Tested AI Tool Stack</h4>
+              <p className={styles.delivDesc}>
+                Fine-tuned AI prompt architectures, voice synthesis models, automation scripts, and team templates.
               </p>
             </div>
 
-            <div className={styles.outcomeCard}>
-              <div className={styles.outcomeNumber}>DELIVERABLE 06</div>
-              <h4 className={styles.outcomeTitle}>Offer or Landing Page</h4>
-              <p className={styles.outcomeDesc}>
-                If monetizing via backend services, digital products, or sponsorships, leave with your conversion funnel ready to collect revenue.
+            <div className={styles.delivCard}>
+              <div className={styles.delivNum}>06 — MONETIZATION</div>
+              <h4 className={styles.delivTitle}>Offer or Landing Page</h4>
+              <p className={styles.delivDesc}>
+                If monetizing via backend services, digital products, or sponsorships, leave with your conversion funnel ready.
               </p>
             </div>
 
-            <div className={styles.outcomeCard}>
-              <div className={styles.outcomeNumber}>DELIVERABLE 07</div>
-              <h4 className={styles.outcomeTitle}>Reviewed Channel Strategy</h4>
-              <p className={styles.outcomeDesc}>
-                Zahid&apos;s direct audit identifying retention leaks, poor intro hooks, thumbnail CTR flaws, and algorithmic disconnects.
+            <div className={styles.delivCard}>
+              <div className={styles.delivNum}>07 — RETENTION</div>
+              <h4 className={styles.delivTitle}>Reviewed Channel Strategy</h4>
+              <p className={styles.delivDesc}>
+                Zahid&apos;s direct audit identifying retention leaks, poor intro hooks, CTR flaws, and algorithmic disconnects.
               </p>
             </div>
 
-            <div className={styles.outcomeCard}>
-              <div className={styles.outcomeNumber}>DELIVERABLE 08</div>
-              <h4 className={styles.outcomeTitle}>Main Bottleneck Eliminated</h4>
-              <p className={styles.outcomeDesc}>
-                Whatever has held you back for the last 6 months—whether scripting speed, editor delegation, or self-doubt—fixed with Abrar.
+            <div className={styles.delivCard}>
+              <div className={styles.delivNum}>08 — PROBLEM SOLVING</div>
+              <h4 className={styles.delivTitle}>Main Bottleneck Eliminated</h4>
+              <p className={styles.delivDesc}>
+                Whatever has held you back for months—scripting speed, editor delegation, or self-doubt—fixed with Abrar.
               </p>
             </div>
 
-            <div className={styles.outcomeCard}>
-              <div className={styles.outcomeNumber}>DELIVERABLE 09</div>
-              <h4 className={styles.outcomeTitle}>30- to 90-Day Execution Roadmap</h4>
-              <p className={styles.outcomeDesc}>
-                A day-by-day operating rhythm to ensure momentum compounds after you return home to your normal environment.
+            <div className={styles.delivCard}>
+              <div className={styles.delivNum}>09 — ROADMAP</div>
+              <h4 className={styles.delivTitle}>30- to 90-Day Execution Plan</h4>
+              <p className={styles.delivDesc}>
+                A daily operating rhythm to ensure momentum compounds after you return home to your normal environment.
               </p>
             </div>
           </div>
         </div>
       </section>
 
-      {/* The Reality Math / Separate Cost Section */}
+      {/* Reality Check Section */}
       <section className={styles.section}>
         <div className={styles.container}>
-          <div className={styles.realityBox}>
-            <div className={styles.realityGrid}>
-              <div className={styles.realityLeft}>
-                <span className={styles.sectionEyebrow}>THE UNIFIED ADVANTAGE</span>
-                <h3>You Are Not Paying for a Room.</h3>
-                <p>
-                  You are investing in a concentrated execution period where all personal and technical friction is eliminated.
-                </p>
-                <p>
-                  If you tried to arrange high-end accommodation, private meals, 1 Gbps dual-fiber, 24/7 solar power,
-                  4K cinema studio bays, and private advisory sessions separately in Lahore, you would spend significantly more—and
-                  waste dozens of hours coordinating logistics instead of building.
-                </p>
-                <p style={{ color: "#fff", fontWeight: 700 }}>
-                  At Content Colony, everything is unified under one roof around one objective:
-                  <br />
-                  <span style={{ color: "var(--lime)", fontSize: "20px" }}>Helping you complete the work.</span>
-                </p>
-              </div>
+          <div className={styles.realityGrid}>
+            <div className={styles.realityLeft}>
+              <span className={styles.eyebrow}>THE UNIFIED ADVANTAGE</span>
+              <h3>You Are Not Paying for a Room.</h3>
+              <p>
+                You are investing in a concentrated execution period where all personal and technical friction is eliminated.
+              </p>
+              <p>
+                If you tried to arrange accommodation, meals, 1 Gbps dual-fiber, 24/7 power, 4K studio bays,
+                and private advisory sessions separately in Lahore, you would spend significantly more—and
+                waste dozens of hours coordinating logistics instead of building.
+              </p>
+              <p className={styles.hand}>
+                At Content Colony, everything is unified under one roof: Helping you complete the work.
+              </p>
+            </div>
 
-              <div className={styles.realityRight}>
-                <h4>If Arranged Separately (30 Days)</h4>
-                <ul className={styles.separateCostsList}>
-                  <li><span>Serviced Suite in Johar Town / DHA</span> <span>PKR 140,000</span></li>
-                  <li><span>Chef Meals &amp; Nutrition (3x/day)</span> <span>PKR 60,000</span></li>
-                  <li><span>Premium Coworking Desk + Fiber</span> <span>PKR 35,000</span></li>
-                  <li><span>4K Studio Hourly Rentals (15 hrs)</span> <span>PKR 75,000</span></li>
-                  <li><span>10 Hours Strategic Consulting</span> <span>PKR 150,000</span></li>
-                  <li><span>Logistics, rides &amp; wasted transition time</span> <span>Priceless</span></li>
-                </ul>
-                <div className={styles.separateTotal}>
-                  <span>Total Separate Cost:</span>
-                  <s>PKR 460,000+</s>
-                </div>
-                <div style={{ marginTop: "14px", color: "var(--lime)", fontWeight: 900, fontSize: "16px" }}>
-                  Content Colony 30-Day Rate: PKR 300,000
-                </div>
+            <div className={styles.realityRight}>
+              <h4>If Arranged Separately (30 Days)</h4>
+              <ul className={styles.separateList}>
+                <li><span>Serviced Suite in Johar Town / DHA</span> <span>PKR 140,000</span></li>
+                <li><span>Chef Meals &amp; Nutrition (3x/day)</span> <span>PKR 60,000</span></li>
+                <li><span>Premium Coworking Desk + Fiber</span> <span>PKR 35,000</span></li>
+                <li><span>4K Studio Hourly Rentals (15 hrs)</span> <span>PKR 75,000</span></li>
+                <li><span>10 Hours Strategic Advisory</span> <span>PKR 150,000</span></li>
+              </ul>
+              <div className={styles.separateTotal}>
+                <span>Total Separate Cost:</span>
+                <s>PKR 460,000+</s>
+              </div>
+              <div style={{ marginTop: "16px", fontWeight: 900, fontSize: "1.1rem" }}>
+                Content Colony 30-Day Rate: PKR 300,000
               </div>
             </div>
           </div>
@@ -734,66 +638,61 @@ export default function ContentColonyPage() {
       {/* Location Section */}
       <section id="location" className={styles.section}>
         <div className={styles.container}>
-          <div className={styles.sectionHeader}>
-            <span className={styles.sectionEyebrow}>PHYSICAL COMPOUND</span>
-            <h2 className={styles.sectionTitle}>Johar Town, Lahore</h2>
-            <p className={styles.sectionLead}>
-              Located in the heart of Lahore&apos;s commercial and tech hub, minutes away from
-              Emporium Mall, Expo Centre, and Canal Road.
+          <div className={styles.sectionHeading}>
+            <span className={styles.eyebrow}>PHYSICAL LOCATION</span>
+            <h2>Johar Town, Lahore</h2>
+            <p>
+              Positioned in a peaceful, secure residential enclave in Johar Town,
+              giving you serene quiet for deep focus, with immediate 3-minute access to Lahore&apos;s
+              finest dining and transportation arteries.
             </p>
           </div>
 
-          <div className={styles.locationGrid}>
-            <div className={styles.locationDetails}>
-              <h3 className={styles.locationTitle}>Central, Secure &amp; Accessible</h3>
-              <p className={styles.locationDesc}>
-                Content Colony is positioned in a peaceful, secure residential enclave in Johar Town,
-                giving you serene quiet for deep focus, with immediate 3-minute access to Lahore&apos;s
-                finest dining, shopping, and transportation arteries.
+          <div className={styles.locGrid}>
+            <div className={styles.locDetails}>
+              <h3 className={styles.locTitle}>Central, Secure &amp; Accessible</h3>
+              <p className={styles.locDesc}>
+                Near Expo Centre, Emporium Mall, and Canal Road. Quick transit from anywhere in Lahore.
               </p>
 
-              <ul className={styles.locationHighlights}>
+              <ul className={styles.locList}>
                 <li>
-                  <span className={styles.locationBadge}>3 Mins</span>
+                  <span className={styles.locBadge}>3 Mins</span>
                   <span>Emporium Mall &amp; Expo Centre Lahore</span>
                 </li>
                 <li>
-                  <span className={styles.locationBadge}>5 Mins</span>
-                  <span>Canal Road &amp; Abdul Sattar Edhi Road arterial access</span>
+                  <span className={styles.locBadge}>5 Mins</span>
+                  <span>Canal Road &amp; Abdul Sattar Edhi Road</span>
                 </li>
                 <li>
-                  <span className={styles.locationBadge}>25 Mins</span>
+                  <span className={styles.locBadge}>25 Mins</span>
                   <span>Allama Iqbal International Airport (LHE)</span>
                 </li>
                 <li>
-                  <span className={styles.locationBadge}>24/7 Security</span>
+                  <span className={styles.locBadge}>24/7 Gate</span>
                   <span>Biometric perimeter, CCTV surveillance, gated compound</span>
                 </li>
               </ul>
             </div>
 
-            <div className={styles.compoundPerks}>
-              <div className={styles.perkCard}>
-                <div className={styles.perkIcon}>⚡</div>
-                <h4>Zero Power Cuts</h4>
-                <p>Hybrid solar system with automatic industrial generator failsafe. Your renders never fail.</p>
+            <div className={styles.locPerks}>
+              <div className={styles.locPerkCard}>
+                <h5>⚡ Zero Power Cuts</h5>
+                <p>Hybrid solar system with automatic industrial generator failsafe. Renders never fail.</p>
               </div>
 
-              <div className={styles.perkCard}>
-                <div className={styles.perkIcon}>🌐</div>
-                <h4>Dual 1 Gbps Fiber</h4>
-                <p>Two distinct fiber backbones with automated load-balancing. Instant 4K video uploads.</p>
+              <div className={styles.locPerkCard}>
+                <h5>🌐 Dual 1 Gbps Fiber</h5>
+                <p>Two distinct fiber backbones with load-balancing. Instant 4K video uploads.</p>
               </div>
 
-              <div className={styles.perkCard}>
-                <div className={styles.perkIcon}>🍳</div>
-                <h4>Chef-Curated Meals</h4>
-                <p>Nutritious, energizing meals prepared fresh on-site to keep your brain firing at peak clarity.</p>
+              <div className={styles.locPerkCard}>
+                <h5>🍳 Chef-Curated Meals</h5>
+                <p>Nutritious meals prepared fresh daily on-site so you stay focused on building.</p>
               </div>
 
-              <div className={styles.perkCard}>
-                <div className={styles.perkIcon}>🎙️</div>
-                <h4>Dedicated Studios</h4>
+              <div className={styles.locPerkCard}>
+                <h5>🎙️ Dedicated Studios</h5>
                 <p>Acoustic treatment, teleprompter, Aputure lighting, and cinema bodies ready to record.</p>
               </div>
             </div>
@@ -802,7 +701,7 @@ export default function ContentColonyPage() {
       </section>
 
       {/* Booking Form Section */}
-      <section id="apply" className={styles.bookingSection}>
+      <section id="apply" className={styles.section}>
         <div className={styles.container}>
           <BookingForm initialPackage="14-Day Build Sprint — PKR 180,000" />
         </div>
@@ -811,46 +710,46 @@ export default function ContentColonyPage() {
       {/* FAQ Section */}
       <section className={styles.section}>
         <div className={styles.container}>
-          <div className={styles.sectionHeader}>
-            <span className={styles.sectionEyebrow}>CLARIFICATIONS</span>
-            <h2 className={styles.sectionTitle}>Frequently Asked Questions</h2>
+          <div className={styles.sectionHeading}>
+            <span className={styles.eyebrow}>CLARIFICATIONS</span>
+            <h2>Frequently Asked Questions</h2>
           </div>
 
           <div className={styles.faqGrid}>
-            <div className={styles.faqItem}>
+            <div className={styles.faqCard}>
               <h4 className={styles.faqQuestion}>Is accommodation included in the price?</h4>
               <p className={styles.faqAnswer}>
                 Yes. All packages (7-Day, 14-Day, 30-Day) include accommodation, chef-prepared shared meals,
-                24/7 coworking, studio bay access, and all utilities (power backup &amp; 1 Gbps fiber).
+                24/7 coworking, studio bay access, power backup, and 1 Gbps fiber.
               </p>
             </div>
 
-            <div className={styles.faqItem}>
+            <div className={styles.faqCard}>
               <h4 className={styles.faqQuestion}>What happens after I submit my application?</h4>
               <p className={styles.faqAnswer}>
-                Our admissions team reviews your current build, bottleneck, and outcome within 24–48 hours.
+                Our team reviews your current build, bottleneck, and outcome within 24–48 hours.
                 If shortlisted, you will be invited to a brief alignment discussion on WhatsApp to confirm dates.
               </p>
             </div>
 
-            <div className={styles.faqItem}>
+            <div className={styles.faqCard}>
               <h4 className={styles.faqQuestion}>Do I need to pay immediately?</h4>
               <p className={styles.faqAnswer}>
-                No. Submitting this application is free. Do not send any money until you have been formally accepted
+                No. Submitting an application is free. Do not send any money until you have been formally accepted
                 and verified by Abrar Nadir&apos;s team. To filter unserious applicants, an optional PKR 2,500 screening deposit
                 may be requested upon shortlisting, which is 100% credited against your residency balance.
               </p>
             </div>
 
-            <div className={styles.faqItem}>
+            <div className={styles.faqCard}>
               <h4 className={styles.faqQuestion}>Can I extend my stay while at the Colony?</h4>
               <p className={styles.faqAnswer}>
-                Extensions (e.g. 7 or 14 days) are offered exclusively to residents showing exceptional execution discipline,
-                subject to compound room and desk capacity.
+                Extensions (3, 7, or 14 days) are offered exclusively to residents showing exceptional execution discipline,
+                subject to room and desk capacity.
               </p>
             </div>
 
-            <div className={styles.faqItem}>
+            <div className={styles.faqCard}>
               <h4 className={styles.faqQuestion}>Do you guarantee YouTube views or monetisation?</h4>
               <p className={styles.faqAnswer}>
                 No. We guarantee an elite environment, rigorous expert reviews, cutting-edge tools, and completed output.
@@ -858,11 +757,11 @@ export default function ContentColonyPage() {
               </p>
             </div>
 
-            <div className={styles.faqItem}>
+            <div className={styles.faqCard}>
               <h4 className={styles.faqQuestion}>What if I live in Lahore—can I do day access?</h4>
               <p className={styles.faqAnswer}>
                 The Colony is designed as an immersive residency where living together accelerates breakthroughs.
-                However, Lahore residents may choose to commute if accepted, but the core pricing and expert access allocation remain the same.
+                However, Lahore residents may commute if accepted, but the core pricing and expert access allocation remain the same.
               </p>
             </div>
           </div>
@@ -875,22 +774,21 @@ export default function ContentColonyPage() {
           <div className={styles.footerInner}>
             <div>
               <div style={{ display: "flex", alignItems: "center", gap: "10px", marginBottom: "8px" }}>
-                <span className={styles.brandSymbol} style={{ width: "30px", height: "30px", fontSize: "13px" }}>CC</span>
-                <span style={{ fontWeight: 900, letterSpacing: "0.08em" }}>CONTENT COLONY V3</span>
+                <span className={styles.brandLogo}>CONTENT COLONY</span>
               </div>
-              <p style={{ fontSize: "13px", color: "var(--text-dim)" }}>
+              <p style={{ fontSize: "0.85rem", color: "var(--mid)" }}>
                 Co-Live · Co-Work · Execute · Johar Town, Lahore, Pakistan
               </p>
             </div>
 
-            <div style={{ display: "flex", gap: "24px", fontSize: "13px" }}>
-              <Link href="/" style={{ color: "var(--text-soft)", textDecoration: "none" }}>
+            <div style={{ display: "flex", gap: "24px", fontSize: "0.85rem" }}>
+              <Link href="/" style={{ color: "var(--soft)", textDecoration: "none" }}>
                 Abrar Nadir Home
               </Link>
-              <Link href="/academy/ytempirebuilder" style={{ color: "var(--text-soft)", textDecoration: "none" }}>
+              <Link href="/academy/ytempirebuilder" style={{ color: "var(--soft)", textDecoration: "none" }}>
                 YT Empire Builders
               </Link>
-              <a href="#apply" style={{ color: "var(--lime)", textDecoration: "none", fontWeight: 700 }}>
+              <a href="#apply" style={{ color: "var(--white)", textDecoration: "none", fontWeight: 700 }}>
                 Apply for Residency
               </a>
             </div>
