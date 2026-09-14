@@ -10,7 +10,7 @@ export const V3_PACKAGES = [
     price: "PKR 100,000",
     rate: "PKR 14,286/day",
     badge: "Breakthrough",
-    summary: "1 problem solved, 1 finished outcome, up to 7 hrs Abrar 1:1 + 1 Zahid review",
+    summary: "1 problem solved, 1 finished outcome, up to 7 hrs Abrar 1:1 + 1 deep content review",
   },
   {
     id: "14-Day Build Sprint — PKR 180,000",
@@ -19,7 +19,7 @@ export const V3_PACKAGES = [
     rate: "PKR 12,857/day",
     badge: "Most Popular",
     popular: true,
-    summary: "Build, test, feedback & improve. Save PKR 20,000. 2 Zahid reviews + 2 execution cycles",
+    summary: "Build, test, feedback & improve. Save PKR 20,000. 2 content reviews + 2 build cycles",
   },
   {
     id: "30-Day Creator Residency — PKR 300,000",
@@ -28,7 +28,7 @@ export const V3_PACKAGES = [
     rate: "PKR 10,000/day",
     badge: "Best Value",
     bestValue: true,
-    summary: "Full operating transformation. Save ~PKR 100,000. Up to 10 hrs Abrar + 3 Zahid reviews",
+    summary: "Full operating transformation. Save ~PKR 100,000. Up to 10 hrs Abrar + 3 review checkpoints",
   },
 ];
 
@@ -121,7 +121,7 @@ export function BookingForm({ initialPackage = "14-Day Build Sprint — PKR 180,
           <span className={styles.eyebrow}>DOOR 02 — RESIDENCY RESERVATION</span>
           <h3>Apply for Content Colony</h3>
           <p>
-            Choose your sprint depth, outline your current build and bottleneck, and apply.
+            Choose your sprint depth, select your current build and bottleneck, and apply.
             Founding Cohort V3 is strictly capped at 10 approved residents.
           </p>
         </div>
@@ -241,50 +241,50 @@ export function BookingForm({ initialPackage = "14-Day Build Sprint — PKR 180,
           </div>
         </div>
 
-        {/* Deep Qualifying Questions */}
+        {/* User-friendly Dropdown Selectors */}
         <div className={styles.formField}>
           <label className={styles.fieldTitle} htmlFor="currentBuild">
             What are you currently building? *
           </label>
-          <textarea
-            id="currentBuild"
-            name="currentBuild"
-            required
-            minLength={20}
-            rows={3}
-            placeholder="Describe your YouTube channel, media company, niche, or business model..."
-            className={styles.formTextarea}
-          />
+          <select id="currentBuild" name="currentBuild" required defaultValue="" className={styles.formSelect}>
+            <option value="" disabled>Select what you are building</option>
+            <option value="YouTube Faceless / Automation Channel">YouTube Faceless / Automation Channel</option>
+            <option value="Personal Brand / Talking Head Channel">Personal Brand / Talking Head Channel</option>
+            <option value="Content Agency / Video Production Business">Content Agency / Video Production Business</option>
+            <option value="Digital Product / Education Funnel">Digital Product / Education Funnel</option>
+            <option value="AI Creator / Multi-Channel Media Network">AI Creator / Multi-Channel Media Network</option>
+            <option value="Other Media Business / Channel Idea">Other Digital Media Business</option>
+          </select>
         </div>
 
         <div className={styles.formField}>
           <label className={styles.fieldTitle} htmlFor="bottleneck">
             What is your biggest execution bottleneck right now? *
           </label>
-          <textarea
-            id="bottleneck"
-            name="bottleneck"
-            required
-            minLength={20}
-            rows={3}
-            placeholder="e.g., Scripting takes too long, inconsistent uploads, low CTR, editor delegation, distracted environment..."
-            className={styles.formTextarea}
-          />
+          <select id="bottleneck" name="bottleneck" required defaultValue="" className={styles.formSelect}>
+            <option value="" disabled>Select your primary bottleneck</option>
+            <option value="Scripting & Storytelling takes too long">Scripting &amp; Storytelling takes too long</option>
+            <option value="Inconsistent uploads / Lack of routine at home">Inconsistent uploads / Lack of routine at home</option>
+            <option value="Low CTR, weak thumbnails & title packaging">Low CTR, weak thumbnails &amp; title packaging</option>
+            <option value="Low audience retention & algorithmic drop-off">Low audience retention &amp; algorithmic drop-off</option>
+            <option value="Video editor hiring, delegation & team SOPs">Video editor hiring, delegation &amp; team SOPs</option>
+            <option value="Scattered focus / Distracted home environment">Scattered focus / Distracted home environment</option>
+          </select>
         </div>
 
         <div className={styles.formField}>
           <label className={styles.fieldTitle} htmlFor="successDefinition">
             What completed outcome would make this residency a 10/10 success? *
           </label>
-          <textarea
-            id="successDefinition"
-            name="successDefinition"
-            required
-            minLength={20}
-            rows={3}
-            placeholder="e.g., Leave with first 8 videos fully recorded and edited, launch repeatable AI workflow, finalize channel packaging..."
-            className={styles.formTextarea}
-          />
+          <select id="successDefinition" name="successDefinition" required defaultValue="" className={styles.formSelect}>
+            <option value="" disabled>Select your desired outcome</option>
+            <option value="Leave with first batch of videos fully produced & edited">Leave with first batch of videos fully produced &amp; edited</option>
+            <option value="Build a repeatable AI content production pipeline">Build a repeatable AI content production pipeline</option>
+            <option value="Fix channel retention leaks & CTR packaging with Abrar">Fix channel retention leaks &amp; CTR packaging with Abrar</option>
+            <option value="Launch a monetization offer / funnel behind the channel">Launch a monetization offer / funnel behind the channel</option>
+            <option value="Establish a disciplined daily creator operating rhythm">Establish a disciplined daily creator operating rhythm</option>
+            <option value="Solve my main growth bottleneck with direct 1:1 strategy">Solve my main growth bottleneck with direct 1:1 strategy</option>
+          </select>
         </div>
 
         <div className={styles.formGridTwo}>
@@ -299,7 +299,7 @@ export function BookingForm({ initialPackage = "14-Day Build Sprint — PKR 180,
           </div>
 
           <div className={styles.formField}>
-            <label className={styles.fieldTitle} htmlFor="earlyParticipation">On-Site Coworking Window *</label>
+            <label className={styles.fieldTitle} htmlFor="earlyParticipation">On-Site Arrival Window *</label>
             <select id="earlyParticipation" name="earlyParticipation" required defaultValue="" className={styles.formSelect}>
               <option value="" disabled>Select arrival window</option>
               <option value="Immediate / Next available cohort">Ready for immediate next cohort</option>

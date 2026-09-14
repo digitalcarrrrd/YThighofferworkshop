@@ -2,16 +2,15 @@ import type { Metadata } from "next";
 import Link from "next/link";
 import styles from "./page.module.css";
 import { BookingForm } from "./BookingForm";
-import { TourSection } from "./TourSection";
 
 export const metadata: Metadata = {
-  title: "Content Colony V3 — Creator Execution Residency | Abrar Nadir",
+  title: "Content Colony V3 — Creator Residency | Abrar Nadir",
   description:
-    "A residential execution compound in Johar Town, Lahore for serious YouTube operators and AI builders. 7-Day Sprint, 14-Day Build Sprint, and 30-Day Residency.",
+    "A residential creator compound in Johar Town, Lahore for serious YouTube operators and AI builders. 7-Day Sprint, 14-Day Build Sprint, and 30-Day Residency.",
   openGraph: {
-    title: "Content Colony V3 — Creator Execution Residency",
+    title: "Content Colony V3 — Creator Residency",
     description:
-      "Arrive with a goal. Leave with completed work. Accommodation, meals, 1 Gbps redundant fiber, 4K studio bays, 1:1 expert access with Abrar Nadir and Zahid.",
+      "Arrive with a goal. Leave with completed work. Accommodation, meals, fast 300 Mbps internet, 24/7 power backup, 1:1 strategy access with Abrar Nadir.",
     url: "https://www.abrarnadir.com/cc",
   },
 };
@@ -31,13 +30,12 @@ export default function ContentColonyPage() {
           <Link href="/" className={styles.brand}>
             <div className={styles.brandLogo}>
               CONTENT COLONY
-              <span>RESIDENCY</span>
+              <span>CO-LIVE · CO-WORK</span>
             </div>
           </Link>
 
           <div className={styles.navLinks}>
             <a href="#value-pillars">5 Value Areas</a>
-            <a href="#tour">Compound Tour</a>
             <a href="#packages">Packages &amp; Pricing</a>
             <a href="#savings">Pricing Math</a>
             <a href="#outcomes">Deliverables</a>
@@ -56,7 +54,7 @@ export default function ContentColonyPage() {
           <div className={styles.heroContent}>
             <div className={styles.heroTag}>
               <span className={styles.heroTagDot} />
-              <span>DOOR 02 — IRL EXECUTION COMPOUND · JOHAR TOWN, LAHORE</span>
+              <span>DOOR 02 — IRL COMPOUND · CO-LIVE · CO-WORK · JOHAR TOWN, LAHORE</span>
             </div>
 
             <h1>
@@ -67,7 +65,7 @@ export default function ContentColonyPage() {
             <p className={styles.heroSub}>
               You are not buying a bed, a desk, food, or another video course.
               <br />
-              Content Colony is a <strong>Creator Execution Residency</strong>: a fixed period of
+              Content Colony is a <strong>Creator Residency</strong>: a fixed period of
               accommodation, focused work, direct expert access, content review, and
               completed digital output.
             </p>
@@ -81,7 +79,7 @@ export default function ContentColonyPage() {
               </a>
             </div>
 
-            {/* 3 Quick Preview Doors (Hover Invert) */}
+            {/* 3 Quick Preview Doors */}
             <div className={styles.heroDoors}>
               <a href="#packages" className={styles.heroDoorItem}>
                 <div>
@@ -94,7 +92,7 @@ export default function ContentColonyPage() {
                   <div className={styles.heroDoorRate}>PKR 14,286 / day</div>
                 </div>
                 <div className={styles.heroDoorDesc}>
-                  One problem solved. One finished outcome. Up to 7 hrs Abrar 1:1 + 1 Zahid review.
+                  One problem solved. One finished outcome. Up to 7 hrs Abrar 1:1 + 1 deep content audit.
                 </div>
               </a>
 
@@ -109,7 +107,7 @@ export default function ContentColonyPage() {
                   <div className={styles.heroDoorRate}>PKR 12,857 / day (Save 20K)</div>
                 </div>
                 <div className={styles.heroDoorDesc}>
-                  Build it, test it, receive feedback, and improve it. 2 execution cycles + 2 Zahid reviews.
+                  Build it, test it, receive feedback, and improve it. 2 build cycles + 2 deep content audits.
                 </div>
               </a>
 
@@ -124,28 +122,28 @@ export default function ContentColonyPage() {
                   <div className={styles.heroDoorRate}>PKR 10,000 / day (Save 100K)</div>
                 </div>
                 <div className={styles.heroDoorDesc}>
-                  Full operating transformation. Up to 10 hrs Abrar, 3 Zahid reviews &amp; 90-day growth plan.
+                  Full operating transformation. Up to 10 hrs Abrar 1:1, 3 review checkpoints &amp; 90-day plan.
                 </div>
               </a>
             </div>
 
-            {/* Hardware & Compound Stat Bar */}
+            {/* Compound Stat Bar */}
             <div className={styles.statBar}>
               <div className={styles.statCell}>
-                <div className={styles.statValue}>1,000 Mbps</div>
-                <div className={styles.statLabel}>Dual-Redundant Fiber</div>
+                <div className={styles.statValue}>300 Mbps</div>
+                <div className={styles.statLabel}>Fast Internet 300 Mbps</div>
               </div>
               <div className={styles.statCell}>
                 <div className={styles.statValue}>100% 24/7</div>
                 <div className={styles.statLabel}>Solar + Gen Backup</div>
               </div>
               <div className={styles.statCell}>
-                <div className={styles.statValue}>Studio Alpha</div>
-                <div className={styles.statLabel}>Sony 4K &amp; Shure SM7B</div>
+                <div className={styles.statValue}>Prime Location</div>
+                <div className={styles.statLabel}>Johar Town, Lahore</div>
               </div>
               <div className={styles.statCell}>
                 <div className={styles.statValue}>Direct Access</div>
-                <div className={styles.statLabel}>Abrar 1:1 &amp; Zahid Reviews</div>
+                <div className={styles.statLabel}>Abrar 1:1 &amp; Content Audits</div>
               </div>
             </div>
           </div>
@@ -162,7 +160,7 @@ export default function ContentColonyPage() {
               &ldquo;Why should I pay PKR 100,000, 180,000, or 300,000—and exactly what will I receive?&rdquo;
               <br />
               Your investment is divided into five clear value categories designed to eliminate every
-              friction point from creative execution.
+              friction point from creative work.
             </p>
           </div>
 
@@ -171,13 +169,13 @@ export default function ContentColonyPage() {
               <div className={styles.pillarNum}>01</div>
               <h3 className={styles.pillarTitle}>Living Value</h3>
               <p className={styles.pillarDesc}>
-                Frictionless daily life so your mental energy goes 100% into execution. No grocery runs, cooking, or household maintenance.
+                Frictionless daily life so your mental energy goes 100% into building. No grocery runs, cooking, or household maintenance.
               </p>
               <ul className={styles.pillarList}>
-                <li>Private or shared hotel-grade suites</li>
-                <li>Chef-curated daily meals &amp; refreshments</li>
-                <li>Daily housekeeping &amp; biometric 24/7 access</li>
-                <li>Communal lounge &amp; quiet outdoor patio</li>
+                <li>Private or shared comfortable residency suites</li>
+                <li>Chef-curated daily meals &amp; fresh refreshments</li>
+                <li>Daily housekeeping &amp; secure 24/7 access</li>
+                <li>Communal creator lounge &amp; quiet outdoor patio</li>
               </ul>
             </div>
 
@@ -185,13 +183,13 @@ export default function ContentColonyPage() {
               <div className={styles.pillarNum}>02</div>
               <h3 className={styles.pillarTitle}>Workspace Value</h3>
               <p className={styles.pillarDesc}>
-                A military-grade creative compound built for video editors, AI operators, and serious channel owners.
+                A dedicated, high-focus environment built for video editors, AI creators, and serious channel owners.
               </p>
               <ul className={styles.pillarList}>
-                <li>1 Gbps dual-redundant fiber optic connection</li>
-                <li>100% uninterrupted power (Solar + automated generator)</li>
-                <li>Studio Bay Alpha &amp; Beta (4K Sony cinema, Shure SM7B, teleprompter)</li>
-                <li>Shared RTX 4090 batch rendering compute node</li>
+                <li>Fast Internet 300 Mbps with high stability</li>
+                <li>100% uninterrupted power (Solar + automated generator backup)</li>
+                <li>Ergonomic creator workstations with ample desk space</li>
+                <li>Quiet, distraction-free environment for deep focus</li>
               </ul>
             </div>
 
@@ -199,7 +197,7 @@ export default function ContentColonyPage() {
               <div className={styles.pillarNum}>03</div>
               <h3 className={styles.pillarTitle}>Expert Access</h3>
               <p className={styles.pillarDesc}>
-                Direct, structured strategy access to operators who manage 7-figure digital properties and hundreds of millions of views.
+                Direct, structured strategy access to operators who manage large digital properties and millions of monthly views.
               </p>
               <ul className={styles.pillarList}>
                 <li>Up to 7 to 10 hours structured 1:1 strategy with Abrar Nadir</li>
@@ -216,7 +214,7 @@ export default function ContentColonyPage() {
                 Data-backed teardowns of your concepts, scripts, visual packaging, and algorithmic retention curves.
               </p>
               <ul className={styles.pillarList}>
-                <li>1 to 3 dedicated channel &amp; content review checkpoints with Zahid</li>
+                <li>1 to 3 dedicated channel &amp; content review checkpoints</li>
                 <li>CTR packaging audits: titles, hooks &amp; thumbnail wireframes</li>
                 <li>Retention graph audits on your past and current uploads</li>
                 <li>Scripting rhythm, voice-over direction, and pacing edits</li>
@@ -254,22 +252,6 @@ export default function ContentColonyPage() {
         </div>
       </section>
 
-      {/* Interactive Compound Tour */}
-      <section id="tour" className={styles.section}>
-        <div className={styles.container}>
-          <div className={styles.sectionHeading}>
-            <span className={styles.eyebrow}>INTERACTIVE INSPECTION</span>
-            <h2>Take a Look Inside the Compound</h2>
-            <p>
-              Explore the production studio bays, creator co-working floor, co-living suites,
-              and mastermind war room located in Johar Town, Lahore.
-            </p>
-          </div>
-
-          <TourSection />
-        </div>
-      </section>
-
       {/* Packages & Pricing Section */}
       <section id="packages" className={styles.section}>
         <div className={styles.container}>
@@ -295,15 +277,15 @@ export default function ContentColonyPage() {
                 <div className={styles.pDoorPriceBlock}>
                   <div className={styles.pDoorPrice}>PKR 100,000</div>
                   <div className={styles.pDoorRate}>Effective Daily Price: PKR 14,286 / day</div>
-                  <div className={styles.pDoorRef}>Total Reference Value: PKR 134,000</div>
+                  <div className={styles.pDoorRef}>Total Reference Value: ∞ (Priceless)</div>
                 </div>
 
                 <ul className={styles.pDoorList}>
                   <li><strong>7 nights</strong> shared accommodation &amp; housekeeping</li>
                   <li><strong>Shared meals</strong> &amp; chef-prepared refreshments</li>
-                  <li><strong>7 days</strong> 24/7 coworking &amp; studio bay access</li>
+                  <li><strong>7 days</strong> 24/7 coworking desk access</li>
                   <li><strong>Up to 7 hours</strong> structured 1:1 access with Abrar Nadir</li>
-                  <li><strong>1 deep channel &amp; content review</strong> with Zahid</li>
+                  <li><strong>1 deep channel &amp; content review</strong></li>
                   <li><strong>1 defined execution mission</strong> &amp; daily accountability</li>
                   <li>Final review and <strong>30-day action plan</strong></li>
                 </ul>
@@ -332,14 +314,14 @@ export default function ContentColonyPage() {
                   <div className={styles.pDoorPrice}>PKR 180,000</div>
                   <div className={styles.pDoorRate}>Effective Daily Price: PKR 12,857 / day</div>
                   <div className={styles.pDoorSavings}>⚡ Saves PKR 20,000 vs two 7-day bookings</div>
-                  <div className={styles.pDoorRef}>Total Reference Value: PKR 238,000</div>
+                  <div className={styles.pDoorRef}>Total Reference Value: ∞ (Priceless)</div>
                 </div>
 
                 <ul className={styles.pDoorList}>
                   <li><strong>Everything in the 7-day sprint</strong>, plus:</li>
                   <li><strong>14 nights</strong> accommodation &amp; 14 days coworking</li>
                   <li><strong>Two full execution cycles</strong> (build → test → iterate)</li>
-                  <li><strong>2 Zahid content &amp; channel reviews</strong></li>
+                  <li><strong>2 deep channel &amp; content reviews</strong></li>
                   <li><strong>Up to 7 hours</strong> structured 1:1 strategy with Abrar Nadir</li>
                   <li>Workflow testing &amp; publishing/production correction</li>
                   <li>Midpoint performance review &amp; revised roadmap</li>
@@ -369,7 +351,7 @@ export default function ContentColonyPage() {
                   <div className={styles.pDoorPrice}>PKR 300,000</div>
                   <div className={styles.pDoorRate}>Effective Daily Price: PKR 10,000 / day</div>
                   <div className={styles.pDoorSavings}>⚡ Saves ~PKR 100,000 vs four 7-day bookings</div>
-                  <div className={styles.pDoorRef}>Total Reference Value: PKR 415,000</div>
+                  <div className={styles.pDoorRef}>Total Reference Value: ∞ (Priceless)</div>
                 </div>
 
                 <ul className={styles.pDoorList}>
@@ -377,7 +359,7 @@ export default function ContentColonyPage() {
                   <li><strong>30 nights</strong> accommodation &amp; 30 days coworking</li>
                   <li><strong>Full-month operating immersion</strong> &amp; systems building</li>
                   <li><strong>Up to 10 hours</strong> structured 1:1 strategy with Abrar Nadir</li>
-                  <li><strong>3 Zahid channel/content review checkpoints</strong></li>
+                  <li><strong>3 channel/content review checkpoints</strong></li>
                   <li>Three progress reviews &amp; production repetition</li>
                   <li>Automation &amp; delegation system planning</li>
                   <li><strong>90-day post-residency growth operating plan</strong></li>
@@ -451,15 +433,15 @@ export default function ContentColonyPage() {
               <ul className={styles.refList}>
                 <li><span>Accommodation for 7 nights</span> <strong>PKR 35,000</strong></li>
                 <li><span>Shared meals</span> <strong>PKR 14,000</strong></li>
-                <li><span>Coworking compound &amp; 1 Gbps fiber</span> <strong>PKR 10,000</strong></li>
+                <li><span>Coworking compound &amp; Fast 300 Mbps internet</span> <strong>PKR 10,000</strong></li>
                 <li><span>Execution workshop &amp; SOPs</span> <strong>PKR 15,000</strong></li>
-                <li><span>Abrar 1:1 execution access (up to 7 hrs)</span> <strong>PKR 35,000</strong></li>
-                <li><span>Zahid content and channel review (1x)</span> <strong>PKR 15,000</strong></li>
+                <li><span>Abrar 1:1 execution access (up to 7 hrs)</span> <strong>∞ (Priceless)</strong></li>
+                <li><span>Channel and content deep review (1x)</span> <strong>PKR 15,000</strong></li>
                 <li><span>Planning, reviews, and accountability</span> <strong>PKR 10,000</strong></li>
               </ul>
               <div className={styles.refTotalRow}>
                 <span>Total Reference Value:</span>
-                <span>PKR 134,000 (You pay PKR 100,000)</span>
+                <span>∞ (Priceless) — You pay PKR 100,000</span>
               </div>
             </div>
 
@@ -468,15 +450,15 @@ export default function ContentColonyPage() {
               <ul className={styles.refList}>
                 <li><span>Accommodation for 14 nights</span> <strong>PKR 70,000</strong></li>
                 <li><span>Shared meals</span> <strong>PKR 28,000</strong></li>
-                <li><span>Coworking compound &amp; 1 Gbps fiber</span> <strong>PKR 20,000</strong></li>
+                <li><span>Coworking compound &amp; Fast 300 Mbps internet</span> <strong>PKR 20,000</strong></li>
                 <li><span>Execution workshop &amp; SOPs</span> <strong>PKR 20,000</strong></li>
-                <li><span>Abrar 1:1 execution access (up to 7 hrs)</span> <strong>PKR 45,000</strong></li>
-                <li><span>Two Zahid content &amp; channel reviews (2x)</span> <strong>PKR 30,000</strong></li>
+                <li><span>Abrar 1:1 execution access (up to 7 hrs)</span> <strong>∞ (Priceless)</strong></li>
+                <li><span>Two channel &amp; content deep reviews (2x)</span> <strong>PKR 30,000</strong></li>
                 <li><span>Testing, reviews, and accountability</span> <strong>PKR 25,000</strong></li>
               </ul>
               <div className={styles.refTotalRow}>
                 <span>Total Reference Value:</span>
-                <span>PKR 238,000 (You pay PKR 180,000)</span>
+                <span>∞ (Priceless) — You pay PKR 180,000</span>
               </div>
             </div>
           </div>
@@ -488,19 +470,19 @@ export default function ContentColonyPage() {
                 <ul className={styles.refList}>
                   <li><span>Accommodation for 30 nights</span> <strong>PKR 120,000</strong></li>
                   <li><span>Shared meals</span> <strong>PKR 60,000</strong></li>
-                  <li><span>Coworking compound &amp; 1 Gbps fiber</span> <strong>PKR 35,000</strong></li>
+                  <li><span>Coworking compound &amp; Fast 300 Mbps internet</span> <strong>PKR 35,000</strong></li>
                   <li><span>Execution workshop &amp; complete SOPs</span> <strong>PKR 25,000</strong></li>
                 </ul>
                 <ul className={styles.refList}>
-                  <li><span>Abrar strategic execution access (up to 10 hrs)</span> <strong>PKR 60,000</strong></li>
-                  <li><span>Three Zahid content &amp; channel reviews (3x)</span> <strong>PKR 45,000</strong></li>
+                  <li><span>Abrar strategic execution access (up to 10 hrs)</span> <strong>∞ (Priceless)</strong></li>
+                  <li><span>Three channel &amp; content review checkpoints (3x)</span> <strong>PKR 45,000</strong></li>
                   <li><span>Reviews, accountability, and planning</span> <strong>PKR 40,000</strong></li>
                   <li><span>Workflow and team automation planning</span> <strong>PKR 30,000</strong></li>
                 </ul>
               </div>
               <div className={styles.refTotalRow}>
                 <span>Total Reference Value:</span>
-                <span>PKR 415,000 (You pay PKR 300,000 — Save PKR 115,000)</span>
+                <span>∞ (Priceless) — You pay PKR 300,000</span>
               </div>
             </div>
           </div>
@@ -547,7 +529,7 @@ export default function ContentColonyPage() {
               <div className={styles.delivNum}>04 — OUTPUT</div>
               <h4 className={styles.delivTitle}>Initial Video Batch Produced</h4>
               <p className={styles.delivDesc}>
-                High-retention video assets recorded or animated on-site using the Colony&apos;s 4K rigs and RTX rendering setups.
+                High-retention video assets recorded or assembled on-site with full script and packaging clearance.
               </p>
             </div>
 
@@ -571,7 +553,7 @@ export default function ContentColonyPage() {
               <div className={styles.delivNum}>07 — RETENTION</div>
               <h4 className={styles.delivTitle}>Reviewed Channel Strategy</h4>
               <p className={styles.delivDesc}>
-                Zahid&apos;s direct audit identifying retention leaks, poor intro hooks, CTR flaws, and algorithmic disconnects.
+                Direct audit identifying retention leaks, poor intro hooks, CTR flaws, and algorithmic disconnects.
               </p>
             </div>
 
@@ -579,7 +561,7 @@ export default function ContentColonyPage() {
               <div className={styles.delivNum}>08 — PROBLEM SOLVING</div>
               <h4 className={styles.delivTitle}>Main Bottleneck Eliminated</h4>
               <p className={styles.delivDesc}>
-                Whatever has held you back for months—scripting speed, editor delegation, or self-doubt—fixed with Abrar.
+                Whatever has held you back for months—scripting speed, editor delegation, or lack of focus—fixed with Abrar.
               </p>
             </div>
 
@@ -602,10 +584,10 @@ export default function ContentColonyPage() {
               <span className={styles.eyebrow}>THE UNIFIED ADVANTAGE</span>
               <h3>You Are Not Paying for a Room.</h3>
               <p>
-                You are investing in a concentrated execution period where all personal and technical friction is eliminated.
+                You are investing in a concentrated period where all personal and technical friction is eliminated.
               </p>
               <p>
-                If you tried to arrange accommodation, meals, 1 Gbps dual-fiber, 24/7 power, 4K studio bays,
+                If you tried to arrange accommodation, meals, fast 300 Mbps internet, 24/7 power backup,
                 and private advisory sessions separately in Lahore, you would spend significantly more—and
                 waste dozens of hours coordinating logistics instead of building.
               </p>
@@ -619,13 +601,12 @@ export default function ContentColonyPage() {
               <ul className={styles.separateList}>
                 <li><span>Serviced Suite in Johar Town / DHA</span> <span>PKR 140,000</span></li>
                 <li><span>Chef Meals &amp; Nutrition (3x/day)</span> <span>PKR 60,000</span></li>
-                <li><span>Premium Coworking Desk + Fiber</span> <span>PKR 35,000</span></li>
-                <li><span>4K Studio Hourly Rentals (15 hrs)</span> <span>PKR 75,000</span></li>
-                <li><span>10 Hours Strategic Advisory</span> <span>PKR 150,000</span></li>
+                <li><span>Premium Coworking Desk + High-Speed Net</span> <span>PKR 35,000</span></li>
+                <li><span>10 Hours Strategic Advisory with Abrar</span> <span>PKR 150,000</span></li>
               </ul>
               <div className={styles.separateTotal}>
                 <span>Total Separate Cost:</span>
-                <s>PKR 460,000+</s>
+                <s>PKR 385,000+</s>
               </div>
               <div style={{ marginTop: "16px", fontWeight: 900, fontSize: "1.1rem" }}>
                 Content Colony 30-Day Rate: PKR 300,000
@@ -678,12 +659,12 @@ export default function ContentColonyPage() {
             <div className={styles.locPerks}>
               <div className={styles.locPerkCard}>
                 <h5>⚡ Zero Power Cuts</h5>
-                <p>Hybrid solar system with automatic industrial generator failsafe. Renders never fail.</p>
+                <p>Hybrid solar system with automatic industrial generator failsafe. Work never stops.</p>
               </div>
 
               <div className={styles.locPerkCard}>
-                <h5>🌐 Dual 1 Gbps Fiber</h5>
-                <p>Two distinct fiber backbones with load-balancing. Instant 4K video uploads.</p>
+                <h5>🌐 Fast Internet 300 Mbps</h5>
+                <p>High-speed internet line with backup connection. Fast uploads and research.</p>
               </div>
 
               <div className={styles.locPerkCard}>
@@ -692,8 +673,8 @@ export default function ContentColonyPage() {
               </div>
 
               <div className={styles.locPerkCard}>
-                <h5>🎙️ Dedicated Studios</h5>
-                <p>Acoustic treatment, teleprompter, Aputure lighting, and cinema bodies ready to record.</p>
+                <h5>🤝 High-Synergy Peer Room</h5>
+                <p>Surround yourself with serious operators who are actively building media assets.</p>
               </div>
             </div>
           </div>
@@ -720,7 +701,7 @@ export default function ContentColonyPage() {
               <h4 className={styles.faqQuestion}>Is accommodation included in the price?</h4>
               <p className={styles.faqAnswer}>
                 Yes. All packages (7-Day, 14-Day, 30-Day) include accommodation, chef-prepared shared meals,
-                24/7 coworking, studio bay access, power backup, and 1 Gbps fiber.
+                24/7 coworking desk access, power backup, and fast 300 Mbps internet.
               </p>
             </div>
 
@@ -752,7 +733,7 @@ export default function ContentColonyPage() {
             <div className={styles.faqCard}>
               <h4 className={styles.faqQuestion}>Do you guarantee YouTube views or monetisation?</h4>
               <p className={styles.faqAnswer}>
-                No. We guarantee an elite environment, rigorous expert reviews, cutting-edge tools, and completed output.
+                No. We guarantee an elite environment, rigorous expert reviews, and completed output.
                 YouTube algorithms and viewer behavior depend on market response and long-term execution consistency.
               </p>
             </div>
@@ -777,7 +758,7 @@ export default function ContentColonyPage() {
                 <span className={styles.brandLogo}>CONTENT COLONY</span>
               </div>
               <p style={{ fontSize: "0.85rem", color: "var(--mid)" }}>
-                Co-Live · Co-Work · Execute · Johar Town, Lahore, Pakistan
+                Co-Live · Co-Work · Johar Town, Lahore, Pakistan
               </p>
             </div>
 

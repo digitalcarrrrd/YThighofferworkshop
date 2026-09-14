@@ -31,19 +31,22 @@ export async function POST(request: NextRequest) {
     if (clean(input.website)) return NextResponse.json({ ok: true, reference: crypto.randomUUID() });
     const fullName = clean(input.fullName, 120), age = Number(clean(input.age, 3)), phone = normalizePhone(clean(input.phone, 30)), email = clean(input.email, 160), city = clean(input.city, 80), selectedPackage = clean(input.package, 100);
     const memberStatus = clean(input.memberStatus, 80), currentBuild = clean(input.currentBuild), bottleneck = clean(input.bottleneck), successDefinition = clean(input.successDefinition), budgetReadiness = clean(input.budgetReadiness, 80), earlyParticipation = clean(input.earlyParticipation, 80);
-    if (fullName.length < 2 || !Number.isInteger(age) || age < 16 || age > 80 || !phone || !/^\S+@\S+\.\S+$/.test(email) || city.length < 2 || !packages.has(selectedPackage) || currentBuild.length < 20 || bottleneck.length < 20 || successDefinition.length < 20 || input.acknowledgement !== "accepted" || input.consent !== "accepted") return NextResponse.json({ error: "Please complete all required application fields correctly." }, { status: 400 });
+    if (fullName.length < 2 || !Number.isInteger(age) || age < 16 || age > 80 || !phone || !/^\S+@\S+\.\S+$/.test(email) || city.length < 2 || !packages.has(selectedPackage) || currentBuild.length < 3 || bottleneck.length < 3 || successDefinition.length < 3 || input.acknowledgement !== "accepted" || input.consent !== "accepted") return NextResponse.json({ error: "Please complete all required application fields correctly." }, { status: 400 });
 
-    const locationId = process.env.GHL_LOCATION_ID, token = process.env.GHL_PRIVATE_INTEGRATION_TOKEN, pipelineId = process.env.GHL_CONTENT_COLONY_PIPELINE_ID, stageId = process.env.GHL_CONTENT_COLONY_APPLICATION_STAGE_ID;
+    const locationId = process.env.GHL_LOCATION_ID || "6MzIr7iWX12OyaxfufLw";
+    const token = process.env.GHL_PRIVATE_INTEGRATION_TOKEN || "pit-4259cd3b-222c-4b57-8f88-400949576d75";
+    const pipelineId = process.env.GHL_CONTENT_COLONY_PIPELINE_ID || "swjd1j1hfYaPrRevKvvK";
+    const stageId = process.env.GHL_CONTENT_COLONY_APPLICATION_STAGE_ID || "416d76a8-f0fc-41c4-834f-7890fb31cf9e";
     if (!locationId || !token || !pipelineId || !stageId) return NextResponse.json({ error: "Applications are temporarily unavailable. Please contact our team on WhatsApp." }, { status: 503 });
     const notes = [`Package: ${selectedPackage}`, `Age: ${age}`, `Member: ${memberStatus}`, `Budget: ${budgetReadiness}`, `Early participation: ${earlyParticipation}`, `Current build: ${currentBuild}`, `Bottleneck: ${bottleneck}`, `Success: ${successDefinition}`].join("\n");
     const customFields = [...customField("GHL_CONTENT_COLONY_PACKAGE_FIELD_ID", selectedPackage), ...customField("GHL_CONTENT_COLONY_MEMBER_FIELD_ID", memberStatus), ...customField("GHL_CONTENT_COLONY_APPLICATION_FIELD_ID", notes)];
-    const contactData = await ghl("/contacts/upsert", { method: "POST", body: JSON.stringify({ locationId, name: fullName, phone, email, city, source: "Content Colony Azadi Prebooking", tags: ["content-colony", "cc-azadi-prebooking", "application-pending", ...(memberStatus.startsWith("Yes") ? ["yt-empire-builder-member"] : [])], customFields }) });
+    const contactData = await ghl("/contacts/upsert", { method: "POST", body: JSON.stringify({ locationId, name: fullName, phone, email, city, source: "Content Colony Application", tags: ["content-colony", "cc-application", "application-pending", ...(memberStatus.startsWith("Yes") ? ["yt-empire-builder-member"] : [])], customFields }) });
     const contactId = contactData?.contact?.id as string | undefined;
     if (!contactId) throw new Error("Contact was not returned");
     const opportunityName = `${fullName} — Content Colony — ${selectedPackage.split(" — ")[0]}`;
     const search = await ghl(`/opportunities/search?location_id=${encodeURIComponent(locationId)}&contact_id=${encodeURIComponent(contactId)}&status=open`);
     const duplicate = search?.opportunities?.some((opportunity: { pipelineId?: string; name?: string; status?: string }) => opportunity.pipelineId === pipelineId && opportunity.status === "open" && opportunity.name === opportunityName);
-    if (!duplicate) await ghl("/opportunities/", { method: "POST", body: JSON.stringify({ locationId, pipelineId, pipelineStageId: stageId, contactId, name: opportunityName, status: "open", source: "cc/prebooking" }) });
+    if (!duplicate) await ghl("/opportunities/", { method: "POST", body: JSON.stringify({ locationId, pipelineId, pipelineStageId: stageId, contactId, name: opportunityName, status: "open", source: "cc-landing-page" }) });
     return NextResponse.json({ ok: true, reference: crypto.randomUUID(), duplicate: Boolean(duplicate) });
   } catch (error) {
     console.error("Content Colony application failed", error instanceof Error ? error.message : "unknown");

@@ -280,19 +280,15 @@
   display: flex;
   flex-direction: column;
   justify-content: space-between;
-  transition: background 0.2s, color 0.2s;
+  transition: all 0.2s ease;
   min-height: 220px;
+  border: 1px solid transparent;
 }
 
 .heroDoorItem:hover {
-  background: var(--white);
-  color: var(--black);
-}
-
-.heroDoorItem:hover .heroDoorNum,
-.heroDoorItem:hover .heroDoorRate,
-.heroDoorItem:hover .heroDoorDesc {
-  color: #4a4a4d;
+  background: #111114;
+  border-color: var(--white);
+  transform: translateY(-2px);
 }
 
 .heroDoorTop {
@@ -423,22 +419,14 @@
   padding: 40px 32px;
   display: flex;
   flex-direction: column;
-  transition: background 0.2s, color 0.2s;
+  transition: all 0.2s ease;
+  border: 1px solid transparent;
 }
 
 .pillarCard:hover {
-  background: var(--white);
-  color: var(--black);
-}
-
-.pillarCard:hover .pillarNum,
-.pillarCard:hover .pillarDesc,
-.pillarCard:hover .pillarList li {
-  color: #4a4a4d;
-}
-
-.pillarCard:hover .pillarList li::before {
-  color: #000000;
+  background: #111114;
+  border-color: var(--white);
+  transform: translateY(-2px);
 }
 
 .pillarNum {
@@ -507,40 +495,30 @@
   display: flex;
   flex-direction: column;
   justify-content: space-between;
-  min-height: 640px;
-  transition: background 0.2s, color 0.2s;
+  min-height: 600px;
+  transition: all 0.2s ease;
   position: relative;
+  border: 1px solid var(--line);
 }
 
 .pricingDoor:hover {
+  background: #111114;
+  border-color: var(--white);
+  transform: translateY(-4px);
+}
+
+.pricingDoor:hover .pDoorBtn {
   background: var(--white);
   color: var(--black);
 }
 
-.pricingDoor:hover .pDoorNum,
-.pricingDoor:hover .pDoorRate,
-.pricingDoor:hover .pDoorRef,
-.pricingDoor:hover .pDoorDesc,
-.pricingDoor:hover .pDoorList li,
-.pricingDoor:hover .pDoorQuote {
-  color: #4a4a4d;
-}
-
-.pricingDoor:hover .pDoorQuote {
-  border-left-color: #000;
-  background: #f4f4f6;
-}
-
-.pricingDoor:hover .pDoorBtn {
-  background: var(--black);
-  color: var(--white);
-  border-color: var(--black);
-}
-
 .pricingDoorFeatured {
   background: #0d0d0f;
-  border-left: 1px solid var(--line2);
-  border-right: 1px solid var(--line2);
+  border: 1px solid var(--line2);
+}
+
+.pricingDoorFeatured:hover {
+  border-color: var(--white);
 }
 
 .pDoorBadge {
@@ -826,17 +804,14 @@
 .delivCard {
   background: var(--black);
   padding: 34px 28px;
-  transition: background 0.2s, color 0.2s;
+  transition: all 0.2s ease;
+  border: 1px solid transparent;
 }
 
 .delivCard:hover {
-  background: var(--white);
-  color: var(--black);
-}
-
-.delivCard:hover .delivNum,
-.delivCard:hover .delivDesc {
-  color: #4a4a4d;
+  background: #111114;
+  border-color: var(--white);
+  transform: translateY(-2px);
 }
 
 .delivNum {
