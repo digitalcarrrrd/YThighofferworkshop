@@ -88,12 +88,57 @@ export async function POST(req: NextRequest) {
         const contactData = await ghlRes.json();
         const contactId = contactData?.contact?.id;
 
-        // 2. Create Opportunity in GHL pipeline to trigger backend workflows
-        const pipelineId = process.env.GHL_LIVE_WORKSHOP_PIPELINE_ID || process.env.GHL_PIPELINE_ID;
-        const stageId = process.env.GHL_LIVE_WORKSHOP_PAYMENT_PENDING_STAGE_ID || process.env.GHL_PIPELINE_STAGE_ID;
+        // 2. Create or Update Opportunity in GHL pipeline to trigger backend workflows
+        const pipelineId = process.env.GHL_LIVE_WORKSHOP_PIPELINE_ID || process.env.GHL_PIPELINE_ID || "SLf8kzZ9MhXAyQYFeAm2";
+        const stageId = process.env.GHL_LIVE_WORKSHOP_PAYMENT_PENDING_STAGE_ID || process.env.GHL_PIPELINE_STAGE_ID || "1519847d-e659-4ec8-8177-8c5c63b880f0";
 
         if (contactId && pipelineId && stageId) {
-          await fetch("https://services.leadconnectorhq.com/opportunities", {
+          const oppPayload = {
+            pipelineId,
+            locationId,
+            contactId,
+            name: `${fullName.trim()} – ChatGPT to Dollar Workshop 8 (PKR 1,999)`,
+            pipelineStageId: stageId,
+            status: "open",
+            monetaryValue: 1999,
+          };
+
+          const oppRes = await fetch("https://services.leadconnectorhq.com/opportunities/", {
+            method: "POST",
+            headers: {
+              Authorization: `Bearer ${token}`,
+              Version: "2021-07-28",
+              "Content-Type": "application/json",
+              Accept: "application/json",
+            },
+            body: JSON.stringify(oppPayload),
+          });
+
+          if (!oppRes.ok) {
+            const errData = await oppRes.json().catch(() => null);
+            if (errData?.code === "OPPORTUNITY_NO_DUPLICATE" && errData?.meta?.existingId) {
+              await fetch(`https://services.leadconnectorhq.com/opportunities/${errData.meta.existingId}`, {
+                method: "PUT",
+                headers: {
+                  Authorization: `Bearer ${token}`,
+                  Version: "2021-07-28",
+                  "Content-Type": "application/json",
+                  Accept: "application/json",
+                },
+                body: JSON.stringify({
+                  name: `${fullName.trim()} – ChatGPT to Dollar Workshop 8 (PKR 1,999)`,
+                  pipelineStageId: stageId,
+                  status: "open",
+                  monetaryValue: 1999,
+                }),
+              }).catch((err) => console.warn("Opportunity update warning:", err));
+            } else {
+              console.warn("Opportunity creation error:", errData);
+            }
+          }
+
+          // 3. Add note to contact for full visibility in GHL
+          await fetch(`https://services.leadconnectorhq.com/contacts/${contactId}/notes`, {
             method: "POST",
             headers: {
               Authorization: `Bearer ${token}`,
@@ -102,15 +147,9 @@ export async function POST(req: NextRequest) {
               Accept: "application/json",
             },
             body: JSON.stringify({
-              pipelineId,
-              locationId,
-              contactId,
-              name: `${fullName.trim()} – ChatGPT to Dollar Workshop 8 (PKR 1,999)`,
-              stageId,
-              status: "open",
-              monetaryValue: 1999,
+              body: `🎓 LIVE WORKSHOP REGISTRATION (/yt-8):\n• Name: ${fullName.trim()}\n• WhatsApp: ${normalizedPhone}\n• Batch Date: ${batchDate || "Upcoming Batch"}\n• Fee: PKR 1,999\n• Payment Method: ${paymentMethod || "Bank Transfer"}\n• Transaction ID: ${transactionId || "N/A"}\n• Status: ${academicStatus || "N/A"}`,
             }),
-          }).catch((err) => console.warn("Opportunity creation warning:", err));
+          }).catch((err) => console.warn("Contact note warning:", err));
         }
       } catch (ghlErr) {
         console.error("GHL integration error:", ghlErr);

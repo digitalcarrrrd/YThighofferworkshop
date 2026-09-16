@@ -1,16 +1,5 @@
 {
   "processedMessageIds": [
-    "vdZjWBblGPli8HSgiXUV",
-    "2eCXOtlJ2wRSxp58TstH",
-    "R4q7fRCllMyHbiITANEx",
-    "q5rWccfSkISynkKp3Hbo",
-    "Xqorghajzsfk1kyKt56a",
-    "Q9vLx4IWW2ByITXGR3hd",
-    "7GohCJ70hypCsWe40dD3",
-    "tKLFe18lRyS8v1I9jJOb",
-    "CCEeIxzNzO4ryLZ8jof3",
-    "TJB5AqCrxYvxETnDMONr",
-    "sQCB4RHH9gGBppf5FYwQ",
     "ZmSuxLNtCPh614LoTyvq",
     "mUSBcIPHQwLhFtqvyTiL",
     "CTdD4UvxYvJOre29U7Km",
@@ -991,7 +980,26 @@
     "bPQlW8KFx7KqutbjNssa",
     "3S6JRsINav1no9L9Grsm",
     "XUg0zPDJ13v0I4V3sjoz",
-    "YIA4Ozk8Y2qhHRMrUP5X"
+    "YIA4Ozk8Y2qhHRMrUP5X",
+    "7cIhE5gJ06iMv7PiE9dk",
+    "0syltIanRfhJYguWGim8",
+    "ZircF6idmVvazgD3cGav",
+    "RvI5g7NgJGYbQB00IQxj",
+    "F51waKA4pNJX2nHiWq6S",
+    "lUyUdIzQV8htDuXTZcCx",
+    "NW1shlpOs44ubC94Iw1I",
+    "7QMH44TQXs4kz6Z7Ew0T",
+    "Ub8AKhI0CO0m8AS2Pz0E",
+    "8ROFtlifD0Cq2lTPnSkL",
+    "PECXBCl8ivcqmovuPckd",
+    "7gpfEeSspeRx6jsWN4zE",
+    "mmv3AdIgDd5HAX4D7RRA",
+    "WPAlxJ02vvwt523ib9fO",
+    "5c4rCxxyWbjFrApXxye9",
+    "26YttSKlWNmiOMOraHID",
+    "jrMbpAIe1zA11zIT5BtA",
+    "1UQwj60nhkZkhcnUwWXI",
+    "4xUV2Zvugy9p6TdkoqS4"
   ],
   "offerDeliveredContacts": [
     "jBb8xZVVX4FAkw8qj0nQ",
@@ -1068,7 +1076,15 @@
     "8w8ckXUDTX5MSz6NaIDb",
     "nOxOuC9QfVFdFSqP9Q0q",
     "kiSQucKqC4aTZkymyQvR",
-    "NDby00gWZTDc0Qe8s3Dl"
+    "NDby00gWZTDc0Qe8s3Dl",
+    "UnEMrhFCjScy07U9TNC5",
+    "KwAp27HtafEAEInW8KvK",
+    "anbnYBStG9DwZ0I2aLek",
+    "x1dwKQaCFoQvj9geJj1w",
+    "x3DxGIPhQJGMDm811pH1",
+    "8VQ5h1fJ52dIJj4ETKwp",
+    "HXl1JBhrern3rAoXqeCw",
+    "QtB5DC6pZzkVmcmRGZXK"
   ],
   "meetLinkDeliveredOpps": [
     "p40oKLFVix9LJzWWcOj1",
@@ -1098,7 +1114,14 @@
     "u4q40oWxttjOHARt0iz6",
     "Re6zXcw4lGBYobP6UMhW",
     "gUvQ99qddK2QZjGwwqYO",
-    "M4ishBhnRdcSkJbiNeN3"
+    "M4ishBhnRdcSkJbiNeN3",
+    "O7kAGlLRkYQwQtJcquZy",
+    "XFoqrIMVNATItSco1Y1D",
+    "wyC2K8R0Btkb9chnmefE",
+    "KwAp27HtafEAEInW8KvK",
+    "Gd5GVnGndeUANQCtimrF",
+    "8VQ5h1fJ52dIJj4ETKwp",
+    "weC3ppx77x5pp8Z5Q5Qf"
   ],
   "humanActiveContacts": [
     "Ywh7rA4T4wzqnjmpo6vY",
@@ -1531,7 +1554,7 @@
         "sentAt": 1789401283836,
         "oppId": "knNkpo4EGJHQPxsEC2hR",
         "contactName": "Muhammad Talha",
-        "followupSent": false
+        "followupSent": true
       }
     ],
     [
@@ -1540,7 +1563,7 @@
         "sentAt": 1789401296304,
         "oppId": "tEKNIUxdCRpjwkAokZhK",
         "contactName": "Aamir Bashir",
-        "followupSent": false
+        "followupSent": true
       }
     ],
     [
@@ -1549,7 +1572,7 @@
         "sentAt": 1789401305488,
         "oppId": "WEGOy6QB31PxuXyhipeb",
         "contactName": "Kamran Abbas",
-        "followupSent": false
+        "followupSent": true
       }
     ],
     [
@@ -1558,7 +1581,7 @@
         "sentAt": 1789401311491,
         "oppId": "UrK3FOJqrmIqQqrg43jh",
         "contactName": "Muhammad Zazan",
-        "followupSent": false
+        "followupSent": true
       }
     ],
     [
@@ -1567,7 +1590,7 @@
         "sentAt": 1789401337579,
         "oppId": "P3pZXTcWVMaMIDhOEmro",
         "contactName": "nabeel",
-        "followupSent": false
+        "followupSent": true
       }
     ],
     [
@@ -1575,7 +1598,7 @@
       {
         "sentAt": 1789401341202,
         "contactName": "Ahmad Raza",
-        "followupSent": false
+        "followupSent": true
       }
     ],
     [
@@ -1584,6 +1607,77 @@
         "sentAt": 1789401492214,
         "oppId": "Ku8DlBCOBiIDe91zJirA",
         "contactName": "ASADULLAH",
+        "followupSent": true
+      }
+    ],
+    [
+      "UnEMrhFCjScy07U9TNC5",
+      {
+        "sentAt": 1789401710476,
+        "oppId": "q8i01ah0KAugkwtOJgTU",
+        "contactName": "Sohail khan",
+        "followupSent": true
+      }
+    ],
+    [
+      "KwAp27HtafEAEInW8KvK",
+      {
+        "sentAt": 1789403939894,
+        "oppId": "4EapzQG5DgTMboNr6mk7",
+        "contactName": "Khawaja Saad Sohail",
+        "followupSent": true
+      }
+    ],
+    [
+      "anbnYBStG9DwZ0I2aLek",
+      {
+        "sentAt": 1789412234072,
+        "oppId": "17z7czHaWj4WltGwVZ5v",
+        "contactName": "Haseeb ahmed",
+        "followupSent": false
+      }
+    ],
+    [
+      "x1dwKQaCFoQvj9geJj1w",
+      {
+        "sentAt": 1789412249177,
+        "oppId": "r7gwHgoihKEdEYpa7u9b",
+        "contactName": "Iftikhar Amad Khan",
+        "followupSent": false
+      }
+    ],
+    [
+      "x3DxGIPhQJGMDm811pH1",
+      {
+        "sentAt": 1789413693341,
+        "oppId": "AlwlzzDvZAxbQeA6yeRP",
+        "contactName": "Mushahid Ali",
+        "followupSent": false
+      }
+    ],
+    [
+      "8VQ5h1fJ52dIJj4ETKwp",
+      {
+        "sentAt": 1789413701164,
+        "contactName": "ADNAN.RAO",
+        "followupSent": false
+      }
+    ],
+    [
+      "HXl1JBhrern3rAoXqeCw",
+      {
+        "sentAt": 1789414242333,
+        "oppId": "UnJXbyxoJM5wfwAoBLBo",
+        "contactName": "Etsy guide",
+        "followupSent": false
+      }
+    ],
+    [
+      "QtB5DC6pZzkVmcmRGZXK",
+      {
+        "sentAt": 1789414427553,
+        "oppId": "i6WJ3P7TVKvedZXph6lj",
+        "contactName": "Shahbaz Ahmed",
         "followupSent": false
       }
     ]
@@ -1973,7 +2067,7 @@
     ],
     [
       "q8i01ah0KAugkwtOJgTU",
-      "5abe848f-0c44-42a4-b2bf-c294af501659"
+      "0ff8114f-e6c1-4532-abc7-ef64ccb8366d"
     ],
     [
       "Ku8DlBCOBiIDe91zJirA",
@@ -1985,12 +2079,40 @@
     ],
     [
       "4EapzQG5DgTMboNr6mk7",
-      "5abe848f-0c44-42a4-b2bf-c294af501659"
+      "0ff8114f-e6c1-4532-abc7-ef64ccb8366d"
     ],
     [
       "3ShDmokcAXUXcI1l2NSh",
       "1519847d-e659-4ec8-8177-8c5c63b880f0"
+    ],
+    [
+      "CFppaZvBbVCk2WLYJhqC",
+      "5abe848f-0c44-42a4-b2bf-c294af501659"
+    ],
+    [
+      "17z7czHaWj4WltGwVZ5v",
+      "0ff8114f-e6c1-4532-abc7-ef64ccb8366d"
+    ],
+    [
+      "pQoZ2HiHd6YdZ3rbJezK",
+      "5abe848f-0c44-42a4-b2bf-c294af501659"
+    ],
+    [
+      "r7gwHgoihKEdEYpa7u9b",
+      "0ff8114f-e6c1-4532-abc7-ef64ccb8366d"
+    ],
+    [
+      "AlwlzzDvZAxbQeA6yeRP",
+      "0ff8114f-e6c1-4532-abc7-ef64ccb8366d"
+    ],
+    [
+      "UnJXbyxoJM5wfwAoBLBo",
+      "0ff8114f-e6c1-4532-abc7-ef64ccb8366d"
+    ],
+    [
+      "i6WJ3P7TVKvedZXph6lj",
+      "0ff8114f-e6c1-4532-abc7-ef64ccb8366d"
     ]
   ],
-  "updatedAt": "2026-09-14T16:01:43.383Z"
+  "updatedAt": "2026-09-14T19:50:35.253Z"
 }

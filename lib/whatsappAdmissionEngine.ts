@@ -110,6 +110,8 @@ export function getWelcomeMessage(firstName?: string) {
   return (
     `Hello${nameStr} 👋\n\n` +
     `YouTube Automation & AI Masterclass mein welcome!\n\n` +
+    `💻 *Venue:* 100% LIVE Online Masterclass (Google Meet / Zoom) — aap apne ghar se mobile ya laptop par attend kar sakte hain (Karachi, Lahore, Islamabad waghera har shehar ke liye).\n` +
+    `⏰ *Time:* Rozana Raat 8:00 PM – 10:00 PM PKT (Fee: Rs. 1,999)\n\n` +
     `Seat confirm karne ke liye bas yeh *3 details* ek hi message mein send kar dein:\n\n` +
     `1. *Full Name*\n` +
     `2. *City*\n` +

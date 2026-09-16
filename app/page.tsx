@@ -374,7 +374,7 @@ export default function HomePage() {
         {/* Door 02: Content Colony (Co-Live & Co-Work) */}
         <a
           className="door reveal"
-          href="/cc"
+          href="/content-colony"
           onMouseEnter={handleHoverSound}
         >
           <div>
@@ -493,7 +493,7 @@ export default function HomePage() {
                 YT Empire Builders
               </a>
               <a
-                href="/cc"
+                href="/content-colony"
                 onMouseEnter={handleHoverSound}
               >
                 Content Colony

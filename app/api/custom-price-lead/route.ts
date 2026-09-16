@@ -129,8 +129,8 @@ export async function POST(req: Request) {
 
       // 2. Create Opportunity in GHL
       if (contactId) {
-        const pipelineId = process.env.GHL_ACADEMY_PIPELINE_ID || "CZYMTQUzq7a6faEIKdtZ";
-        const stageId = process.env.GHL_ACADEMY_STAGE_FORM_FILL || process.env.GHL_ACADEMY_STAGE_ID || "e6ed9068-7d5e-49ff-ba46-5b9072545fd1";
+        const pipelineId = process.env.GHL_CUSTOM_PACKAGE_PIPELINE_ID || "AeBr4Q7skdfh8RyojRY0";
+        const stageId = process.env.GHL_CUSTOM_PACKAGE_STAGE_NEW_LEAD || "be725ac6-305c-44ac-8054-83dfab4d5384";
 
         const oppResult = await ghlClient.createOpportunity({
           contactId,

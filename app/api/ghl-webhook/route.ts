@@ -63,8 +63,36 @@ export async function POST(req: NextRequest) {
       }
     }
 
-    // B. NEW META WHATSAPP LEAD INQUIRY (Triggered by unique keyword 'BOOK ABRAR WORKSHOP')
-    const isKeywordTrigger = upperText.includes("BOOK ABRAR WORKSHOP") || actionParam === "book_abrar_workshop";
+    // B. META INSTANT LEAD FORM SUBMISSION (Contains pre-filled form answers)
+    const isMetaLeadFormMsg =
+      incomingText.includes("filled in your form") ||
+      incomingText.includes("filled out your form") ||
+      incomingText.includes("Monthly Passive Income");
+
+    if (isMetaLeadFormMsg && contactId) {
+      // Extract Full Name & City from message if present
+      const nameMatch = incomingText.match(/Full name:\s*([^\n\r]+)/i);
+      const cityMatch = incomingText.match(/City:\s*([^\n\r]+)/i);
+      const extractedName = nameMatch?.[1]?.trim() || name;
+      const extractedCity = cityMatch?.[1]?.trim() || "Pakistan";
+
+      const res = await handleDetailsReceived(contactId, {
+        fullName: extractedName,
+        city: extractedCity,
+        studentCategory: "Student",
+        opportunityId,
+      });
+      return NextResponse.json({ type: "meta_lead_form_processed", ...res });
+    }
+
+    // C. NEW META WHATSAPP LEAD INQUIRY (Triggered by CTWA Ad or keyword)
+    const isKeywordTrigger =
+      upperText.includes("BOOK ABRAR WORKSHOP") ||
+      actionParam === "book_abrar_workshop" ||
+      incomingText.includes("Chat with us") ||
+      incomingText.includes("fb.me") ||
+      incomingText.includes("Can I get more info");
+
     if (actionParam === "new_meta_lead" || actionParam === "new_whatsapp_lead" || isKeywordTrigger) {
       const res = await handleNewWhatsAppLead({
         contactId,
@@ -75,9 +103,9 @@ export async function POST(req: NextRequest) {
         metaCampaign: body.meta_campaign,
         metaAdSet: body.meta_ad_set,
         metaAd: body.meta_ad,
-        adKeyword: body.ad_keyword || (isKeywordTrigger ? "BOOK ABRAR WORKSHOP" : "BOOK ABRAR WORKSHOP"),
+        adKeyword: body.ad_keyword || (isKeywordTrigger ? "META_AD_INQUIRY" : "BOOK ABRAR WORKSHOP"),
       });
-      return NextResponse.json({ type: "new_meta_lead_processed", keyword: "BOOK ABRAR WORKSHOP", ...res });
+      return NextResponse.json({ type: "new_meta_lead_processed", keyword: "META_AD_INQUIRY", ...res });
     }
 
     // C. DETAILS RECEIVED

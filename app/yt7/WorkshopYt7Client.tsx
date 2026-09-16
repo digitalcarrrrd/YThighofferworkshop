@@ -182,11 +182,7 @@ export default function WorkshopYt7Client() {
       return;
     }
 
-    if (!screenshotBase64) {
-      setFormError("Payment receipt ya screenshot attach karna zaroori hai.");
-      return;
-    }
-
+    // Screenshot is optional on web — student can attach here OR send on WhatsApp
     setIsSubmitting(true);
 
     try {
@@ -638,9 +634,11 @@ export default function WorkshopYt7Client() {
                     />
                   </div>
 
-                  {/* Screenshot Upload */}
+                  {/* Screenshot Upload (Optional) */}
                   <div>
-                    <label className="block text-xs font-bold text-slate-200 mb-1.5">Attach Payment Screenshot *</label>
+                    <label className="block text-xs font-bold text-slate-200 mb-1.5">
+                      Attach Payment Screenshot <span className="text-slate-400 font-normal">(Optional — ya WhatsApp par bhej dein)</span>
+                    </label>
                     <div 
                       onClick={() => fileInputRef.current?.click()}
                       className="border-2 border-dashed border-slate-600 hover:border-green-500 bg-[#07111F] p-4 rounded-xl text-center cursor-pointer transition-colors"
