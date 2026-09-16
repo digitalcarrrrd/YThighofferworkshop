@@ -3,6 +3,10 @@
     {
       "path": "/api/cron/check-stage-changes",
       "schedule": "* * * * *"
+    },
+    {
+      "path": "/api/cron/whatsapp-auto-responder",
+      "schedule": "* * * * *"
     }
   ]
 }
