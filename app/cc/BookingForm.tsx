@@ -3,32 +3,57 @@
 import { useState } from "react";
 import styles from "./page.module.css";
 
-export const V3_PACKAGES = [
+export const V4_PACKAGES = [
   {
-    id: "7-Day Sprint — PKR 100,000",
-    name: "7-Day Sprint",
+    id: "10-Day Fast Entry — Creator Residency (PKR 100,000)",
+    sprint: "10 Days",
+    tier: "Creator Residency",
+    name: "10-Day Creator Residency",
     price: "PKR 100,000",
-    rate: "PKR 14,286/day",
-    badge: "Breakthrough",
-    summary: "1 problem solved, 1 finished outcome, up to 7 hrs Abrar 1:1 + 1 deep content review",
+    rate: "PKR 10,000/day",
+    badge: "Fast Entry",
+    summary: "Stay + Food + Housekeeping + 5 execution calls in 90 days",
   },
   {
-    id: "14-Day Build Sprint — PKR 180,000",
-    name: "14-Day Build Sprint",
-    price: "PKR 180,000",
-    rate: "PKR 12,857/day",
+    id: "10-Day Fast Entry — Lahore Local Operator (PKR 60,000)",
+    sprint: "10 Days",
+    tier: "Lahore Local Operator",
+    name: "10-Day Local Operator",
+    price: "PKR 60,000",
+    rate: "PKR 6,000/day",
+    badge: "Local Pass",
+    summary: "Day access only (no stay/meals) + 1 execution call/month",
+  },
+  {
+    id: "15-Day Best Value — Creator Residency (PKR 140,000)",
+    sprint: "15 Days",
+    tier: "Creator Residency",
+    name: "15-Day Creator Residency",
+    price: "PKR 140,000",
+    rate: "≈ PKR 9,333/day",
     badge: "Most Popular",
     popular: true,
-    summary: "Build, test, feedback & improve. Save PKR 20,000. 2 content reviews + 2 build cycles",
+    summary: "Best value: Multiple build/review cycles + 7 execution calls in 90 days",
   },
   {
-    id: "30-Day Creator Residency — PKR 300,000",
-    name: "30-Day Residency",
-    price: "PKR 300,000",
-    rate: "PKR 10,000/day",
-    badge: "Best Value",
-    bestValue: true,
-    summary: "Full operating transformation. Save ~PKR 100,000. Up to 10 hrs Abrar + 3 review checkpoints",
+    id: "15-Day Best Value — Lahore Local Operator (PKR 80,000)",
+    sprint: "15 Days",
+    tier: "Lahore Local Operator",
+    name: "15-Day Local Operator",
+    price: "PKR 80,000",
+    rate: "≈ PKR 5,333/day",
+    badge: "Local Value",
+    summary: "Extended day access + sprint repetitions + 1 execution call/month",
+  },
+  {
+    id: "30-Day Deep Systemization — Waitlist",
+    sprint: "30 Days",
+    tier: "Creator Residency",
+    name: "30-Day Residency (Waitlist)",
+    price: "Waitlist Only",
+    rate: "Currently Capped",
+    badge: "Waitlist",
+    summary: "Maximum data-training cycles + 10 execution calls in 90 days",
   },
 ];
 
@@ -38,10 +63,46 @@ interface BookingFormProps {
   initialPackage?: string;
 }
 
-export function BookingForm({ initialPackage = "14-Day Build Sprint — PKR 180,000" }: BookingFormProps) {
+export function BookingForm({ initialPackage = "15-Day Best Value — Creator Residency (PKR 140,000)" }: BookingFormProps) {
   const [selectedPkg, setSelectedPkg] = useState<string>(initialPackage);
+  const [sprintChoice, setSprintChoice] = useState<string>("15 Days");
+  const [accessChoice, setAccessChoice] = useState<string>("Creator Residency");
   const [status, setStatus] = useState<Status>({ type: "idle" });
   const [busy, setBusy] = useState(false);
+
+  // Sync sprint and access changes to selectedPkg
+  function handleSprintChange(sprint: string) {
+    setSprintChoice(sprint);
+    if (sprint === "30 Days — Waitlist") {
+      setSelectedPkg("30-Day Deep Systemization — Waitlist");
+      return;
+    }
+    const match = V4_PACKAGES.find(
+      (p) => p.sprint === sprint && p.tier === accessChoice
+    );
+    if (match) setSelectedPkg(match.id);
+  }
+
+  function handleAccessChange(access: string) {
+    setAccessChoice(access);
+    if (sprintChoice === "30 Days — Waitlist") {
+      setSelectedPkg("30-Day Deep Systemization — Waitlist");
+      return;
+    }
+    const match = V4_PACKAGES.find(
+      (p) => p.sprint === sprintChoice && p.tier === access
+    );
+    if (match) setSelectedPkg(match.id);
+  }
+
+  function selectDirectPackage(pkgId: string) {
+    setSelectedPkg(pkgId);
+    const found = V4_PACKAGES.find((p) => p.id === pkgId);
+    if (found) {
+      setSprintChoice(found.sprint === "30 Days" ? "30 Days — Waitlist" : found.sprint);
+      setAccessChoice(found.tier);
+    }
+  }
 
   async function handleSubmit(event: React.FormEvent<HTMLFormElement>) {
     event.preventDefault();
@@ -70,7 +131,7 @@ export function BookingForm({ initialPackage = "14-Day Build Sprint — PKR 180,
       setStatus({
         type: "success",
         message:
-          "Application logged. Our admissions team reviews your profile within 24–48 hours. Shortlisted creators are contacted directly on WhatsApp for an alignment interview. Do not send payment until formally accepted.",
+          "Whitelist application logged. Our team reviews your build and bottleneck within 24–48 hours. Shortlisted creators will receive a WhatsApp screening call to confirm dates and fit. No payment is required until formally approved.",
         reference: data.reference || `CC-${Date.now().toString().slice(-6)}`,
       });
       form.reset();
@@ -97,11 +158,11 @@ export function BookingForm({ initialPackage = "14-Day Build Sprint — PKR 180,
         <div className={styles.successGuide}>
           <strong>Next Steps:</strong>
           <br />
-          1. Team reviews your channel/system bottleneck.
+          1. <strong>Review:</strong> Team reviews your channel/system bottleneck.
           <br />
-          2. Shortlisted applicants receive a WhatsApp interview (+92) to confirm dates.
+          2. <strong>Screening Call:</strong> Shortlisted applicants receive a WhatsApp interview (+92) to confirm dates &amp; living arrangements.
           <br />
-          3. Optional screening deposit (PKR 2,500) is only requested upon shortlisting and is 100% credited against your residency balance.
+          3. <strong>Approval &amp; Confirmation:</strong> Payment is only processed after formal seat approval.
         </div>
         <button
           type="button"
@@ -116,90 +177,99 @@ export function BookingForm({ initialPackage = "14-Day Build Sprint — PKR 180,
 
   return (
     <div className={styles.bookingWrap}>
-      <form onSubmit={handleSubmit}>
+      <form onSubmit={handleSubmit} className={styles.applyForm}>
         <div className={styles.formHeading}>
-          <span className={styles.eyebrow}>DOOR 02 — RESIDENCY RESERVATION</span>
+          <span className={styles.eyebrow}>DOOR 02 — WHITELIST RESERVATION</span>
           <h3>Apply for Content Colony</h3>
           <p>
-            Choose your sprint depth, select your current build and bottleneck, and apply.
-            Founding Cohort V3 is strictly capped at 10 approved residents.
+            No payment is required to submit. We first check fit, seriousness, dates,
+            and accommodation availability. Cohort is strictly capped at 15 active operators.
           </p>
         </div>
 
-        {/* Package Selector */}
+        {/* 4-Step Flow Indicator */}
+        <div className={styles.applyFlow}>
+          <div className={styles.applyStep}>
+            <b>STEP 01</b>
+            <span>Fill the Form</span>
+          </div>
+          <div className={styles.applyStep}>
+            <b>STEP 02</b>
+            <span>Screening Call</span>
+          </div>
+          <div className={styles.applyStep}>
+            <b>STEP 03</b>
+            <span>Approval</span>
+          </div>
+          <div className={styles.applyStep}>
+            <b>STEP 04</b>
+            <span>Seat Confirmed</span>
+          </div>
+        </div>
+
+        {/* Package Selector Cards */}
         <div className={styles.pkgChoiceWrap}>
-          <label className={styles.fieldTitle}>Choose Sprint Duration *</label>
+          <label className={styles.fieldTitle}>Select Sprint &amp; Access Tier *</label>
           <div className={styles.pkgCardsGrid}>
-            {V3_PACKAGES.map((pkg) => {
+            {V4_PACKAGES.map((pkg) => {
               const isSelected = selectedPkg === pkg.id;
               return (
                 <button
                   type="button"
                   key={pkg.id}
-                  onClick={() => setSelectedPkg(pkg.id)}
+                  onClick={() => selectDirectPackage(pkg.id)}
                   className={`${styles.pkgCardBtn} ${isSelected ? styles.pkgCardSelected : ""}`}
                 >
                   <div className={styles.pkgCardTop}>
-                    <span className={styles.pkgCardBadge}>{pkg.badge}</span>
-                    <span className={styles.pkgCardRate}>{pkg.rate}</span>
+                    <span className={styles.pkgBadge}>{pkg.badge}</span>
+                    <span className={styles.pkgRate}>{pkg.rate}</span>
                   </div>
-                  <div className={styles.pkgCardName}>{pkg.name}</div>
-                  <div className={styles.pkgCardPrice}>{pkg.price}</div>
-                  <p className={styles.pkgCardDesc}>{pkg.summary}</p>
-                  <div className={styles.pkgRadioRow}>
-                    <span className={styles.pkgRadioIndicator} />
-                    <span>{isSelected ? "Selected" : "Select"}</span>
-                  </div>
+                  <div className={styles.pkgName}>{pkg.name}</div>
+                  <div className={styles.pkgPrice}>{pkg.price}</div>
+                  <div className={styles.pkgSummary}>{pkg.summary}</div>
                 </button>
               );
             })}
           </div>
-          <input type="hidden" name="package" value={selectedPkg} />
         </div>
 
-        {/* Applicant Details */}
-        <div className={styles.formGridTwo}>
+        {/* Core Applicant Info */}
+        <div className={styles.formGrid}>
           <div className={styles.formField}>
             <label className={styles.fieldTitle} htmlFor="fullName">Full Name *</label>
             <input
               id="fullName"
               name="fullName"
+              type="text"
               required
-              minLength={2}
-              autoComplete="name"
-              placeholder="e.g. Abrar Nadir"
+              placeholder="e.g. Hamza Tariq"
               className={styles.formInput}
             />
           </div>
 
           <div className={styles.formField}>
-            <label className={styles.fieldTitle} htmlFor="age">Age *</label>
+            <label className={styles.fieldTitle} htmlFor="city">City / Location *</label>
             <input
-              id="age"
-              name="age"
+              id="city"
+              name="city"
+              type="text"
               required
-              type="number"
-              min={16}
-              max={80}
-              placeholder="24"
+              placeholder="e.g. Lahore, Karachi, Islamabad"
               className={styles.formInput}
             />
           </div>
-        </div>
 
-        <div className={styles.formGridTwo}>
           <div className={styles.formField}>
-            <label className={styles.fieldTitle} htmlFor="phone">WhatsApp Number *</label>
+            <label className={styles.fieldTitle} htmlFor="phone">WhatsApp Phone Number *</label>
             <input
               id="phone"
               name="phone"
+              type="tel"
               required
-              inputMode="tel"
-              placeholder="0300 1234567 or +923..."
-              autoComplete="tel"
+              placeholder="0300 1234567 or +923001234567"
               className={styles.formInput}
             />
-            <span className={styles.formHint}>We verify applications and dates via WhatsApp.</span>
+            <span className={styles.fieldHint}>Used for screening call alignment</span>
           </div>
 
           <div className={styles.formField}>
@@ -207,121 +277,118 @@ export function BookingForm({ initialPackage = "14-Day Build Sprint — PKR 180,
             <input
               id="email"
               name="email"
-              required
               type="email"
-              placeholder="you@domain.com"
-              autoComplete="email"
-              className={styles.formInput}
-            />
-          </div>
-        </div>
-
-        <div className={styles.formGridTwo}>
-          <div className={styles.formField}>
-            <label className={styles.fieldTitle} htmlFor="city">City of Residence *</label>
-            <input
-              id="city"
-              name="city"
               required
-              minLength={2}
-              autoComplete="address-level2"
-              placeholder="Lahore, Karachi, Islamabad, Overseas..."
+              placeholder="you@domain.com"
               className={styles.formInput}
             />
           </div>
 
           <div className={styles.formField}>
-            <label className={styles.fieldTitle} htmlFor="memberStatus">Are you a YT Empire Builder Member? *</label>
-            <select id="memberStatus" name="memberStatus" required defaultValue="" className={styles.formSelect}>
-              <option value="" disabled>Select status</option>
-              <option value="Yes — paid member">Yes — Paid Empire Builder Member</option>
-              <option value="Yes — workshop/community member">Yes — Attended Live Workshop</option>
-              <option value="No">No — First time joining an Abrar Nadir program</option>
-            </select>
-          </div>
-        </div>
-
-        {/* User-friendly Dropdown Selectors */}
-        <div className={styles.formField}>
-          <label className={styles.fieldTitle} htmlFor="currentBuild">
-            What are you currently building? *
-          </label>
-          <select id="currentBuild" name="currentBuild" required defaultValue="" className={styles.formSelect}>
-            <option value="" disabled>Select what you are building</option>
-            <option value="YouTube Faceless / Automation Channel">YouTube Faceless / Automation Channel</option>
-            <option value="Personal Brand / Talking Head Channel">Personal Brand / Talking Head Channel</option>
-            <option value="Content Agency / Video Production Business">Content Agency / Video Production Business</option>
-            <option value="Digital Product / Education Funnel">Digital Product / Education Funnel</option>
-            <option value="AI Creator / Multi-Channel Media Network">AI Creator / Multi-Channel Media Network</option>
-            <option value="Other Media Business / Channel Idea">Other Digital Media Business</option>
-          </select>
-        </div>
-
-        <div className={styles.formField}>
-          <label className={styles.fieldTitle} htmlFor="bottleneck">
-            What is your biggest execution bottleneck right now? *
-          </label>
-          <select id="bottleneck" name="bottleneck" required defaultValue="" className={styles.formSelect}>
-            <option value="" disabled>Select your primary bottleneck</option>
-            <option value="Scripting & Storytelling takes too long">Scripting &amp; Storytelling takes too long</option>
-            <option value="Inconsistent uploads / Lack of routine at home">Inconsistent uploads / Lack of routine at home</option>
-            <option value="Low CTR, weak thumbnails & title packaging">Low CTR, weak thumbnails &amp; title packaging</option>
-            <option value="Low audience retention & algorithmic drop-off">Low audience retention &amp; algorithmic drop-off</option>
-            <option value="Video editor hiring, delegation & team SOPs">Video editor hiring, delegation &amp; team SOPs</option>
-            <option value="Scattered focus / Distracted home environment">Scattered focus / Distracted home environment</option>
-          </select>
-        </div>
-
-        <div className={styles.formField}>
-          <label className={styles.fieldTitle} htmlFor="successDefinition">
-            What completed outcome would make this residency a 10/10 success? *
-          </label>
-          <select id="successDefinition" name="successDefinition" required defaultValue="" className={styles.formSelect}>
-            <option value="" disabled>Select your desired outcome</option>
-            <option value="Leave with first batch of videos fully produced & edited">Leave with first batch of videos fully produced &amp; edited</option>
-            <option value="Build a repeatable AI content production pipeline">Build a repeatable AI content production pipeline</option>
-            <option value="Fix channel retention leaks & CTR packaging with Abrar">Fix channel retention leaks &amp; CTR packaging with Abrar</option>
-            <option value="Launch a monetization offer / funnel behind the channel">Launch a monetization offer / funnel behind the channel</option>
-            <option value="Establish a disciplined daily creator operating rhythm">Establish a disciplined daily creator operating rhythm</option>
-            <option value="Solve my main growth bottleneck with direct 1:1 strategy">Solve my main growth bottleneck with direct 1:1 strategy</option>
-          </select>
-        </div>
-
-        <div className={styles.formGridTwo}>
-          <div className={styles.formField}>
-            <label className={styles.fieldTitle} htmlFor="budgetReadiness">Financial Readiness *</label>
-            <select id="budgetReadiness" name="budgetReadiness" required defaultValue="" className={styles.formSelect}>
-              <option value="" disabled>Select readiness</option>
-              <option value="Ready if selected">I am financially prepared to pay if approved</option>
-              <option value="Need the payment plan">I would like a 2-part split payment</option>
-              <option value="Still planning">Still evaluating budget</option>
+            <label className={styles.fieldTitle} htmlFor="sprintChoice">Sprint Duration *</label>
+            <select
+              id="sprintChoice"
+              value={sprintChoice}
+              onChange={(e) => handleSprintChange(e.target.value)}
+              className={styles.formSelect}
+            >
+              <option value="10 Days">10 Days — Fast Entry</option>
+              <option value="15 Days">15 Days — Best Value (Featured)</option>
+              <option value="30 Days — Waitlist">30 Days — Deep Systemization (Waitlist)</option>
             </select>
           </div>
 
           <div className={styles.formField}>
-            <label className={styles.fieldTitle} htmlFor="earlyParticipation">On-Site Arrival Window *</label>
-            <select id="earlyParticipation" name="earlyParticipation" required defaultValue="" className={styles.formSelect}>
-              <option value="" disabled>Select arrival window</option>
-              <option value="Immediate / Next available cohort">Ready for immediate next cohort</option>
-              <option value="Within 30 days">Within next 30 days</option>
-              <option value="Flexible / Future month">Flexible date</option>
+            <label className={styles.fieldTitle} htmlFor="accessChoice">Access Type *</label>
+            <select
+              id="accessChoice"
+              value={accessChoice}
+              onChange={(e) => handleAccessChange(e.target.value)}
+              className={styles.formSelect}
+            >
+              <option value="Creator Residency">Creator Residency (Stay + Food + Housekeeping + Coffee)</option>
+              <option value="Lahore Local Operator">Lahore Local Operator (Day-Pass Only · No Stay/Food)</option>
             </select>
           </div>
         </div>
 
-        {/* Consent & Agreements */}
+        {/* Selective Deep-Dive Questions */}
+        <div className={styles.formSectionTitle}>
+          <span>OPERATING DIAGNOSIS</span>
+          <h4>Tell Us About Your Work</h4>
+        </div>
+
+        <div className={styles.formStacked}>
+          <div className={styles.formField}>
+            <label className={styles.fieldTitle} htmlFor="currentBuild">What are you currently building? *</label>
+            <select
+              id="currentBuild"
+              name="currentBuild"
+              required
+              defaultValue=""
+              className={styles.formSelect}
+            >
+              <option value="" disabled>Select your current primary build</option>
+              <option value="YouTube Faceless / Automation System">YouTube Faceless / Automation Channels</option>
+              <option value="Personal Brand & Authority YouTube Channel">Personal Brand &amp; Authority YouTube Channel</option>
+              <option value="AI Content Agency / Production House">AI Content Agency / Production House</option>
+              <option value="AI Agents & Automated Scraping/Research Systems">AI Agents &amp; Automated Scraping/Research Systems</option>
+              <option value="Digital Products / Software / Education Funnels">Digital Products / Software / Education Funnels</option>
+              <option value="Other High-Output Content Business">Other High-Output Media Business</option>
+            </select>
+          </div>
+
+          <div className={styles.formField}>
+            <label className={styles.fieldTitle} htmlFor="bottleneck">What is your biggest current bottleneck? *</label>
+            <select
+              id="bottleneck"
+              name="bottleneck"
+              required
+              defaultValue=""
+              className={styles.formSelect}
+            >
+              <option value="" disabled>Select primary bottleneck</option>
+              <option value="Every video feels like a fresh project instead of a repeatable system">Every video feels like a fresh project instead of a repeatable system</option>
+              <option value="Too many AI tools and prompts, not enough operating logic">Too many AI tools and prompts, not enough operating logic</option>
+              <option value="Working alone — execution energy dies without live momentum">Working alone — execution energy dies without live momentum</option>
+              <option value="Packaging & retention leaks (Low CTR or watch time drop-off)">Packaging &amp; retention leaks (Low CTR or watch time drop-off)</option>
+              <option value="Editor/team delegation and QA breakdowns">Editor/team delegation and QA breakdowns</option>
+              <option value="Scattered focus across too many models without finishing one">Scattered focus across too many models without finishing one</option>
+            </select>
+          </div>
+
+          <div className={styles.formField}>
+            <label className={styles.fieldTitle} htmlFor="successDefinition">Why do you feel Content Colony could be the missing layer for you? *</label>
+            <select
+              id="successDefinition"
+              name="successDefinition"
+              required
+              defaultValue=""
+              className={styles.formSelect}
+            >
+              <option value="" disabled>Select your core expectation</option>
+              <option value="Need a live environment that forces daily execution momentum">Need a live environment that forces daily execution momentum</option>
+              <option value="Want to build a data-trained AI agent pipeline for my specific niche">Want to build a data-trained AI agent pipeline for my specific niche</option>
+              <option value="Need direct expert reviews from Abrar on business model & algorithms">Need direct expert reviews from Abrar on business model &amp; algorithms</option>
+              <option value="Want to leave with batch-produced assets and proven operating SOPs">Want to leave with batch-produced assets and proven operating SOPs</option>
+              <option value="Need post-sprint accountability calls so the system survives after leaving">Need post-sprint accountability calls so the system survives after leaving</option>
+            </select>
+          </div>
+        </div>
+
+        {/* Agreements & Consent */}
         <div className={styles.consentWrap}>
           <label className={styles.consentLabel}>
-            <input name="acknowledgement" type="checkbox" value="accepted" required />
+            <input name="acknowledgement" type="checkbox" value="accepted" defaultChecked required />
             <span>
-              I understand that <strong>Content Colony is selective</strong>. Submitting this form does not charge me. I agree NOT to make any payment until formally accepted by Abrar Nadir&apos;s team.
+              I understand that <strong>Content Colony is application-only</strong>. Submitting this form does not charge me. I agree not to send payment until formally approved after the screening call.
             </span>
           </label>
 
           <label className={styles.consentLabel}>
-            <input name="consent" type="checkbox" value="accepted" required />
+            <input name="consent" type="checkbox" value="accepted" defaultChecked required />
             <span>
-              I consent to receive application status updates and schedule confirmation via WhatsApp and email.
+              I consent to receive screening call scheduling and application status updates via WhatsApp and email.
             </span>
           </label>
         </div>
@@ -336,11 +403,11 @@ export function BookingForm({ initialPackage = "14-Day Build Sprint — PKR 180,
         )}
 
         <button disabled={busy} type="submit" className={styles.formSubmitBtn}>
-          {busy ? "Processing..." : `Apply for ${selectedPkg.split(" — ")[0]}`}
+          {busy ? "Processing Application..." : "Submit Whitelist Application →"}
         </button>
 
         <p className={styles.formNote}>
-          Confidential Application · Limited to 10 Residents in Cohort V3
+          15 Active Operators Max · 10 Residential + 5 Local · Johar Town, Lahore
         </p>
       </form>
     </div>

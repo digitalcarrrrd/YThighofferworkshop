@@ -1416,4 +1416,581 @@ a.pDoorBtn:hover,
   .locPerks {
     grid-template-columns: 1fr;
   }
+
+  .galleryGrid,
+  .compareGrid,
+  .grid4,
+  .houseGrid,
+  .followupGrid {
+    grid-template-columns: 1fr !important;
+  }
+
+  .heroGridSplit {
+    grid-template-columns: 1fr !important;
+  }
+
+  .applyFlow {
+    grid-template-columns: 1fr 1fr !important;
+  }
 }
+
+/* ==========================================================================
+   V4 UPGRADE STYLES: PROOF TABS, YOUTUBE EMBED, COMPARISON, 8 PILLARS
+   ========================================================================== */
+
+/* Hero Split with Diagnosis Card */
+.heroGridSplit {
+  display: grid;
+  grid-template-columns: 1.1fr 0.9fr;
+  gap: 40px;
+  align-items: start;
+}
+
+.heroDiagnosisCard {
+  border: 1px solid var(--line);
+  background: var(--panel);
+  padding: 30px;
+  margin-top: 10px;
+}
+
+.heroDiagnosisCard h3 {
+  font-family: 'Archivo Black', sans-serif;
+  font-size: 1.35rem;
+  line-height: 1.25;
+  margin: 12px 0 20px;
+  color: var(--white);
+}
+
+.diagList {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+  margin-bottom: 22px;
+}
+
+.diagItem {
+  border: 1px solid var(--line);
+  background: var(--black);
+  padding: 14px 16px;
+}
+
+.diagItem strong {
+  display: block;
+  font-size: 0.88rem;
+  color: var(--white);
+  margin-bottom: 4px;
+}
+
+.diagItem span {
+  font-size: 0.82rem;
+  color: var(--mid);
+  line-height: 1.45;
+}
+
+.alertNotice {
+  background: #18181b;
+  border-left: 3px solid var(--white);
+  padding: 16px 18px;
+  font-size: 0.82rem;
+  font-weight: 800;
+  letter-spacing: 0.04em;
+  color: var(--white);
+  text-transform: uppercase;
+  line-height: 1.5;
+}
+
+.alertNotice small {
+  display: block;
+  font-size: 0.78rem;
+  font-weight: 400;
+  text-transform: none;
+  color: var(--soft);
+  margin-top: 6px;
+}
+
+/* PROOF SECTION */
+.proofSection {
+  padding: 92px 0;
+  border-bottom: 1px solid var(--line);
+  background: var(--black);
+}
+
+.centerHeading {
+  text-align: center;
+  max-width: 820px;
+  margin: 0 auto 36px;
+}
+
+.centerHeading h2 {
+  font-family: 'Archivo Black', sans-serif;
+  font-size: clamp(2rem, 4.5vw, 3.4rem);
+  line-height: 1.06;
+  letter-spacing: -0.03em;
+  margin: 12px 0 16px;
+}
+
+.centerHeading p {
+  color: var(--soft);
+  font-size: 1.05rem;
+  line-height: 1.6;
+}
+
+/* Tabs */
+.tabbar {
+  display: flex;
+  justify-content: center;
+  gap: 10px;
+  flex-wrap: wrap;
+  margin-bottom: 28px;
+}
+
+.tabbtn {
+  background: var(--panel);
+  color: var(--soft);
+  border: 1px solid var(--line);
+  padding: 12px 22px;
+  font-family: 'Archivo', sans-serif;
+  font-size: 0.86rem;
+  font-weight: 800;
+  letter-spacing: 0.04em;
+  cursor: pointer;
+  transition: all 0.18s ease;
+}
+
+.tabbtn:hover {
+  border-color: var(--white);
+  color: var(--white);
+}
+
+.tabbtnActive {
+  background: var(--white) !important;
+  color: var(--black) !important;
+  border-color: var(--white) !important;
+}
+
+/* VSL Player */
+.vslWrap {
+  max-width: 960px;
+  margin: 0 auto;
+}
+
+.vslIframeBox {
+  position: relative;
+  width: 100%;
+  aspect-ratio: 16 / 9;
+  border: 1px solid var(--line);
+  background: #050505;
+  overflow: hidden;
+}
+
+.vslIframe {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  border: 0;
+}
+
+.vslCaption {
+  border: 1px solid var(--line);
+  border-top: 0;
+  background: var(--panel);
+  padding: 16px 20px;
+  font-size: 0.86rem;
+  color: var(--soft);
+  line-height: 1.5;
+}
+
+.vslCaption strong {
+  color: var(--white);
+}
+
+/* Colony Gallery Grid */
+.galleryGrid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 12px;
+}
+
+.galleryTile {
+  border: 1px solid var(--line);
+  background: var(--panel);
+  padding: 24px;
+  min-height: 170px;
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-start;
+  transition: border-color 0.2s ease;
+}
+
+.galleryTile:hover {
+  border-color: var(--white);
+}
+
+.tileBadge {
+  font-size: 0.65rem;
+  font-weight: 800;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  color: var(--mid);
+  margin-bottom: 10px;
+}
+
+.tileTitle {
+  font-family: 'Archivo Black', sans-serif;
+  font-size: 1.1rem;
+  color: var(--white);
+  margin-bottom: 8px;
+}
+
+.tileDesc {
+  font-size: 0.82rem;
+  color: var(--soft);
+  line-height: 1.45;
+  margin: 0;
+}
+
+/* Stats Tab */
+.statsTabWrap {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+}
+
+.statsGrid {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 12px;
+}
+
+.statFeature {
+  border: 1px solid var(--line);
+  background: var(--panel);
+  padding: 24px;
+}
+
+.statFeatureNum {
+  font-family: 'Archivo Black', sans-serif;
+  font-size: 2.2rem;
+  letter-spacing: -0.04em;
+  color: var(--white);
+  margin-bottom: 8px;
+}
+
+.statFeature h3 {
+  font-size: 0.95rem;
+  font-weight: 800;
+  color: var(--white);
+  margin-bottom: 8px;
+}
+
+.statFeature p {
+  font-size: 0.82rem;
+  color: var(--mid);
+  line-height: 1.5;
+  margin: 0;
+}
+
+.statsNoticeBar {
+  background: var(--panel);
+  border: 1px solid var(--line);
+  padding: 16px 20px;
+  text-align: center;
+  font-size: 0.76rem;
+  letter-spacing: 0.12em;
+  font-weight: 800;
+  color: var(--soft);
+  text-transform: uppercase;
+}
+
+/* COMPARISON SECTION */
+.compareGrid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 16px;
+  margin-bottom: 24px;
+}
+
+.compareCol {
+  border: 1px solid var(--line);
+  background: var(--panel);
+}
+
+.compareColColony {
+  border: 2px solid var(--white) !important;
+  background: #0d0d0f !important;
+}
+
+.compareHead {
+  padding: 24px;
+  border-bottom: 1px solid var(--line);
+}
+
+.compareHead h3 {
+  font-family: 'Archivo Black', sans-serif;
+  font-size: 1.25rem;
+  margin-top: 6px;
+  color: var(--white);
+}
+
+.compareRow {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 14px 20px;
+  border-bottom: 1px solid var(--line);
+  font-size: 0.86rem;
+}
+
+.compareRow:last-child {
+  border-bottom: 0;
+}
+
+.compareRow span:first-child {
+  color: var(--soft);
+}
+
+.statusYes {
+  background: rgba(255, 255, 255, 0.15);
+  color: var(--white);
+  padding: 4px 10px;
+  font-size: 0.72rem;
+  font-weight: 900;
+  letter-spacing: 0.08em;
+}
+
+.statusNo {
+  background: rgba(255, 255, 255, 0.04);
+  color: var(--dim);
+  padding: 4px 10px;
+  font-size: 0.72rem;
+  font-weight: 900;
+  letter-spacing: 0.08em;
+}
+
+.statusMaybe {
+  background: rgba(255, 255, 255, 0.08);
+  color: var(--mid);
+  padding: 4px 10px;
+  font-size: 0.72rem;
+  font-weight: 900;
+  letter-spacing: 0.08em;
+}
+
+/* 8 PILLARS GRID */
+.grid4 {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 12px;
+}
+
+.featureCard {
+  border: 1px solid var(--line);
+  background: var(--panel);
+  padding: 24px;
+  min-height: 180px;
+  transition: border-color 0.2s ease;
+}
+
+.featureCard:hover {
+  border-color: var(--white);
+}
+
+.featureCardTitle {
+  font-family: 'Archivo Black', sans-serif;
+  font-size: 1.05rem;
+  color: var(--white);
+  margin-bottom: 10px;
+}
+
+.featureCardDesc {
+  font-size: 0.84rem;
+  color: var(--mid);
+  line-height: 1.5;
+  margin: 0;
+}
+
+/* PHYSICAL ENVIRONMENT */
+.houseGrid {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 12px;
+}
+
+.houseItem {
+  border: 1px solid var(--line);
+  background: var(--panel);
+  padding: 22px;
+}
+
+.houseItemTitle {
+  font-family: 'Archivo Black', sans-serif;
+  font-size: 1rem;
+  color: var(--white);
+  margin-bottom: 6px;
+}
+
+.houseItemDesc {
+  font-size: 0.82rem;
+  color: var(--mid);
+  line-height: 1.45;
+  margin: 0;
+}
+
+/* POST-RESIDENCY FOLLOWUP */
+.followupGrid {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 12px;
+  margin-bottom: 24px;
+}
+
+.followupItem {
+  border: 1px solid var(--line);
+  background: var(--panel);
+  padding: 22px;
+}
+
+.followupItem h3 {
+  font-family: 'Archivo Black', sans-serif;
+  font-size: 1.05rem;
+  color: var(--white);
+  margin-bottom: 8px;
+}
+
+.followupItem p {
+  font-size: 0.84rem;
+  color: var(--soft);
+  line-height: 1.45;
+  margin: 0;
+}
+
+/* WHITELIST APPLICATION FLOW */
+.applyFlow {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 8px;
+  margin-bottom: 28px;
+}
+
+.applyStep {
+  border: 1px solid var(--line);
+  background: var(--panel);
+  padding: 14px 16px;
+}
+
+.applyStep b {
+  display: block;
+  font-size: 0.72rem;
+  letter-spacing: 0.12em;
+  color: var(--white);
+  margin-bottom: 4px;
+}
+
+.applyStep span {
+  font-size: 0.82rem;
+  color: var(--soft);
+}
+
+/* Package Card Selector in Form */
+.pkgChoiceWrap {
+  margin-bottom: 28px;
+}
+
+.pkgCardsGrid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+  gap: 10px;
+}
+
+.pkgCardBtn {
+  border: 1px solid var(--line);
+  background: var(--panel);
+  color: var(--white);
+  padding: 18px;
+  text-align: left;
+  cursor: pointer;
+  transition: all 0.18s ease;
+  display: flex;
+  flex-direction: column;
+}
+
+.pkgCardBtn:hover {
+  border-color: var(--line2);
+  background: var(--panel-hover);
+}
+
+.pkgCardSelected {
+  border-color: var(--white) !important;
+  background: #18181c !important;
+}
+
+.pkgCardTop {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 8px;
+}
+
+.pkgBadge {
+  font-size: 0.65rem;
+  letter-spacing: 0.1em;
+  font-weight: 800;
+  text-transform: uppercase;
+  color: var(--mid);
+}
+
+.pkgRate {
+  font-size: 0.72rem;
+  color: var(--mid);
+}
+
+.pkgName {
+  font-family: 'Archivo Black', sans-serif;
+  font-size: 0.95rem;
+  color: var(--white);
+  margin-bottom: 4px;
+}
+
+.pkgPrice {
+  font-size: 1.15rem;
+  font-weight: 900;
+  color: var(--white);
+  margin-bottom: 6px;
+}
+
+.pkgSummary {
+  font-size: 0.76rem;
+  color: var(--mid);
+  line-height: 1.35;
+}
+
+.formSectionTitle {
+  margin: 32px 0 16px;
+  padding-bottom: 10px;
+  border-bottom: 1px solid var(--line);
+}
+
+.formSectionTitle span {
+  font-size: 0.68rem;
+  letter-spacing: 0.22em;
+  font-weight: 800;
+  color: var(--mid);
+  text-transform: uppercase;
+}
+
+.formSectionTitle h4 {
+  font-family: 'Archivo Black', sans-serif;
+  font-size: 1.15rem;
+  color: var(--white);
+  margin: 4px 0 0;
+}
+
+.formStacked {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+  margin-bottom: 24px;
+}
+

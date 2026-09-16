@@ -1,6 +1,11 @@
 import { NextRequest, NextResponse } from "next/server";
 
 const packages = new Set([
+  "10-Day Fast Entry — Creator Residency (PKR 100,000)",
+  "10-Day Fast Entry — Lahore Local Operator (PKR 60,000)",
+  "15-Day Best Value — Creator Residency (PKR 140,000)",
+  "15-Day Best Value — Lahore Local Operator (PKR 80,000)",
+  "30-Day Deep Systemization — Waitlist",
   "7-Day Sprint — PKR 100,000",
   "14-Day Build Sprint — PKR 180,000",
   "30-Day Creator Residency — PKR 300,000",
@@ -16,11 +21,15 @@ function customField(envName: string, value: string) { const id = process.env[en
 
 function parsePackageAmount(pkg: string): number {
   if (pkg.includes("300,000")) return 300000;
+  if (pkg.includes("250,000")) return 250000;
   if (pkg.includes("220,000")) return 220000;
   if (pkg.includes("180,000")) return 180000;
+  if (pkg.includes("140,000")) return 140000;
   if (pkg.includes("120,000")) return 120000;
   if (pkg.includes("100,000")) return 100000;
   if (pkg.includes("85,000")) return 85000;
+  if (pkg.includes("80,000")) return 80000;
+  if (pkg.includes("60,000")) return 60000;
   return 0;
 }
 
@@ -54,9 +63,11 @@ export async function POST(request: NextRequest) {
 
     const input = await request.json() as Record<string, unknown>;
     if (clean(input.website)) return NextResponse.json({ ok: true, reference: crypto.randomUUID() });
-    const fullName = clean(input.fullName, 120), age = Number(clean(input.age, 3)), phone = normalizePhone(clean(input.phone, 30)), email = clean(input.email, 160), city = clean(input.city, 80), selectedPackage = clean(input.package, 100);
+    const fullName = clean(input.fullName, 120), phone = normalizePhone(clean(input.phone, 30)), email = clean(input.email, 160), city = clean(input.city, 80), selectedPackage = clean(input.package, 120);
     const memberStatus = clean(input.memberStatus, 80), currentBuild = clean(input.currentBuild), bottleneck = clean(input.bottleneck), successDefinition = clean(input.successDefinition), budgetReadiness = clean(input.budgetReadiness, 80), earlyParticipation = clean(input.earlyParticipation, 80);
-    if (fullName.length < 2 || !Number.isInteger(age) || age < 16 || age > 80 || !phone || !/^\S+@\S+\.\S+$/.test(email) || city.length < 2 || !packages.has(selectedPackage) || currentBuild.length < 3 || bottleneck.length < 3 || successDefinition.length < 3 || input.acknowledgement !== "accepted" || input.consent !== "accepted") return NextResponse.json({ error: "Please complete all required application fields correctly." }, { status: 400 });
+    const ageRaw = clean(input.age, 3);
+    const age = ageRaw ? Number(ageRaw) : undefined;
+    if (fullName.length < 2 || !phone || !/^\S+@\S+\.\S+$/.test(email) || city.length < 2 || !packages.has(selectedPackage) || currentBuild.length < 3 || bottleneck.length < 3 || successDefinition.length < 3 || input.acknowledgement !== "accepted" || input.consent !== "accepted") return NextResponse.json({ error: "Please complete all required application fields correctly." }, { status: 400 });
 
     const locationId = process.env.GHL_LOCATION_ID || "6MzIr7iWX12OyaxfufLw";
     const pipelineId = process.env.GHL_CONTENT_COLONY_PIPELINE_ID || "swjd1j1hfYaPrRevKvvK";
