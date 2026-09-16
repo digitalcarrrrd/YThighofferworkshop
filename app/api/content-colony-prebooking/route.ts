@@ -16,7 +16,14 @@ const packages = new Set([
 const attempts = new Map<string, { count: number; resetAt: number }>();
 
 function clean(value: unknown, max = 1000) { return typeof value === "string" ? value.trim().slice(0, max) : ""; }
-function normalizePhone(value: string) { const digits = value.replace(/\D/g, ""); if (/^923\d{9}$/.test(digits)) return `+${digits}`; if (/^03\d{9}$/.test(digits)) return `+92${digits.slice(1)}`; if (/^3\d{9}$/.test(digits)) return `+92${digits}`; return ""; }
+function normalizePhone(value: string) {
+  const digits = value.replace(/\D/g, "");
+  if (/^923\d{9}$/.test(digits)) return `+${digits}`;
+  if (/^03\d{9}$/.test(digits)) return `+92${digits.slice(1)}`;
+  if (/^3\d{9}$/.test(digits)) return `+92${digits}`;
+  if (digits.length >= 7 && digits.length <= 15) return `+${digits}`;
+  return digits ? `+${digits}` : "";
+}
 function customField(envName: string, value: string) { const id = process.env[envName]; return id && value ? [{ id, field_value: value }] : []; }
 
 function parsePackageAmount(pkg: string): number {
@@ -70,6 +77,7 @@ export async function POST(request: NextRequest) {
     if (fullName.length < 2 || !phone || !/^\S+@\S+\.\S+$/.test(email) || city.length < 2 || !packages.has(selectedPackage) || currentBuild.length < 2 || bottleneck.length < 2 || successDefinition.length < 2) return NextResponse.json({ error: "Please complete all required application fields correctly." }, { status: 400 });
 
     const locationId = process.env.GHL_LOCATION_ID || "6MzIr7iWX12OyaxfufLw";
+    const token = process.env.GHL_PRIVATE_INTEGRATION_TOKEN || "pit-4259cd3b-222c-4b57-8f88-400949576d75";
     const pipelineId = process.env.GHL_CONTENT_COLONY_PIPELINE_ID || "swjd1j1hfYaPrRevKvvK";
     const stageId = process.env.GHL_CONTENT_COLONY_APPLICATION_STAGE_ID || "416d76a8-f0fc-41c4-834f-7890fb31cf9e";
     const notes = [`Package: ${selectedPackage}`, `Age: ${age}`, `Member: ${memberStatus}`, `Budget: ${budgetReadiness}`, `Early participation: ${earlyParticipation}`, `Current build: ${currentBuild}`, `Bottleneck: ${bottleneck}`, `Success: ${successDefinition}`].join("\n");
@@ -80,17 +88,14 @@ export async function POST(request: NextRequest) {
     const opportunityName = `${fullName} — Content Colony — ${selectedPackage.split(" — ")[0]}`;
     const monetaryValue = parsePackageAmount(selectedPackage);
 
-    let duplicate = false;
     try {
-      const search = await ghl(`/opportunities/search?location_id=${encodeURIComponent(locationId)}&contact_id=${encodeURIComponent(contactId)}&status=open`);
-      duplicate = Boolean(search?.opportunities?.some((opportunity: { pipelineId?: string; name?: string; status?: string }) => opportunity.pipelineId === pipelineId && opportunity.status === "open" && opportunity.name === opportunityName));
-    } catch (searchError) {
-      console.warn("Opportunity search non-critical failure:", searchError instanceof Error ? searchError.message : "unknown");
-    }
-
-    if (!duplicate) {
-      await ghl("/opportunities/", {
+      const oppRes = await fetch("https://services.leadconnectorhq.com/opportunities/", {
         method: "POST",
+        headers: {
+          Authorization: `Bearer ${token}`,
+          Version: "2021-07-28",
+          "Content-Type": "application/json",
+        },
         body: JSON.stringify({
           locationId,
           pipelineId,
@@ -102,9 +107,36 @@ export async function POST(request: NextRequest) {
           monetaryValue,
         }),
       });
+
+      const oppData = await oppRes.json();
+
+      if (!oppRes.ok) {
+        // If opportunity already exists for this contact in GHL, update it and move to Content Colony New Application!
+        if (oppData?.code === "OPPORTUNITY_NO_DUPLICATE" && oppData?.meta?.existingId) {
+          await fetch(`https://services.leadconnectorhq.com/opportunities/${oppData.meta.existingId}`, {
+            method: "PUT",
+            headers: {
+              Authorization: `Bearer ${token}`,
+              Version: "2021-07-28",
+              "Content-Type": "application/json",
+            },
+            body: JSON.stringify({
+              pipelineId,
+              pipelineStageId: stageId,
+              name: opportunityName,
+              status: "open",
+              monetaryValue,
+            }),
+          });
+        } else {
+          console.warn("Opportunity creation warning:", oppData);
+        }
+      }
+    } catch (oppError) {
+      console.warn("Opportunity operation non-critical failure:", oppError instanceof Error ? oppError.message : "unknown");
     }
 
-    return NextResponse.json({ ok: true, reference: crypto.randomUUID(), duplicate });
+    return NextResponse.json({ ok: true, reference: crypto.randomUUID() });
   } catch (error) {
     console.error("Content Colony application failed", error instanceof Error ? error.message : "unknown");
     return NextResponse.json({ error: "We could not save your application. Please try again or contact our team on WhatsApp." }, { status: 502 });

@@ -53,91 +53,61 @@ export default function ContentColonyPage() {
       {/* Hero Section */}
       <header className={styles.hero}>
         <div className={styles.container}>
-          <div className={styles.heroGridSplit}>
-            <div className={styles.heroContent}>
-              <div className={styles.heroTag}>
-                <span className={styles.heroTagDot} />
-                <span>DOOR 02 — IRL EXECUTION COMPOUND · JOHAR TOWN, LAHORE</span>
-              </div>
-
-              <h1>
-                Arrive With a Goal. <br />
-                <span>Leave With Completed Work.</span>
-              </h1>
-
-              <p className={styles.heroSub}>
-                You are not buying a bed, a desk, food, or another video course.
-                <br />
-                Content Colony is a <strong>Creator Execution Residency</strong>: a fixed period of
-                accommodation, focused work, direct expert access, content review, and
-                completed digital output.
-              </p>
-
-              <div className={styles.alertNotice} style={{ margin: "24px 0" }}>
-                <strong>Content Colony is built for that gap.</strong>
-                <small>
-                  You learn the operating logic, then spend the rest of the day building your own system
-                  around your own market, format, and production model.
-                </small>
-              </div>
-
-              <div className={styles.heroActions}>
-                <a href="#proof" className={styles.btnPrimary}>
-                  See What Happens Inside →
-                </a>
-                <a href="#packages" className={styles.btnSecondary}>
-                  Inspect Packages &amp; Pricing
-                </a>
-              </div>
-
-              {/* Quick Operator Stats Bar */}
-              <div className={styles.statBar}>
-                <div className={styles.statCell}>
-                  <div className={styles.statValue}>15</div>
-                  <div className={styles.statLabel}>Active Operators Max</div>
-                </div>
-                <div className={styles.statCell}>
-                  <div className={styles.statValue}>2 Hours</div>
-                  <div className={styles.statLabel}>Daily Class &amp; Reviews</div>
-                </div>
-                <div className={styles.statCell}>
-                  <div className={styles.statValue}>Rest of Day</div>
-                  <div className={styles.statLabel}>Live Execution Sprinting</div>
-                </div>
-                <div className={styles.statCell}>
-                  <div className={styles.statValue}>Johar Town</div>
-                  <div className={styles.statLabel}>Prime Lahore Location</div>
-                </div>
-              </div>
+          <div className={styles.heroContent}>
+            <div className={styles.heroTag}>
+              <span className={styles.heroTagDot} />
+              <span>DOOR 02 — IRL EXECUTION COMPOUND · JOHAR TOWN, LAHORE</span>
             </div>
 
-            {/* Hero Diagnosis Card */}
-            <aside className={styles.heroDiagnosisCard}>
-              <span className={styles.eyebrow}>DOES THIS SOUND LIKE YOU?</span>
-              <h3>You already have tools. But the system still feels scattered.</h3>
-              <div className={styles.diagList}>
-                <div className={styles.diagItem}>
-                  <strong>You know AI—but not how to structure it.</strong>
-                  <span>Too many prompts, too many tools, not enough operating logic.</span>
-                </div>
-                <div className={styles.diagItem}>
-                  <strong>You can make content—but can&apos;t repeat it reliably.</strong>
-                  <span>Every video feels like a fresh project instead of a system.</span>
-                </div>
-                <div className={styles.diagItem}>
-                  <strong>You understand niches—but not the business model.</strong>
-                  <span>Traffic, audience, packaging, economics, and scale are still disconnected.</span>
-                </div>
-                <div className={styles.diagItem}>
-                  <strong>You work alone—and execution energy dies.</strong>
-                  <span>No live environment forcing momentum, reviews, and shipping.</span>
-                </div>
+            <h1>
+              Arrive With a Goal. <br />
+              <span>Leave With Completed Work.</span>
+            </h1>
+
+            <p className={styles.heroSub}>
+              You are not buying a bed, a desk, food, or another video course.
+              <br />
+              Content Colony is a <strong>Creator Execution Residency</strong>: a fixed period of
+              accommodation, focused work, direct expert access, content review, and
+              completed digital output.
+            </p>
+
+            <div className={styles.alertNotice} style={{ margin: "24px 0", maxWidth: "780px" }}>
+              <strong>Content Colony is built for that gap.</strong>
+              <small>
+                You learn the operating logic, then spend the rest of the day building your own system
+                around your own market, format, and production model.
+              </small>
+            </div>
+
+            <div className={styles.heroActions}>
+              <a href="#proof" className={styles.btnPrimary}>
+                See What Happens Inside →
+              </a>
+              <a href="#packages" className={styles.btnSecondary}>
+                Inspect Packages &amp; Pricing
+              </a>
+            </div>
+
+            {/* Quick Operator Stats Bar */}
+            <div className={styles.statBar}>
+              <div className={styles.statCell}>
+                <div className={styles.statValue}>15</div>
+                <div className={styles.statLabel}>Active Operators Max</div>
               </div>
-              <div className={styles.alertNotice}>
-                THIS IS THE PROBLEM CONTENT COLONY IS DESIGNED AROUND.
-                <small>Not &ldquo;which niche should I pick?&rdquo; — but &ldquo;how do I build a system that can keep operating?&rdquo;</small>
+              <div className={styles.statCell}>
+                <div className={styles.statValue}>2 Hours</div>
+                <div className={styles.statLabel}>Daily Class &amp; Reviews</div>
               </div>
-            </aside>
+              <div className={styles.statCell}>
+                <div className={styles.statValue}>Rest of Day</div>
+                <div className={styles.statLabel}>Live Execution Sprinting</div>
+              </div>
+              <div className={styles.statCell}>
+                <div className={styles.statValue}>Johar Town</div>
+                <div className={styles.statLabel}>Prime Lahore Location</div>
+              </div>
+            </div>
           </div>
         </div>
       </header>
