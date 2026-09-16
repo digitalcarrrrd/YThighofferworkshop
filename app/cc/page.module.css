@@ -6,17 +6,20 @@
    ========================================================================== */
 
 .page {
-  --black: #000000;
-  --off: #0a0a0b;
-  --panel: #121214;
-  --panel-hover: #18181b;
-  --line: #262628;
-  --line2: #3a3a3d;
-  --white: #ffffff;
-  --soft: #d6d6d8;
-  --mid: #8e8e92;
-  --dim: #5c5c60;
-  --maxw: 1140px;
+  /* Warm, Cosy & Welcoming Hospitality Palette */
+  --black: #0c0a09;       /* Deep warm dark espresso */
+  --off: #13110e;         /* Warm charcoal */
+  --panel: #181512;       /* Warm inviting dark panel */
+  --panel-hover: #221e1a; /* Warm panel hover */
+  --line: #2c2520;        /* Warm bronze line */
+  --line2: #3f362e;       /* Warm subtle accent line */
+  --white: #faf6f0;       /* Warm ivory / linen cream */
+  --soft: #d8cfc4;        /* Soft warm sand */
+  --mid: #a09587;         /* Warm muted taupe */
+  --dim: #6e6456;         /* Dim warm taupe */
+  --warm: #d4ff3a;        /* Welcoming energetic accent */
+  --warm-glow: #e2ff66;   /* Welcoming hover glow */
+  --maxw: 1180px;
 
   background-color: var(--black);
   color: var(--white);
@@ -146,23 +149,25 @@
 
 a.navCta,
 .navCta {
-  border: 1px solid var(--white) !important;
+  border: 1px solid var(--warm) !important;
   background: transparent !important;
-  color: var(--white) !important;
-  padding: 9px 20px;
+  color: var(--warm) !important;
+  padding: 9px 22px;
   font-size: 0.82rem;
-  font-weight: 700;
+  font-weight: 800;
+  border-radius: 999px !important;
   letter-spacing: 0.04em;
-  transition: all 0.18s ease;
+  transition: all 0.2s ease;
   cursor: pointer;
   text-decoration: none;
 }
 
 a.navCta:hover,
 .navCta:hover {
-  background: var(--white) !important;
-  color: #000000 !important;
-  border-color: var(--white) !important;
+  background: var(--warm) !important;
+  color: #0c0a08 !important;
+  border-color: var(--warm) !important;
+  box-shadow: 0 0 16px rgba(212, 255, 58, 0.3);
 }
 
 /* HERO SECTION */
@@ -231,38 +236,43 @@ a.navCta:hover,
 
 a.btnPrimary,
 .btnPrimary {
-  background: #ffffff !important;
-  color: #000000 !important;
-  border: 1px solid #ffffff !important;
+  background: var(--warm) !important;
+  color: #0c0a08 !important;
+  border: 1px solid var(--warm) !important;
+  border-radius: 12px !important;
   padding: 14px 28px;
   font-size: 0.9rem;
-  font-weight: 800;
-  letter-spacing: 0.04em;
-  transition: all 0.18s ease;
+  font-weight: 900;
+  letter-spacing: 0.03em;
+  transition: all 0.2s ease;
   display: inline-flex;
   align-items: center;
   justify-content: center;
   gap: 10px;
   cursor: pointer;
   text-decoration: none;
+  box-shadow: 0 4px 18px rgba(212, 255, 58, 0.22);
 }
 
 a.btnPrimary:hover,
 .btnPrimary:hover {
-  background: #000000 !important;
-  color: #ffffff !important;
-  border-color: #ffffff !important;
+  background: var(--warm-glow) !important;
+  color: #0c0a08 !important;
+  border-color: var(--warm-glow) !important;
+  box-shadow: 0 6px 26px rgba(212, 255, 58, 0.35);
+  transform: translateY(-1px);
 }
 
 a.btnSecondary,
 .btnSecondary {
   border: 1px solid var(--line2) !important;
-  background: transparent !important;
-  color: #ffffff !important;
+  background: var(--panel) !important;
+  color: var(--white) !important;
+  border-radius: 12px !important;
   padding: 14px 26px;
   font-size: 0.9rem;
   font-weight: 700;
-  transition: all 0.18s ease;
+  transition: all 0.2s ease;
   display: inline-flex;
   align-items: center;
   gap: 8px;
@@ -272,9 +282,9 @@ a.btnSecondary,
 
 a.btnSecondary:hover,
 .btnSecondary:hover {
-  border-color: #ffffff !important;
-  background: #ffffff !important;
-  color: #000000 !important;
+  border-color: var(--warm) !important;
+  background: #201c18 !important;
+  color: var(--warm) !important;
 }
 
 /* 3 Quick Preview Doors */
@@ -653,12 +663,13 @@ a.btnSecondary:hover,
 
 a.pDoorBtn,
 .pDoorBtn {
-  border: 1px solid var(--white) !important;
-  background: transparent !important;
+  border: 1px solid var(--line2) !important;
+  background: var(--panel) !important;
   color: var(--white) !important;
+  border-radius: 12px !important;
   padding: 14px 24px;
   font-size: 0.85rem;
-  font-weight: 700;
+  font-weight: 800;
   letter-spacing: 0.04em;
   text-align: center;
   transition: all 0.2s ease;
@@ -674,9 +685,10 @@ a.pDoorBtn:hover,
 .pDoorBtn:hover,
 .pricingDoor:hover a.pDoorBtn,
 .pricingDoor:hover .pDoorBtn {
-  background: var(--white) !important;
-  color: #000000 !important;
-  border-color: var(--white) !important;
+  background: var(--warm) !important;
+  color: #0c0a08 !important;
+  border-color: var(--warm) !important;
+  box-shadow: 0 4px 20px rgba(212, 255, 58, 0.25);
 }
 
 /* PSYCHOLOGY & MATH COMPARISON (WHITE INVERTED WALL) */
@@ -1993,4 +2005,215 @@ a.pDoorBtn:hover,
   gap: 16px;
   margin-bottom: 24px;
 }
+
+/* ==========================================================================
+   EXACT 2-COLUMN WHITELIST APPLICATION LAYOUT (FROM SCREENSHOT)
+   ========================================================================== */
+
+.applyGrid {
+  display: grid;
+  grid-template-columns: 0.9fr 1.1fr;
+  gap: 48px;
+  align-items: start;
+}
+
+.applyInfo {
+  display: flex;
+  flex-direction: column;
+}
+
+.applyEyebrow {
+  font-size: 0.74rem;
+  letter-spacing: 0.16em;
+  text-transform: uppercase;
+  font-weight: 900;
+  color: #d4ff3a;
+  margin-bottom: 16px;
+}
+
+.applyHeading {
+  font-family: 'Archivo Black', sans-serif;
+  font-size: clamp(2.4rem, 5.2vw, 4.4rem);
+  line-height: 0.98;
+  letter-spacing: -0.04em;
+  color: #faf6f0;
+  margin: 0 0 24px;
+}
+
+.applyLead {
+  font-size: 1.05rem;
+  color: #d8cfc4;
+  line-height: 1.6;
+  margin: 0 0 32px;
+  max-width: 48ch;
+}
+
+.applyStepsGrid {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 10px;
+  margin-bottom: 24px;
+}
+
+.applyStepCard {
+  border: 1px solid #2d2620;
+  background: #14120e;
+  border-radius: 12px;
+  padding: 16px 14px;
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-start;
+  min-height: 96px;
+}
+
+.stepNum {
+  font-size: 0.68rem;
+  font-weight: 900;
+  letter-spacing: 0.1em;
+  color: #d4ff3a;
+  text-transform: uppercase;
+  margin-bottom: 6px;
+}
+
+.stepText {
+  font-size: 0.82rem;
+  font-weight: 700;
+  color: #faf6f0;
+  line-height: 1.35;
+}
+
+.applyNote {
+  font-size: 0.8rem;
+  color: #8c8273;
+  line-height: 1.5;
+  margin: 0;
+}
+
+/* Right Form Column */
+.applyFormBox {
+  width: 100%;
+}
+
+.compactForm {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+.formRowTwo {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 10px;
+}
+
+.warmInput,
+.warmSelect {
+  width: 100%;
+  background: #090807;
+  color: #faf6f0;
+  border: 1px solid #2d2620;
+  border-radius: 10px;
+  padding: 14px 16px;
+  font-family: inherit;
+  font-size: 0.88rem;
+  outline: none;
+  transition: border-color 0.18s ease;
+}
+
+.warmInput:focus,
+.warmSelect:focus,
+.warmInputFull:focus,
+.warmTextarea:focus {
+  border-color: #d4ff3a;
+}
+
+.warmSelect {
+  cursor: pointer;
+  appearance: none;
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='12' viewBox='0 0 24 24' fill='none' stroke='%23a09587' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpolyline points='6 9 12 15 18 9'%3E%3C/polyline%3E%3C/svg%3E");
+  background-repeat: no-repeat;
+  background-position: right 14px center;
+  padding-right: 36px;
+}
+
+.warmSelect option {
+  background: #14120e;
+  color: #faf6f0;
+}
+
+.warmInputFull {
+  width: 100%;
+  background: #090807;
+  color: #faf6f0;
+  border: 1px solid #2d2620;
+  border-radius: 10px;
+  padding: 14px 16px;
+  font-family: inherit;
+  font-size: 0.88rem;
+  outline: none;
+  transition: border-color 0.18s ease;
+}
+
+.warmTextarea {
+  width: 100%;
+  background: #090807;
+  color: #faf6f0;
+  border: 1px solid #2d2620;
+  border-radius: 10px;
+  padding: 14px 16px;
+  font-family: inherit;
+  font-size: 0.88rem;
+  outline: none;
+  min-height: 100px;
+  resize: vertical;
+  transition: border-color 0.18s ease;
+}
+
+.warmSubmitBtn {
+  width: 100%;
+  background: #d4ff3a;
+  color: #0c0a08;
+  border: 1px solid #d4ff3a;
+  border-radius: 12px;
+  padding: 16px;
+  font-family: 'Archivo', sans-serif;
+  font-size: 0.95rem;
+  font-weight: 900;
+  letter-spacing: 0.04em;
+  cursor: pointer;
+  transition: all 0.18s ease;
+  margin-top: 4px;
+}
+
+.warmSubmitBtn:hover:not(:disabled) {
+  background: #e2ff66;
+  border-color: #e2ff66;
+  box-shadow: 0 4px 20px rgba(212, 255, 58, 0.3);
+  transform: translateY(-1px);
+}
+
+.warmSubmitBtn:disabled {
+  opacity: 0.5;
+  cursor: not-allowed;
+}
+
+@media (max-width: 960px) {
+  .applyGrid {
+    grid-template-columns: 1fr;
+    gap: 32px;
+  }
+  .applyStepsGrid {
+    grid-template-columns: 1fr 1fr;
+  }
+}
+
+@media (max-width: 580px) {
+  .formRowTwo {
+    grid-template-columns: 1fr;
+  }
+  .applyStepsGrid {
+    grid-template-columns: 1fr;
+  }
+}
+
 

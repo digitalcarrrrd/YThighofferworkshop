@@ -67,7 +67,7 @@ export async function POST(request: NextRequest) {
     const memberStatus = clean(input.memberStatus, 80), currentBuild = clean(input.currentBuild), bottleneck = clean(input.bottleneck), successDefinition = clean(input.successDefinition), budgetReadiness = clean(input.budgetReadiness, 80), earlyParticipation = clean(input.earlyParticipation, 80);
     const ageRaw = clean(input.age, 3);
     const age = ageRaw ? Number(ageRaw) : undefined;
-    if (fullName.length < 2 || !phone || !/^\S+@\S+\.\S+$/.test(email) || city.length < 2 || !packages.has(selectedPackage) || currentBuild.length < 3 || bottleneck.length < 3 || successDefinition.length < 3 || input.acknowledgement !== "accepted" || input.consent !== "accepted") return NextResponse.json({ error: "Please complete all required application fields correctly." }, { status: 400 });
+    if (fullName.length < 2 || !phone || !/^\S+@\S+\.\S+$/.test(email) || city.length < 2 || !packages.has(selectedPackage) || currentBuild.length < 2 || bottleneck.length < 2 || successDefinition.length < 2) return NextResponse.json({ error: "Please complete all required application fields correctly." }, { status: 400 });
 
     const locationId = process.env.GHL_LOCATION_ID || "6MzIr7iWX12OyaxfufLw";
     const pipelineId = process.env.GHL_CONTENT_COLONY_PIPELINE_ID || "swjd1j1hfYaPrRevKvvK";
