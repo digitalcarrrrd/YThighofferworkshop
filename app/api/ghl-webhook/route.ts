@@ -12,6 +12,7 @@ import {
   handlePaymentApproved,
   handlePaymentIssue,
   handleOptOut,
+  getWelcomeMessage,
   ADMISSION_STAGES,
 } from "@/lib/whatsappAdmissionEngine";
 
@@ -82,6 +83,11 @@ export async function POST(req: NextRequest) {
         studentCategory: "Student",
         opportunityId,
       });
+
+      // Send the first welcome message with WhatsApp announcement group invite link
+      const welcomeMsg = getWelcomeMessage(extractedName);
+      await ghlClient.sendWhatsApp(contactId, welcomeMsg);
+
       return NextResponse.json({ type: "meta_lead_form_processed", ...res });
     }
 

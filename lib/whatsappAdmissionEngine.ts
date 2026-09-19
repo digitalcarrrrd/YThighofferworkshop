@@ -59,6 +59,7 @@ export const WORKSHOP_DETAILS = {
   EASYPAISA_NUMBER: "03274532186",
   SUPPORT_PHONE: "+92 326 6641695",
   BONUSES_TOTAL_VALUE: "PKR 15,499",
+  WHATSAPP_GROUP_LINK: "https://chat.whatsapp.com/F2zfUCa3hxlHraRz77wj0j?s=cl&p=i&mlu=4&ilr=4",
 };
 
 /**
@@ -105,18 +106,17 @@ export function getAssignedBatchInfo(referenceDate: Date = new Date()) {
 // MESSAGE COPY GENERATORS (EXACT SPECIFICATION MATCH)
 // ---------------------------------------------------------------------------
 
+export const WHATSAPP_GROUP_URL = "https://chat.whatsapp.com/F2zfUCa3hxlHraRz77wj0j?s=cl&p=i&mlu=4&ilr=4";
+
 export function getWelcomeMessage(firstName?: string) {
-  const nameStr = firstName && firstName !== 'there' ? ` ${firstName}` : "";
+  const nameStr = firstName && firstName !== "there" && firstName !== "Student" && firstName !== "Learner" ? ` ${firstName}` : "";
   return (
     `Hello${nameStr} 👋\n\n` +
     `YouTube Automation & AI Masterclass mein welcome!\n\n` +
-    `💻 *Venue:* 100% LIVE Online Masterclass (Google Meet / Zoom) — aap apne ghar se mobile ya laptop par attend kar sakte hain (Karachi, Lahore, Islamabad waghera har shehar ke liye).\n` +
-    `⏰ *Time:* Rozana Raat 8:00 PM – 10:00 PM PKT (Fee: Rs. 1,999)\n\n` +
-    `Seat confirm karne ke liye bas yeh *3 details* ek hi message mein send kar dein:\n\n` +
-    `1. *Full Name*\n` +
-    `2. *City*\n` +
-    `3. *Age*\n\n` +
-    `_Example: Ali Raza — Lahore — 24_\n\n` +
+    `Live class ki tamam updates aur announcements ke liye hamara official WhatsApp group join karein:\n\n` +
+    `👉 *Join WhatsApp Group:*\n` +
+    `${WHATSAPP_GROUP_URL}\n\n` +
+    `Is group mein aapko live session ka link, class timings aur important announcements milengi.\n\n` +
     `— Team Abrar Nadir`
   );
 }
@@ -353,14 +353,15 @@ export async function handleDetailsReceived(contactId: string, details: {
     await ghlClient.updateOpportunityStage(details.opportunityId, ADMISSION_STAGES.PAYMENT_PENDING);
   }
 
-  // 3. Send Details & Payment Message via WhatsApp
-  const detailsMsg = getDetailsReceivedMessage(firstName);
-  await ghlClient.sendWhatsApp(contactId, detailsMsg);
+  // 3. Automated payment message removed per user instruction.
+  // Contact and tags are recorded, but we do not spam bank accounts automatically.
+  // const detailsMsg = getDetailsReceivedMessage(firstName);
+  // await ghlClient.sendWhatsApp(contactId, detailsMsg);
 
   // 4. Audit Note
   await ghlClient.addNote(
     contactId,
-    `📋 [PHASE 7] DETAILS RECEIVED & QUALIFIED:\n• Name: ${details.fullName}\n• City: ${details.city}\n• Category: ${details.studentCategory}\n• Stage: Payment Pending\n• Fee: Rs. 1,999\n• Payment accounts and workshop details dispatched via WhatsApp.`
+    `📋 [PHASE 7] DETAILS RECEIVED & QUALIFIED:\n• Name: ${details.fullName}\n• City: ${details.city}\n• Category: ${details.studentCategory}\n• Stage: Payment Pending\n• Fee: Rs. 1,999\n• Lead tagged and qualified.`
   );
 
   return { success: true, contactId };
