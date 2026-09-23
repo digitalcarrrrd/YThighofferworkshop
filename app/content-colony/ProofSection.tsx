@@ -7,20 +7,20 @@ interface ProofSectionProps {
   youtubeEmbedUrl?: string;
 }
 
-function formatEmbedUrl(url: string) {
+function formatEmbedUrl(url: string, autoplay: boolean = true) {
   if (!url) return "";
   if (url.includes("drive.google.com")) {
-    // If it has /view or similar, convert to /preview
-    if (url.includes("/preview")) return url;
-    return url.replace(/\/view.*$/, "/preview").replace(/\/edit.*$/, "/preview");
+    let base = url.replace(/\/view.*$/, "/preview").replace(/\/edit.*$/, "/preview");
+    if (!base.includes("/preview")) base += "/preview";
+    return autoplay ? `${base}?autoplay=1` : base;
   }
   if (url.includes("watch?v=")) {
     const id = url.split("watch?v=")[1]?.split("&")[0];
-    return `https://www.youtube.com/embed/${id}?rel=0&modestbranding=1`;
+    return `https://www.youtube.com/embed/${id}?rel=0&modestbranding=1${autoplay ? "&autoplay=1&mute=1&playsinline=1" : ""}`;
   }
   if (url.includes("youtu.be/")) {
     const id = url.split("youtu.be/")[1]?.split("?")[0];
-    return `https://www.youtube.com/embed/${id}?rel=0&modestbranding=1`;
+    return `https://www.youtube.com/embed/${id}?rel=0&modestbranding=1${autoplay ? "&autoplay=1&mute=1&playsinline=1" : ""}`;
   }
   return url;
 }
