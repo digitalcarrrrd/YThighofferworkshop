@@ -2216,4 +2216,122 @@ a.pDoorBtn:hover,
   }
 }
 
+/* ==========================================================================
+   LANGUAGE SWITCHER & MULTILINGUAL / RTL SUPPORT
+   ========================================================================== */
+
+.langSwitcher {
+  display: inline-flex;
+  align-items: center;
+  background: rgba(255, 255, 255, 0.05);
+  border: 1px solid var(--line2);
+  border-radius: 9999px;
+  padding: 3px;
+  gap: 3px;
+}
+
+.langBtn {
+  background: transparent;
+  border: none;
+  color: var(--mid);
+  padding: 5px 12px;
+  border-radius: 9999px;
+  font-family: inherit;
+  font-size: 0.74rem;
+  font-weight: 700;
+  cursor: pointer;
+  transition: all 0.18s ease;
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  line-height: 1.1;
+  text-decoration: none;
+}
+
+.langBtn:hover {
+  color: var(--white);
+  background: rgba(255, 255, 255, 0.08);
+}
+
+.langBtnActive {
+  background: var(--warm) !important;
+  color: #0c0a08 !important;
+  font-weight: 800;
+  box-shadow: 0 0 12px rgba(212, 255, 58, 0.28);
+}
+
+.langFlag {
+  font-size: 0.85rem;
+  line-height: 1;
+}
+
+/* Floating Bottom Language Switcher for Quick Access */
+.floatingLang {
+  position: fixed;
+  bottom: 22px;
+  right: 22px;
+  z-index: 999;
+  background: rgba(12, 10, 9, 0.92);
+  backdrop-filter: blur(14px);
+  -webkit-backdrop-filter: blur(14px);
+  border: 1px solid var(--line2);
+  border-radius: 9999px;
+  padding: 4px 6px;
+  box-shadow: 0 8px 30px rgba(0, 0, 0, 0.7);
+  display: flex;
+  align-items: center;
+  gap: 4px;
+}
+
+.floatingLangLabel {
+  font-size: 0.68rem;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  color: var(--dim);
+  font-weight: 800;
+  padding: 0 6px 0 8px;
+}
+
+/* Native Urdu RTL Enhancements */
+.rtlPage {
+  direction: rtl;
+  text-align: right;
+  font-family: 'Noto Nastaliq Urdu', 'Urdu Typesetting', 'Segoe UI', system-ui, -apple-system, sans-serif;
+}
+
+.rtlPage .topBanner {
+  direction: rtl;
+}
+
+.rtlPage .centerHeading,
+.rtlPage .heroActions,
+.rtlPage .statBar,
+.rtlPage .footerInner,
+.rtlPage .footerNote,
+.rtlPage .popularBadge {
+  direction: rtl;
+}
+
+.rtlPage .statCell {
+  text-align: center;
+}
+
+.rtlPage .featureCardTitle,
+.rtlPage .houseItemTitle,
+.rtlPage .pDoorTitle,
+.rtlPage .pDoorFocus,
+.rtlPage .pDoorPriceBlock,
+.rtlPage .faqQuestion,
+.rtlPage .faqAnswer,
+.rtlPage .heroSub,
+.rtlPage .alertNotice {
+  text-align: right;
+}
+
+.rtlPage .floatingLang {
+  right: auto;
+  left: 22px;
+}
+
+
 
