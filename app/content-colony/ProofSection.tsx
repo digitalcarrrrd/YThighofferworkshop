@@ -26,7 +26,7 @@ function formatEmbedUrl(url: string) {
 }
 
 export function ProofSection({
-  youtubeEmbedUrl = "https://www.youtube.com/embed/ELxrjyvyiUc?rel=0&modestbranding=1",
+  youtubeEmbedUrl = "https://drive.google.com/file/d/1m5KKEti6D-IK1tiYz8UQPHsERJMgVQP-/preview",
 }: ProofSectionProps) {
   const [activeTab, setActiveTab] = useState<"vsl" | "gallery" | "stats">("vsl");
   const finalEmbedUrl = formatEmbedUrl(youtubeEmbedUrl);

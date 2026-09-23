@@ -112,8 +112,8 @@ export default function ContentColonyPage() {
         </div>
       </header>
 
-      {/* PROOF SECTION WITH YOUTUBE EMBED & TABS */}
-      <ProofSection />
+      {/* PROOF SECTION WITH VIDEO EMBED & TABS */}
+      <ProofSection youtubeEmbedUrl="https://drive.google.com/file/d/1m5KKEti6D-IK1tiYz8UQPHsERJMgVQP-/preview" />
 
       {/* COMPARISON SECTION */}
       <section id="compare" className={styles.section}>
