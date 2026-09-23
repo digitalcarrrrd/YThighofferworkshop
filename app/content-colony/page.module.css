@@ -6,7 +6,7 @@
    ========================================================================== */
 
 .page {
-  /* Warm, Cosy & Welcoming Hospitality Palette */
+  /* Warm, Cosy & Welcoming Hospitality Palette (Night Mode Default) */
   --black: #0c0a09;       /* Deep warm dark espresso */
   --off: #13110e;         /* Warm charcoal */
   --panel: #181512;       /* Warm inviting dark panel */
@@ -19,6 +19,17 @@
   --dim: #6e6456;         /* Dim warm taupe */
   --warm: #d4ff3a;        /* Welcoming energetic accent */
   --warm-glow: #e2ff66;   /* Welcoming hover glow */
+  --nav-bg: rgba(12, 10, 9, 0.92);
+  --section-alt: #0a0a0c;
+  --section-floor: #050507;
+  --card-sub: #080808;
+  --call-note-bg: rgba(255, 255, 255, 0.06);
+  --waitlist-box: #1c0a0a;
+  --waitlist-border: #3a1515;
+  --waitlist-text: #ff8c8c;
+  --waitlist-desc: #d69999;
+  --input-bg: #141210;
+  --banner-callout: #0c0c0e;
   --maxw: 1180px;
 
   background-color: var(--black);
@@ -28,6 +39,7 @@
   line-height: 1.65;
   -webkit-font-smoothing: antialiased;
   overflow-x: hidden;
+  transition: background-color 0.25s ease, color 0.25s ease;
 }
 
 .page a {
@@ -90,10 +102,11 @@
   position: sticky;
   top: 0;
   z-index: 90;
-  background: rgba(0, 0, 0, 0.92);
+  background: var(--nav-bg);
   backdrop-filter: blur(14px);
   -webkit-backdrop-filter: blur(14px);
   border-bottom: 1px solid var(--line);
+  transition: background 0.25s ease, border-color 0.25s ease;
 }
 
 .navInner {
@@ -104,6 +117,7 @@
   max-width: var(--maxw);
   margin: 0 auto;
   padding: 0 24px;
+  gap: 16px;
 }
 
 .brand {
@@ -111,6 +125,7 @@
   align-items: center;
   gap: 12px;
   text-decoration: none;
+  flex-shrink: 0;
 }
 
 .brandLogo {
@@ -134,9 +149,10 @@
 
 .navLinks {
   display: flex;
-  gap: 28px;
+  gap: 24px;
   font-size: 0.84rem;
   color: var(--mid);
+  white-space: nowrap;
 }
 
 .navLinks a {
@@ -147,19 +163,40 @@
   color: var(--white);
 }
 
+.navActions {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  flex-shrink: 0;
+}
+
+@media (max-width: 1060px) {
+  .navLinks {
+    gap: 16px;
+    font-size: 0.8rem;
+  }
+}
+
+@media (max-width: 900px) {
+  .navLinks {
+    display: none;
+  }
+}
+
 a.navCta,
 .navCta {
   border: 1px solid var(--warm) !important;
   background: transparent !important;
   color: var(--warm) !important;
-  padding: 9px 22px;
-  font-size: 0.82rem;
+  padding: 8px 18px;
+  font-size: 0.8rem;
   font-weight: 800;
   border-radius: 999px !important;
   letter-spacing: 0.04em;
   transition: all 0.2s ease;
   cursor: pointer;
   text-decoration: none;
+  white-space: nowrap;
 }
 
 a.navCta:hover,
@@ -2217,121 +2254,240 @@ a.pDoorBtn:hover,
 }
 
 /* ==========================================================================
-   LANGUAGE SWITCHER & MULTILINGUAL / RTL SUPPORT
+   LANGUAGE TOGGLE (EN / ROMAN ONE-PRESS) & DAY / NIGHT MODE
    ========================================================================== */
 
-.langSwitcher {
+/* Single-press Language Toggle Pill */
+.langTogglePill {
   display: inline-flex;
   align-items: center;
   background: rgba(255, 255, 255, 0.05);
   border: 1px solid var(--line2);
   border-radius: 9999px;
-  padding: 3px;
+  padding: 3px 4px;
   gap: 3px;
-}
-
-.langBtn {
-  background: transparent;
-  border: none;
-  color: var(--mid);
-  padding: 5px 12px;
-  border-radius: 9999px;
+  cursor: pointer;
+  transition: all 0.2s ease;
   font-family: inherit;
   font-size: 0.74rem;
   font-weight: 700;
-  cursor: pointer;
+  color: var(--mid);
+  user-select: none;
+  height: 32px;
+}
+
+.langTogglePill:hover {
+  border-color: var(--warm);
+}
+
+.pillItem {
+  padding: 3px 8px;
+  border-radius: 9999px;
   transition: all 0.18s ease;
+  line-height: 1;
+  color: var(--mid);
+}
+
+.pillItemActive {
+  background: var(--warm);
+  color: #0c0a08;
+  font-weight: 900;
+  box-shadow: 0 0 10px rgba(212, 255, 58, 0.25);
+}
+
+.pillDivider {
+  color: var(--dim);
+  font-size: 0.65rem;
+}
+
+/* Day & Night Mode Theme Toggle */
+.themeToggleBtn {
   display: inline-flex;
   align-items: center;
-  gap: 6px;
-  line-height: 1.1;
-  text-decoration: none;
-}
-
-.langBtn:hover {
+  gap: 5px;
+  background: rgba(255, 255, 255, 0.05);
+  border: 1px solid var(--line2);
+  border-radius: 9999px;
+  padding: 4px 10px;
+  font-family: inherit;
+  font-size: 0.74rem;
+  font-weight: 700;
   color: var(--white);
-  background: rgba(255, 255, 255, 0.08);
+  cursor: pointer;
+  transition: all 0.18s ease;
+  line-height: 1;
+  user-select: none;
+  height: 32px;
 }
 
-.langBtnActive {
-  background: var(--warm) !important;
-  color: #0c0a08 !important;
-  font-weight: 800;
-  box-shadow: 0 0 12px rgba(212, 255, 58, 0.28);
+.themeToggleBtn:hover {
+  background: rgba(255, 255, 255, 0.12);
+  border-color: var(--white);
 }
 
-.langFlag {
+.themeIcon {
   font-size: 0.85rem;
   line-height: 1;
 }
 
-/* Floating Bottom Language Switcher for Quick Access */
-.floatingLang {
+.themeText {
+  font-size: 0.72rem;
+  letter-spacing: 0.04em;
+}
+
+/* Floating Bottom Controls (Always accessible while scrolling) */
+.floatingControls {
   position: fixed;
   bottom: 22px;
   right: 22px;
   z-index: 999;
-  background: rgba(12, 10, 9, 0.92);
+  background: var(--nav-bg);
   backdrop-filter: blur(14px);
   -webkit-backdrop-filter: blur(14px);
   border: 1px solid var(--line2);
   border-radius: 9999px;
-  padding: 4px 6px;
-  box-shadow: 0 8px 30px rgba(0, 0, 0, 0.7);
+  padding: 4px 8px;
+  box-shadow: 0 8px 30px rgba(0, 0, 0, 0.4);
   display: flex;
   align-items: center;
-  gap: 4px;
+  gap: 6px;
 }
 
-.floatingLangLabel {
-  font-size: 0.68rem;
-  letter-spacing: 0.1em;
-  text-transform: uppercase;
-  color: var(--dim);
-  font-weight: 800;
-  padding: 0 6px 0 8px;
+/* ==========================================================================
+   DAY MODE (LIGHT THEME) OVERRIDES
+   ========================================================================== */
+
+.page.lightTheme {
+  --black: #fbf9f5;
+  --off: #f3ede2;
+  --panel: #ffffff;
+  --panel-hover: #f8f4ec;
+  --line: #e4ddd1;
+  --line2: #d4cabb;
+  --white: #110f0d;
+  --soft: #332d26;
+  --mid: #685d4f;
+  --dim: #8f8272;
+  --warm: #0c0a08;
+  --warm-glow: #262320;
+  --nav-bg: rgba(251, 249, 245, 0.95);
+  --section-alt: #f6f1e7;
+  --section-floor: #eee8dc;
+  --card-sub: #f5efe4;
+  --call-note-bg: rgba(0, 0, 0, 0.04);
+  --waitlist-box: #fef2f2;
+  --waitlist-border: #fecaca;
+  --waitlist-text: #991b1b;
+  --waitlist-desc: #7f1d1d;
+  --input-bg: #ffffff;
+  --banner-callout: #f3eee3;
 }
 
-/* Native Urdu RTL Enhancements */
-.rtlPage {
-  direction: rtl;
-  text-align: right;
-  font-family: 'Noto Nastaliq Urdu', 'Urdu Typesetting', 'Segoe UI', system-ui, -apple-system, sans-serif;
+.page.lightTheme .langTogglePill {
+  background: rgba(0, 0, 0, 0.04);
+  border-color: var(--line2);
 }
 
-.rtlPage .topBanner {
-  direction: rtl;
+.page.lightTheme .pillItemActive {
+  background: #0c0a08;
+  color: #ffffff;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.15);
 }
 
-.rtlPage .centerHeading,
-.rtlPage .heroActions,
-.rtlPage .statBar,
-.rtlPage .footerInner,
-.rtlPage .footerNote,
-.rtlPage .popularBadge {
-  direction: rtl;
+.page.lightTheme .themeToggleBtn {
+  background: rgba(0, 0, 0, 0.04);
+  border-color: var(--line2);
+  color: var(--white);
 }
 
-.rtlPage .statCell {
-  text-align: center;
+.page.lightTheme .themeToggleBtn:hover {
+  background: rgba(0, 0, 0, 0.08);
 }
 
-.rtlPage .featureCardTitle,
-.rtlPage .houseItemTitle,
-.rtlPage .pDoorTitle,
-.rtlPage .pDoorFocus,
-.rtlPage .pDoorPriceBlock,
-.rtlPage .faqQuestion,
-.rtlPage .faqAnswer,
-.rtlPage .heroSub,
-.rtlPage .alertNotice {
-  text-align: right;
+.page.lightTheme a.btnPrimary,
+.page.lightTheme .btnPrimary {
+  background: #0c0a08 !important;
+  color: #ffffff !important;
+  border-color: #0c0a08 !important;
+  box-shadow: 0 4px 18px rgba(0, 0, 0, 0.12) !important;
 }
 
-.rtlPage .floatingLang {
-  right: auto;
-  left: 22px;
+.page.lightTheme a.btnPrimary:hover,
+.page.lightTheme .btnPrimary:hover {
+  background: #262320 !important;
+  color: #ffffff !important;
 }
+
+.page.lightTheme a.navCta,
+.page.lightTheme .navCta {
+  border-color: #0c0a08 !important;
+  color: #0c0a08 !important;
+}
+
+.page.lightTheme a.navCta:hover,
+.page.lightTheme .navCta:hover {
+  background: #0c0a08 !important;
+  color: #ffffff !important;
+}
+
+.page.lightTheme .warmSubmitBtn {
+  background: #0c0a08 !important;
+  color: #ffffff !important;
+  border-color: #0c0a08 !important;
+}
+
+.page.lightTheme .warmSubmitBtn:hover:not(:disabled) {
+  background: #262320 !important;
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.15) !important;
+}
+
+.page.lightTheme .tabbtnActive {
+  background: #0c0a08 !important;
+  color: #ffffff !important;
+}
+
+.page.lightTheme .compareColColony {
+  border: 2px solid #0c0a08;
+  background: #ffffff;
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.06);
+}
+
+.page.lightTheme .pricingDoorFeatured {
+  border: 2px solid #0c0a08;
+  box-shadow: 0 12px 36px rgba(0, 0, 0, 0.08);
+}
+
+.page.lightTheme .popularBadge {
+  background: #0c0a08;
+  color: #ffffff;
+}
+
+.page.lightTheme .topBannerBadge {
+  background: #0c0a08;
+  color: #ffffff;
+}
+
+.page.lightTheme .warmInput,
+.page.lightTheme .warmInputFull,
+.page.lightTheme .warmSelect,
+.page.lightTheme .warmTextarea {
+  background: #ffffff;
+  border-color: #d4cabb;
+  color: #110f0d;
+}
+
+.page.lightTheme .warmInput:focus,
+.page.lightTheme .warmInputFull:focus,
+.page.lightTheme .warmSelect:focus,
+.page.lightTheme .warmTextarea:focus {
+  border-color: #0c0a08;
+  background: #ffffff;
+}
+
+.page.lightTheme .floatingControls {
+  box-shadow: 0 8px 30px rgba(0, 0, 0, 0.12);
+}
+
 
 
 

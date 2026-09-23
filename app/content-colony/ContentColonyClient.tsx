@@ -13,20 +13,27 @@ export function ContentColonyClient() {
   const urlLang = searchParams?.get("lang") as CCLanguage | null;
 
   const [lang, setLang] = useState<CCLanguage>(() => {
-    if (urlLang === "roman" || urlLang === "ur" || urlLang === "en") {
+    if (urlLang === "roman" || urlLang === "en") {
       return urlLang;
     }
     return "en";
   });
 
+  const [theme, setTheme] = useState<"dark" | "light">("dark");
+
   useEffect(() => {
-    if (urlLang === "roman" || urlLang === "ur" || urlLang === "en") {
+    if (urlLang === "roman" || urlLang === "en") {
       setLang(urlLang);
     } else {
       const stored = localStorage.getItem("cc_lang") as CCLanguage | null;
-      if (stored === "roman" || stored === "ur" || stored === "en") {
+      if (stored === "roman" || stored === "en") {
         setLang(stored);
       }
+    }
+
+    const storedTheme = localStorage.getItem("cc_theme") as "dark" | "light" | null;
+    if (storedTheme === "light" || storedTheme === "dark") {
+      setTheme(storedTheme);
     }
   }, [urlLang]);
 
@@ -46,11 +53,27 @@ export function ContentColonyClient() {
     }
   }
 
+  function toggleLanguage() {
+    handleLanguageChange(lang === "roman" ? "en" : "roman");
+  }
+
+  function toggleTheme() {
+    const nextTheme = theme === "dark" ? "light" : "dark";
+    setTheme(nextTheme);
+    try {
+      localStorage.setItem("cc_theme", nextTheme);
+    } catch {
+      // Ignore if localStorage unavailable
+    }
+  }
+
   const t = ccTranslations[lang] || ccTranslations.en;
-  const isUrdu = lang === "ur";
 
   return (
-    <main className={`${styles.page} ${isUrdu ? styles.rtlPage : ""}`} dir={t.dir}>
+    <main
+      className={`${styles.page} ${theme === "light" ? styles.lightTheme : ""}`}
+      dir={t.dir}
+    >
       {/* Top Bar Announcement */}
       <div className={styles.topBanner}>
         <span className={styles.topBannerBadge}>{t.topBadge}</span>
@@ -76,34 +99,35 @@ export function ContentColonyClient() {
             <a href="#apply">{t.nav.apply}</a>
           </div>
 
-          <div style={{ display: "flex", alignItems: "center", gap: "12px" }}>
-            {/* Nav Language Switcher */}
-            <div className={styles.langSwitcher} role="group" aria-label="Language selection">
-              <button
-                type="button"
-                className={`${styles.langBtn} ${lang === "en" ? styles.langBtnActive : ""}`}
-                onClick={() => handleLanguageChange("en")}
-                title="Switch to English"
-              >
-                <span className={styles.langFlag}>🇬🇧</span> EN
-              </button>
-              <button
-                type="button"
-                className={`${styles.langBtn} ${lang === "roman" ? styles.langBtnActive : ""}`}
-                onClick={() => handleLanguageChange("roman")}
-                title="Switch to Roman Urdu"
-              >
-                <span className={styles.langFlag}>🇵🇰</span> Roman
-              </button>
-              <button
-                type="button"
-                className={`${styles.langBtn} ${lang === "ur" ? styles.langBtnActive : ""}`}
-                onClick={() => handleLanguageChange("ur")}
-                title="اردو میں تبدیل کریں"
-              >
-                اردو
-              </button>
-            </div>
+          <div className={styles.navActions}>
+            {/* Single-Press Language Toggle: EN / Roman */}
+            <button
+              type="button"
+              className={styles.langTogglePill}
+              onClick={toggleLanguage}
+              title={lang === "roman" ? "Click to switch to English" : "Click to switch to Roman Urdu"}
+              aria-label="Toggle language"
+            >
+              <span className={`${styles.pillItem} ${lang === "en" ? styles.pillItemActive : ""}`}>
+                EN
+              </span>
+              <span className={styles.pillDivider}>/</span>
+              <span className={`${styles.pillItem} ${lang === "roman" ? styles.pillItemActive : ""}`}>
+                Roman
+              </span>
+            </button>
+
+            {/* Night & Day Mode Theme Toggle */}
+            <button
+              type="button"
+              className={styles.themeToggleBtn}
+              onClick={toggleTheme}
+              title={theme === "dark" ? "Switch to Day Mode" : "Switch to Night Mode"}
+              aria-label="Toggle Day and Night mode"
+            >
+              <span className={styles.themeIcon}>{theme === "dark" ? "☀️" : "🌙"}</span>
+              <span className={styles.themeText}>{theme === "dark" ? "Day" : "Night"}</span>
+            </button>
 
             <a href="#apply" className={styles.navCta}>
               {t.nav.applyCta}
@@ -303,7 +327,7 @@ export function ContentColonyClient() {
       </section>
 
       {/* SYSTEM ARCHITECT & EXPERT ACCESS */}
-      <section className={styles.section} style={{ borderTop: "1px solid var(--line)", background: "#0a0a0c" }}>
+      <section className={styles.section} style={{ borderTop: "1px solid var(--line)", background: "var(--section-alt)" }}>
         <div className={styles.container}>
           <div className={styles.centerHeading}>
             <span className={styles.eyebrow}>{t.mentors.eyebrow}</span>
@@ -342,12 +366,12 @@ export function ContentColonyClient() {
                   alignItems: "center",
                   gap: "8px",
                   background: "rgba(212, 255, 58, 0.1)",
-                  border: "1px solid var(--warm)",
+                  border: "1px solid var(--line2)",
                   borderRadius: "8px",
                   padding: "7px 14px",
                   fontSize: "0.78rem",
                   fontWeight: 800,
-                  color: "var(--warm)",
+                  color: "var(--white)",
                 }}
               >
                 {t.mentors.zahidBadge}
@@ -393,7 +417,7 @@ export function ContentColonyClient() {
                   <li key={idx}>{item}</li>
                 ))}
               </ul>
-              <div style={{ marginTop: "auto", background: "var(--black)", border: "1px solid var(--line2)", padding: "16px", textAlign: "center", fontWeight: 800, fontSize: "0.82rem", letterSpacing: "0.08em" }}>
+              <div style={{ marginTop: "auto", background: "var(--banner-callout)", border: "1px solid var(--line2)", padding: "16px", textAlign: "center", fontWeight: 800, fontSize: "0.82rem", letterSpacing: "0.08em" }}>
                 {t.criteria.banner}
               </div>
             </div>
@@ -444,19 +468,19 @@ export function ContentColonyClient() {
                 </div>
 
                 <div className={styles.pDoorPriceBlock}>
-                  <div style={{ border: "1px solid var(--line)", padding: "14px", background: "#080808", marginBottom: "8px" }}>
+                  <div style={{ border: "1px solid var(--line)", padding: "14px", background: "var(--card-sub)", marginBottom: "8px" }}>
                     <span style={{ fontSize: "0.76rem", color: "var(--mid)", display: "block" }}>{t.pricing.pkg1LocalLabel}</span>
                     <strong style={{ fontSize: "1.35rem", color: "var(--white)" }}>{t.pricing.pkg1LocalPrice}</strong>
                     <span style={{ fontSize: "0.72rem", color: "var(--dim)", display: "block" }}>{t.pricing.pkg1LocalNote}</span>
                   </div>
-                  <div style={{ border: "1px solid var(--line)", padding: "14px", background: "#080808" }}>
+                  <div style={{ border: "1px solid var(--line)", padding: "14px", background: "var(--card-sub)" }}>
                     <span style={{ fontSize: "0.76rem", color: "var(--mid)", display: "block" }}>{t.pricing.pkg1ResLabel}</span>
                     <strong style={{ fontSize: "1.35rem", color: "var(--white)" }}>{t.pricing.pkg1ResPrice}</strong>
                     <span style={{ fontSize: "0.72rem", color: "var(--dim)", display: "block" }}>{t.pricing.pkg1ResNote}</span>
                   </div>
                 </div>
 
-                <div style={{ background: "rgba(255,255,255,0.06)", padding: "10px 14px", fontSize: "0.82rem", color: "var(--white)", fontWeight: 700, margin: "14px 0" }}>
+                <div style={{ background: "var(--call-note-bg)", padding: "10px 14px", fontSize: "0.82rem", color: "var(--white)", fontWeight: 700, margin: "14px 0" }}>
                   {t.pricing.pkg1CallNote}
                 </div>
 
@@ -488,19 +512,19 @@ export function ContentColonyClient() {
                 </div>
 
                 <div className={styles.pDoorPriceBlock}>
-                  <div style={{ border: "1px solid var(--line)", padding: "14px", background: "#080808", marginBottom: "8px" }}>
+                  <div style={{ border: "1px solid var(--line)", padding: "14px", background: "var(--card-sub)", marginBottom: "8px" }}>
                     <span style={{ fontSize: "0.76rem", color: "var(--mid)", display: "block" }}>{t.pricing.pkg2LocalLabel}</span>
                     <strong style={{ fontSize: "1.35rem", color: "var(--white)" }}>{t.pricing.pkg2LocalPrice}</strong>
                     <span style={{ fontSize: "0.72rem", color: "var(--dim)", display: "block" }}>{t.pricing.pkg2LocalNote}</span>
                   </div>
-                  <div style={{ border: "1px solid var(--line)", padding: "14px", background: "#080808" }}>
+                  <div style={{ border: "1px solid var(--line)", padding: "14px", background: "var(--card-sub)" }}>
                     <span style={{ fontSize: "0.76rem", color: "var(--mid)", display: "block" }}>{t.pricing.pkg2ResLabel}</span>
                     <strong style={{ fontSize: "1.35rem", color: "var(--white)" }}>{t.pricing.pkg2ResPrice}</strong>
                     <span style={{ fontSize: "0.72rem", color: "var(--dim)", display: "block" }}>{t.pricing.pkg2ResNote}</span>
                   </div>
                 </div>
 
-                <div style={{ background: "rgba(255,255,255,0.06)", padding: "10px 14px", fontSize: "0.82rem", color: "var(--white)", fontWeight: 700, margin: "14px 0" }}>
+                <div style={{ background: "var(--call-note-bg)", padding: "10px 14px", fontSize: "0.82rem", color: "var(--white)", fontWeight: 700, margin: "14px 0" }}>
                   {t.pricing.pkg2CallNote}
                 </div>
 
@@ -529,17 +553,17 @@ export function ContentColonyClient() {
                 </div>
 
                 <div className={styles.pDoorPriceBlock}>
-                  <div style={{ border: "1px solid #3a1515", background: "#1c0a0a", padding: "16px", textAlign: "center" }}>
-                    <strong style={{ color: "#ff8c8c", fontSize: "0.95rem", letterSpacing: "0.08em" }}>
+                  <div style={{ border: "1px solid var(--waitlist-border)", background: "var(--waitlist-box)", padding: "16px", textAlign: "center" }}>
+                    <strong style={{ color: "var(--waitlist-text)", fontSize: "0.95rem", letterSpacing: "0.08em" }}>
                       {t.pricing.pkg3FullTitle}
                     </strong>
-                    <p style={{ margin: "6px 0 0", fontSize: "0.76rem", color: "#d69999" }}>
+                    <p style={{ margin: "6px 0 0", fontSize: "0.76rem", color: "var(--waitlist-desc)" }}>
                       {t.pricing.pkg3FullDesc}
                     </p>
                   </div>
                 </div>
 
-                <div style={{ background: "rgba(255,255,255,0.06)", padding: "10px 14px", fontSize: "0.82rem", color: "var(--white)", fontWeight: 700, margin: "14px 0" }}>
+                <div style={{ background: "var(--call-note-bg)", padding: "10px 14px", fontSize: "0.82rem", color: "var(--white)", fontWeight: 700, margin: "14px 0" }}>
                   {t.pricing.pkg3CallNote}
                 </div>
 
@@ -556,14 +580,14 @@ export function ContentColonyClient() {
             </article>
           </div>
 
-          <div style={{ marginTop: "24px", background: "#0c0c0e", border: "1px solid var(--line)", padding: "18px 24px", textAlign: "center", fontSize: "0.84rem", letterSpacing: "0.06em", color: "var(--soft)", fontWeight: 800 }}>
+          <div style={{ marginTop: "24px", background: "var(--banner-callout)", border: "1px solid var(--line)", padding: "18px 24px", textAlign: "center", fontSize: "0.84rem", letterSpacing: "0.06em", color: "var(--soft)", fontWeight: 800 }}>
             {t.pricing.bottomBanner}
           </div>
         </div>
       </section>
 
       {/* AFTER YOU LEAVE (POST-SPRINT ACCOUNTABILITY) */}
-      <section className={styles.section} style={{ borderTop: "1px solid var(--line)", background: "#050507" }}>
+      <section className={styles.section} style={{ borderTop: "1px solid var(--line)", background: "var(--section-floor)" }}>
         <div className={styles.container}>
           <div className={styles.centerHeading}>
             <span className={styles.eyebrow}>{t.accountability.eyebrow}</span>
@@ -636,32 +660,33 @@ export function ContentColonyClient() {
         </div>
       </footer>
 
-      {/* Floating Bottom Language Switcher */}
-      <aside className={styles.floatingLang} aria-label="Quick language toggle">
-        <span className={styles.floatingLangLabel}>Language</span>
+      {/* Floating Bottom Quick Controls (Always accessible while scrolling) */}
+      <aside className={styles.floatingControls} aria-label="Quick controls">
         <button
           type="button"
-          className={`${styles.langBtn} ${lang === "en" ? styles.langBtnActive : ""}`}
-          onClick={() => handleLanguageChange("en")}
-          aria-label="English"
+          className={styles.langTogglePill}
+          onClick={toggleLanguage}
+          title={lang === "roman" ? "Click to switch to English" : "Click to switch to Roman Urdu"}
+          aria-label="Toggle language"
         >
-          <span className={styles.langFlag}>🇬🇧</span> EN
+          <span className={`${styles.pillItem} ${lang === "en" ? styles.pillItemActive : ""}`}>
+            EN
+          </span>
+          <span className={styles.pillDivider}>/</span>
+          <span className={`${styles.pillItem} ${lang === "roman" ? styles.pillItemActive : ""}`}>
+            Roman
+          </span>
         </button>
+
         <button
           type="button"
-          className={`${styles.langBtn} ${lang === "roman" ? styles.langBtnActive : ""}`}
-          onClick={() => handleLanguageChange("roman")}
-          aria-label="Roman Urdu"
+          className={styles.themeToggleBtn}
+          onClick={toggleTheme}
+          title={theme === "dark" ? "Switch to Day Mode" : "Switch to Night Mode"}
+          aria-label="Toggle Day and Night mode"
         >
-          <span className={styles.langFlag}>🇵🇰</span> Roman
-        </button>
-        <button
-          type="button"
-          className={`${styles.langBtn} ${lang === "ur" ? styles.langBtnActive : ""}`}
-          onClick={() => handleLanguageChange("ur")}
-          aria-label="اردو"
-        >
-          اردو
+          <span className={styles.themeIcon}>{theme === "dark" ? "☀️" : "🌙"}</span>
+          <span className={styles.themeText}>{theme === "dark" ? "Day" : "Night"}</span>
         </button>
       </aside>
     </main>
