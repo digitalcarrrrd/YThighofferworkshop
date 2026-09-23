@@ -7,10 +7,28 @@ interface ProofSectionProps {
   youtubeEmbedUrl?: string;
 }
 
+function formatEmbedUrl(url: string) {
+  if (!url) return "";
+  if (url.includes("drive.google.com")) {
+    if (url.includes("/preview")) return url;
+    return url.replace(/\/view.*$/, "/preview").replace(/\/edit.*$/, "/preview");
+  }
+  if (url.includes("watch?v=")) {
+    const id = url.split("watch?v=")[1]?.split("&")[0];
+    return `https://www.youtube.com/embed/${id}?rel=0&modestbranding=1`;
+  }
+  if (url.includes("youtu.be/")) {
+    const id = url.split("youtu.be/")[1]?.split("?")[0];
+    return `https://www.youtube.com/embed/${id}?rel=0&modestbranding=1`;
+  }
+  return url;
+}
+
 export function ProofSection({
   youtubeEmbedUrl = "https://www.youtube.com/embed/ELxrjyvyiUc?rel=0&modestbranding=1",
 }: ProofSectionProps) {
   const [activeTab, setActiveTab] = useState<"vsl" | "gallery" | "stats">("vsl");
+  const finalEmbedUrl = formatEmbedUrl(youtubeEmbedUrl);
 
   return (
     <section id="proof" className={styles.proofSection}>
@@ -33,7 +51,7 @@ export function ProofSection({
             role="tab"
             aria-selected={activeTab === "vsl"}
           >
-            ▶ Video Sales Letter
+            ▶ Resident Experience
           </button>
           <button
             type="button"
@@ -60,7 +78,7 @@ export function ProofSection({
           <div className={styles.vslWrap}>
             <div className={styles.vslIframeBox}>
               <iframe
-                src={youtubeEmbedUrl}
+                src={finalEmbedUrl}
                 title="Content Colony Batch 1 Experience"
                 className={styles.vslIframe}
                 allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
